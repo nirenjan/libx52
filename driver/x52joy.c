@@ -20,6 +20,8 @@
 #include <linux/module.h>
 #include <linux/usb.h>
 
+#include "x52joy_commands.h"
+
 #define DRIVER_AUTHOR "Nirenjan Krishnan, nirenjan@gmail.com"
 #define DRIVER_DESC "Saitek X52Pro HOTAS Driver"
 
@@ -45,7 +47,8 @@ MODULE_DEVICE_TABLE (usb, id_table);
  *  - Date with YYMMDD (IIRC)
  */
 #define DRIVER_LINE_SIZE    256 /* Support upto 256 bytes in the driver */
-#define X52_MFD_LINE_SIZE   17 /* Add one for null byte */
+#define X52_MFD_LINE_SIZE   16
+#define X52_MFD_LINES       3
 
 struct x52_mfd_line {
     u8      text[DRIVER_LINE_SIZE];
@@ -56,7 +59,7 @@ struct x52_mfd_line {
 struct x52_joy {
     struct usb_device   *udev;
     u32                 led_status;
-    struct x52_mfd_line line[3];
+    struct x52_mfd_line line[X52_MFD_LINES];
     u8                  time_hour;
     u8                  time_min;
     u16                 time_offs2;
@@ -74,9 +77,65 @@ struct x52_joy {
 /**********************************************************************
  * MFD Line manipulation functions
  *********************************************************************/
-static void set_text(u8 line_no)
+static const u8 line_cmd[X52_MFD_LINES] = {
+    X52_MFD_LINE1,
+    X52_MFD_LINE2,
+    X52_MFD_LINE3,
+};
+
+static void set_text(struct x52_joy *joy, u8 line_no)
 {
-    /* TODO */
+    u16 i;
+    u16 pos;
+    u16 ch;
+    u16 length;
+    char *text_ptr;
+    int retval;
+
+    if (!joy || line_no >= X52_MFD_LINES) {
+        /* Just some sanity checking */
+        return;
+    }
+
+    /* Clear the line first */
+    retval = usb_control_msg(joy->udev,
+                usb_sndctrlpipe(joy->udev, 0),
+                X52_VENDOR_REQUEST,
+                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
+                0x00,
+                line_cmd[line_no] | X52_MFD_CLEAR_LINE,
+                NULL, 0, 1000);
+    if (retval) {
+        return;
+    }
+    pos = joy->line[line_no].current_pos;
+    length = joy->line[line_no].length;
+
+    for (i = 0; i < X52_MFD_LINE_SIZE; i+= 2) {
+        text_ptr = &joy->line[line_no].text[pos];
+        if (length - pos > 1) {
+            ch = (u16 *)text_ptr;
+        } else {
+            ch = (*text_ptr) + (0x20 << 8);
+        }
+
+        retval = usb_control_msg(joy->udev,
+                    usb_sndctrlpipe(joy->udev, 0),
+                    X52_VENDOR_REQUEST,
+                    USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
+                    ch,
+                    line_cmd[line_no] | X52_MFD_WRITE_LINE,
+                    NULL, 0, 1000);
+
+        pos += 2;
+
+        if (pos >= length) {
+            pos = 0;
+            break;
+        }
+    }
+
+    joy->line[line_no].current_pos = pos;
     return;
 }
 
@@ -85,6 +144,8 @@ static ssize_t show_text_line(struct device *dev, char *buf, u8 line)
     struct usb_interface *intf = to_usb_interface(dev);
     struct x52_joy *joy = usb_get_intfdata(intf);
 
+    line--; /* Convert to 0-based line number */
+    
     if (joy->feat_mfd) {
         return sprintf(buf, "%s\n", joy->line[line].text);
     } else {
@@ -105,6 +166,8 @@ static ssize_t set_text_line(struct device *dev, const char *buf,\
     if (!joy->feat_mfd) {
         return -EOPNOTSUPP;
     }
+
+    line--; /* Convert to 0-based line number */
     
     /* Copy the string from src to dst, upto 16 characters max */
     for (i = 0, length = 0; i < DRIVER_LINE_SIZE - 1 && i < count; i++, length++) {
@@ -118,7 +181,7 @@ static ssize_t set_text_line(struct device *dev, const char *buf,\
         /* The X52 pro MFD uses space characters as empty characters */
         joy->line[line].text[i] = 32;
     }
-    set_text(line);
+    set_text(joy, line);
     return count;
 }
 
