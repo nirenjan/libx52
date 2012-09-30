@@ -67,6 +67,8 @@ struct x52_joy {
     u8                  date_year;
     u8                  date_month;
     u8                  date_day;
+    u8                  bri_mfd;
+    u8                  bri_led;
 
     u8                  mode_h24:1;
     u8                  feat_mfd:1;
@@ -114,7 +116,7 @@ static void set_text(struct x52_joy *joy, u8 line_no)
     for (i = 0; i < X52_MFD_LINE_SIZE; i+= 2) {
         text_ptr = &joy->line[line_no].text[pos];
         if (length - pos > 1) {
-            ch = (u16 *)text_ptr;
+            ch = *(u16 *)text_ptr;
         } else {
             ch = (*text_ptr) + (0x20 << 8);
         }
@@ -202,6 +204,116 @@ show_set_text(2);
 show_set_text(3);
 
 /**********************************************************************
+ * Brightness manipulation functions
+ *********************************************************************/
+#define mfd 0
+#define led 1
+
+static int to_hex(const char c)
+{
+    /* Converts a single character to hex */
+    if (c >= '0' && c <= '9') {
+        return (c - '0');
+    } else if (c >= 'A' && c <= 'F') {
+        return (c - 'A' + 10);
+    } else if (c >= 'a' && c <= 'f') {
+        return (c - 'a' + 10);
+    }
+    return -1;
+}
+static ssize_t set_brightness(struct device *dev, const char *buf,
+                              size_t count, u8 target)
+{
+    u16 bri;
+    u16 ch;
+    int retval;
+    struct usb_interface *intf = to_usb_interface(dev);
+    struct x52_joy *joy = usb_get_intfdata(intf);
+
+    if (target >= 2 || count != 4 || buf[0] != '0' || 
+        ((buf[1] | 0x20) != 'x')) {
+        /* Just some sanity checking */
+        return -EOPNOTSUPP;
+    }
+
+    bri = 0;
+    ch = to_hex(buf[2]);
+    if (ch >= 0) {
+        bri |= ch;
+        bri <<= 4;
+    } else {
+        return -EOPNOTSUPP;
+    }
+    ch = to_hex(buf[3]);
+    if (ch >= 0) {
+        bri |= ch;
+    } else {
+        return -EOPNOTSUPP;
+    }
+
+    if (bri > 0x80) {
+        return -EOPNOTSUPP;
+    }
+
+    if (target == mfd) {
+        ch = X52_MFD_BRIGHTNESS;
+        joy->bri_mfd = bri;
+    } else {
+        ch = X52_LED_BRIGHTNESS;
+        joy->bri_led = bri;
+    }
+
+    retval = usb_control_msg(joy->udev,
+                usb_sndctrlpipe(joy->udev, 0),
+                X52_VENDOR_REQUEST,
+                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
+                bri, ch,
+                NULL, 0, 1000);
+    return 1;
+}
+
+static ssize_t show_brightness(struct device *dev, char *buf, u8 target)
+{
+    struct usb_interface *intf = to_usb_interface(dev);
+    struct x52_joy *joy = usb_get_intfdata(intf);
+
+    if (target == mfd) {
+        if (joy->feat_mfd) {
+            return sprintf(buf, "0x%02x\n", joy->bri_mfd);
+        }
+    } else if (target == led) {
+        if (joy->feat_led) {
+            return sprintf(buf, "0x%02x\n", joy->bri_led);
+        }
+    }
+
+    sprintf(buf, "\n");
+    return -EOPNOTSUPP;
+}
+
+static ssize_t show_bri_mfd (struct device *dev, struct device_attribute *attr, char *buf)
+{
+    return show_brightness(dev, buf, mfd);
+}
+static ssize_t set_bri_mfd (struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+{
+    return set_brightness(dev, buf, count, mfd);
+}
+static ssize_t show_bri_led (struct device *dev, struct device_attribute *attr, char *buf)
+{
+    return show_brightness(dev, buf, led);
+}
+static ssize_t set_bri_led (struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+{
+    return set_brightness(dev, buf, count, led);
+}
+static DEVICE_ATTR(bri_mfd, S_IWUGO | S_IRUGO, show_bri_mfd, set_bri_mfd);
+static DEVICE_ATTR(bri_led, S_IWUGO | S_IRUGO, show_bri_led, set_bri_led);
+
+#undef mfd
+#undef led
+
+/**********************************************************************
  * X52 driver functions
  *********************************************************************/
 static int x52_probe(struct usb_interface *intf,
@@ -229,6 +341,9 @@ static int x52_probe(struct usb_interface *intf,
     device_create_file(&intf->dev, &dev_attr_line1);
     device_create_file(&intf->dev, &dev_attr_line2);
     device_create_file(&intf->dev, &dev_attr_line3);
+
+    device_create_file(&intf->dev, &dev_attr_bri_mfd);
+    device_create_file(&intf->dev, &dev_attr_bri_led);
 
     dev_info(&intf->dev, "X52 device now attached\n");
     return 0;
