@@ -1,0 +1,13 @@
+# Compiled object files
+*.ko
+*.o
+*.mod.*
+
+# Module files
+modules.order
+Module.symvers
+.*.cmd
+.tmp_versions
+
+# Vim swap files
+.*.swp
