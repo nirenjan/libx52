@@ -221,6 +221,7 @@ static int to_hex(const char c)
     }
     return -1;
 }
+
 static ssize_t set_brightness(struct device *dev, const char *buf,
                               size_t count, u8 target)
 {
