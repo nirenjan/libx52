@@ -4,8 +4,8 @@ Axis
 * 1 - Y axis
 * 2 - Twist axis
 * 3 - Throttle axis
-* 4 - Clutch button rotary
-* 5 - E button rotary
+* 4 - Clutch button rotary (rotary X)
+* 5 - E button rotary (rotary Y)
 * 6 - Slider
 
 Buttons
@@ -67,3 +67,24 @@ on the display. Stopwatch mode is not affected by this.
 
 Refer to the vendor API documentation for details on how to
 configure the MFD display.
+
+USB Report Format
+=================
+The X52 reports 15 bytes of data everytime a joystick event occurs.
+
+The 15 bytes are laid out in little endian format as shown below:
+
+10-bits of X axis position
+10-bits of Y axis position
+10-bits of twist axis position
+2 bits of padding
+8 bits of throttle position
+8 bits of rotary X position
+8 bits of rotary Y position
+8 bits of slider position
+39 bits of button information
+1 bit of padding
+4 bits of hat position
+4 bits of padding
+4 bits of thumbstick X position
+4 bits of thumbstick Y position
