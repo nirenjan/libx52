@@ -74,17 +74,28 @@ The X52 reports 15 bytes of data everytime a joystick event occurs.
 
 The 15 bytes are laid out in little endian format as shown below:
 
-10-bits of X axis position
-10-bits of Y axis position
-10-bits of twist axis position
-2 bits of padding
-8 bits of throttle position
-8 bits of rotary X position
-8 bits of rotary Y position
-8 bits of slider position
-39 bits of button information
-1 bit of padding
-4 bits of hat position
-4 bits of padding
-4 bits of thumbstick X position
-4 bits of thumbstick Y position
+* 10-bits of X axis position
+* 10-bits of Y axis position
+* 2 bits of padding
+* 10-bits of twist axis position
+* 8 bits of throttle position
+* 8 bits of rotary X position
+* 8 bits of rotary Y position
+* 8 bits of slider position
+* 39 bits of button information
+* 5 bits of padding
+* 4 bits of hat position
+* 4 bits of thumbstick X position
+* 4 bits of thumbstick Y position
+
+A report would look like the following:
+
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  X axis data      |  Y axis data      |///|  Rz axis data     |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |   Throttle    |  Rx axis data | Ry axis data  | Slider data   |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | Buttons 7-0   | Buttons 15-8  | Buttons 23-16 | Buttons 31-24 |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |/| Btns 38-32  |  Hat  |///////| MouseX| MouseY|
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
