@@ -50,4 +50,26 @@
 #define X52_BLINK_ON            0x51
 #define X52_BLINK_OFF           0x50
 
+/* LED indices */
+#define X52_LED_FIRE            0x01
+#define X52_LED_A_RED           0x02
+#define X52_LED_A_GREEN         0x03
+#define X52_LED_B_RED           0x04
+#define X52_LED_B_GREEN         0x05
+#define X52_LED_D_RED           0x06
+#define X52_LED_D_GREEN         0x07
+#define X52_LED_E_RED           0x08
+#define X52_LED_E_GREEN         0x09
+#define X52_LED_T1_RED          0x0a
+#define X52_LED_T1_GREEN        0x0b
+#define X52_LED_T2_RED          0x0c
+#define X52_LED_T2_GREEN        0x0d
+#define X52_LED_T3_RED          0x0e
+#define X52_LED_T3_GREEN        0x0f
+#define X52_LED_POV_RED         0x10
+#define X52_LED_POV_GREEN       0x11
+#define X52_LED_I_RED           0x12
+#define X52_LED_I_GREEN         0x13
+#define X52_LED_THROTTLE        0x14
+
 #endif /* !defined X52JOY_COMMANDS_H */

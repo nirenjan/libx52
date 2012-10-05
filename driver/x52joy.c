@@ -270,7 +270,7 @@ static ssize_t set_brightness(struct device *dev, const char *buf,
                 USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
                 bri, ch,
                 NULL, 0, 1000);
-    return 1;
+    return count;
 }
 
 static ssize_t show_brightness(struct device *dev, char *buf, u8 target)
@@ -315,6 +315,113 @@ static DEVICE_ATTR(bri_led, S_IWUGO | S_IRUGO, show_bri_led, set_bri_led);
 #undef led
 
 /**********************************************************************
+ * LED manipulation functions
+ *********************************************************************/
+
+#define fire        X52_LED_FIRE
+#define a_red       X52_LED_A_RED
+#define a_green     X52_LED_A_GREEN
+#define b_red       X52_LED_B_RED
+#define b_green     X52_LED_B_GREEN
+#define d_red       X52_LED_D_RED
+#define d_green     X52_LED_D_GREEN
+#define e_red       X52_LED_E_RED
+#define e_green     X52_LED_E_GREEN
+#define t1_red      X52_LED_T1_RED
+#define t1_green    X52_LED_T1_GREEN
+#define t2_red      X52_LED_T2_RED
+#define t2_green    X52_LED_T2_GREEN
+#define t3_red      X52_LED_T3_RED
+#define t3_green    X52_LED_T3_GREEN
+#define pov_red     X52_LED_POV_RED
+#define pov_green   X52_LED_POV_GREEN
+#define i_red       X52_LED_I_RED
+#define i_green     X52_LED_I_GREEN
+#define throttle    X52_LED_THROTTLE
+
+/*
+static int set_x52_led(struct x52_joy *joy, u8 target, u8 status)
+{
+    int retval;
+
+    retval = usb_control_msg(joy->udev,
+                usb_sndctrlpipe(joy->udev, 0),
+                X52_VENDOR_REQUEST,
+                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
+                target << 8 | status, X52_LED,
+                NULL, 0, 1000);
+    return retval;
+}
+*/
+
+static ssize_t set_led(struct device *dev, const char *buf,
+                              size_t count, u8 target)
+{
+    u8 status;
+    int retval;
+    struct usb_interface *intf = to_usb_interface(dev);
+    struct x52_joy *joy = usb_get_intfdata(intf);
+
+    if (target > X52_LED_THROTTLE || count < 1 || buf[0] < '0' || 
+        buf[0] > '1') {
+        /* Just some sanity checking */
+        return -EOPNOTSUPP;
+    }
+
+    status = buf[0] - '0';
+
+    retval = usb_control_msg(joy->udev,
+                usb_sndctrlpipe(joy->udev, 0),
+                X52_VENDOR_REQUEST,
+                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
+                target << 8 | status, X52_LED,
+                NULL, 0, 1000);
+    return count;
+}
+
+static ssize_t show_led(struct device *dev, struct device_attribute *attr,
+                            char *buf)
+{
+    struct usb_interface *intf = to_usb_interface(dev);
+    struct x52_joy *joy = usb_get_intfdata(intf);
+
+    if (joy->feat_led) {
+        return sprintf(buf, "0x%08x\n", joy->led_status);
+    }
+
+    sprintf(buf, "\n");
+    return -EOPNOTSUPP;
+}
+
+#define show_set_led(no)   \
+static ssize_t set_led_##no(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) \
+{                                                               \
+    return set_led(dev, buf, count, no);                  \
+}                                                               \
+static DEVICE_ATTR(led_##no, S_IWUGO | S_IRUGO, show_led, set_led_##no);
+
+show_set_led(fire);
+show_set_led(a_red);
+show_set_led(a_green);
+show_set_led(b_red);
+show_set_led(b_green);
+show_set_led(d_red);
+show_set_led(d_green);
+show_set_led(e_red);
+show_set_led(e_green);
+show_set_led(t1_red);
+show_set_led(t1_green);
+show_set_led(t2_red);
+show_set_led(t2_green);
+show_set_led(t3_red);
+show_set_led(t3_green);
+show_set_led(pov_red);
+show_set_led(pov_green);
+show_set_led(i_red);
+show_set_led(i_green);
+show_set_led(throttle);
+
+/**********************************************************************
  * X52 driver functions
  *********************************************************************/
 static int x52_probe(struct usb_interface *intf,
@@ -345,6 +452,27 @@ static int x52_probe(struct usb_interface *intf,
 
     device_create_file(&intf->dev, &dev_attr_bri_mfd);
     device_create_file(&intf->dev, &dev_attr_bri_led);
+
+    device_create_file(&intf->dev, &dev_attr_led_fire);
+    device_create_file(&intf->dev, &dev_attr_led_a_red);
+    device_create_file(&intf->dev, &dev_attr_led_a_green);
+    device_create_file(&intf->dev, &dev_attr_led_b_red);
+    device_create_file(&intf->dev, &dev_attr_led_b_green);
+    device_create_file(&intf->dev, &dev_attr_led_d_red);
+    device_create_file(&intf->dev, &dev_attr_led_d_green);
+    device_create_file(&intf->dev, &dev_attr_led_e_red);
+    device_create_file(&intf->dev, &dev_attr_led_e_green);
+    device_create_file(&intf->dev, &dev_attr_led_t1_red);
+    device_create_file(&intf->dev, &dev_attr_led_t1_green);
+    device_create_file(&intf->dev, &dev_attr_led_t2_red);
+    device_create_file(&intf->dev, &dev_attr_led_t2_green);
+    device_create_file(&intf->dev, &dev_attr_led_t3_red);
+    device_create_file(&intf->dev, &dev_attr_led_t3_green);
+    device_create_file(&intf->dev, &dev_attr_led_pov_red);
+    device_create_file(&intf->dev, &dev_attr_led_pov_green);
+    device_create_file(&intf->dev, &dev_attr_led_i_red);
+    device_create_file(&intf->dev, &dev_attr_led_i_green);
+    device_create_file(&intf->dev, &dev_attr_led_throttle);
 
     dev_info(&intf->dev, "X52 device now attached\n");
     return 0;
