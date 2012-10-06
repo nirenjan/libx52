@@ -3,6 +3,9 @@
 *.o
 *.mod.*
 
+# Compiled executables
+a.out
+
 # Module files
 modules.order
 Module.symvers

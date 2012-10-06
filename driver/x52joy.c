@@ -21,6 +21,7 @@
 #include <linux/usb.h>
 
 #include "x52joy_commands.h"
+#include "x52joy_common.h"
 
 #define DRIVER_AUTHOR "Nirenjan Krishnan, nirenjan@gmail.com"
 #define DRIVER_DESC "Saitek X52Pro HOTAS Driver"
@@ -40,107 +41,17 @@ static struct usb_device_id id_table[] = {
 };
 MODULE_DEVICE_TABLE (usb, id_table);
 
-/*
- * The X52 MFD supports the following:
- *  - 3 lines of 16 characters each
- *  - Clock with HH:MM
- *  - Date with YYMMDD (IIRC)
- */
-#define DRIVER_LINE_SIZE    256 /* Support upto 256 bytes in the driver */
-#define X52_MFD_LINE_SIZE   16
-#define X52_MFD_LINES       3
-
-struct x52_mfd_line {
-    u8      text[DRIVER_LINE_SIZE];
-    u16     length;
-    u16     current_pos;
-};
-
-struct x52_joy {
-    struct usb_device   *udev;
-    u32                 led_status;
-    struct x52_mfd_line line[X52_MFD_LINES];
-    u8                  time_hour;
-    u8                  time_min;
-    u16                 time_offs2;
-    u16                 time_offs3;
-    u8                  date_year;
-    u8                  date_month;
-    u8                  date_day;
-    u8                  bri_mfd;
-    u8                  bri_led;
-
-    u8                  mode_h24:1;
-    u8                  feat_mfd:1;
-    u8                  feat_led:1;
-    u8                  debug:1;
-};
+#define CHECK_RETURN(ret, cnt) do { \
+    if (ret) {\
+        return ret;\
+    } else {\
+        return cnt;\
+    }\
+} while(0)
 
 /**********************************************************************
  * MFD Line manipulation functions
  *********************************************************************/
-static const u8 line_cmd[X52_MFD_LINES] = {
-    X52_MFD_LINE1,
-    X52_MFD_LINE2,
-    X52_MFD_LINE3,
-};
-
-static void set_text(struct x52_joy *joy, u8 line_no)
-{
-    u16 i;
-    u16 pos;
-    u16 ch;
-    u16 length;
-    char *text_ptr;
-    int retval;
-
-    if (!joy || line_no >= X52_MFD_LINES) {
-        /* Just some sanity checking */
-        return;
-    }
-
-    /* Clear the line first */
-    retval = usb_control_msg(joy->udev,
-                usb_sndctrlpipe(joy->udev, 0),
-                X52_VENDOR_REQUEST,
-                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
-                0x00,
-                line_cmd[line_no] | X52_MFD_CLEAR_LINE,
-                NULL, 0, 1000);
-    if (retval) {
-        return;
-    }
-    pos = joy->line[line_no].current_pos;
-    length = joy->line[line_no].length;
-
-    for (i = 0; i < X52_MFD_LINE_SIZE; i+= 2) {
-        text_ptr = &joy->line[line_no].text[pos];
-        if (length - pos > 1) {
-            ch = *(u16 *)text_ptr;
-        } else {
-            ch = (*text_ptr) + (0x20 << 8);
-        }
-
-        retval = usb_control_msg(joy->udev,
-                    usb_sndctrlpipe(joy->udev, 0),
-                    X52_VENDOR_REQUEST,
-                    USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
-                    ch,
-                    line_cmd[line_no] | X52_MFD_WRITE_LINE,
-                    NULL, 0, 1000);
-
-        pos += 2;
-
-        if (pos >= length) {
-            pos = 0;
-            break;
-        }
-    }
-
-    joy->line[line_no].current_pos = pos;
-    return;
-}
-
 static ssize_t show_text_line(struct device *dev, char *buf, u8 line)
 {
     struct usb_interface *intf = to_usb_interface(dev);
@@ -164,6 +75,7 @@ static ssize_t set_text_line(struct device *dev, const char *buf,\
     struct x52_joy *joy = usb_get_intfdata(intf);
     u16 i;
     u16 length;
+    int retval;
 
     if (!joy->feat_mfd) {
         return -EOPNOTSUPP;
@@ -172,19 +84,20 @@ static ssize_t set_text_line(struct device *dev, const char *buf,\
     line--; /* Convert to 0-based line number */
     
     /* Copy the string from src to dst, upto 16 characters max */
-    for (i = 0, length = 0; i < DRIVER_LINE_SIZE - 1 && i < count; i++, length++) {
+    for (i = 0, length = 0; i < X52_MFD_LINE_SIZE && i < count; i++, length++) {
         joy->line[line].text[i] = buf[i];
     }
     joy->line[line].length = length;
-    joy->line[line].current_pos = 0;
 
     /* Append empty bytes until the destination is full */
-    for ( ; i < DRIVER_LINE_SIZE; i++) {
+    for ( ; i < X52_MFD_LINE_SIZE; i++) {
         /* The X52 pro MFD uses space characters as empty characters */
         joy->line[line].text[i] = 32;
     }
-    set_text(joy, line);
-    return count;
+
+    retval = set_text(joy, line);
+
+    CHECK_RETURN(retval, count);
 }
 
 
@@ -222,7 +135,7 @@ static int to_hex(const char c)
     return -1;
 }
 
-static ssize_t set_brightness(struct device *dev, const char *buf,
+static ssize_t set_x52_brightness(struct device *dev, const char *buf,
                               size_t count, u8 target)
 {
     u16 bri;
@@ -264,13 +177,9 @@ static ssize_t set_brightness(struct device *dev, const char *buf,
         joy->bri_led = bri;
     }
 
-    retval = usb_control_msg(joy->udev,
-                usb_sndctrlpipe(joy->udev, 0),
-                X52_VENDOR_REQUEST,
-                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
-                bri, ch,
-                NULL, 0, 1000);
-    return count;
+    retval = set_brightness(joy, target);
+
+    CHECK_RETURN(retval, count);
 }
 
 static ssize_t show_brightness(struct device *dev, char *buf, u8 target)
@@ -298,7 +207,7 @@ static ssize_t show_bri_mfd (struct device *dev, struct device_attribute *attr, 
 }
 static ssize_t set_bri_mfd (struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
 {
-    return set_brightness(dev, buf, count, mfd);
+    return set_x52_brightness(dev, buf, count, mfd);
 }
 static ssize_t show_bri_led (struct device *dev, struct device_attribute *attr, char *buf)
 {
@@ -306,7 +215,7 @@ static ssize_t show_bri_led (struct device *dev, struct device_attribute *attr, 
 }
 static ssize_t set_bri_led (struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
 {
-    return set_brightness(dev, buf, count, led);
+    return set_x52_brightness(dev, buf, count, led);
 }
 static DEVICE_ATTR(bri_mfd, S_IWUGO | S_IRUGO, show_bri_mfd, set_bri_mfd);
 static DEVICE_ATTR(bri_led, S_IWUGO | S_IRUGO, show_bri_led, set_bri_led);
@@ -339,22 +248,7 @@ static DEVICE_ATTR(bri_led, S_IWUGO | S_IRUGO, show_bri_led, set_bri_led);
 #define i_green     X52_LED_I_GREEN
 #define throttle    X52_LED_THROTTLE
 
-/*
-static int set_x52_led(struct x52_joy *joy, u8 target, u8 status)
-{
-    int retval;
-
-    retval = usb_control_msg(joy->udev,
-                usb_sndctrlpipe(joy->udev, 0),
-                X52_VENDOR_REQUEST,
-                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
-                target << 8 | status, X52_LED,
-                NULL, 0, 1000);
-    return retval;
-}
-*/
-
-static ssize_t set_led(struct device *dev, const char *buf,
+static ssize_t set_x52_led(struct device *dev, const char *buf,
                               size_t count, u8 target)
 {
     u8 status;
@@ -370,13 +264,15 @@ static ssize_t set_led(struct device *dev, const char *buf,
 
     status = buf[0] - '0';
 
-    retval = usb_control_msg(joy->udev,
-                usb_sndctrlpipe(joy->udev, 0),
-                X52_VENDOR_REQUEST,
-                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT,
-                target << 8 | status, X52_LED,
-                NULL, 0, 1000);
-    return count;
+    if (status) {
+        joy->led_status |= (1 << target);
+    } else {
+        joy->led_status &= ~(1 << target);
+    }
+
+    retval = set_led(joy, target);
+
+    CHECK_RETURN(retval, count);
 }
 
 static ssize_t show_led(struct device *dev, struct device_attribute *attr,
@@ -396,7 +292,7 @@ static ssize_t show_led(struct device *dev, struct device_attribute *attr,
 #define show_set_led(no)   \
 static ssize_t set_led_##no(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) \
 {                                                               \
-    return set_led(dev, buf, count, no);                  \
+    return set_x52_led(dev, buf, count, no);                  \
 }                                                               \
 static DEVICE_ATTR(led_##no, S_IWUGO | S_IRUGO, show_led, set_led_##no);
 
