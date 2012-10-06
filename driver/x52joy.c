@@ -68,7 +68,7 @@ static ssize_t show_text_line(struct device *dev, char *buf, u8 line)
     return 0;
 }
 
-static ssize_t set_text_line(struct device *dev, const char *buf,\
+static ssize_t set_text_line(struct device *dev, const char *buf,
                              size_t count, u8 line)
 {
     struct usb_interface *intf = to_usb_interface(dev);
@@ -110,7 +110,7 @@ static ssize_t set_text_line##no(struct device *dev, struct device_attribute *at
 {                                                               \
     return set_text_line(dev, buf, count, no);                  \
 }                                                               \
-static DEVICE_ATTR(line##no, S_IWUGO | S_IRUGO, show_text_line##no, set_text_line##no);
+static DEVICE_ATTR(mfd_line##no, S_IWUGO | S_IRUGO, show_text_line##no, set_text_line##no);
 
 show_set_text(1);
 show_set_text(2);
@@ -318,6 +318,49 @@ show_set_led(i_green);
 show_set_led(throttle);
 
 /**********************************************************************
+ * Blink manipulation functions
+ *********************************************************************/
+static ssize_t show_blink(struct device *dev, struct device_attribute *attr,
+                          char *buf)
+{
+    struct usb_interface *intf = to_usb_interface(dev);
+    struct x52_joy *joy = usb_get_intfdata(intf);
+
+    if (joy->feat_led) {
+        return sprintf(buf, "%d\n", joy->blink_led);
+    } else {
+        sprintf(buf, "\n");
+        return -EOPNOTSUPP;
+    }
+    return 0;
+}
+
+static ssize_t set_x52_blink(struct device *dev, struct device_attribute *attr,
+                         const char *buf, size_t count)
+{
+    struct usb_interface *intf = to_usb_interface(dev);
+    struct x52_joy *joy = usb_get_intfdata(intf);
+    int retval;
+
+    if (!joy->feat_led) {
+        return -EOPNOTSUPP;
+    }
+
+    if (count < 1 || buf[0] < '0' || buf[1] > '1') {
+        return -EINVAL;
+    }
+
+    joy->blink_led = buf[0] - '0';
+
+    retval = set_blink(joy);
+
+    CHECK_RETURN(retval, count);
+}
+
+
+static DEVICE_ATTR(led_blink, S_IWUGO | S_IRUGO, show_blink, set_x52_blink);
+
+/**********************************************************************
  * X52 driver functions
  *********************************************************************/
 static int x52_probe(struct usb_interface *intf,
@@ -342,9 +385,9 @@ static int x52_probe(struct usb_interface *intf,
 
     usb_set_intfdata(intf, joy);
 
-    device_create_file(&intf->dev, &dev_attr_line1);
-    device_create_file(&intf->dev, &dev_attr_line2);
-    device_create_file(&intf->dev, &dev_attr_line3);
+    device_create_file(&intf->dev, &dev_attr_mfd_line1);
+    device_create_file(&intf->dev, &dev_attr_mfd_line2);
+    device_create_file(&intf->dev, &dev_attr_mfd_line3);
 
     device_create_file(&intf->dev, &dev_attr_bri_mfd);
     device_create_file(&intf->dev, &dev_attr_bri_led);
@@ -370,6 +413,8 @@ static int x52_probe(struct usb_interface *intf,
     device_create_file(&intf->dev, &dev_attr_led_i_green);
     device_create_file(&intf->dev, &dev_attr_led_throttle);
 
+    device_create_file(&intf->dev, &dev_attr_led_blink);
+
     dev_info(&intf->dev, "X52 device now attached\n");
     return 0;
 
@@ -385,9 +430,35 @@ static void x52_disconnect(struct usb_interface *intf)
     joy = usb_get_intfdata(intf);
     usb_set_intfdata(intf, NULL);
 
-    device_remove_file(&intf->dev, &dev_attr_line1);
-    device_remove_file(&intf->dev, &dev_attr_line2);
-    device_remove_file(&intf->dev, &dev_attr_line3);
+    device_remove_file(&intf->dev, &dev_attr_mfd_line1);
+    device_remove_file(&intf->dev, &dev_attr_mfd_line2);
+    device_remove_file(&intf->dev, &dev_attr_mfd_line3);
+
+    device_remove_file(&intf->dev, &dev_attr_bri_mfd);
+    device_remove_file(&intf->dev, &dev_attr_bri_led);
+
+    device_remove_file(&intf->dev, &dev_attr_led_fire);
+    device_remove_file(&intf->dev, &dev_attr_led_a_red);
+    device_remove_file(&intf->dev, &dev_attr_led_a_green);
+    device_remove_file(&intf->dev, &dev_attr_led_b_red);
+    device_remove_file(&intf->dev, &dev_attr_led_b_green);
+    device_remove_file(&intf->dev, &dev_attr_led_d_red);
+    device_remove_file(&intf->dev, &dev_attr_led_d_green);
+    device_remove_file(&intf->dev, &dev_attr_led_e_red);
+    device_remove_file(&intf->dev, &dev_attr_led_e_green);
+    device_remove_file(&intf->dev, &dev_attr_led_t1_red);
+    device_remove_file(&intf->dev, &dev_attr_led_t1_green);
+    device_remove_file(&intf->dev, &dev_attr_led_t2_red);
+    device_remove_file(&intf->dev, &dev_attr_led_t2_green);
+    device_remove_file(&intf->dev, &dev_attr_led_t3_red);
+    device_remove_file(&intf->dev, &dev_attr_led_t3_green);
+    device_remove_file(&intf->dev, &dev_attr_led_pov_red);
+    device_remove_file(&intf->dev, &dev_attr_led_pov_green);
+    device_remove_file(&intf->dev, &dev_attr_led_i_red);
+    device_remove_file(&intf->dev, &dev_attr_led_i_green);
+    device_remove_file(&intf->dev, &dev_attr_led_throttle);
+
+    device_remove_file(&intf->dev, &dev_attr_led_blink);
 
     usb_put_dev(joy->udev);
     kfree(joy);

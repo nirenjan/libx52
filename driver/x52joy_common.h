@@ -80,5 +80,7 @@ int set_text(struct x52_joy *joy, u8 line_no);
 int set_brightness(struct x52_joy *joy, u8 target);
 int set_led(struct x52_joy *joy, u8 target);
 int set_date(struct x52_joy *joy);
+int set_shift(struct x52_joy *joy);
+int set_blink(struct x52_joy *joy);
 
 #endif /* !defined X52JOY_COMMON_H */
