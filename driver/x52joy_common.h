@@ -16,46 +16,6 @@
 
 #include "x52joy_map.h"
 
-/*
- * The X52 MFD supports the following:
- *  - 3 lines of 16 characters each
- *  - Clock with HH:MM
- *  - Date with YYMMDD (IIRC)
- */
-#define X52_MFD_LINE_SIZE   16
-#define X52_MFD_LINES       3
-
-struct x52_mfd_line {
-    u8      text[X52_MFD_LINE_SIZE];
-    u8      length;
-};
-
-enum x52_mfd_date_format {
-    x52_mfd_format_yymmdd,  /* YY-MM-DD */
-    x52_mfd_format_mmddyy,  /* MM-DD-YY */
-    x52_mfd_format_ddmmyy,  /* DD-MM-YY */
-    x52_mfd_format_max,
-};
-
-struct x52_mfd_date {
-    u8      year;
-    u8      month;
-    u8      day;
-    u8      format;     /* See format enum */
-};
-
-struct x52_mfd_time {
-    u8      hour;
-    u8      minute;
-    u8      h24;        /* 24 hour format if 1 */
-};
-
-struct x52_mfd_offs {
-    u8      min_off;    /* Minute offset from clock 0 */
-    u8      neg_off;    /* Negative offset if 1 */
-    u8      h24;        /* 24 hour format if 1 */
-};
-
 struct x52_joy {
     struct usb_device   *udev;
     u32                 led_status;
