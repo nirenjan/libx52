@@ -415,6 +415,8 @@ static int x52_probe(struct usb_interface *intf,
 
     device_create_file(&intf->dev, &dev_attr_led_blink);
 
+    try_module_get(THIS_MODULE);
+
     dev_info(&intf->dev, "X52 device now attached\n");
     return 0;
 
@@ -462,6 +464,8 @@ static void x52_disconnect(struct usb_interface *intf)
 
     usb_put_dev(joy->udev);
     kfree(joy);
+
+    module_put(THIS_MODULE);
 
     dev_info(&intf->dev, "X52 device now disconnected\n");
 }

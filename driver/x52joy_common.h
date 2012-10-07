@@ -14,6 +14,8 @@
 
 #include <linux/usb.h>
 
+#include "x52joy_map.h"
+
 /*
  * The X52 MFD supports the following:
  *  - 3 lines of 16 characters each
@@ -68,7 +70,13 @@ struct x52_joy {
 
     u8                  shift_ind:1;
     u8                  blink_led:1;
-    u8                  :6;
+    u8                  clutch_mode:1;
+
+    u8                  shift_state_enabled:1;
+    u8                  clock_enabled:1;
+    u8                  clutch_enabled:1;
+    u8                  clutch_latched:1;
+    u8                  :1;
 
     u8                  feat_mfd:1;
     u8                  feat_led:1;
