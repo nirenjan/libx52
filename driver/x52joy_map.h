@@ -92,8 +92,8 @@ struct x52_axis_deadzone {
     u16     dead_lo;        /* value < dead_lo */
     u16     dead_hi;        /* value > dead_hi */
 
-    u16     dead_mid_lo;    /* dead_mid_lo < dead_mid_hi && */
-    u16     dead_mid_hi;    /* dead_mid_lo < value < dead_mid_hi */
+    u16     dead_fuzz;      /* dead_fuzz > 0 && */
+    u16     dead_flat;      /* flat - fuzz < value < flat + fuzz */
 };
 
 /*

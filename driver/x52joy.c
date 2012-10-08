@@ -1,5 +1,5 @@
 /*
- * Saitek X52 Pro HOTAS driver - 1.0
+ * Saitek X52 Pro HOTAS driver
  *
  * Copyright (C) 2012 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
@@ -25,9 +25,34 @@
 
 #define DRIVER_AUTHOR "Nirenjan Krishnan, nirenjan@gmail.com"
 #define DRIVER_DESC "Saitek X52Pro HOTAS Driver"
+#define DRIVER_VERSION "1.0"
+
+#define X52TYPE_X52         1
+#define X52TYPE_X52PRO      2
+#define X52TYPE_UNKNOWN     0
 
 #define VENDOR_ID_SAITEK    0x06a3
 #define PRODUCT_ID_X52_PRO  0x0762
+
+#define X52FLAGS_SUPPORTS_MFD   (1 << 0)
+#define X52FLAGS_SUPPORTS_LED   (1 << 1)
+
+static const struct x52_device {
+    u16     idVendor;
+    u16     idProduct;
+    char    *name;
+    u8      type;
+    u8      flags;
+} x52_devices[] = {
+    {
+        VENDOR_ID_SAITEK, PRODUCT_ID_X52_PRO,
+        "Saitek X52 Pro Flight Control System", X52TYPE_X52PRO,
+        X52FLAGS_SUPPORTS_MFD | X52FLAGS_SUPPORTS_LED
+    },
+    {   /* Terminating entry */
+        0x0000, 0x0000, "Unknown X52", X52TYPE_UNKNOWN, 0
+    },
+};
 
 /* list of devices that work with this driver */
 static struct usb_device_id id_table[] = {
@@ -366,54 +391,66 @@ static DEVICE_ATTR(led_blink, S_IWUGO | S_IRUGO, show_blink, set_x52_blink);
 static int x52_probe(struct usb_interface *intf,
                      const struct usb_device_id *id)
 {
-    struct usb_device *dev = interface_to_usbdev(intf);
+    struct usb_device *udev = interface_to_usbdev(intf);
     struct x52_joy *joy = NULL;
     int retval = -ENOMEM;
+    int i;
 
-    joy = kmalloc(sizeof(*joy), GFP_KERNEL);
+    for (i = 0; x52_devices[i].idVendor; i++) {
+        if ((le16_to_cpu(udev->descriptor.idVendor) == x52_devices[i].idVendor) &&
+            (le16_to_cpu(udev->descriptor.idProduct) == x52_devices[i].idProduct)) {
+                break;
+            }
+    }
+
+    joy = kzalloc(sizeof(*joy), GFP_KERNEL);
     if (joy == NULL) {
         dev_err(&intf->dev, "Out of memory\n");
         goto error;
     }
-    memset(joy, 0, sizeof(*joy));
 
-    joy->udev = usb_get_dev(dev);
+    joy->udev = usb_get_dev(udev);
 
     /* Set the feature bits */
-    joy->feat_mfd = 1;
-    joy->feat_led = 1;
+    joy->feat_mfd = !!(x52_devices[i].flags & X52FLAGS_SUPPORTS_MFD);
+    joy->feat_led = !!(x52_devices[i].flags & X52FLAGS_SUPPORTS_LED);
 
     usb_set_intfdata(intf, joy);
 
-    device_create_file(&intf->dev, &dev_attr_mfd_line1);
-    device_create_file(&intf->dev, &dev_attr_mfd_line2);
-    device_create_file(&intf->dev, &dev_attr_mfd_line3);
+    if (joy->feat_mfd) {
+        device_create_file(&intf->dev, &dev_attr_mfd_line1);
+        device_create_file(&intf->dev, &dev_attr_mfd_line2);
+        device_create_file(&intf->dev, &dev_attr_mfd_line3);
 
-    device_create_file(&intf->dev, &dev_attr_bri_mfd);
-    device_create_file(&intf->dev, &dev_attr_bri_led);
+        device_create_file(&intf->dev, &dev_attr_bri_mfd);
+    }
 
-    device_create_file(&intf->dev, &dev_attr_led_fire);
-    device_create_file(&intf->dev, &dev_attr_led_a_red);
-    device_create_file(&intf->dev, &dev_attr_led_a_green);
-    device_create_file(&intf->dev, &dev_attr_led_b_red);
-    device_create_file(&intf->dev, &dev_attr_led_b_green);
-    device_create_file(&intf->dev, &dev_attr_led_d_red);
-    device_create_file(&intf->dev, &dev_attr_led_d_green);
-    device_create_file(&intf->dev, &dev_attr_led_e_red);
-    device_create_file(&intf->dev, &dev_attr_led_e_green);
-    device_create_file(&intf->dev, &dev_attr_led_t1_red);
-    device_create_file(&intf->dev, &dev_attr_led_t1_green);
-    device_create_file(&intf->dev, &dev_attr_led_t2_red);
-    device_create_file(&intf->dev, &dev_attr_led_t2_green);
-    device_create_file(&intf->dev, &dev_attr_led_t3_red);
-    device_create_file(&intf->dev, &dev_attr_led_t3_green);
-    device_create_file(&intf->dev, &dev_attr_led_pov_red);
-    device_create_file(&intf->dev, &dev_attr_led_pov_green);
-    device_create_file(&intf->dev, &dev_attr_led_i_red);
-    device_create_file(&intf->dev, &dev_attr_led_i_green);
-    device_create_file(&intf->dev, &dev_attr_led_throttle);
+    if (joy->feat_led) {
+        device_create_file(&intf->dev, &dev_attr_bri_led);
 
-    device_create_file(&intf->dev, &dev_attr_led_blink);
+        device_create_file(&intf->dev, &dev_attr_led_fire);
+        device_create_file(&intf->dev, &dev_attr_led_a_red);
+        device_create_file(&intf->dev, &dev_attr_led_a_green);
+        device_create_file(&intf->dev, &dev_attr_led_b_red);
+        device_create_file(&intf->dev, &dev_attr_led_b_green);
+        device_create_file(&intf->dev, &dev_attr_led_d_red);
+        device_create_file(&intf->dev, &dev_attr_led_d_green);
+        device_create_file(&intf->dev, &dev_attr_led_e_red);
+        device_create_file(&intf->dev, &dev_attr_led_e_green);
+        device_create_file(&intf->dev, &dev_attr_led_t1_red);
+        device_create_file(&intf->dev, &dev_attr_led_t1_green);
+        device_create_file(&intf->dev, &dev_attr_led_t2_red);
+        device_create_file(&intf->dev, &dev_attr_led_t2_green);
+        device_create_file(&intf->dev, &dev_attr_led_t3_red);
+        device_create_file(&intf->dev, &dev_attr_led_t3_green);
+        device_create_file(&intf->dev, &dev_attr_led_pov_red);
+        device_create_file(&intf->dev, &dev_attr_led_pov_green);
+        device_create_file(&intf->dev, &dev_attr_led_i_red);
+        device_create_file(&intf->dev, &dev_attr_led_i_green);
+        device_create_file(&intf->dev, &dev_attr_led_throttle);
+
+        device_create_file(&intf->dev, &dev_attr_led_blink);
+    }
 
     try_module_get(THIS_MODULE);
 
@@ -432,35 +469,40 @@ static void x52_disconnect(struct usb_interface *intf)
     joy = usb_get_intfdata(intf);
     usb_set_intfdata(intf, NULL);
 
-    device_remove_file(&intf->dev, &dev_attr_mfd_line1);
-    device_remove_file(&intf->dev, &dev_attr_mfd_line2);
-    device_remove_file(&intf->dev, &dev_attr_mfd_line3);
+    if (joy->feat_mfd) {
+        device_remove_file(&intf->dev, &dev_attr_mfd_line1);
+        device_remove_file(&intf->dev, &dev_attr_mfd_line2);
+        device_remove_file(&intf->dev, &dev_attr_mfd_line3);
 
-    device_remove_file(&intf->dev, &dev_attr_bri_mfd);
-    device_remove_file(&intf->dev, &dev_attr_bri_led);
+        device_remove_file(&intf->dev, &dev_attr_bri_mfd);
+    }
 
-    device_remove_file(&intf->dev, &dev_attr_led_fire);
-    device_remove_file(&intf->dev, &dev_attr_led_a_red);
-    device_remove_file(&intf->dev, &dev_attr_led_a_green);
-    device_remove_file(&intf->dev, &dev_attr_led_b_red);
-    device_remove_file(&intf->dev, &dev_attr_led_b_green);
-    device_remove_file(&intf->dev, &dev_attr_led_d_red);
-    device_remove_file(&intf->dev, &dev_attr_led_d_green);
-    device_remove_file(&intf->dev, &dev_attr_led_e_red);
-    device_remove_file(&intf->dev, &dev_attr_led_e_green);
-    device_remove_file(&intf->dev, &dev_attr_led_t1_red);
-    device_remove_file(&intf->dev, &dev_attr_led_t1_green);
-    device_remove_file(&intf->dev, &dev_attr_led_t2_red);
-    device_remove_file(&intf->dev, &dev_attr_led_t2_green);
-    device_remove_file(&intf->dev, &dev_attr_led_t3_red);
-    device_remove_file(&intf->dev, &dev_attr_led_t3_green);
-    device_remove_file(&intf->dev, &dev_attr_led_pov_red);
-    device_remove_file(&intf->dev, &dev_attr_led_pov_green);
-    device_remove_file(&intf->dev, &dev_attr_led_i_red);
-    device_remove_file(&intf->dev, &dev_attr_led_i_green);
-    device_remove_file(&intf->dev, &dev_attr_led_throttle);
+    if (joy->feat_led) {
+        device_remove_file(&intf->dev, &dev_attr_bri_led);
 
-    device_remove_file(&intf->dev, &dev_attr_led_blink);
+        device_remove_file(&intf->dev, &dev_attr_led_fire);
+        device_remove_file(&intf->dev, &dev_attr_led_a_red);
+        device_remove_file(&intf->dev, &dev_attr_led_a_green);
+        device_remove_file(&intf->dev, &dev_attr_led_b_red);
+        device_remove_file(&intf->dev, &dev_attr_led_b_green);
+        device_remove_file(&intf->dev, &dev_attr_led_d_red);
+        device_remove_file(&intf->dev, &dev_attr_led_d_green);
+        device_remove_file(&intf->dev, &dev_attr_led_e_red);
+        device_remove_file(&intf->dev, &dev_attr_led_e_green);
+        device_remove_file(&intf->dev, &dev_attr_led_t1_red);
+        device_remove_file(&intf->dev, &dev_attr_led_t1_green);
+        device_remove_file(&intf->dev, &dev_attr_led_t2_red);
+        device_remove_file(&intf->dev, &dev_attr_led_t2_green);
+        device_remove_file(&intf->dev, &dev_attr_led_t3_red);
+        device_remove_file(&intf->dev, &dev_attr_led_t3_green);
+        device_remove_file(&intf->dev, &dev_attr_led_pov_red);
+        device_remove_file(&intf->dev, &dev_attr_led_pov_green);
+        device_remove_file(&intf->dev, &dev_attr_led_i_red);
+        device_remove_file(&intf->dev, &dev_attr_led_i_green);
+        device_remove_file(&intf->dev, &dev_attr_led_throttle);
+
+        device_remove_file(&intf->dev, &dev_attr_led_blink);
+    }
 
     usb_put_dev(joy->udev);
     kfree(joy);
@@ -499,5 +541,6 @@ module_exit (x52_exit);
 
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
+MODULE_VERSION(DRIVER_VERSION);
 MODULE_LICENSE("GPL v2");
 

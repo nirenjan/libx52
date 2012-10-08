@@ -18,6 +18,10 @@
 
 struct x52_joy {
     struct usb_device   *udev;
+    struct urb          *irq_in;
+    unsigned char       *idata;
+    struct input_dev    *dev;
+
     u32                 led_status;
     struct x52_mfd_line line[X52_MFD_LINES];
     struct x52_mfd_date date;
@@ -25,6 +29,7 @@ struct x52_joy {
     struct x52_mfd_offs time_offs2;
     struct x52_mfd_offs time_offs3;
 
+    u8                  type;
     u8                  bri_mfd;
     u8                  bri_led;
 
