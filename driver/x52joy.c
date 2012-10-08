@@ -19,6 +19,8 @@
 #include <linux/slab.h>
 #include <linux/module.h>
 #include <linux/usb.h>
+#include <linux/input.h>
+#include <linux/usb/input.h>
 
 #include "x52joy_commands.h"
 #include "x52joy_common.h"
@@ -26,16 +28,6 @@
 #define DRIVER_AUTHOR "Nirenjan Krishnan, nirenjan@gmail.com"
 #define DRIVER_DESC "Saitek X52Pro HOTAS Driver"
 #define DRIVER_VERSION "1.0"
-
-#define X52TYPE_X52         1
-#define X52TYPE_X52PRO      2
-#define X52TYPE_UNKNOWN     0
-
-#define VENDOR_ID_SAITEK    0x06a3
-#define PRODUCT_ID_X52_PRO  0x0762
-
-#define X52FLAGS_SUPPORTS_MFD   (1 << 0)
-#define X52FLAGS_SUPPORTS_LED   (1 << 1)
 
 static const struct x52_device {
     u16     idVendor;
@@ -85,7 +77,8 @@ static ssize_t show_text_line(struct device *dev, char *buf, u8 line)
     line--; /* Convert to 0-based line number */
     
     if (joy->feat_mfd) {
-        return sprintf(buf, "%s\n", joy->line[line].text);
+        //return sprintf(buf, "%s\n", joy->line[line].text);
+        return sprintf(buf, "%s\n", joy->phys);
     } else {
         sprintf(buf, "\n");
         return -EOPNOTSUPP;
@@ -393,6 +386,8 @@ static int x52_probe(struct usb_interface *intf,
 {
     struct usb_device *udev = interface_to_usbdev(intf);
     struct x52_joy *joy = NULL;
+    struct input_dev *idev = NULL;
+    struct usb_endpoint_descriptor *ep_irq_in;
     int retval = -ENOMEM;
     int i;
 
@@ -405,11 +400,59 @@ static int x52_probe(struct usb_interface *intf,
 
     joy = kzalloc(sizeof(*joy), GFP_KERNEL);
     if (joy == NULL) {
-        dev_err(&intf->dev, "Out of memory\n");
+        dev_err(&intf->dev, "Out of memory: Cannot create joystick\n");
         goto error;
     }
 
+    idev = input_allocate_device();
+    if (idev == NULL) {
+        dev_err(&intf->dev, "Out of memory: Cannot create input\n");
+        goto error;
+    }
+
+    joy->idata = usb_alloc_coherent(udev, X52_PACKET_LEN, GFP_KERNEL,
+                                    &joy->idata_dma);
+    if (!joy->idata) {
+        dev_err(&intf->dev, "Out of memory: Cannot alloc coherent buffer\n");
+        goto error;
+    }
+
+    joy->irq_in = usb_alloc_urb(0, GFP_KERNEL);
+    if (!joy->irq_in) {
+        dev_err(&intf->dev, "Out of memory: Cannot alloc IRQ URB\n");
+        goto error1;
+    }
+
     joy->udev = usb_get_dev(udev);
+
+    joy->idev = idev;
+    usb_make_path(udev, joy->phys, sizeof(joy->phys));
+    strlcat(joy->phys, "/input0", sizeof(joy->phys));
+
+    idev->name = x52_devices[i].name;
+    idev->phys = joy->phys;
+    usb_to_input_id(udev, &idev->id);
+    idev->dev.parent = &intf->dev;
+    
+    input_set_drvdata(idev, joy);
+    
+    idev->open = x52_open;
+    idev->close = x52_close;
+
+    x52_setup_input(idev);
+
+    ep_irq_in = &intf->cur_altsetting->endpoint[0].desc;
+    usb_fill_int_urb(joy->irq_in, udev,
+                     usb_rcvintpipe(udev, ep_irq_in->bEndpointAddress),
+                     joy->idata, X52_PACKET_LEN, x52_irq_handler,
+                     joy, ep_irq_in->bInterval);
+	joy->irq_in->transfer_dma = joy->idata_dma;
+	joy->irq_in->transfer_flags |= URB_NO_TRANSFER_DMA_MAP;
+
+    retval = input_register_device(joy->idev);
+    if (retval) {
+        goto error2;
+    }
 
     /* Set the feature bits */
     joy->feat_mfd = !!(x52_devices[i].flags & X52FLAGS_SUPPORTS_MFD);
@@ -457,7 +500,12 @@ static int x52_probe(struct usb_interface *intf,
     dev_info(&intf->dev, "X52 device now attached\n");
     return 0;
 
+error2:
+    usb_free_urb(joy->irq_in);
+error1:
+    usb_free_coherent(udev, X52_PACKET_LEN, joy->idata, joy->idata_dma);
 error:
+    input_free_device(idev);
     kfree(joy);
     return retval;
 }
@@ -468,6 +516,11 @@ static void x52_disconnect(struct usb_interface *intf)
 
     joy = usb_get_intfdata(intf);
     usb_set_intfdata(intf, NULL);
+
+    usb_kill_urb(joy->irq_in);
+    usb_free_urb(joy->irq_in);
+    usb_free_coherent(joy->udev, X52_PACKET_LEN, joy->idata, joy->idata_dma);
+    input_free_device(joy->idev);
 
     if (joy->feat_mfd) {
         device_remove_file(&intf->dev, &dev_attr_mfd_line1);
