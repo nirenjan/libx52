@@ -1,0 +1,9 @@
+# udev rules to make hidraw readable by users
+ACTION!="add", GOTO="x52pro_rules_end"
+SUBSYSTEM!="hidraw", GOTO="x52pro_rules_end"
+
+# X52Pro flight control system
+ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="0762", MODE="0644"
+
+LABEL="x52pro_rules_end"
+
