@@ -566,7 +566,7 @@ static void x52_disconnect(struct usb_interface *intf)
 }
 
 static struct usb_driver x52_driver = {
-    .name = "X52",
+    .name = "saitek_x52",
     .probe = x52_probe,
     .disconnect = x52_disconnect,
     .id_table = id_table,
