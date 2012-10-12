@@ -77,8 +77,7 @@ static ssize_t show_text_line(struct device *dev, char *buf, u8 line)
     line--; /* Convert to 0-based line number */
     
     if (joy->feat_mfd) {
-        //return sprintf(buf, "%s\n", joy->line[line].text);
-        return sprintf(buf, "%s\n", joy->phys);
+        return sprintf(buf, "%s\n", joy->line[line].text);
     } else {
         sprintf(buf, "\n");
         return -EOPNOTSUPP;
@@ -403,6 +402,7 @@ static int x52_probe(struct usb_interface *intf,
         dev_err(&intf->dev, "Out of memory: Cannot create joystick\n");
         goto error;
     }
+    joy->type = x52_devices[i].type;
 
     idev = input_allocate_device();
     if (idev == NULL) {
