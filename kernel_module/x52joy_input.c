@@ -197,18 +197,18 @@ void x52_setup_input(struct input_dev *idev)
     }
 
     /* Map the axes */
-    input_set_abs_params(idev, ABS_X, 0, 1023, 16, 512);
-    input_set_abs_params(idev, ABS_Y, 0, 1023, 16, 512);
-    input_set_abs_params(idev, ABS_RZ, 0, 1023, 16, 512);
+    input_set_abs_params(idev, ABS_X, 0, 1023, 0, 0);
+    input_set_abs_params(idev, ABS_Y, 0, 1023, 0, 0);
+    input_set_abs_params(idev, ABS_RZ, 0, 1023, 0, 0);
 
     input_set_abs_params(idev, ABS_THROTTLE, 0, 255, 0, 0);
-    input_set_abs_params(idev, ABS_RX, 0, 255, 16, 128);
-    input_set_abs_params(idev, ABS_RY, 0, 255, 16, 128);
+    input_set_abs_params(idev, ABS_RX, 0, 255, 0, 0);
+    input_set_abs_params(idev, ABS_RY, 0, 255, 0, 0);
     input_set_abs_params(idev, ABS_Z, 0, 255, 0, 0);
 
     /* Mouse stick */
-    input_set_abs_params(idev, ABS_TILT_X, 0, 15, 0, 8);
-    input_set_abs_params(idev, ABS_TILT_Y, 0, 15, 0, 8);
+    input_set_abs_params(idev, ABS_TILT_X, 0, 15, 0, 0);
+    input_set_abs_params(idev, ABS_TILT_Y, 0, 15, 0, 0);
 
     /* Hat switch */
     input_set_abs_params(idev, ABS_HAT0X, -1, 1, 0, 0);
