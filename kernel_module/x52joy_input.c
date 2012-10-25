@@ -29,7 +29,10 @@
 static void x52pro_decode_urb(struct x52_joy *joy, unsigned char *data)
 {
     struct input_dev *idev = joy->idev;
-    u32 stick_axis = le32_to_cpu(&data[0]);
+    u32 stick_axis = data[3];
+    stick_axis = (stick_axis << 8) | data[2];
+    stick_axis = (stick_axis << 8) | data[1];
+    stick_axis = (stick_axis << 8) | data[0];
 
     input_report_key(idev, BTN_TRIGGER_HAPPY1, data[8] & 0x01);
     input_report_key(idev, BTN_TRIGGER_HAPPY2, data[8] & 0x02);
