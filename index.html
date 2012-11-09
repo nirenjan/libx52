@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>X52Pro-Linux by nirenjan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>X52Pro-Linux</h1>
+        <p>Saitek X52Pro drivers &amp; controller mapping software for Linux</p>
+
+        <p class="view"><a href="https://github.com/nirenjan/x52pro-linux">View the Project on GitHub <small>nirenjan/x52pro-linux</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/nirenjan/x52pro-linux/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/nirenjan/x52pro-linux/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/nirenjan/x52pro-linux">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Saitek X52Pro joystick driver for Linux</h1>
+
+<p>This project adds a new driver for the Saitek/MadCatz X52 Pro flight
+control system. The X52 pro is a HOTAS (hand on throttle and stick)
+with 7 axes, 39 buttons, 1 hat and 1 thumbstick and a multi-function
+display which is programmable.</p>
+
+<p>Currently, only Windows drivers are available from Saitek PLC, which
+led me to develop a new Linux driver which can program the MFD and
+the individual LEDs on the joystick. Although the standard usbhid
+driver is capable of reading the joystick, it is not sufficient to
+really utilize all the capabilities of this system.</p>
+
+<p>This project is currently a work-in-progress. However a high level
+outline of the current objectives are listed below:</p>
+
+<ul>
+<li>Write a kernel module and export sysfs interfaces to act as a
+driver.</li>
+<li>Write a userspace program that can configure the kernel module
+and create custom button mappings to keyboard or mouse events.</li>
+<li>Add interrupt handling and export a /dev/input/jsX interface.</li>
+<li>Allow userspace programs to register callbacks on MFD button events.</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/nirenjan">nirenjan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
