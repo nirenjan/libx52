@@ -28,9 +28,11 @@
         </ul>
       </header>
       <section>
-        <h1>Saitek X52Pro joystick driver for Linux</h1>
+        <h1>
+<a name="saitek-x52pro-joystick-driver-for-linux" class="anchor" href="#saitek-x52pro-joystick-driver-for-linux"><span class="octicon octicon-link"></span></a>Saitek X52Pro joystick driver for Linux</h1>
 
-<h2>Overview</h2>
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
 
 <p>This project adds a new driver for the Saitek/MadCatz X52 Pro flight
 control system. The X52 pro is a HOTAS (hand on throttle and stick)
@@ -43,11 +45,13 @@ the individual LEDs on the joystick. Although the standard usbhid
 driver is quite capable of reading the joystick, it is not sufficient to
 really utilize all the capabilities of this system.</p>
 
-<h2>Status</h2>
+<h2>
+<a name="status" class="anchor" href="#status"><span class="octicon octicon-link"></span></a>Status</h2>
 
 <p>This page documents the objectives of the project and the status. This project is currently a work-in-progress.</p>
 
-<h3>Kernel Module</h3>
+<h3>
+<a name="kernel-module" class="anchor" href="#kernel-module"><span class="octicon octicon-link"></span></a>Kernel Module</h3>
 
 <p>Currently, a kernel module exists which supports reading from the joystick and reporting to the input subsystem. The kernel module also supports setting the following:</p>
 
@@ -62,7 +66,8 @@ really utilize all the capabilities of this system.</p>
 <li>Clock (Date/Time) on the MFD</li>
 <li>LED blinking mode</li>
 <li>Shift indicator on the MFD</li>
-</ul><h3>Userspace Daemon</h3>
+</ul><h3>
+<a name="userspace-daemon" class="anchor" href="#userspace-daemon"><span class="octicon octicon-link"></span></a>Userspace Daemon</h3>
 
 <p>In progress is a userspace daemon which hooks to the hidraw interface of the standard usbhid driver and interprets the hidraw data. Objectives for this daemon are:</p>
 
