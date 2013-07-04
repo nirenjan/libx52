@@ -19,23 +19,25 @@ buttons, to allow the programmer to create custom handlers.
 
 # API
 
-    x52_mfd_create_page(uint8_t *page_id,
-                        char *description,
-                        x52_page_callback *handler)
+```c
+x52_mfd_create_page(uint8_t *page_id,
+                    char *description,
+                    x52_page_callback *handler)
 
-    x52_mfd_write_line(uint8_t page_id,
-                       uint8_t line,
-                       char *text,
-                       uint8_t length)
+x52_mfd_write_line(uint8_t page_id,
+                   uint8_t line,
+                   char *text,
+                   uint8_t length)
 
-    x52_mfd_update_page(uint8_t page_id,
-                        uint8_t activate)
+x52_mfd_update_page(uint8_t page_id,
+                    uint8_t activate)
 
-    x52_mfd_delete_page(uint8_t page_id)
+x52_mfd_delete_page(uint8_t page_id)
 
-    typedef void (*x52_page_callback)(uint8_t page_id,
-                                      uint8_t event,
-                                      uint8_t state)
+typedef void (*x52_page_callback)(uint8_t page_id,
+                                  uint8_t event,
+                                  uint8_t state)
+```
 
 ## Steps
 
@@ -52,11 +54,11 @@ The callback API is a function that takes three arguments as follows:
 1. A page ID (8 bits) which identifies the current page. This allows
    a single callback handler to handle multiple pages.
 2. An 8-bit event identifier. Currently, this is defined to be one of:
-   * X52\_MFD\_EVENT\_UP 
-   * X52\_MFD\_EVENT\_DN
-   * X52\_MFD\_EVENT\_SEL
+   * `X52_MFD_EVENT_UP`
+   * `X52_MFD_EVENT_DN`
+   * `X52_MFD_EVENT_SEL`
 3. An 8-bit state identifier. Currently, this is defined to be one of:
-   * X52\_MFD\_BUTTON\_STATE\_UP
-   * X52\_MFD\_BUTTON\_STATE\_DN
+   * `X52_MFD_BUTTON_STATE_UP`
+   * `X52_MFD_BUTTON_STATE_DN`
 
 
