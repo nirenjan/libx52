@@ -150,11 +150,11 @@ void x52_irq_handler(struct urb *urb)
 	case -ENOENT:
 	case -ESHUTDOWN:
 		/* This URB is terminated, clean up */
-		dbg("%s - URB shutting down with status: %d",
+		pr_debug("%s - URB shutting down with status: %d",
 			__func__, status);
 		return;
 	default:
-		dbg("%s - nonzero URB status received: %d",
+		pr_debug("%s - nonzero URB status received: %d",
 			__func__, status);
 		goto error;
 	}
@@ -172,8 +172,8 @@ void x52_irq_handler(struct urb *urb)
 error:
 	retval = usb_submit_urb(urb, GFP_ATOMIC);
 	if (retval)
-		err ("%s - usb_submit_urb failed with result %d",
-		     __func__, retval);
+		pr_err("%s - usb_submit_urb failed with result %d",
+			__func__, retval);
     
 }
 
