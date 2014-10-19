@@ -578,7 +578,7 @@ static int __init x52_init(void)
 
     retval = usb_register(&x52_driver);
     if (retval) {
-        err("usb_register failed (errno=%d)\n", retval);
+        pr_err("usb_register failed (errno=%d)\n", retval);
     }
 
     return retval;
