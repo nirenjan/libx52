@@ -1,7 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver
  *
- * Copyright (C) 2012 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2012-2015 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -57,6 +57,7 @@ struct x52_mfd_offs {
 };
 
 struct libx52_device {
+    libusb_context *ctx;
     libusb_device_handle *hdl;
     struct libusb_transfer *in_xfer;
     struct libusb_transfer *ctrl_xfer;
@@ -65,6 +66,8 @@ struct libx52_device {
     uint8_t  input_buffer[16];
 
     uint32_t led_mask;
+    uint16_t mfd_brightness;
+    uint16_t led_brightness;
 
     struct x52_mfd_line line[X52_MFD_LINES];
     struct x52_mfd_date date;
@@ -72,6 +75,7 @@ struct libx52_device {
     struct x52_mfd_offs offs[2];
 };
 
+/** Indicator bits for update mask */
 #define X52_BIT_SHIFT           0
 #define X52_BIT_LED_FIRE        1
 #define X52_BIT_LED_A_RED       2
