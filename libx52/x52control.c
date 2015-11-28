@@ -90,6 +90,7 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
         length = X52_MFD_LINE_SIZE;
     }
 
+    memset(x52->line[line].text, ' ', X52_MFD_LINE_SIZE);
     memcpy(x52->line[line].text, text, length);
     x52->line[line].length = length;
     set_bit(&x52->update_mask, X52_BIT_MFD_LINE1 + line);
