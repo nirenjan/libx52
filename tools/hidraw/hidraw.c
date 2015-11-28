@@ -48,9 +48,14 @@ int main(int argc, char **argv)
 	struct hidraw_report_descriptor rpt_desc;
 	struct hidraw_devinfo info;
 
+    if (argc != 2) {
+        fprintf(stderr, "usage: %s <path-to-hidraw-file>\n", argv[0]);
+        return 1;
+    }
+
 	/* Open the Device with non-blocking reads. In real life,
 	   don't use a hard coded path; use libudev instead. */
-	fd = open("/dev/hidraw0", O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 
 	if (fd < 0) {
 		perror("Unable to open device");
