@@ -21,7 +21,7 @@
 #include "x52control.h"
 #include "x52_common.h"
 
-int libx52_control_transfer(libx52_device *x52, uint16_t index, uint16_t value)
+static int libx52_control_transfer(libx52_device *x52, uint16_t index, uint16_t value)
 {
     return libusb_control_transfer(x52->hdl,
             LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE,
@@ -235,14 +235,18 @@ int libx52_set_blink(libx52_device *x52, uint8_t state)
     return 0;
 }
 
-int libx52_set_clock(libx52_device *x52, time_t time)
+int libx52_set_clock(libx52_device *x52, time_t time, int local)
 {
     struct tm timeval;
     if (!x52) {
         return -EINVAL;
     }
 
-    timeval = *localtime(&time);
+    if (local) {
+        timeval = *localtime(&time);
+    } else {
+        timeval = *gmtime(&time);
+    }
 
     x52->date.day = timeval.tm_mday;
     x52->date.month = timeval.tm_mon + 1;
