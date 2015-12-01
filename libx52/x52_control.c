@@ -21,11 +21,11 @@
 #include "x52_commands.h"
 #include "x52_common.h"
 
-static int libx52_control_transfer(libx52_device *x52, uint16_t index, uint16_t value)
+static int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 {
     return libusb_control_transfer(x52->hdl,
             LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE | LIBUSB_ENDPOINT_OUT,
-            X52_VENDOR_REQUEST, value, index, NULL, 0, 1000);
+            X52_VENDOR_REQUEST, value, index, NULL, 0, 5000);
 }
 
 static int libx52_write_line(libx52_device *x52, uint8_t line_index)
@@ -41,7 +41,7 @@ static int libx52_write_line(libx52_device *x52, uint8_t line_index)
     };
 
     /* Clear the line first */
-    rc = libx52_control_transfer(x52,
+    rc = libx52_vendor_command(x52,
             line_index_map[line_index] | X52_MFD_CLEAR_LINE, 0);
     if (rc) {
         return rc;
@@ -51,7 +51,7 @@ static int libx52_write_line(libx52_device *x52, uint8_t line_index)
         value = x52->line[line_index].text[i + 1] << 8 |
                 x52->line[line_index].text[i];
 
-        rc = libx52_control_transfer(x52,
+        rc = libx52_vendor_command(x52,
                 line_index_map[line_index] | X52_MFD_WRITE_LINE, value);
         if (rc) {
             return rc;
@@ -90,12 +90,67 @@ static int libx52_write_date(libx52_device *x52)
         return -EINVAL;
     }
 
-    rc = libx52_control_transfer(x52, X52_DATE_DDMM, value1);
+    rc = libx52_vendor_command(x52, X52_DATE_DDMM, value1);
     if (rc == 0) {
-        rc = libx52_control_transfer(x52, X52_DATE_YEAR, value2);
+        rc = libx52_vendor_command(x52, X52_DATE_YEAR, value2);
     }
 
     return rc;
+}
+
+static int libx52_write_time(libx52_device *x52, libx52_clock_id clock)
+{
+    uint16_t value;
+    uint16_t index;
+    int offset;
+    int negative;
+    uint16_t h24 = !!(x52->time_format[clock]);
+
+    if (clock != LIBX52_CLOCK_1) {
+        offset = x52->timezone[clock] - x52->timezone[LIBX52_CLOCK_1];
+        /* Because the packet format limits the offset from the base clock to
+         * a maximum of +/- 1023, we can only handle a maximum offset of 17
+         * hours from the base clock. Eg. Honolulu and Auckland at -1000 and
+         * +1200 respectively have a direct offset of +22 hours. A potentially
+         * greater issue is to take the two extreme timezones at -1200 and +1400
+         * for a difference of +26 hours. The safe bet is to check if the offset
+         * exceeds +/- 1023, and subtract 1440, which will convert the offset of
+         * +22 to -2 hours, or +26 to +4 hours.
+         */
+        if (offset < -1023 || offset > 1023) {
+            offset -= 1440; // Subtract 24 hours
+        }
+
+        if (offset < 0) {
+            negative = 1;
+            offset = -offset;
+        } else {
+            negative = 0;
+        }
+
+        value = h24 << 15 |
+                negative << 10 |
+                (offset & 0x3FF);
+    }
+
+    switch (clock) {
+    case LIBX52_CLOCK_1:
+        index = X52_TIME_CLOCK1;
+        value = h24 << 15 |
+                (x52->time_hour & 0x7F) << 8 |
+                (x52->time_minute & 0xFF);
+        break;
+
+    case LIBX52_CLOCK_2:
+        index = X52_OFFS_CLOCK2;
+        break;
+
+    case LIBX52_CLOCK_3:
+        index = X52_OFFS_CLOCK3;
+        break;
+    }
+
+    return libx52_vendor_command(x52, index, value);
 }
 
 int libx52_update(libx52_device *x52)
@@ -115,7 +170,7 @@ int libx52_update(libx52_device *x52)
             switch (i) {
             case X52_BIT_SHIFT:
                 value = tst_bit(&x52->led_mask, X52_BIT_SHIFT) ? X52_SHIFT_ON : X52_SHIFT_OFF;
-                rc = libx52_control_transfer(x52, X52_SHIFT_INDICATOR, value);
+                rc = libx52_vendor_command(x52, X52_SHIFT_INDICATOR, value);
                 break;
 
             case X52_BIT_LED_FIRE:
@@ -140,7 +195,7 @@ int libx52_update(libx52_device *x52)
             case X52_BIT_LED_THROTTLE:
                 /* The bits correspond exactly to the LED identifiers */
                 value = tst_bit(&x52->led_mask, i) ? 1 : 0;
-                rc = libx52_control_transfer(x52, X52_LED, value | (i << 8));
+                rc = libx52_vendor_command(x52, X52_LED, value | (i << 8));
                 break;
 
             case X52_BIT_MFD_LINE1:
@@ -157,16 +212,16 @@ int libx52_update(libx52_device *x52)
 
             case X52_BIT_POV_BLINK:
                 value = tst_bit(&x52->led_mask, X52_BIT_POV_BLINK) ? X52_BLINK_ON : X52_BLINK_OFF;
-                rc = libx52_control_transfer(x52, X52_BLINK_INDICATOR, value);
+                rc = libx52_vendor_command(x52, X52_BLINK_INDICATOR, value);
                 break;
 
             case X52_BIT_BRI_MFD:
-                rc = libx52_control_transfer(x52, X52_MFD_BRIGHTNESS,
+                rc = libx52_vendor_command(x52, X52_MFD_BRIGHTNESS,
                         x52->mfd_brightness);
                 break;
 
             case X52_BIT_BRI_LED:
-                rc = libx52_control_transfer(x52, X52_LED_BRIGHTNESS,
+                rc = libx52_vendor_command(x52, X52_LED_BRIGHTNESS,
                         x52->led_brightness);
                 break;
 
@@ -175,8 +230,17 @@ int libx52_update(libx52_device *x52)
                 break;
 
             case X52_BIT_MFD_TIME:
+                rc = libx52_write_time(x52, LIBX52_CLOCK_1);
+                break;
+
             case X52_BIT_MFD_OFFS1:
+                rc = libx52_write_time(x52, LIBX52_CLOCK_2);
+                break;
+
             case X52_BIT_MFD_OFFS2:
+                rc = libx52_write_time(x52, LIBX52_CLOCK_3);
+                break;
+
             default:
                 /* Ignore any spurious bits */
                 rc = 0;
