@@ -12,9 +12,6 @@ typedef void (*test_func)(libx52_device *dev, int step);
 /* Run test initializations */
 static void test_cleanup(libx52_device *dev)
 {
-    libx52_set_brightness(dev, 1, 127);
-    libx52_set_brightness(dev, 0, 127);
-
     /* Set the default LED states */
     libx52_set_led_state(dev, LIBX52_LED_FIRE, LIBX52_LED_STATE_ON);
     libx52_set_led_state(dev, LIBX52_LED_A, LIBX52_LED_STATE_GREEN);
@@ -36,6 +33,10 @@ static void test_cleanup(libx52_device *dev)
     libx52_set_text(dev, 0, " Saitek X52 Pro", 15);
     libx52_set_text(dev, 1, "     Flight    ", 15);
     libx52_set_text(dev, 2, " Control System", 15);
+
+    /* Maximum brightness */
+    libx52_set_brightness(dev, 1, 127);
+    libx52_set_brightness(dev, 0, 127);
 }
 
 static void test_mfd_display(libx52_device *dev, int step)
