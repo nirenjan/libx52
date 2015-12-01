@@ -127,7 +127,7 @@ static ssize_t set_text_line##no(struct device *dev, struct device_attribute *at
 {                                                               \
     return set_text_line(dev, buf, count, no);                  \
 }                                                               \
-static DEVICE_ATTR(mfd_line##no, S_IWUGO | S_IRUGO, show_text_line##no, set_text_line##no);
+static DEVICE_ATTR(mfd_line##no, S_IWUSR | S_IWGRP | S_IRUGO, show_text_line##no, set_text_line##no);
 
 show_set_text(1);
 show_set_text(2);
@@ -234,8 +234,8 @@ static ssize_t set_bri_led (struct device *dev, struct device_attribute *attr, c
 {
     return set_x52_brightness(dev, buf, count, led);
 }
-static DEVICE_ATTR(bri_mfd, S_IWUGO | S_IRUGO, show_bri_mfd, set_bri_mfd);
-static DEVICE_ATTR(bri_led, S_IWUGO | S_IRUGO, show_bri_led, set_bri_led);
+static DEVICE_ATTR(bri_mfd, S_IWUSR | S_IWGRP | S_IRUGO, show_bri_mfd, set_bri_mfd);
+static DEVICE_ATTR(bri_led, S_IWUSR | S_IWGRP | S_IRUGO, show_bri_led, set_bri_led);
 
 #undef mfd
 #undef led
@@ -311,7 +311,7 @@ static ssize_t set_led_##no(struct device *dev, struct device_attribute *attr, c
 {                                                               \
     return set_x52_led(dev, buf, count, no);                  \
 }                                                               \
-static DEVICE_ATTR(led_##no, S_IWUGO | S_IRUGO, show_led, set_led_##no);
+static DEVICE_ATTR(led_##no, S_IWUSR | S_IWGRP | S_IRUGO, show_led, set_led_##no);
 
 show_set_led(fire);
 show_set_led(a_red);
@@ -375,7 +375,7 @@ static ssize_t set_x52_blink(struct device *dev, struct device_attribute *attr,
 }
 
 
-static DEVICE_ATTR(led_blink, S_IWUGO | S_IRUGO, show_blink, set_x52_blink);
+static DEVICE_ATTR(led_blink, S_IWUSR | S_IWGRP | S_IRUGO, show_blink, set_x52_blink);
 
 /**********************************************************************
  * X52 driver functions
