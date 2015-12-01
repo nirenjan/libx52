@@ -1,4 +1,4 @@
-AC_INIT([libx52], [1.0], [nirenjan@gmail.com])
+AC_INIT([libx52], [1.0.0], [nirenjan@gmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 AC_PROG_CC
 AM_PROG_AR
@@ -21,5 +21,5 @@ if test "x${have_libusb}" = xno; then
     ])
 fi
 
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
