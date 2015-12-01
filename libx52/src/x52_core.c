@@ -15,8 +15,6 @@
 #include <errno.h>
 #include <string.h>
 
-#include <libusb.h>
-
 #include "libx52.h"
 #include "x52_commands.h"
 #include "x52_common.h"
