@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef X52JOY_COMMANDS_H
-#define X52JOY_COMMANDS_H
+#ifndef X52_COMMANDS_H
+#define X52_COMMANDS_H
 
 /* X52 vendor API commands */
 /* Vendor request - all commands must have this request ID */
@@ -50,4 +50,4 @@
 #define X52_BLINK_ON            0x51
 #define X52_BLINK_OFF           0x50
 
-#endif /* !defined X52JOY_COMMANDS_H */
+#endif /* !defined X52_COMMANDS_H */

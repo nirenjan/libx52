@@ -18,7 +18,7 @@
 #include <libusb.h>
 
 #include "libx52.h"
-#include "x52control.h"
+#include "x52_commands.h"
 #include "x52_common.h"
 
 #define VENDOR_SAITEK 0x06a3
