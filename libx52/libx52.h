@@ -164,23 +164,6 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
 /**
  * @brief Set the LED state
  *
- * The X52 pro has a total of 20 LEDs that can be individually turned on or off.
- * This function will allow you to control them. This function is deprecated
- * and should be replaced by \ref libx52_set_led_state.
- *
- * @deprecated
- *
- * @param[in]   x52     Pointer to the device
- * @param[in]   led     LED index.
- * @param[in]   state   State of the LED, 0 for off, non-zero for on.
- *
- * @returns 0 on success, -errno on failure.
- */
-int libx52_set_led(libx52_device *x52, uint8_t led, uint8_t state);
-
-/**
- * @brief Set the LED state
- *
  * The X52 pro has several LEDs that can be individually controlled. This
  * function will allow you to control them.
  *
@@ -193,43 +176,6 @@ int libx52_set_led(libx52_device *x52, uint8_t led, uint8_t state);
 int libx52_set_led_state(libx52_device *x52,
                          libx52_led_id led,
                          libx52_led_state state);
-
-/**
- * @brief Set the MFD date
- *
- * The X52 pro has a date display that is off by default. Writing a date will
- * show the date on the display.
- *
- * @deprecated This function is deprecated by \ref libx52_set_clock
- *
- * @param[in]   x52     Pointer to the device
- * @param[in]   day     Day of the month (1 - 31)
- * @param[in]   month   Month of the year (1 - 12)
- * @param[in]   year    2-digit year value
- * @param[in]   format  0, 1 or 2, corresponding to yy-mm-dd, mm-dd-yy or
- *                      dd-mm-yy formats respectively
- *
- * @returns 0 on success, -errno on failure.
- */
-int libx52_set_date(libx52_device *x52, uint8_t day, uint8_t month, uint8_t year, uint8_t format);
-
-/**
- * @brief Set the MFD time
- *
- * The X52 pro has a time display that displays the time of day in either
- * 12 hour or 24 hour format. There is no associated timezone info, and the
- * user is responsible for setting the correct time in the required timezone.
- *
- * @deprecated This function is deprecated by \ref libx52_set_clock
- *
- * @param[in]   x52     Pointer to the device
- * @param[in]   hour    Hour of the day (0 - 23)
- * @param[in]   minute  Minute of the hour (0 - 59)
- * @param[in]   format  0 - 12 hour, 1 - 24 hour
- *
- * @returns 0 on success, -errno on failure.
- */
-int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute, uint8_t format);
 
 /**
  * @brief Set the clock
@@ -253,19 +199,20 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local);
  * clocks are controlled as an offset from the primary clock in minutes.
  * However, for convenience, the X52 library calculates this offset internally
  * and only requires you to set the timezone as the number of minutes offset
- * from GMT.
+ * from GMT. Offset is limited to +/- 1440 minutes, and any offset outside
+ * this range will result in a return value of -EDOM
  *
  * @param[in]   x52     Pointer to the device
  * @param[in]   clock   \ref libx52_clock_id, cannot be \ref
- *                      libx52_clock_primary
+ *                      LIBX52_CLOCK_1
  * @param[in]   offset  Offset in minutes from GMT (east is positive, west
  *                      is negative)
  *
  * @returns 0 on success, -errno on failure
  */
-int libx52_set_clock_offset(libx52_device *x52,
-                            libx52_clock_id clock,
-                            int offset);
+int libx52_set_clock_timezone(libx52_device *x52,
+                              libx52_clock_id clock,
+                              int offset);
 
 /**
  * @brief Set whether the clock is displayed in 12 hour or 24 hour format.
@@ -347,27 +294,5 @@ int libx52_set_blink(libx52_device *x52, uint8_t state);
  * @returns 0 on success, -errno on failure
  */
 int libx52_update(libx52_device *x52);
-
-/* LED indices */
-#define X52_LED_FIRE            0x01
-#define X52_LED_A_RED           0x02
-#define X52_LED_A_GREEN         0x03
-#define X52_LED_B_RED           0x04
-#define X52_LED_B_GREEN         0x05
-#define X52_LED_D_RED           0x06
-#define X52_LED_D_GREEN         0x07
-#define X52_LED_E_RED           0x08
-#define X52_LED_E_GREEN         0x09
-#define X52_LED_T1_RED          0x0a
-#define X52_LED_T1_GREEN        0x0b
-#define X52_LED_T2_RED          0x0c
-#define X52_LED_T2_GREEN        0x0d
-#define X52_LED_T3_RED          0x0e
-#define X52_LED_T3_GREEN        0x0f
-#define X52_LED_POV_RED         0x10
-#define X52_LED_POV_GREEN       0x11
-#define X52_LED_I_RED           0x12
-#define X52_LED_I_GREEN         0x13
-#define X52_LED_THROTTLE        0x14
 
 #endif /* !defined LIBX52_H */

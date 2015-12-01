@@ -16,31 +16,17 @@ static void test_cleanup(libx52_device *dev)
     libx52_set_brightness(dev, 0, 127);
 
     /* Set the default LED states */
-    libx52_set_led(dev, X52_LED_FIRE, 1);
-
-    libx52_set_led(dev, X52_LED_A_RED, 0);
-    libx52_set_led(dev, X52_LED_A_GREEN, 1);
-    libx52_set_led(dev, X52_LED_B_RED, 0);
-    libx52_set_led(dev, X52_LED_B_GREEN, 1);
-    libx52_set_led(dev, X52_LED_D_RED, 0);
-    libx52_set_led(dev, X52_LED_D_GREEN, 1);
-    libx52_set_led(dev, X52_LED_E_RED, 0);
-    libx52_set_led(dev, X52_LED_E_GREEN, 1);
-
-    libx52_set_led(dev, X52_LED_T1_RED, 0);
-    libx52_set_led(dev, X52_LED_T1_GREEN, 1);
-    libx52_set_led(dev, X52_LED_T2_RED, 0);
-    libx52_set_led(dev, X52_LED_T2_GREEN, 1);
-    libx52_set_led(dev, X52_LED_T3_RED, 0);
-    libx52_set_led(dev, X52_LED_T3_GREEN, 1);
-
-    libx52_set_led(dev, X52_LED_POV_RED, 0);
-    libx52_set_led(dev, X52_LED_POV_GREEN, 1);
-
-    libx52_set_led(dev, X52_LED_I_RED, 0);
-    libx52_set_led(dev, X52_LED_I_GREEN, 1);
-
-    libx52_set_led(dev, X52_LED_THROTTLE, 1);
+    libx52_set_led_state(dev, LIBX52_LED_FIRE, LIBX52_LED_STATE_ON);
+    libx52_set_led_state(dev, LIBX52_LED_A, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_B, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_D, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_E, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_T1, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_T2, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_T3, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_POV, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_CLUTCH, LIBX52_LED_STATE_GREEN);
+    libx52_set_led_state(dev, LIBX52_LED_THROTTLE, LIBX52_LED_STATE_ON);
 
     /* Shift/Blink Off */
     libx52_set_shift(dev, 0);
@@ -97,28 +83,28 @@ static void test_leds(libx52_device *dev, int step)
         libx52_set_text(dev, 0, "LED Test", 8);
         libx52_set_text(dev, 1, "Fire", 4);
         libx52_set_text(dev, 2, "OFF", 3);
-        libx52_set_led(dev, X52_LED_FIRE, 0);
+        libx52_set_led_state(dev, LIBX52_LED_FIRE, LIBX52_LED_STATE_OFF);
         break;
 
     case 1:
         /* Turn on Fire LED */
         libx52_set_text(dev, 1, "Fire", 4);
         libx52_set_text(dev, 2, "ON", 2);
-        libx52_set_led(dev, X52_LED_FIRE, 1);
+        libx52_set_led_state(dev, LIBX52_LED_FIRE, LIBX52_LED_STATE_ON);
         break;
 
     case 2:
         /* Turn off Throttle LED */
         libx52_set_text(dev, 1, "Throttle", 8);
         libx52_set_text(dev, 2, "OFF", 3);
-        libx52_set_led(dev, X52_LED_THROTTLE, 0);
+        libx52_set_led_state(dev, LIBX52_LED_THROTTLE, LIBX52_LED_STATE_OFF);
         break;
 
     case 3:
         /* Turn on Throttle LED */
         libx52_set_text(dev, 1, "Throttle", 8);
         libx52_set_text(dev, 2, "ON", 2);
-        libx52_set_led(dev, X52_LED_THROTTLE, 1);
+        libx52_set_led_state(dev, LIBX52_LED_THROTTLE, LIBX52_LED_STATE_ON);
         break;
 
     default: {
@@ -129,23 +115,22 @@ static void test_leds(libx52_device *dev, int step)
         switch (step % 4) {
         case 0:
             libx52_set_text(dev, 2, "OFF", 3);
-            libx52_set_led(dev, led, 0);
-            libx52_set_led(dev, led + 1, 0);
+            libx52_set_led_state(dev, led, LIBX52_LED_STATE_OFF);
             break;
 
         case 1:
             libx52_set_text(dev, 2, "RED", 3);
-            libx52_set_led(dev, led, 1);
+            libx52_set_led_state(dev, led, LIBX52_LED_STATE_RED);
             break;
 
         case 2:
             libx52_set_text(dev, 2, "AMBER", 5);
-            libx52_set_led(dev, led + 1, 1);
+            libx52_set_led_state(dev, led, LIBX52_LED_STATE_AMBER);
             break;
 
         case 3:
             libx52_set_text(dev, 2, "GREEN", 5);
-            libx52_set_led(dev, led, 0);
+            libx52_set_led_state(dev, led, LIBX52_LED_STATE_GREEN);
             break;
         }
         }
@@ -206,10 +191,10 @@ struct test_case {
 };
 
 static struct test_case cases[] = {
+    { test_brightness, 129 },
     { test_mfd_display, 16 },
     { test_leds, 40 },
     { test_blinkenlichts, 4 },
-    { test_brightness, 129 },
     { NULL, 0 } /* Must be the last entry */
 };
 
@@ -232,7 +217,7 @@ int main()
                 (*tc->test)(dev, i);
             }
             libx52_update(dev);
-            usleep(250000);
+            usleep(500000);
         }
 
         tc++;

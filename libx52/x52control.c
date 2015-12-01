@@ -24,23 +24,8 @@
 static int libx52_control_transfer(libx52_device *x52, uint16_t index, uint16_t value)
 {
     return libusb_control_transfer(x52->hdl,
-            LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE,
+            LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE | LIBUSB_ENDPOINT_OUT,
             X52_VENDOR_REQUEST, value, index, NULL, 0, 1000);
-}
-
-inline void set_bit(uint32_t *value, uint32_t bit)
-{
-    *value |= (1UL << bit);
-}
-
-inline void clr_bit(uint32_t *value, uint32_t bit)
-{
-    *value &= ~(1UL << bit);
-}
-
-inline uint32_t tst_bit(uint32_t *value, uint32_t bit)
-{
-    return (*value & (1UL << bit));
 }
 
 static int libx52_write_line(libx52_device *x52, uint8_t line_index)
@@ -118,33 +103,63 @@ int libx52_set_led(libx52_device *x52, uint8_t led, uint8_t state)
     return 0;
 }
 
-int libx52_set_date(libx52_device *x52, uint8_t date, uint8_t month, uint8_t year, uint8_t format)
-{
-    if (!x52 || format >= x52_mfd_format_max) {
-        return -EINVAL;
-    }
-
-    x52->date.day = date;
-    x52->date.month = month;
-    x52->date.year = year;
-    x52->date.format = format;
-
-    set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
-
-    return 0;
-}
-
-int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute, uint8_t format)
+int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
 {
     if (!x52) {
         return -EINVAL;
     }
 
-    x52->time.hour = hour;
-    x52->time.minute = minute;
-    x52->time.h24 = !!format;
+    switch (led) {
+    case LIBX52_LED_FIRE:
+    case LIBX52_LED_THROTTLE:
+        if (state == LIBX52_LED_STATE_OFF) {
+            clr_bit(&x52->led_mask, led);
+            set_bit(&x52->update_mask, led);
+        } else if (state == LIBX52_LED_STATE_ON) {
+            set_bit(&x52->led_mask, led);
+            set_bit(&x52->update_mask, led);
+        } else {
+            /* Colors not supported */
+            return -ENOTSUP;
+        }
+        break;
 
-    set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
+    default:
+        /* All other LEDs support OFF, RED, AMBER and GREEN states
+         * However, they are composed of individual RED and GREEN LEDs which
+         * must be turned on or off individually.
+         */
+        switch (state) {
+        case LIBX52_LED_STATE_OFF:
+            clr_bit(&x52->led_mask, led + 0); // Red
+            clr_bit(&x52->led_mask, led + 1); // Green
+            break;
+
+        case LIBX52_LED_STATE_RED:
+            set_bit(&x52->led_mask, led + 0); // Red
+            clr_bit(&x52->led_mask, led + 1); // Green
+            break;
+
+        case LIBX52_LED_STATE_AMBER:
+            set_bit(&x52->led_mask, led + 0); // Red
+            set_bit(&x52->led_mask, led + 1); // Green
+            break;
+
+        case LIBX52_LED_STATE_GREEN:
+            clr_bit(&x52->led_mask, led + 0); // Red
+            set_bit(&x52->led_mask, led + 1); // Green
+            break;
+
+        default:
+            /* Cannot set the LED to "ON" */
+            return -ENOTSUP;
+        }
+
+        /* Set the update mask bits */
+        set_bit(&x52->update_mask, led + 0); // Red
+        set_bit(&x52->update_mask, led + 1); // Green
+        break;
+    }
 
     return 0;
 }
@@ -155,23 +170,23 @@ static int libx52_write_date(libx52_device *x52)
     uint16_t value2; //yy
     int rc;
 
-    switch (x52->date.format) {
-    case x52_mfd_format_yymmdd:
-        value1 = x52->date.month << 8 |
-                 x52->date.year;
-        value2 = x52->date.day;
+    switch (x52->date_format) {
+    case LIBX52_DATE_FORMAT_YYMMDD:
+        value1 = x52->date_month << 8 |
+                 x52->date_year;
+        value2 = x52->date_day;
         break;
 
-    case x52_mfd_format_mmddyy:
-        value1 = x52->date.day << 8 |
-                 x52->date.month;
-        value2 = x52->date.year;
+    case LIBX52_DATE_FORMAT_MMDDYY:
+        value1 = x52->date_day << 8 |
+                 x52->date_month;
+        value2 = x52->date_year;
         break;
 
-    case x52_mfd_format_ddmmyy:
-        value1 = x52->date.month << 8 |
-                 x52->date.day;
-        value2 = x52->date.year;
+    case LIBX52_DATE_FORMAT_DDMMYY:
+        value1 = x52->date_month << 8 |
+                 x52->date_day;
+        value2 = x52->date_year;
         break;
 
     default:
@@ -244,18 +259,101 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
 
     if (local) {
         timeval = *localtime(&time);
+        /* timezone from time.h presents the offset in seconds west of GMT.
+         * Negate and divide by 60 to get the offset in minutes east of GMT.
+         */
+        x52->timezone[LIBX52_CLOCK_1] = -timezone / 60;
     } else {
         timeval = *gmtime(&time);
+        /* No offset from GMT */
+        x52->timezone[LIBX52_CLOCK_1] = 0;
     }
 
-    x52->date.day = timeval.tm_mday;
-    x52->date.month = timeval.tm_mon + 1;
-    x52->date.year = timeval.tm_year % 100;
-    x52->time.hour = timeval.tm_hour;
-    x52->time.minute = timeval.tm_min;
+    x52->date_day = timeval.tm_mday;
+    x52->date_month = timeval.tm_mon + 1;
+    x52->date_year = timeval.tm_year % 100;
+    x52->time_hour = timeval.tm_hour;
+    x52->time_minute = timeval.tm_min;
 
     set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
     set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
+    set_bit(&x52->update_mask, X52_BIT_MFD_OFFS1);
+    set_bit(&x52->update_mask, X52_BIT_MFD_OFFS2);
+    return 0;
+}
+
+int libx52_set_clock_timezone(libx52_device *x52, libx52_clock_id clock, int offset)
+{
+    if (!x52) {
+        return -EINVAL;
+    }
+
+    /* Limit offset to +/- 24 hours */
+    if (offset < -1440 || offset > 1440) {
+        return -EDOM;
+    }
+
+    switch (clock) {
+    case LIBX52_CLOCK_2:
+        x52->timezone[clock] = offset;
+        set_bit(&x52->update_mask, X52_BIT_MFD_OFFS1);
+        break;
+
+    case LIBX52_CLOCK_3:
+        x52->timezone[clock] = offset;
+        set_bit(&x52->update_mask, X52_BIT_MFD_OFFS2);
+        break;
+
+    default:
+        return -ENOTSUP;
+    }
+
+    return 0;
+}
+
+int libx52_set_clock_format(libx52_device *x52,
+                            libx52_clock_id clock,
+                            libx52_clock_format format)
+{
+    if (!x52) {
+        return -EINVAL;
+    }
+
+    if ((format != LIBX52_CLOCK_FORMAT_12HR) &&
+        (format != LIBX52_CLOCK_FORMAT_24HR)) {
+
+       return -EINVAL;
+    }
+
+    switch (clock) {
+    case LIBX52_CLOCK_1:
+        set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
+        break;
+
+    case LIBX52_CLOCK_2:
+        set_bit(&x52->update_mask, X52_BIT_MFD_OFFS1);
+        break;
+
+    case LIBX52_CLOCK_3:
+        set_bit(&x52->update_mask, X52_BIT_MFD_OFFS2);
+        break;
+
+    default:
+        return -EINVAL;
+    }
+
+    x52->time_format[clock] = format;
+    return 0;
+}
+
+int libx52_set_date_format(libx52_device *x52, libx52_date_format format)
+{
+    if (!x52) {
+        return -EINVAL;
+    }
+
+    x52->date_format = format;
+    set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
     return 0;
 }
 
@@ -336,12 +434,6 @@ int libx52_update(libx52_device *x52)
                 break;
 
             case X52_BIT_MFD_TIME:
-                value = x52->time.h24 << 15 |
-                        x52->time.hour << 8 |
-                        x52->time.minute;
-                rc = libx52_control_transfer(x52, X52_TIME_CLOCK1, value);
-                break;
-
             case X52_BIT_MFD_OFFS1:
             case X52_BIT_MFD_OFFS2:
             default:

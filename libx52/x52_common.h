@@ -15,45 +15,22 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <libusb.h>
+#include "libx52.h"
 
 /*
  * The X52 MFD supports the following:
  *  - 3 lines of 16 characters each
- *  - Clock with HH:MM
+ *  - Base clock with HH:MM [AM/PM]
  *  - Date with YYMMDD (IIRC)
+ *  - 2 additional clocks offset from base clock
  */
 #define X52_MFD_LINE_SIZE   16
 #define X52_MFD_LINES       3
+#define X52_MFD_CLOCKS      3
 
 struct x52_mfd_line {
     uint8_t     text[X52_MFD_LINE_SIZE];
     uint8_t     length;
-};
-
-enum x52_mfd_date_format {
-    x52_mfd_format_yymmdd,  /* YY-MM-DD */
-    x52_mfd_format_mmddyy,  /* MM-DD-YY */
-    x52_mfd_format_ddmmyy,  /* DD-MM-YY */
-    x52_mfd_format_max,
-};
-
-struct x52_mfd_date {
-    uint8_t     year;
-    uint8_t     month;
-    uint8_t     day;
-    uint8_t     format;     /* See format enum */
-};
-
-struct x52_mfd_time {
-    uint8_t     hour;
-    uint8_t     minute;
-    uint8_t     h24;        /* 24 hour format if 1 */
-};
-
-struct x52_mfd_offs {
-    uint16_t    min_off;    /* Minute offset from clock 0 */
-    uint8_t     neg_off;    /* Negative offset if 1 */
-    uint8_t     h24;        /* 24 hour format if 1 */
 };
 
 struct libx52_device {
@@ -70,9 +47,15 @@ struct libx52_device {
     uint16_t led_brightness;
 
     struct x52_mfd_line line[X52_MFD_LINES];
-    struct x52_mfd_date date;
-    struct x52_mfd_time time;
-    struct x52_mfd_offs offs[2];
+    libx52_date_format date_format;
+    int date_day;
+    int date_month;
+    int date_year;
+    int time_hour;
+    int time_minute;
+
+    int timezone[X52_MFD_CLOCKS];
+    libx52_clock_format time_format[X52_MFD_CLOCKS];
 };
 
 /** Indicator bits for update mask */
@@ -107,5 +90,20 @@ struct libx52_device {
 #define X52_BIT_MFD_TIME        28
 #define X52_BIT_MFD_OFFS1       29
 #define X52_BIT_MFD_OFFS2       30
+
+static inline void set_bit(uint32_t *value, uint32_t bit)
+{
+    *value |= (1UL << bit);
+}
+
+static inline void clr_bit(uint32_t *value, uint32_t bit)
+{
+    *value &= ~(1UL << bit);
+}
+
+static inline uint32_t tst_bit(uint32_t *value, uint32_t bit)
+{
+    return (*value & (1UL << bit));
+}
 
 #endif /* !defined X52JOY_COMMON_H */
