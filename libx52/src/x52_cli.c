@@ -297,7 +297,7 @@ static int do_help(const struct command_handler *cmd)
 {
     int i;
     if (cmd) {
-        fprintf(stderr, "Command usage: %s", cmd->help);        
+        fprintf(stderr, "Command usage: %s\n", cmd->help);
     } else {
         printf("\nCommands:\n");
         for (i = 0; i < X52_CTL_CMD_MAX; i++) {

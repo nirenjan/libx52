@@ -26,13 +26,13 @@ You will need the following packages:
 
 * automake
 * autoconf
-* libusb-1.0-0-dev
+* libusb-1.0-0-dev (Package name may vary across distributions)
 
 ## Installation
 
 1. Clone the parent Git repository
-2. CD to the libx52 folder and run autogen.sh
+2. Run autogen.sh
 3. Run configure; make and sudo make install.
 
-The test program is not installed, there will be a separate command line utility
-in the future that utilizes the library and communicates with the joystick.
+The test program is not installed. Use x52cli to communicate with the joystick
+and set the LEDs and MFD state.
