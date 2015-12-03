@@ -4,6 +4,7 @@
 .libs
 ar-lib
 autom4te.cache
+m4
 compile
 config.*
 configure
