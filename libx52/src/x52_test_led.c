@@ -57,3 +57,22 @@ int test_leds(void)
 
     return 0;
 }
+
+#define TEST_BLINK_OR_SHIFT(type) do { \
+    puts("\nTesting " #type); \
+    sleep(1); \
+    puts(#type " ON"); \
+    TEST(type, 1); \
+    sleep(2); \
+    puts(#type " OFF"); \
+    TEST(type, 0); \
+} while (0)
+
+int test_blink_n_shift(void)
+{
+    print_banner("Blink & Shift");
+    puts("This tests the blink indicator and shift functionality");
+
+    TEST_BLINK_OR_SHIFT(blink);
+    TEST_BLINK_OR_SHIFT(shift);
+}

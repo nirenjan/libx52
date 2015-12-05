@@ -40,7 +40,9 @@ void print_banner(const char *message);
 
 int test_brightness(void);
 int test_mfd_display(void);
+int test_mfd_text(void);
 int test_leds(void);
-
+int test_blink_n_shift(void);
+int test_clock(void);
 
 #endif /* X52_TEST_COMMON_H */

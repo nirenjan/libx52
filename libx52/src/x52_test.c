@@ -112,6 +112,8 @@ int main()
         RUN_TEST(leds)
         RUN_TEST(mfd_text)
         RUN_TEST(mfd_display)
+        RUN_TEST(blink_n_shift)
+        RUN_TEST(clock)
     } while (0);
 
     if (rc > 0) {

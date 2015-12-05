@@ -92,32 +92,12 @@ int test_mfd_display(void)
 
         memset(str, i, 16);
 
-        libx52_set_text(dev, 0, str, 16);
-        libx52_set_text(dev, 1, str, 16);
-        libx52_set_text(dev, 2, str, 16);
+        TEST(text, 0, str, 16);
+        TEST(text, 1, str, 16);
+        TEST(text, 2, str, 16);
 
-        /* Try upto 3 times - if it fails, dump an error */
-        for (j = 0; j < 3; j++) {
-            rc = libx52_update(dev);
-            if (rc) {
-                fprintf(stderr, "\tError %d during update\n", rc);
-                sleep(1);
-            } else {
-                puts("OK");
-                break;
-            }
-        }
-
-        if (rc) {
-            return rc;
-        }
-
-        if (test_exit) {
-            return test_exit;
-        }
-
-        /* usleep(1500000); */
-        sleep(1);
+        puts("OK");
+        usleep(500000);
     } 
 
     return 0;
