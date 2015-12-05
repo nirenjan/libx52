@@ -21,9 +21,21 @@
 
 static int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 {
-    return libusb_control_transfer(x52->hdl,
+    int j;
+    int rc;
+
+    /* Allow retry in case of failure */
+    for (j = 0; j < 3; j++) {
+        rc = libusb_control_transfer(x52->hdl,
             LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE | LIBUSB_ENDPOINT_OUT,
             X52_VENDOR_REQUEST, value, index, NULL, 0, 5000);
+
+        if (rc == 0) {
+            break;
+        }
+    }
+    
+    return rc;
 }
 
 static int libx52_write_line(libx52_device *x52, uint8_t line_index)
