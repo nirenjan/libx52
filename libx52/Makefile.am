@@ -12,5 +12,5 @@ x52cli_SOURCES = src/x52_cli.c
 x52cli_LDADD = libx52.la
 
 x52test_SOURCES = src/x52_test.c src/x52_test_mfd.c src/x52_test_led.c \
-				  src/x52_test_clock.c
+				  src/x52_test_clock.c src/x52_test_common.h
 x52test_LDADD = libx52.la
