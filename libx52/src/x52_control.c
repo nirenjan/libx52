@@ -19,7 +19,7 @@
 #include "x52_commands.h"
 #include "x52_common.h"
 
-static int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
+int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 {
     int j;
     int rc;

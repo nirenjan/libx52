@@ -24,6 +24,7 @@ typedef enum {
     X52_CTL_CMD_SHIFT,
     X52_CTL_CMD_CLOCK,
     X52_CTL_CMD_OFFSET,
+    X52_CTL_CMD_RAW,
 
     X52_CTL_CMD_MAX
 } x52_ctl_command;
@@ -160,6 +161,7 @@ DEFINE_MAP(command) = {
     { "shift",      X52_CTL_CMD_SHIFT },
     { "clock",      X52_CTL_CMD_CLOCK },
     { "offset",     X52_CTL_CMD_OFFSET },
+    { "raw",        X52_CTL_CMD_RAW },
     { NULL,         -1 }
 };
 
@@ -231,6 +233,14 @@ static int update_offset(libx52_device *x52, void *args[])
     return rc;
 }
 
+static int write_raw(libx52_device *x52, void *args[])
+{
+    uint16_t wIndex = (uint16_t)strtoul(args[0], NULL, 0);
+    uint16_t wValue = (uint16_t)strtoul(args[1], NULL, 0);
+
+    return libx52_vendor_command(x52, wIndex, wValue);
+}
+
 const struct command_handler handlers[X52_CTL_CMD_MAX] = {
     [X52_CTL_CMD_LED_STATE] = {
         update_led,
@@ -291,6 +301,15 @@ const struct command_handler handlers[X52_CTL_CMD_MAX] = {
         },
         "offset {2 | 3} <offset from clock 1 in minutes> {12hr | 24hr}"
     },
+    [X52_CTL_CMD_RAW] = {
+        write_raw,
+        2,
+        {
+            NULL,
+            NULL,
+        },
+        "raw <wIndex> <wValue>"
+    }
 };
 
 static int do_help(const struct command_handler *cmd)
@@ -304,7 +323,7 @@ static int do_help(const struct command_handler *cmd)
             printf("\t%s\n", handlers[i].help);
         }
 
-        printf("\n");
+        printf("\nWARNING: raw command may damage your device\n\n");
     }
 }
 

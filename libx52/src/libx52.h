@@ -295,4 +295,18 @@ int libx52_set_blink(libx52_device *x52, uint8_t state);
  */
 int libx52_update(libx52_device *x52);
 
+/**
+ * @brief Write a raw vendor control packet
+ *
+ * This can be used to debug issues seen on the hardware, however, it is not
+ * recommended for use by end users, as it can potentially damage the hardware.
+ *
+ * @param[in]   x52     Pointer to the device
+ * @param[in]   index   wIndex in the USB packet
+ * @param[in]   value   wValue in the USB packet
+ *
+ * @returns 0 on success, -errno on failure
+ */
+int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
+
 #endif /* !defined LIBX52_H */
