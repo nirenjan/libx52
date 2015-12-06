@@ -15,7 +15,7 @@
 #include <time.h>
 #include <stdint.h>
 
-#ifndef __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -313,7 +313,7 @@ int libx52_update(libx52_device *x52);
  */
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
 
-#ifndef __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

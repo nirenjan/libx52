@@ -47,7 +47,7 @@ libx52_device* libx52_init(void)
     libx52_device *x52_dev;
 
     /* Allocate memory for the library's data structures */
-    x52_dev = malloc(sizeof(libx52_device));
+    x52_dev = calloc(1, sizeof(libx52_device));
     if (!x52_dev) {
         errno = ENOMEM;
         return NULL;
@@ -76,6 +76,11 @@ libx52_device* libx52_init(void)
         }
     }
     libusb_free_device_list(list, 1);
+
+    /* Make sure we actually have an X52 device detected */
+    if (!x52_dev->hdl) {
+        goto err_recovery;
+    }
 
     return x52_dev;
 err_recovery:
