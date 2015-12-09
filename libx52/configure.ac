@@ -6,13 +6,13 @@ AM_PROG_AR
 LT_INIT
 
 # Check for libusb-1.0
-AC_SEARCH_LIBS([libusb_init], [libusb-1.0], [have_libusb=yes])
+AC_SEARCH_LIBS([libusb_init], [usb-1.0], [have_libusb=yes])
 
 if test "x${have_libusb}" = xyes; then
     AC_CHECK_HEADERS([libusb-1.0/libusb.h], [], [have_libusb=no])
 fi
 
-if test "x${have_libusb}" = xno; then
+if test "x${have_libusb}" != xyes; then
     AC_MSG_ERROR([
     -------------------------------------------------------
      The library libusb-1.0 and header file libusb.h
