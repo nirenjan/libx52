@@ -1,0 +1,147 @@
+.TH X52CLI 1 2015-12-09 X52Pro-Linux "User Commands"
+.SH NAME
+x52cli \- Command line frontend to libx52
+
+.SH SYNOPSIS
+.B x52cli
+<\fIcommands\fR> [\fIcommand-options\fR]
+
+.SH DESCRIPTION
+.BR x52cli
+is a command line frontend to the X52 library that allows you to set the LEDs
+and different parameters on the multi-function display.
+
+Running
+.BR x52cli
+without any arguments will display a brief help message.
+
+.SH COMMANDS
+Commands are not case sensitive.
+
+.IP "\fBbri\fR {\fBmfd\fR | \fBled\fR} <\fIbrightness\fR>"
+Set the brightness of the \fBmfd\fR or \fBled\fRs. \fIbrightness\fR can be any
+numeric value between 0 and 128. Higher values are accepted, but may not have
+the desired effect.
+
+.IP "\fBmfd\fR <\fIline\fR> <\fItext\fR>"
+Set the text on the MFD \fIline\fR. \fIline\fR can be 0, 1 or 2, and refers to
+the first, second or third line of the multi-function display respectively.
+\fItext\fR cannot have embedded NUL characters (0x00) and must correspond
+with the character map of the MFD. \fItext\fR should be quoted in order to
+preserve embedded whitespace. To pass raw hex values, use 
+.BR printf (1)
+as shown in the examples section. Note that \fItext\fR is limited to a length
+of 16 characters. While you can pass longer strings, they will be truncated.
+
+.IP "\fBled\fR <\fIled-id\fR> <\fIstate\fR>"
+Set the LED \fIled-id\fR to \fIstate\fR.
+
+.IP "\fBblink\fR {\fBon\fR | \fBoff\fR}"
+Turn the \fBblink\fR state \fBon\fR or \fBoff\fR.
+
+.IP "\fBshift\fR {\fBon\fR | \fBoff\fR}"
+Turn the \fBshift\fR indicator in the multi-function display \fBon\fR or
+\fBoff\fR.
+
+.IP "\fBclock\fR {\fBlocal\fR | \fBgmt\fR} {\fB12hr\fR | \fB24hr\fB} {\fBddmmyy\fR | \fBmmddyy\fR | \fByymmdd\fR}"
+Set the clock 1 display to the current time and date in either the \fBlocal\fR
+timezone, or in \fBgmt\fR timezone. Clock can be configured to display in either
+\fB12hr\fB or \fB24hr\fR mode. Date can be displayed in one of the following
+formats: \fBddmmyy\fR, \fBmmddyy\fR, or \fByymmdd\fR.
+
+.IP "\fBoffset\fR" {\fB2\fR | \fB3\fR} <\fIoffset-val\fR> {\fB12hr\fR | \fB24hr\fB}"
+Set the offsets for clocks \fB2\fR or \fB3\fR and configure them in \fB12hr\fR
+or \fB24hr\fR modes. \fIoffset-val\fR is in minutes from clock 1 and can range
+from -1440 to +1440.
+
+.IP "\fBraw\fR <\fIwIndex\fR> <\fIwValue\fR>"
+Send a raw vendor control request to the X52 Pro.
+
+\fBWARNING:\fR You should only use this if you know what you are doing. Sending
+an invalid control sequence can potentially destroy your device.
+
+.SH LEDs
+
+.SS "LED IDs"
+This is the list of LEDs supported by the X52 Pro.
+
+.IP \[bu]
+fire
+.IP \[bu]
+a
+.IP \[bu]
+b
+.IP \[bu]
+d
+.IP \[bu]
+e
+.IP \[bu]
+t1
+.IP \[bu]
+t2
+.IP \[bu]
+t3
+.IP \[bu]
+pov
+.IP \[bu]
+clutch
+.IP \[bu]
+throttle
+
+.SS "LED States"
+This is the list of LED states supported by the X52 Pro.
+
+.IP \[bu]
+off
+.IP \[bu]
+on
+.IP \[bu]
+red
+.IP \[bu]
+amber
+.IP \[bu]
+green
+
+.P
+Note that the \fBon\fR state is only supported by the \fBfire\fR and
+\fBthrottle\fR LEDs, and they do not support the \fBred\fR, \fBamber\fR
+and \fBgreen\fR states. The remaining LEDs do not support the \fBon\fR
+state, but support all the other states.
+
+.SH KNOWN ISSUES
+
+.BR x52cli
+does not maintain any state between invocations. As a result, the
+\fBclock\fR command will reset the offsets for clocks 2 and 3 back to 0
+in 12hr mode.
+
+.SH PERMISSIONS
+
+You must have write permissions to the USB device in order to use the
+\fBlibx52\fR library, and by extension
+.BR x52cli
+
+The simplest method is to run
+.BR x52cli
+as root, preferably through
+.BR sudo (8)
+
+.SH EXAMPLES
+
+.PD 0
+\fBx52cli\fR led t1 off
+.P
+Turn off the T1 LED.
+
+\fBx52cli\fR led B amber
+.P
+Turn the B LED to Amber
+
+\fBx52cli\fR mfd 0 "Hello World"
+.P
+Set line 1 of the MFD to display "Hello World"
+
+\fBx52cli\fR mfd 1 "$(printf '\\x9FC\\xE2mo Est\\xE0s?')"
+.P
+Set line 2 of the MFD to display "¿Cómo Estás?"
+
