@@ -8,16 +8,27 @@ display which is programmable.
 
 Currently, only Windows drivers are available from Saitek PLC, which
 led me to develop a new Linux driver which can program the MFD and
-the individual LEDs on the joystick. Although the standard usbhid
-driver is capable of reading the joystick, it is not sufficient to
-really utilize all the capabilities of this system.
+the individual LEDs on the joystick. The standard usbhid driver is
+capable of reading the joystick, but it cannot control the MFD or LEDs.
 
-This project is currently a work-in-progress. However a high level
-outline of the current objectives are listed below:
+Most of the extra functionality can be handled from userspace. See
+the individual folders for README information.
 
-* Write a kernel module and export sysfs interfaces to act as a
-driver.
-* Write a userspace program that can configure the kernel module
-and create custom button mappings to keyboard or mouse events.
-* Add interrupt handling and export a /dev/input/jsX interface.
-* Allow userspace programs to register callbacks on MFD button events.
+# Building
+
+Build has been tested on Ubuntu 14.04 LTS on x86_64.
+
+## Prerequisites
+
+You will need the following packages:
+
+* automake
+* autoconf
+* libusb-1.0-0-dev (Package name may vary across distributions)
+
+## Installation
+
+1. Clone the repository
+2. Run autogen.sh
+3. Run configure; make and sudo make install.
+
