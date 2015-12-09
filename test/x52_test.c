@@ -91,9 +91,10 @@ int main()
 {
     int rc = 0;
 
-    printf("x52test is a suite of tests to write to the X52 Pro device\n");
-    printf("and test the extra functionality available in the LEDs and MFD\n");
-    printf("\nThese tests take quite some time, press Enter to begin the test");
+    puts("x52test is a suite of tests to write to the X52 Pro device");
+    puts("and test the extra functionality available in the LEDs and MFD");
+    puts("\nThese tests take roughly 6 minutes to run");
+    puts("Press Enter to begin the tests, press Ctrl-C to abort anytime");
 
     getc(stdin);
 
