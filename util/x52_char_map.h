@@ -29,4 +29,6 @@ struct map_entry {
     uint8_t value;          /* Value is valid if this is of TYPE_ENTRY */
 };
 
+extern struct map_entry map_root[];
+
 #endif /* !defined X52_CHAR_MAP_H */
