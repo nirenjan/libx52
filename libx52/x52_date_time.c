@@ -22,6 +22,13 @@
 int libx52_set_clock(libx52_device *x52, time_t time, int local)
 {
     struct tm timeval;
+    int local_tz;
+    int local_date_day;
+    int local_date_month;
+    int local_date_year;
+    int local_time_hour;
+    int local_time_minute;
+
     if (!x52) {
         return -EINVAL;
     }
@@ -31,23 +38,47 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
         /* timezone from time.h presents the offset in seconds west of GMT.
          * Negate and divide by 60 to get the offset in minutes east of GMT.
          */
-        x52->timezone[LIBX52_CLOCK_1] = -timezone / 60;
+        local_tz = -timezone / 60;
     } else {
         timeval = *gmtime(&time);
         /* No offset from GMT */
-        x52->timezone[LIBX52_CLOCK_1] = 0;
+        local_tz = 0;
     }
 
-    x52->date_day = timeval.tm_mday;
-    x52->date_month = timeval.tm_mon + 1;
-    x52->date_year = timeval.tm_year % 100;
-    x52->time_hour = timeval.tm_hour;
-    x52->time_minute = timeval.tm_min;
+    local_date_day = timeval.tm_mday;
+    local_date_month = timeval.tm_mon + 1;
+    local_date_year = timeval.tm_year % 100;
+    local_time_hour = timeval.tm_hour;
+    local_time_minute = timeval.tm_min;
 
-    set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
-    set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
-    set_bit(&x52->update_mask, X52_BIT_MFD_OFFS1);
-    set_bit(&x52->update_mask, X52_BIT_MFD_OFFS2);
+    /* Update the date only if it has changed */
+    if (x52->date_day != local_date_day ||
+        x52->date_month != local_date_month ||
+        x52->date_year != local_date_year) {
+
+        x52->date_day = local_date_day;
+        x52->date_month = local_date_month;
+        x52->date_year = local_date_year;
+        set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
+    }
+
+    /* Update the time only if it has changed */
+    if (x52->time_hour != local_time_hour ||
+        x52->time_minute != local_time_minute) {
+
+        x52->time_hour = local_time_hour;
+        x52->time_minute = local_time_minute;
+        set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
+    }
+
+    /* Update the offset fields only if the timezone has changed */
+    if (x52->timezone[LIBX52_CLOCK_1] != local_tz) {
+        set_bit(&x52->update_mask, X52_BIT_MFD_OFFS1);
+        set_bit(&x52->update_mask, X52_BIT_MFD_OFFS2);
+    }
+
+    /* Save the timezone */
+    x52->timezone[LIBX52_CLOCK_1] = local_tz;
     return 0;
 }
 
