@@ -1,0 +1,10 @@
+language: c
+script: ./autogen.sh && ./configure && make && make test
+
+# Use container based infrastructure
+sudo: false
+addons:
+    apt:
+        packages:
+        - libusb-1.0-0-dev
+        - libudev-dev
