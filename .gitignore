@@ -3,8 +3,13 @@
 *.o
 *.mod.*
 
-# Compiled executables
+# Generated objects (source, executables, tarballs, etc.)
 a.out
+cli/x52cli*
+test/x52test*
+util/util_char_map.c
+util/x52charmapgen*
+x52pro-linux-*.tar.gz
 
 # Module files
 modules.order
