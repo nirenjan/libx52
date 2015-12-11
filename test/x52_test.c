@@ -16,7 +16,6 @@
 
 #include "libx52.h"
 #include "x52_test_common.h"
-
 libx52_device *dev;
 int test_exit;
 
@@ -68,7 +67,7 @@ void print_banner(const char *message)
         putchar('=');
     }
     putchar('\n');
-    
+
     putchar('\t');
     putchar(' ');
     puts(message);
@@ -85,15 +84,27 @@ static void signal_handler(int sig)
     test_exit = sig;
 }
 
-#define RUN_TEST(tst) rc = test_ ## tst (); if (rc) break;
+#define TEST_brightness     (1 << 0)
+#define TEST_leds           (1 << 1)
+#define TEST_mfd_text       (1 << 2)
+#define TEST_mfd_display    (1 << 3)
+#define TEST_blink_n_shift  (1 << 4)
+#define TEST_clock          (1 << 5)
 
-int main()
+#define TEST_ALL (TEST_brightness | TEST_leds | TEST_mfd_text | TEST_blink_n_shift | TEST_clock | TEST_mfd_display)
+
+static int run_tests(int test_set)
 {
+#define RUN_TEST(tst) if (test_set & TEST_ ## tst) { rc = test_ ## tst (); if (rc) break; }
+
     int rc = 0;
 
     puts("x52test is a suite of tests to write to the X52 Pro device");
-    puts("and test the extra functionality available in the LEDs and MFD");
-    puts("\nThese tests take roughly 6 minutes to run");
+    puts("and test the extra functionality available in the LEDs and MFD\n");
+
+    if (test_set == TEST_ALL) {
+        puts("These tests take roughly 6 minutes to run");
+    }
     puts("Press Enter to begin the tests, press Ctrl-C to abort anytime");
 
     getc(stdin);
@@ -128,4 +139,73 @@ int main()
     if (rc >= 0) test_cleanup();
     libx52_exit(dev);
     return 0;
+}
+
+void usage(void)
+{
+    puts("These are the available tests with a description and");
+    puts("approximate runtime. Not specifying any tests will run");
+    puts("all the tests\n");
+
+    puts("List of tests:");
+    puts("==============");
+    puts("\tbri\tTest brightness scale (~ 1m)");
+    puts("\tled\tTest LED states (~ 45s)");
+    puts("\tmfd1\tTest MFD string display (~ 30s)");
+    puts("\tmfd2\tTest MFD displays all characters (~ 2m 15s)");
+    puts("\tblink\tTest the blink and shift commands (< 10s)");
+    puts("\tclock\tTest the clock commands (~ 1m)");
+    puts("");
+}
+
+int main(int argc, char **argv)
+{
+    int test_list;
+    int i;
+
+    /* Usage: x52test [list of tests] */
+    if (argc == 1) {
+        /* Run all tests, if none specified */
+        test_list = TEST_ALL;
+    } else {
+        /* Initialize the test list to run no tests, the commands
+         * will enable the selective tests
+         */
+        test_list = 0;
+    }
+
+    for (i = 1; i < argc; i++) {
+        if (!strcmp(argv[i], "help") ||
+            !strcmp(argv[i], "--help")) {
+
+            /* Display help string and exit */
+            printf("Usage: %s [list of tests]\n\n", argv[0]);
+            usage();
+            return 0;
+        } else if (!strcmp(argv[i], "bri")) {
+            test_list |= TEST_brightness;
+        } else if (!strcmp(argv[i], "led")) {
+            test_list |= TEST_leds;
+        } else if (!strcmp(argv[i], "mfd1")) {
+            test_list |= TEST_mfd_text;
+        } else if (!strcmp(argv[i], "mfd2")) {
+            test_list |= TEST_mfd_display;
+        } else if (!strcmp(argv[i], "blink")) {
+            test_list |= TEST_blink_n_shift;
+        } else if (!strcmp(argv[i], "clock")) {
+            test_list |= TEST_clock;
+        } else {
+            printf("Unrecognized test identifier: %s\n\n", argv[i]);
+            usage();
+            return 1;
+        }
+    }
+
+    if (test_list) {
+        i = run_tests(test_list);
+    } else {
+        puts("Not running any tests");
+    }
+
+    return i;
 }
