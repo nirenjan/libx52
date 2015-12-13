@@ -192,7 +192,8 @@ int libx52_set_led_state(libx52_device *x52,
  * @param[in]   time    Time value from \ref time(3)
  * @param[in]   local   0 for GM time, non-zero for localtime
  *
- * @returns 0 on success, -errno on failure
+ * @returns 0 on success, -EAGAIN if no change from previous time,
+ *          -errno on failure
  */
 int libx52_set_clock(libx52_device *x52, time_t time, int local);
 
