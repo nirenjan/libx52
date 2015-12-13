@@ -8,7 +8,7 @@ libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c
 libx52_la_LDFLAGS = -version-info 2:1:1 -lusb-1.0
 
 # Header files that need to be copied
-x52includedir = $(includedir)/x52pro-@X52_PKG_VERSION@
+x52includedir = $(includedir)
 x52include_HEADERS = libx52.h
 # pkginclude_HEADERS = libx52.h
 
