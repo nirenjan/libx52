@@ -1,0 +1,21 @@
+libx52_set_blink(3) -- turn the blink module on or off
+======================================================
+
+## SYNOPSIS
+
+`#include <libx52.h>`
+
+`int libx52_set_blink(libx52_device *` _x52_`, uint8_t ` _state_`)`
+
+## DESCRIPTION
+
+`libx52_set_blink()` can be used to set the state of the blink module to `on`
+(_state_ is non-zero) or `off` (_state_ is 0).
+
+## RETURN VALUE
+
+`libx52_set_blink()` returns 0 on success, and `-EINVAL` if _x52_ is not valid.
+
+## SEE ALSO
+
+libx52_update(3)

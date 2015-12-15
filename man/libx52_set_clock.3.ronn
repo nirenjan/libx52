@@ -1,0 +1,37 @@
+libx52_set_clock(3) -- set the primary clock
+============================================
+
+## SYNOPSIS
+
+`#include <libx52.h>`
+
+`int libx52_set_clock(libx52_device *` _x52_`, time_t ` _time_ `, int ` _local_`)`
+
+## DESCRIPTION
+
+`libx52_set_clock()` can be used to set the primary clock and date display of
+the MFD.  The _time_ can be obtained from time(2). _local_ controls whether
+the primary clock displays local time or GMT.
+
+If this function is called again within the same minute as calculated by
+localtime(3) or gmtime(3), it will return `-EAGAIN`, as it does not require
+any updates to be written to the X52 Pro. However, if the call changes the
+timezone from local time to GMT or vice-versa, then this function will return
+0, since it necessitates a write to the device to update the clock with the
+new timezone.
+
+The secondary and tertiary clocks are driven off the primary clock and set as
+offsets in minutes east of GMT.
+
+## RETURN VALUE
+
+`libx52_set_clock()` returns the following values:
+
+* 0 on success
+* `-EINVAL` if _x52_ is not valid
+* `-EAGAIN` if the time did not require an update to the clock.
+
+## SEE ALSO
+
+libx52_set_clock_timezone(3), libx52_set_clock_format(3),
+libx52_set_date_format(3), libx52_update(3)

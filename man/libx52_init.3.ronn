@@ -1,0 +1,27 @@
+libx52_init(3) -- Initialize libx52
+===================================
+
+## SYNOPSIS
+
+`#include <libx52.h>`
+
+`libx52_device * libx52_init(void)`
+
+## DESCRIPTION
+
+`libx52_init()` initializes the libx52 library, sets up any internal data
+structures to access the X52 Pro joystick and returns a *libx52_device* pointer.
+
+If no joystick is found `libx52_init()` returns _NULL_.
+
+## LIMITATIONS
+
+`libx52_init()` currently only recognizes the Saitek X52 Pro, not the original
+Saitek X52.
+
+`libx52_init()` does not support hotplugging. The joystick must be plugged in
+before calling this function.
+
+## SEE ALSO
+
+libx52_exit(3)

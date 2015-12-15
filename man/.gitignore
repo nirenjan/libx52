@@ -1,0 +1,7 @@
+# Ignore generated man pages
+*.1
+*.3
+
+# Ignore generated html pages
+*.html
+

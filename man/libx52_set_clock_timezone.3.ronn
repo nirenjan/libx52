@@ -1,0 +1,34 @@
+libx52_set_clock_timezone(3) -- set the timezone for the secondary and tertiary clocks
+======================================================================================
+
+## SYNOPSIS
+
+`#include <libx52.h>`
+
+`int libx52_set_clock_timezone(libx52_device *` _x52_`, libx52_clock_id `
+_clock_ `, int ` _offset_`)`
+
+## DESCRIPTION
+
+`libx52_set_clock_timezone()` can be used to set the timezone for the secondary
+and tertiary clocks on the MFD. The timezone is set as an _offset_ in minutes
+east of GMT. Note that this is different from the timezone(3) attribute in the
+standard C library which specifies the offset in seconds west of GMT.
+
+_offset_ is limited to +/- 24 hours (1440 minutes).
+
+See libx52_set_clock_format(3) for an explanation of `libx52_clock_id`.
+
+## RETURN VALUE
+
+`libx52_set_clock()` returns the following values:
+
+* 0 on success
+* `-EINVAL` if _x52_ is not valid
+* `-EDOM` if the offset is more than +/- 24 hours
+* `-ENOTSUP` if the _clock_ is `LIBX52_CLOCK_1`
+
+## SEE ALSO
+
+libx52_set_clock(3), libx52_set_clock_format(3),
+libx52_set_date_format(3), libx52_update(3)

@@ -1,0 +1,35 @@
+libx52_set_text(3) -- set the text on an MFD line
+=================================================
+
+## SYNOPSIS
+
+`#include <libx52.h>`
+
+`int libx52_set_text(libx52_device *` _x52_`, uint8_t` _line_`, const char *`
+_text_`, uint8_t` _length_`)`
+
+## DESCRIPTION
+
+The Multifunction display (MFD) on the Saitek X52 Pro supports 3 lines of up to
+16 characters. This function will set the text into the internal data
+structures.
+
+_text_ must be a pointer to an array of bytes, each byte represents a code point
+on the MFD's internal character map. _length_ is the length of this array.
+
+_line_ must be **0**, **1** or **2** and refers to the first, second or third
+line of the MFD respectively. _x52_ is a pointer returned by libx52_init(3).
+
+## RETURN VALUE
+
+`libx52_set_text()` returns 0 on success, and `-EINVAL` if either _x52_ is
+invalid, or _line_ is outside of the accepted range.
+
+## LIMITATIONS
+
+`libx52_set_text()` can only store a maximum of 16 characters. Any additional
+characters are discarded.
+
+## SEE ALSO
+
+libx52_update(3)

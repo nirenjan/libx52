@@ -1,0 +1,5 @@
+# Standard POSIX manuals
+time(2)                     http://man.cx/time%282%29
+localtime(3)                http://man.cx/localtime
+gmtime(3)                   http://man.cx/gmtime
+timezone(3)                 http://man.cx/tzset
