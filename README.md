@@ -25,6 +25,7 @@ You will need the following packages:
 * automake
 * autoconf
 * libusb-1.0-0-dev (Package name may vary across distributions)
+* python (2.6 or greater)
 
 ## Installation
 
