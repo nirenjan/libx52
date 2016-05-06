@@ -63,8 +63,18 @@ class MapTable():
 
     @classmethod
     def add_to_table(cls, input_val, map_val):
-        utf8_str = unichr(input_val).encode('utf-8')
-        utf8_vals = [ord(c) for c in utf8_str]
+        try:
+            uchr = unichr(input_val)
+        except NameError:
+            # Python 3 doesn't have unichr, but chr should work
+            uchr = chr(input_val)
+
+        utf8_str = uchr.encode('utf-8')
+        # Python2 returns the encoded result as a string, wheras
+        # Python3 returns the result as a bytearray. Converting
+        # the string (or bytearray) into a bytearray ensures that
+        # this can be run in both Python2 and Python3
+        utf8_vals = [c for c in bytearray(utf8_str)]
 
         value_so_far = 0
         level = cls.root
