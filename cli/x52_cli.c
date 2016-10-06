@@ -333,7 +333,6 @@ static int do_help(const struct command_handler *cmd)
 int main(int argc, char **argv)
 {
     libx52_device *x52;
-    int command;
     struct string_map result;
     const struct command_handler *cmd;
     int i;
