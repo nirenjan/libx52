@@ -326,6 +326,8 @@ static int do_help(const struct command_handler *cmd)
 
         printf("\nWARNING: raw command may damage your device\n\n");
     }
+
+    return 0;
 }
 
 int main(int argc, char **argv)
