@@ -313,7 +313,7 @@ const struct command_handler handlers[X52_CTL_CMD_MAX] = {
     }
 };
 
-static int do_help(const struct command_handler *cmd)
+static void do_help(const struct command_handler *cmd)
 {
     int i;
     if (cmd) {

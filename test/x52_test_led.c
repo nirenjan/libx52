@@ -75,4 +75,6 @@ int test_blink_n_shift(void)
 
     TEST_BLINK_OR_SHIFT(blink);
     TEST_BLINK_OR_SHIFT(shift);
+
+    return 0;
 }
