@@ -22,7 +22,7 @@
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 {
     int j;
-    int rc = LIBUSB_ERROR_OTHER;
+    int rc = 0;
 
     /* Allow retry in case of failure */
     for (j = 0; j < 3; j++) {
@@ -168,7 +168,7 @@ int libx52_update(libx52_device *x52)
     unsigned int i;
     uint32_t update_mask;
     uint16_t value;
-    int rc = LIBUSB_ERROR_OTHER;
+    int rc = 0;
 
     /* Save the update mask */
     update_mask = x52->update_mask;
