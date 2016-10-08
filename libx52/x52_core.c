@@ -55,7 +55,11 @@ libx52_device* libx52_init(void)
 
     rc = libusb_init(&(x52_dev->ctx));
     if (rc) {
+#if defined(__linux__)
         errno = ELIBACC;
+#else
+        errno = ENOENT;
+#endif
         goto err_recovery;
     }
     libusb_set_debug(x52_dev->ctx, 3);
