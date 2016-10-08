@@ -59,6 +59,13 @@ struct command_handler {
 
 #define MAP(name)   name##_map
 #define DEFINE_MAP(name) static const struct string_map MAP(name)[]
+#define MAP_CLOCK_ID(id)        {.key = #id, .value.clock_id = LIBX52_CLOCK_ ## id}
+#define MAP_CLOCK_FORMAT(fmt)   {.key = #fmt, .value.clock_format = LIBX52_CLOCK_FORMAT_ ## fmt}
+#define MAP_DATE_FORMAT(fmt)    {.key = #fmt, .value.date_format = LIBX52_DATE_FORMAT_ ## fmt}
+#define MAP_LED_ID(id)          {.key = #id, .value.led_id = LIBX52_LED_ ## id}
+#define MAP_LED_STATE(state)    {.key = #state, .value.led_state = LIBX52_LED_STATE_ ## state}
+#define MAP_INT(str, val)       {.key = str, .value.int_val = val}
+#define MAP_TERMINATOR  MAP_INT(NULL, -1)
 
 /**
  * Parse a string and match it with a corresponding value
@@ -85,85 +92,85 @@ static int map_lookup(const struct string_map *map, const char *str, struct stri
 
 /* Map for LED state */
 DEFINE_MAP(led_state) = {
-    { "off",        LIBX52_LED_STATE_OFF },
-    { "on",         LIBX52_LED_STATE_ON },
-    { "red",        LIBX52_LED_STATE_RED },
-    { "amber",      LIBX52_LED_STATE_AMBER },
-    { "green",      LIBX52_LED_STATE_GREEN },
-    { NULL,         -1 }
+    MAP_LED_STATE(OFF),
+    MAP_LED_STATE(ON),
+    MAP_LED_STATE(RED),
+    MAP_LED_STATE(AMBER),
+    MAP_LED_STATE(GREEN),
+    MAP_TERMINATOR
 };
 
 /* Map for LED identifier */
 DEFINE_MAP(led_id) = {
-    { "fire",       LIBX52_LED_FIRE },
-    { "a",          LIBX52_LED_A },
-    { "b",          LIBX52_LED_B },
-    { "d",          LIBX52_LED_D },
-    { "e",          LIBX52_LED_E },
-    { "t1",         LIBX52_LED_T1 },
-    { "t2",         LIBX52_LED_T2 },
-    { "t3",         LIBX52_LED_T3 },
-    { "pov",        LIBX52_LED_POV },
-    { "clutch",     LIBX52_LED_CLUTCH },
-    { "throttle",   LIBX52_LED_THROTTLE },
-    { NULL,         -1 }
+    MAP_LED_ID(FIRE),
+    MAP_LED_ID(A),
+    MAP_LED_ID(B),
+    MAP_LED_ID(D),
+    MAP_LED_ID(E),
+    MAP_LED_ID(T1),
+    MAP_LED_ID(T2),
+    MAP_LED_ID(T3),
+    MAP_LED_ID(POV),
+    MAP_LED_ID(CLUTCH),
+    MAP_LED_ID(THROTTLE),
+    MAP_TERMINATOR
 };
 
 /* Map for date format */
 DEFINE_MAP(date_format) = {
-    { "ddmmyy",     LIBX52_DATE_FORMAT_DDMMYY },
-    { "mmddyy",     LIBX52_DATE_FORMAT_MMDDYY },
-    { "yymmdd",     LIBX52_DATE_FORMAT_YYMMDD },
-    { NULL,         -1 }
+    MAP_DATE_FORMAT(DDMMYY),
+    MAP_DATE_FORMAT(MMDDYY),
+    MAP_DATE_FORMAT(YYMMDD),
+    MAP_TERMINATOR
 };
 
 /* Map for brightness setting */
 DEFINE_MAP(brightness_targets) = {
-    { "mfd",        1 },
-    { "led",        0 },
-    { NULL,         -1 }
+    MAP_INT( "mfd", 1 ),
+    MAP_INT( "led", 0 ),
+    MAP_TERMINATOR
 };
 
 /* Map for blink/shift on/off */
 DEFINE_MAP(on_off) = {
-    { "off",        0  },
-    { "on",         1  },
-    { NULL,         -1 }
+    MAP_INT( "off", 0  ),
+    MAP_INT( "on",  1  ),
+    MAP_TERMINATOR
 };
 
 /* Map for clock 0 timezone */
 DEFINE_MAP(clock0_timezone) = {
-    { "gmt",        0  },
-    { "local",      1  },
-    { NULL,         -1 }
+    MAP_INT( "gmt",     0  ),
+    MAP_INT( "local",   1  ),
+    MAP_TERMINATOR
 };
 
 /* Map for identifying the clock for the timezone */
 DEFINE_MAP(clocks) = {
-    { "1",          LIBX52_CLOCK_1 },
-    { "2",          LIBX52_CLOCK_2 },
-    { "3",          LIBX52_CLOCK_3 },
-    { NULL,         -1 }
+    MAP_CLOCK_ID(1),
+    MAP_CLOCK_ID(2),
+    MAP_CLOCK_ID(3),
+    MAP_TERMINATOR
 };
 
 /* Map for identifying the time format */
 DEFINE_MAP(time_format) = {
-    { "12hr",       LIBX52_CLOCK_FORMAT_12HR },
-    { "24hr",       LIBX52_CLOCK_FORMAT_24HR },
-    { NULL,         -1 }
+    MAP_CLOCK_FORMAT(12HR),
+    MAP_CLOCK_FORMAT(24HR),
+    MAP_TERMINATOR
 };
 
 /* Map for commands */
 DEFINE_MAP(command) = {
-    { "led",        X52_CTL_CMD_LED_STATE },
-    { "bri",        X52_CTL_CMD_BRIGHTNESS },
-    { "mfd",        X52_CTL_CMD_MFD_TEXT },
-    { "blink",      X52_CTL_CMD_BLINK },
-    { "shift",      X52_CTL_CMD_SHIFT },
-    { "clock",      X52_CTL_CMD_CLOCK },
-    { "offset",     X52_CTL_CMD_OFFSET },
-    { "raw",        X52_CTL_CMD_RAW },
-    { NULL,         -1 }
+    MAP_INT( "led",     X52_CTL_CMD_LED_STATE ),
+    MAP_INT( "bri",     X52_CTL_CMD_BRIGHTNESS ),
+    MAP_INT( "mfd",     X52_CTL_CMD_MFD_TEXT ),
+    MAP_INT( "blink",   X52_CTL_CMD_BLINK ),
+    MAP_INT( "shift",   X52_CTL_CMD_SHIFT ),
+    MAP_INT( "clock",   X52_CTL_CMD_CLOCK ),
+    MAP_INT( "offset",  X52_CTL_CMD_OFFSET ),
+    MAP_INT( "raw",     X52_CTL_CMD_RAW ),
+    MAP_TERMINATOR
 };
 
 static int update_led(libx52_device *x52, void *args[])
