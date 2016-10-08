@@ -78,8 +78,6 @@ int test_mfd_text(void)
 int test_mfd_display(void)
 {
     int i;
-    int j;
-    int rc;
     char str[16];
 
     print_banner("MFD display");

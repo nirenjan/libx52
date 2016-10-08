@@ -39,7 +39,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
         /* timezone from time.h presents the offset in seconds west of GMT.
          * Negate and divide by 60 to get the offset in minutes east of GMT.
          */
-        local_tz = -timezone / 60;
+        local_tz = (int)(-timezone / 60);
     } else {
         timeval = *gmtime(&time);
         /* No offset from GMT */
