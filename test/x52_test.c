@@ -59,7 +59,7 @@ void test_cleanup(void)
 void print_banner(const char *message)
 {
     size_t len = strlen(message);
-    int i;
+    size_t i;
 
     putchar('\n');
     putchar('\t');
