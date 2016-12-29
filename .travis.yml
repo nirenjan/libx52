@@ -1,5 +1,5 @@
 language: c
-script: ./autogen.sh && ./configure && make && make distcheck
+script: ./autogen.sh && ./configure && make V=0 && make distcheck
 
 # Use container based infrastructure
 sudo: false
