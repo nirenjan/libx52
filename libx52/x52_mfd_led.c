@@ -39,7 +39,7 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
     return 0;
 }
 
-int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
+static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
 {
     if (!x52) {
         return -EINVAL;
@@ -98,6 +98,23 @@ int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state
     }
 
     return 0;
+}
+
+int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
+{
+    if (!x52) {
+        return -EINVAL;
+    }
+
+    if (tst_bit(&x52->flags, X52_FLAG_IS_PRO)) {
+        return x52pro_set_led_state(x52, led, state);
+    }
+
+    /*
+     * For now, we only support setting the LEDs on the X52 Pro model.
+     * Calling this API on a non-Pro model will return a not supported error.
+     */
+    return -ENOTSUP;
 }
 
 int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness)

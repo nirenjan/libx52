@@ -21,12 +21,16 @@
 
 #define VENDOR_SAITEK 0x06a3
 #define X52_PROD_X52PRO 0x0762
+#define X52_PROD_X52_1  0x0255
+#define X52_PROD_X52_2  0x075C
 
 /* Check if the USB device is supported by this library */
 static int libx52_check_product(uint16_t idVendor, uint16_t idProduct)
 {
     if (idVendor == VENDOR_SAITEK) {
         switch (idProduct) {
+        case X52_PROD_X52_1:
+        case X52_PROD_X52_2:
         case X52_PROD_X52PRO:
             return 1;
         }
