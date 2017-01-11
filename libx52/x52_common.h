@@ -36,11 +36,8 @@ struct x52_mfd_line {
 struct libx52_device {
     libusb_context *ctx;
     libusb_device_handle *hdl;
-    struct libusb_transfer *in_xfer;
-    struct libusb_transfer *ctrl_xfer;
 
     uint32_t update_mask;
-    uint8_t  input_buffer[16];
 
     uint32_t led_mask;
     uint16_t mfd_brightness;
