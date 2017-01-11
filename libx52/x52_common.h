@@ -38,6 +38,7 @@ struct libx52_device {
     libusb_device_handle *hdl;
 
     uint32_t update_mask;
+    uint32_t flags;
 
     uint32_t led_mask;
     uint16_t mfd_brightness;
@@ -54,6 +55,9 @@ struct libx52_device {
     int timezone[X52_MFD_CLOCKS];
     libx52_clock_format time_format[X52_MFD_CLOCKS];
 };
+
+/** Flag bits */
+#define X52_FLAG_IS_PRO         0
 
 /** Indicator bits for update mask */
 #define X52_BIT_SHIFT           0

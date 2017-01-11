@@ -35,6 +35,12 @@ static int libx52_check_product(uint16_t idVendor, uint16_t idProduct)
     return 0;
 }
 
+/* Check if the attached device is an X52 Pro */
+static int libx52_device_is_x52pro(uint16_t idProduct)
+{
+    return (idProduct == X52_PROD_X52PRO);
+}
+
 libx52_device* libx52_init(void)
 {
     int rc;
@@ -75,6 +81,10 @@ libx52_device* libx52_init(void)
                 }
 
                 x52_dev->hdl = hdl;
+
+                if (libx52_device_is_x52pro(desc.idProduct)) {
+                    set_bit(&(x52_dev->flags), X52_FLAG_IS_PRO);
+                }
                 break;
             }
         }
