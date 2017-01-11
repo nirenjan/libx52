@@ -1,10 +1,11 @@
 ACLOCAL_AMFLAGS = -I m4
 
-lib_LTLIBRARIES = libx52util.la
+lib_LTLIBRARIES = libx52util.la libx52util2.la
 
 # libx52 utility library
 # This library provides extra utilities for ease of use
 nodist_libx52util_la_SOURCES = util_char_map.c
+libx52util_la_SOURCES = x52_char_map_lookup.c
 libx52util_la_CFLAGS = -I $(top_srcdir)/libx52
 libx52util_la_LDFLAGS = -version-info 1:0:0
 libx52util_la_LIBADD = ../libx52/libx52.la
@@ -22,3 +23,21 @@ EXTRA_DIST = 	x52_char_map.cfg \
 CLEANFILES = util_char_map.c
 util_char_map.c: $(srcdir)/x52_char_map.cfg x52_char_map_gen.py
 	$(AM_V_GEN) $(srcdir)/x52_char_map_gen.py $(srcdir)/x52_char_map.cfg $@
+
+# libx52 utility library v2
+# This library provides extra utilities for ease of use
+libx52util2_la_SOURCES = x52_char_map.c
+libx52util2_la_CFLAGS = -I $(top_srcdir)/libx52 -O2
+libx52util2_la_LDFLAGS = -version-info 1:0:0
+libx52util2_la_LIBADD = ../libx52/libx52.la
+
+bin_PROGRAMS = perf1 perf2
+
+perf1_SOURCES = x52_lookup_test.c
+perf1_CFLAGS = @X52_INCLUDE@
+perf1_LDADD = libx52util.la
+
+perf2_SOURCES = x52_lookup_test.c
+perf2_CFLAGS = @X52_INCLUDE@
+perf2_LDADD = libx52util2.la
+
