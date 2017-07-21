@@ -3,6 +3,7 @@ script: ./autogen.sh && ./configure && make V=0 && make distcheck
 
 # Use container based infrastructure
 sudo: false
+dist: trusty
 addons:
     apt:
         packages:
