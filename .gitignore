@@ -9,6 +9,7 @@ cli/x52cli*
 test/x52test*
 util/util_char_map.c
 util/x52charmapgen*
+libusbx52/x52test*
 x52pro-linux-*.tar.gz
 
 # Module files
