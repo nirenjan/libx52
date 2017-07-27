@@ -30,8 +30,9 @@ AC_SUBST([X52_CORE_LIB], [../libx52/libx52.la])
 AC_CONFIG_FILES([
     Makefile
     libx52/Makefile
-    test/Makefile
+    libusbx52/Makefile
     cli/Makefile
     util/Makefile
+    test/Makefile
 ])
 AC_OUTPUT
