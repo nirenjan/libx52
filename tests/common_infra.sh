@@ -98,9 +98,8 @@ setup_test()
 
 expect_pattern()
 {
-    local msg="libusb_control_transfer: RqType: 40 bRequest: 91"
-    msg="$msg wValue: $2 wIndex: $1 timeout: 5000"
-    echo "$msg" >> $EXPECTED_OUTPUT
+    $X52LOGACT $@
+    mv /tmp/libusbx52_output_data $EXPECTED_OUTPUT
 }
 
 verify_output()

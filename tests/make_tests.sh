@@ -53,8 +53,9 @@ cat << EOF
 
 source \$(dirname \$0)/common_infra.sh
 
-expect_pattern \$X52_LED_COMMAND_INDEX $led_r_state
-expect_pattern \$X52_LED_COMMAND_INDEX $led_g_state
+expect_pattern \\
+    \$X52_LED_COMMAND_INDEX $led_r_state \\
+    \$X52_LED_COMMAND_INDEX $led_g_state
 
 \$X52CLI led $led_ident $led_color
 
