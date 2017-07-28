@@ -99,6 +99,8 @@ finalize_tests()
 {
     # Put the last line to close the tests list
     echo -e "\ttest_skip.sh\n" >> Makefile.am
+
+    echo -e "\nEXTRA_DIST = common_infra.sh \$(TESTS)\n" >> Makefile.am
 }
 
 clear_tests

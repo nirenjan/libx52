@@ -46,3 +46,6 @@ TESTS = \
 	test_led_clutch_green.sh \
 	test_skip.sh
 
+
+EXTRA_DIST = common_infra.sh $(TESTS)
+
