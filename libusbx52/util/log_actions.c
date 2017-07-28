@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
     int index;
     int value;
     int parsed;
+    int i;
     libusb_device_handle *hdl;
     libusb_context *ctx;
 
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
     ctx = hdl->ctx;
 
     /* Process arguments until there are fewer than 2 remaining */
-    for (int i = 1; i < argc && (argc - i) >= 2; i += 2) {
+    for (i = 1; i < argc && (argc - i) >= 2; i += 2) {
         parsed = sscanf(argv[i], "%x", &index);
         if (parsed != 1) break;
 

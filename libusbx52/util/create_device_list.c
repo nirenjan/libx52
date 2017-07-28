@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     int vid;
     int pid;
     int parsed;
+    int i;
 
     data = fopen(INPUT_DEVICE_LIST_FILE, "w");
     if (data == NULL) {
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
     }
 
     /* Process arguments until there are fewer than 2 remaining */
-    for (int i = 1; i < argc && (argc - i) >= 2; i += 2) {
+    for (i = 1; i < argc && (argc - i) >= 2; i += 2) {
         parsed = sscanf(argv[i], "%x", &vid);
         if (parsed != 1) break;
 

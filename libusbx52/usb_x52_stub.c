@@ -22,6 +22,7 @@ int libusb_init(libusb_context **ctx)
     int pid;
     int parsed;
     FILE *dev_list;
+    int i;
 
     /*
      * Technically, libusb_init can be called with a NULL context pointer,
@@ -73,7 +74,7 @@ int libusb_init(libusb_context **ctx)
     /* Rewind and read the file again, but now put them into the device list */
     rewind(dev_list);
 
-    for (int i = 0; i < dev_count && !feof(dev_list); i++) {
+    for (i = 0; i < dev_count && !feof(dev_list); i++) {
         /* Set the base fields */
         tmp_ctx->devices[i].context = tmp_ctx;
         tmp_ctx->devices[i].index = i;
@@ -132,13 +133,14 @@ ssize_t libusb_get_device_list(libusb_context *ctx, libusb_device ***list)
      */
     libusb_device **tmp_list = calloc(ctx->num_devices + 1, sizeof(*tmp_list));
     libusb_device *dev;
+    int i;
 
     if (tmp_list == NULL) {
         return LIBUSB_ERROR_NO_MEM;
     }
 
     /* Initialize the list with pointers to the individual devices */
-    for (int i = 0; i < ctx->num_devices; i++) {
+    for (i = 0; i < ctx->num_devices; i++) {
         dev = &(ctx->devices[i]);
         /* Increment the refcount */
         dev->ref_count += 1;
@@ -151,8 +153,10 @@ ssize_t libusb_get_device_list(libusb_context *ctx, libusb_device ***list)
 
 void libusb_free_device_list(libusb_device **list, int unref_devices)
 {
+    libusb_device **dev;
+
     if (unref_devices) {
-        for (libusb_device **dev = list; *dev; dev++) {
+        for (dev = list; *dev; dev++) {
             /* Decrement the refcount */
             (*dev)->ref_count -= 1;
         }
@@ -233,6 +237,8 @@ int libusb_control_transfer(libusb_device_handle *dev_handle,
                             uint16_t wLength,
                             unsigned int timeout)
 {
+    int i;
+
     /* Always log the control transfer */
     fprintf(dev_handle->packet_data_file,
         "%s: RqType: %02x bRequest: %02x wValue: %04x wIndex: %04x timeout: %d\n",
@@ -240,7 +246,7 @@ int libusb_control_transfer(libusb_device_handle *dev_handle,
     if (data != NULL) {
         fprintf(dev_handle->packet_data_file, "%s: Data[%d]: ", __func__,
                 wLength);
-        for (int i = 0; i < wLength; i++) {
+        for (i = 0; i < wLength; i++) {
             fprintf(dev_handle->packet_data_file, "%02x ", data[i]);
         }
         fprintf(dev_handle->packet_data_file, "\n");
