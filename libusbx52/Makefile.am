@@ -15,4 +15,4 @@ x52test_log_actions_SOURCES = util/log_actions.c
 x52test_log_actions_CFLAGS = @X52_INCLUDE@
 x52test_log_actions_LDADD = libusbx52.la
 
-EXTRA_DIST = README.md
+EXTRA_DIST = README.md libusbx52.h
