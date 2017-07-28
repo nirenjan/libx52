@@ -24,14 +24,17 @@ AS_IF([test "x${have_libusb}" != xyes], [
 ])
 
 AC_SUBST([X52_PKG_VERSION], [0.1])
-AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/libx52"])
-AC_SUBST([X52_CORE_LIB], [../libx52/libx52.la])
+AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
 
 AC_CONFIG_FILES([
     Makefile
-    libx52/Makefile
-    test/Makefile
-    cli/Makefile
-    util/Makefile
+    lib/Makefile
+    lib/libx52/Makefile
+    lib/libusbx52/Makefile
+    lib/libx52util/Makefile
+    utils/Makefile
+    utils/cli/Makefile
+    utils/test/Makefile
+    tests/Makefile
 ])
 AC_OUTPUT

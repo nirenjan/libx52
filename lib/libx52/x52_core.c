@@ -72,7 +72,7 @@ libx52_device* libx52_init(void)
 #endif
         goto err_recovery;
     }
-    libusb_set_debug(x52_dev->ctx, 3);
+    libusb_set_debug(x52_dev->ctx, LIBUSB_LOG_LEVEL_WARNING);
 
     count = libusb_get_device_list(x52_dev->ctx, &list);
     for (i = 0; i < count; i++) {

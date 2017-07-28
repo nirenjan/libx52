@@ -1,0 +1,2 @@
+SUBDIRS = cli test
+

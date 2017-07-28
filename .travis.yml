@@ -1,5 +1,5 @@
 language: c
-script: ./autogen.sh && ./configure && make V=0 && make distcheck
+script: ./.travis_build.sh
 
 # Compile using both gcc & clang
 compiler:
@@ -14,3 +14,4 @@ addons:
         packages:
         - libusb-1.0-0-dev
         - libudev-dev
+        - realpath
