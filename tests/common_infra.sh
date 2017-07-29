@@ -52,6 +52,12 @@ X52_LED_THROTTLE_OFF=1400
 
 find_programs()
 {
+    # Tests and distcheck do not work on OSX, skip the tests
+    if [[ `uname -s` == [Dd]arwin* ]]
+    then
+        exit $EXIT_SKIP
+    fi
+
     # Find the X52cli script
     X52CLI=$(find .. -path '*/cli/x52cli' -executable)
 
