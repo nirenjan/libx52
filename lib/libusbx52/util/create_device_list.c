@@ -12,12 +12,14 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include "libusbx52.h"
 
 int main(int argc, char *argv[])
 {
+    char *data_file;
     FILE *data;
     char **id_pair;
     int vid;
@@ -25,10 +27,13 @@ int main(int argc, char *argv[])
     int parsed;
     int i;
 
-    data = fopen(INPUT_DEVICE_LIST_FILE, "w");
+    data_file = getenv(INPUT_DEVICE_LIST_ENV);
+    if (data_file == NULL || data_file[0] == '\0') {
+        data_file = DEFAULT_INPUT_DEVICE_LIST_FILE;
+    }
+    data = fopen(data_file, "w");
     if (data == NULL) {
-        fprintf(stderr, "Unable to open %s for writing\n",
-            INPUT_DEVICE_LIST_FILE);
+        fprintf(stderr, "Unable to open %s for writing\n", data_file);
         fprintf(stderr, "%s\n", strerror(errno));
     }
 

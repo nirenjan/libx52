@@ -21,6 +21,7 @@ int libusb_init(libusb_context **ctx)
     int vid;
     int pid;
     int parsed;
+    char *dev_list_file;
     FILE *dev_list;
     int i;
 
@@ -37,7 +38,15 @@ int libusb_init(libusb_context **ctx)
         goto init_err_recovery;
     }
 
-    dev_list = fopen(INPUT_DEVICE_LIST_FILE, "r");
+    /*
+     * Get the device file name from the environment,
+     * use a default name if unset or empty
+     */
+    dev_list_file = getenv(INPUT_DEVICE_LIST_ENV);
+    if (dev_list_file == NULL || dev_list_file[0] == '\0') {
+        dev_list_file = DEFAULT_INPUT_DEVICE_LIST_FILE;
+    }
+    dev_list = fopen(dev_list_file, "r");
     if (dev_list == NULL) {
         rc = LIBUSB_ERROR_IO;
         goto init_err_recovery;
@@ -182,6 +191,8 @@ int libusb_get_device_descriptor(libusb_device *dev,
 
 int libusb_open(libusb_device *dev, libusb_device_handle **handle)
 {
+    char *output_data_file;
+
     /* Allocate a handle for the application */
     libusb_device_handle *tmp_hdl = calloc(1, sizeof(*tmp_hdl));
     if (tmp_hdl == NULL) {
@@ -194,7 +205,16 @@ int libusb_open(libusb_device *dev, libusb_device_handle **handle)
     /* Populate the handle structure with the right values */
     tmp_hdl->ctx = dev->context;
     tmp_hdl->dev = dev;
-    tmp_hdl->packet_data_file = fopen(OUTPUT_DATA_FILE, "w");
+
+    /*
+     * Get the name of the output data file from the environment,
+     * use a default name if the environment variable is unset or empty
+     */
+    output_data_file = getenv(OUTPUT_DATA_FILE_ENV);
+    if (output_data_file == NULL || output_data_file[0] == '\0') {
+        output_data_file = DEFAULT_OUTPUT_DATA_FILE;
+    }
+    tmp_hdl->packet_data_file = fopen(output_data_file, "w");
 
     /* Make sure that the file opened correctly */
     if (tmp_hdl->packet_data_file == NULL) {

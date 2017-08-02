@@ -35,19 +35,35 @@ struct libusb_device_handle {
 };
 
 /**
- * @brief File location of the device list file
+ * @brief Device list file environment variable
+ *
+ * This is used by the test driver to create a temporary environment for
+ * the device list
+ */
+#define INPUT_DEVICE_LIST_ENV           "LIBUSBX52_DEVICE_LIST"
+
+/**
+ * @brief Default file location of the device list file
  *
  * This file contains a list of VIDs and PIDs in hexadecimal format separated
  * by spaces. There must be an even number of entries, each pair corresponding
  * to a (VID, PID) tuple identifying a single USB device.
  */
-#define INPUT_DEVICE_LIST_FILE  "/tmp/libusbx52_device_list"
+#define DEFAULT_INPUT_DEVICE_LIST_FILE  "/tmp/libusbx52_device_list"
 
 /**
- * @brief File location of the communication data file
+ * @brief Output data environment variable
+ *
+ * This is used by the test driver to create a temporary environment for
+ * the output data
+ */
+#define OUTPUT_DATA_FILE_ENV            "LIBUSBX52_OUTPUT_DATA"
+
+/**
+ * @brief Default file location of the communication data file
  *
  * This file contains the libusb APIs called by libx52, after a device has
  * been opened, i.e., all APIs that operate on a libusb_device_handle
  */
-#define OUTPUT_DATA_FILE        "/tmp/libusbx52_output_data"
+#define DEFAULT_OUTPUT_DATA_FILE        "/tmp/libusbx52_output_data"
 
