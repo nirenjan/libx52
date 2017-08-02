@@ -41,3 +41,5 @@ Makefile.in
 *.la
 *.lo
 *.m4
+test-driver
+
