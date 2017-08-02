@@ -96,21 +96,27 @@ setup_preload()
 
 setup_test()
 {
+    export LIBUSBX52_DEVICE_LIST=$(mktemp)
     EXPECTED_OUTPUT=$(mktemp)
-    trap "rm -f $EXPECTED_OUTPUT /tmp/libusbx52*" EXIT
+    OBSERVED_OUTPUT=$(mktemp)
+    trap "rm -f $EXPECTED_OUTPUT $OBSERVED_OUTPUT $LIBUSBX52_DEVICE_LIST" EXIT
 
     $X52DEVLIST 06a3 0762
 }
 
 expect_pattern()
 {
+    # Save pattern to expected output file
+    export LIBX52_OUTPUT_DATA=$EXPECTED_OUTPUT
     $X52LOGACT $@
-    mv /tmp/libusbx52_output_data $EXPECTED_OUTPUT
+
+    # Save actual API calls to observed output file
+    export LIBX52_OUTPUT_DATA=$OBSERVED_OUTPUT
 }
 
 verify_output()
 {
-    if diff -q $EXPECTED_OUTPUT /tmp/libusbx52_output_data
+    if diff -q $EXPECTED_OUTPUT $OBSERVED_OUTPUT
     then
         exit $EXIT_SUCCESS
     else
@@ -120,7 +126,7 @@ verify_output()
         echo
         echo 'Observed:'
         echo '========='
-        sed 's/^/\t/' /tmp/libusbx52_output_data
+        sed 's/^/\t/' $OBSERVED_OUTPUT
         exit $EXIT_FAILURE
     fi
 }
