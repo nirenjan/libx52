@@ -4,16 +4,23 @@
 # and saved in the repository so that the automake infrastructure can pick them
 # up. 
 
+_test_header()
+{
+cat << EOF
+#!/bin/bash
+# $@
+
+source \$(dirname \$0)/../common_infra.sh
+EOF
+}
+
 _mono_led_template()
 {
     local led_ident=$(echo $1 | tr a-z A-Z)
     local led_color=$2
     local state=$(echo "\$X52_LED_${led_ident}_${led_color}" | tr a-z A-Z)
 cat << EOF
-#!/bin/bash
-# Test setting the $led_ident button $led_color
-
-source \$(dirname \$0)/common_infra.sh
+$(_test_header Test setting the $led_ident button $led_color)
 
 expect_pattern \$X52_LED_COMMAND_INDEX $state
 
@@ -48,10 +55,7 @@ _color_led_template()
     led_g_state=$(echo "\$X52_LED_${led_ident}_green_${led_g_state}" | tr a-z A-Z)
 
 cat << EOF
-#!/bin/bash
-# Test setting the $led_ident button to $led_color
-
-source \$(dirname \$0)/common_infra.sh
+$(_test_header Test setting the $led_ident button to $led_color)
 
 expect_pattern \\
     \$X52_LED_COMMAND_INDEX $led_r_state \\
@@ -66,12 +70,14 @@ EOF
 
 make_led_tests()
 {
+    mkdir -p led
+
     # Make the mono-color LED tests
     for led in fire throttle
     do
         for state in off on
         do
-            filename=test_led_${led}_${state}.sh
+            filename=led/test_led_${led}_${state}.sh
             _mono_led_template $led $state > $filename
             echo -e "\t$filename \\" >> Makefile.am
         done
@@ -82,8 +88,8 @@ make_led_tests()
     do
         for state in off red amber green
         do
-            filename=test_led_${led}_${state}.sh
-            _color_led_template $led $state > test_led_${led}_${state}.sh
+            filename=led/test_led_${led}_${state}.sh
+            _color_led_template $led $state > $filename
             echo -e "\t$filename \\" >> Makefile.am
         done
     done
