@@ -107,11 +107,11 @@ setup_test()
 expect_pattern()
 {
     # Save pattern to expected output file
-    export LIBX52_OUTPUT_DATA=$EXPECTED_OUTPUT
+    export LIBUSBX52_OUTPUT_DATA=$EXPECTED_OUTPUT
     $X52LOGACT $@
 
     # Save actual API calls to observed output file
-    export LIBX52_OUTPUT_DATA=$OBSERVED_OUTPUT
+    export LIBUSBX52_OUTPUT_DATA=$OBSERVED_OUTPUT
 }
 
 verify_output()
