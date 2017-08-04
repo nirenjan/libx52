@@ -374,7 +374,7 @@ int main(int argc, char **argv)
     for (i = 0; i < cmd->num_args; i++) {
         if (cmd->maps[i]) {
             if (!map_lookup(cmd->maps[i], argv[2+i], &result)) {
-                fprintf(stderr, "Invalid argument %s", argv[2+i]);
+                fprintf(stderr, "Invalid argument %s\n", argv[2+i]);
                 return 1;
             }
             args[i] = (void *)result.value.ptr_val;
