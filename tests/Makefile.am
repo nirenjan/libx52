@@ -302,6 +302,10 @@ TESTS = \
 	brightness/test_brightness_led_7e.sh \
 	brightness/test_brightness_led_7f.sh \
 	brightness/test_brightness_led_80.sh \
+	indicator/test_blink_on.sh \
+	indicator/test_blink_off.sh \
+	indicator/test_shift_on.sh \
+	indicator/test_shift_off.sh \
 	test_skip.sh
 
 

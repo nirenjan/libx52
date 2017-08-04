@@ -135,6 +135,41 @@ make_brightness_tests()
     done
 }
 
+# Template for blink and shift test cases
+_blink_n_shift_template()
+{
+    local indicator=$(echo $1 | tr a-z A-Z)
+    local state=$(echo $2 | tr a-z A-Z)
+    local index="\$X52_${indicator}_INDICATOR_INDEX"
+    local value="\$X52_INDICATOR_STATE_${state}"
+
+    cat <<EOF
+$(_test_header Test setting $1 indicator $state)
+
+expect_pattern $index $value
+
+\$X52CLI $indicator $state
+
+verify_output
+
+EOF
+}
+
+# Function to generate test cases for blink and shift indicators
+make_indicator_tests()
+{
+    mkdir -p indicator
+    for indicator in blink shift
+    do
+        for state in on off
+        do
+            filename=indicator/test_${indicator}_${state}.sh
+            _blink_n_shift_template $indicator $state > $filename
+            echo -e "\t$filename \\" >> Makefile.am
+        done
+    done
+}
+
 # Function to setup Makefile.am to receive the generated test cases
 clear_tests()
 {
@@ -156,4 +191,5 @@ finalize_tests()
 clear_tests
 make_led_tests
 make_brightness_tests
+make_indicator_tests
 finalize_tests
