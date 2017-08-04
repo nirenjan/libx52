@@ -4,6 +4,7 @@
 # and saved in the repository so that the automake infrastructure can pick them
 # up. 
 
+# Common header for each test script
 _test_header()
 {
 cat << EOF
@@ -14,6 +15,7 @@ source \$(dirname \$0)/../common_infra.sh
 EOF
 }
 
+# Template for single-color LEDs
 _mono_led_template()
 {
     local led_ident=$(echo $1 | tr a-z A-Z)
@@ -31,6 +33,7 @@ verify_output
 EOF
 }
 
+# Template for multi-color LEDs
 _color_led_template()
 {
     local led_ident=$(echo $1 | tr a-z A-Z)
@@ -68,6 +71,7 @@ verify_output
 EOF
 }
 
+# Function to generate LED test cases
 make_led_tests()
 {
     mkdir -p led
@@ -95,6 +99,43 @@ make_led_tests()
     done
 }
 
+# Template for brightness test cases
+_brightness_template()
+{
+    local unit=$(echo $1 | tr a-z A-Z)
+    local bri=$(printf '0x%04x' $2)
+    local index="\$X52_${unit}_BRIGHTNESS_INDEX"
+
+cat << EOF
+$(_test_header Test setting $unit brightness to $bri)
+
+expect_pattern $index $bri
+
+\$X52CLI bri $unit $bri
+
+verify_output
+
+EOF
+}
+
+# Function to generate brightness test cases
+make_brightness_tests()
+{
+    mkdir -p brightness
+
+    for unit in mfd led
+    do
+        for bri in $(seq 0 128)
+        do
+            bri_fn=$(printf '%02x' $bri)
+            filename=brightness/test_brightness_${unit}_${bri_fn}.sh
+            _brightness_template $unit $bri > $filename
+            echo -e "\t$filename \\" >> Makefile.am
+        done
+    done
+}
+
+# Function to setup Makefile.am to receive the generated test cases
 clear_tests()
 {
     # Delete the tests from Makefile.am
@@ -102,6 +143,8 @@ clear_tests()
     echo "TESTS = \\" >> Makefile.am
 }
 
+# Function to ensure that Makefile.am works correctly with both
+# make check and make distcheck
 finalize_tests()
 {
     # Put the last line to close the tests list
@@ -112,4 +155,5 @@ finalize_tests()
 
 clear_tests
 make_led_tests
+make_brightness_tests
 finalize_tests
