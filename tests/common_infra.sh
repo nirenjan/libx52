@@ -110,6 +110,10 @@ setup_test()
     trap "rm -f $EXPECTED_OUTPUT $OBSERVED_OUTPUT $LIBUSBX52_DEVICE_LIST" EXIT
 
     $X52DEVLIST 06a3 0762
+
+    TEST_COUNT=0
+    TEST_PASS=0
+    TEST_FAIL=0
 }
 
 expect_pattern()
@@ -126,8 +130,10 @@ verify_output()
 {
     if diff -q $EXPECTED_OUTPUT $OBSERVED_OUTPUT
     then
-        exit $EXIT_SUCCESS
+        echo "PASS: $TEST_ID"
+        TEST_PASS=$(($TEST_PASS + 1))
     else
+        echo "FAIL: $TEST_ID"
         echo 'Expected:'
         echo '========='
         sed 's/^/\t/' $EXPECTED_OUTPUT
@@ -135,7 +141,34 @@ verify_output()
         echo 'Observed:'
         echo '========='
         sed 's/^/\t/' $OBSERVED_OUTPUT
+        TEST_FAIL=$(($TEST_FAIL + 1))
+    fi
+
+    TEST_COUNT=$(($TEST_COUNT + 1))
+}
+
+verify_test_suite()
+{
+    local sep='--------'
+    sep="$sep$sep"
+    sep="$sep$sep"
+    sep="$sep$sep"
+
+    echo
+    echo $sep
+    echo $TEST_SUITE_ID
+    echo $sep
+    echo -e "Total Tests:\t$TEST_COUNT"
+    echo -e "Tests Passed:\t$TEST_PASS"
+    echo -e "Tests Failed:\t$TEST_FAIL"
+    echo $sep
+    echo
+
+    if [[ "$TEST_FAIL" != 0 ]]
+    then
         exit $EXIT_FAILURE
+    else
+        exit $EXIT_SUCCESS
     fi
 }
 
