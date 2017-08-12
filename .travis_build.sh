@@ -15,10 +15,10 @@ cd build
 # Run the configuration script
 ../configure
 
-# Build and run any tests
+# Build the sourcecode
 make V=0
-make check
 
 # Verify that the distribution works
+# This also runs any tests
 make distcheck
 
