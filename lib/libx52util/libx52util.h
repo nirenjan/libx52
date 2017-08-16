@@ -12,8 +12,7 @@
 #ifndef LIBX52UTIL_H
 #define LIBX52UTIL_H
 
-#include <time.h>
-#include <stdint.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
