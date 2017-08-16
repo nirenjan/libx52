@@ -43,7 +43,7 @@ Turn the \fBblink\fR state \fBon\fR or \fBoff\fR.
 Turn the \fBshift\fR indicator in the multi-function display \fBon\fR or
 \fBoff\fR.
 
-.IP "\fBclock\fR {\fBlocal\fR | \fBgmt\fR} {\fB12hr\fR | \fB24hr\fB} {\fBddmmyy\fR | \fBmmddyy\fR | \fByymmdd\fR}"
+.IP "\fBclock\fR {\fBlocal\fR | \fBgmt\fR} {\fB12hr\fR | \fB24hr\fR} {\fBddmmyy\fR | \fBmmddyy\fR | \fByymmdd\fR}"
 Set the clock 1 display to the current time and date in either the \fBlocal\fR
 timezone, or in \fBgmt\fR timezone. Clock can be configured to display in either
 \fB12hr\fB or \fB24hr\fR mode. Date can be displayed in one of the following
