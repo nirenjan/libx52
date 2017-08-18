@@ -15,3 +15,9 @@ addons:
         - libusb-1.0-0-dev
         - libudev-dev
         - realpath
+
+# Enable parallel make
+env:
+    global:
+        - MAKEFLAGS="-j 2"
+
