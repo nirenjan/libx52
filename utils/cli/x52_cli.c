@@ -25,6 +25,8 @@ typedef enum {
     X52_CTL_CMD_SHIFT,
     X52_CTL_CMD_CLOCK,
     X52_CTL_CMD_OFFSET,
+    X52_CTL_CMD_TIME,
+    X52_CTL_CMD_DATE,
     X52_CTL_CMD_RAW,
 
     X52_CTL_CMD_MAX
@@ -169,6 +171,8 @@ DEFINE_MAP(command) = {
     MAP_INT( "shift",   X52_CTL_CMD_SHIFT ),
     MAP_INT( "clock",   X52_CTL_CMD_CLOCK ),
     MAP_INT( "offset",  X52_CTL_CMD_OFFSET ),
+    MAP_INT( "time",    X52_CTL_CMD_TIME ),
+    MAP_INT( "date",    X52_CTL_CMD_DATE ),
     MAP_INT( "raw",     X52_CTL_CMD_RAW ),
     MAP_TERMINATOR
 };
@@ -241,6 +245,39 @@ static int update_offset(libx52_device *x52, void *args[])
     return rc;
 }
 
+static int update_time(libx52_device *x52, void *args[])
+{
+    int hh = (int)strtol(args[0], NULL, 0);
+    int mm = (int)strtol(args[1], NULL, 0);
+    int rc;
+
+    /* Set the time value */
+    rc = libx52_set_time(x52, hh, mm);
+    if (!rc) {
+        rc = libx52_set_clock_format(x52, LIBX52_CLOCK_1,
+            PARSE_ARGUMENT(libx52_clock_format, args[2]));
+    }
+
+    return rc;
+}
+
+static int update_date(libx52_device *x52, void *args[])
+{
+    int dd = (int)strtol(args[0], NULL, 0);
+    int mm = (int)strtol(args[1], NULL, 0);
+    int yy = (int)strtol(args[2], NULL, 0);
+    int rc;
+
+    /* Set the date value */
+    rc = libx52_set_date(x52, dd, mm, yy);
+    if (!rc) {
+        rc = libx52_set_date_format(x52,
+            PARSE_ARGUMENT(libx52_date_format, args[3]));
+    }
+
+    return rc;
+}
+
 static int write_raw(libx52_device *x52, void *args[])
 {
     uint16_t wIndex = (uint16_t)strtoul(args[0], NULL, 0);
@@ -308,6 +345,27 @@ const struct command_handler handlers[X52_CTL_CMD_MAX] = {
             MAP(time_format)
         },
         "offset {2 | 3} <offset from clock 1 in minutes> {12hr | 24hr}"
+    },
+    [X52_CTL_CMD_TIME] = {
+        update_time,
+        3,
+        {
+            NULL,
+            NULL,
+            MAP(time_format)
+        },
+        "time <hour> <minute> {12hr | 24hr}"
+    },
+    [X52_CTL_CMD_DATE] = {
+        update_date,
+        4,
+        {
+            NULL,
+            NULL,
+            NULL,
+            MAP(date_format)
+        },
+        "date <dd> <mm> <yy> {ddmmyy | mmddyy | yymmdd}"
     },
     [X52_CTL_CMD_RAW] = {
         write_raw,
