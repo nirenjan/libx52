@@ -83,6 +83,65 @@ offset_test()
 
 }
 
+raw_time_test()
+{
+    local hh=$1
+    local mm=$2
+    local time_format=$3
+    TEST_ID="Test setting time to $hh:$mm, $time_format"
+
+    local value=$(($hh * 256 + $mm))
+    if [[ $time_format == 24hr ]]
+    then
+        value=$((value + 32768))
+    fi
+
+    expect_pattern $X52_CLOCK_1_INDEX $(printf '%04x' $value)
+
+    $X52CLI time $hh $mm $time_format
+
+    verify_output
+}
+
+raw_date_test()
+{
+    local dd=$1
+    local mm=$2
+    local yy=$3
+    local date_format=$4
+
+    case "$date_format" in
+    ddmmyy)
+        dd1=$dd
+        mm1=$mm
+        yy1=$yy
+        ;;
+    mmddyy)
+        dd1=$mm
+        mm1=$dd
+        yy1=$yy
+        ;;
+    yymmdd)
+        dd1=$yy
+        mm1=$mm
+        yy1=$dd
+        ;;
+    esac
+
+    TEST_ID="Test setting date in $date_format format to ${dd1}-${mm1}-${yy1}"
+
+    local date_value=$(printf '%04x' $(($mm1 * 256 + $dd1)))
+    local year_value=$(printf '%04x' $yy1)
+
+    expect_pattern \
+        $X52_CLOCK_DATE_INDEX $date_value \
+        $X52_CLOCK_YEAR_INDEX $year_value
+
+    $X52CLI date $dd $mm $yy $date_format
+
+    verify_output
+}
+
 # For all test cases, we want to assume that the local timezone
 # is the same as UTC, as otherwise, it can cause havoc, depending
 # on when and where the tests are run.
@@ -115,5 +174,32 @@ do
         done
     done
 done
+
+# The raw time test cases are a limited set of tests, it simply runs for
+# every minute from 00:00 through 00:59, then it runs for every hour from
+# 00:00 through 23:00. The tests are run in both 12 hour and 24 hour mode.
+for mm in $(seq 0 59)
+do
+    for time_format in 12hr 24hr
+    do
+        raw_time_test 0 $mm $time_format
+    done
+done
+
+for hh in $(seq 0 23)
+do
+    for time_format in 12hr 24hr
+    do
+        raw_time_test $hh 0 $time_format
+    done
+done
+
+# The raw date tests simply verify that the date February 1, year 3 is
+# displayed correctly in all 3 date formats
+for date_format in ddmmyy mmddyy yymmdd
+do
+    raw_date_test 1 2 3 $date_format
+done
+
 verify_test_suite
 
