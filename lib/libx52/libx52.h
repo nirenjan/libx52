@@ -286,6 +286,36 @@ int libx52_set_clock_format(libx52_device *x52,
                             libx52_clock_format format);
 
 /**
+ * @brief Set the hour and minute on clock 1
+ *
+ * This is a raw API which can be used for manual control if the user
+ * so desires, however, it will not update the timezone or the date
+ * values.
+ *
+ * @param[in]   x52     Pointer to the device
+ * @param[in]   hour    Hour to display
+ * @param[in]   minute  Minute to display
+ *
+ * @returns 0 on success, \c -EINVAL if \p x52 is not valid
+ */
+int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
+
+/**
+ * @brief Set the date
+ *
+ * This is a raw API which can be used for manual control if the user
+ * so desires, however, it will not update the timezone or the time values.
+ *
+ * @param[in]   x52     Pointer to the device
+ * @param[in]   dd      Day to display
+ * @param[in]   mm      Month to display
+ * @param[in]   yy      Year to display
+ *
+ * @returns 0 on success, \c -EINVAL if \p x52 is not valid
+ */
+int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
+
+/**
  * @brief Set the date format for the MFD date display
  *
  * If not set, the date format defaults to DD-MM-YY

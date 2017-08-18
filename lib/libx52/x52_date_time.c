@@ -57,10 +57,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
         x52->date_month != local_date_month ||
         x52->date_year != local_date_year) {
 
-        x52->date_day = local_date_day;
-        x52->date_month = local_date_month;
-        x52->date_year = local_date_year;
-        set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
+        libx52_set_date(x52, local_date_day, local_date_month, local_date_year);
         update_required = 1;
     }
 
@@ -68,9 +65,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
     if (x52->time_hour != local_time_hour ||
         x52->time_minute != local_time_minute) {
 
-        x52->time_hour = local_time_hour;
-        x52->time_minute = local_time_minute;
-        set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
+        libx52_set_time(x52, local_time_hour, local_time_minute);
         update_required = 1;
     }
 
@@ -84,6 +79,33 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
     /* Save the timezone */
     x52->timezone[LIBX52_CLOCK_1] = local_tz;
     return (update_required ? 0 : -EAGAIN);
+}
+
+int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute)
+{
+    if (!x52) {
+        return -EINVAL;
+    }
+
+    x52->time_hour = hour;
+    x52->time_minute = minute;
+    set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
+
+    return 0;
+}
+
+int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy)
+{
+    if (!x52) {
+        return -EINVAL;
+    }
+
+    x52->date_day = dd;
+    x52->date_month = mm;
+    x52->date_year = yy;
+    set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
+
+    return 0;
 }
 
 int libx52_set_clock_timezone(libx52_device *x52, libx52_clock_id clock, int offset)
