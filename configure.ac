@@ -1,4 +1,4 @@
-AC_INIT([x52pro-linux], [0.1.1], [nirenjan@gmail.com])
+AC_INIT([x52pro-linux], [0.1.2], [nirenjan@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 AC_PROG_CC
