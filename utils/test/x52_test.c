@@ -109,8 +109,8 @@ static int run_tests(int test_set)
 
     getc(stdin);
 
-    dev = libx52_init();
-    if (dev == NULL) {
+    rc = libx52_init(&dev);
+    if (rc != LIBX52_SUCCESS) {
         fprintf(stderr, "Unable to connect to X52 Pro Joystick!\n");
         return 1;
     }

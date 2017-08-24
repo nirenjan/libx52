@@ -31,7 +31,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
     int update_required = 0;
 
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (local) {
@@ -78,26 +78,26 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
 
     /* Save the timezone */
     x52->timezone[LIBX52_CLOCK_1] = local_tz;
-    return (update_required ? 0 : -EAGAIN);
+    return (update_required ? LIBX52_SUCCESS : LIBX52_ERROR_TRY_AGAIN);
 }
 
 int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     x52->time_hour = hour;
     x52->time_minute = minute;
     set_bit(&x52->update_mask, X52_BIT_MFD_TIME);
 
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     x52->date_day = dd;
@@ -105,18 +105,18 @@ int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy)
     x52->date_year = yy;
     set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
 
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_clock_timezone(libx52_device *x52, libx52_clock_id clock, int offset)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     /* Limit offset to +/- 24 hours */
     if (offset < -1440 || offset > 1440) {
-        return -EDOM;
+        return LIBX52_ERROR_OUT_OF_RANGE;
     }
 
     switch (clock) {
@@ -131,10 +131,10 @@ int libx52_set_clock_timezone(libx52_device *x52, libx52_clock_id clock, int off
         break;
 
     default:
-        return -ENOTSUP;
+        return LIBX52_ERROR_NOT_SUPPORTED;
     }
 
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_clock_format(libx52_device *x52,
@@ -142,13 +142,13 @@ int libx52_set_clock_format(libx52_device *x52,
                             libx52_clock_format format)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if ((format != LIBX52_CLOCK_FORMAT_12HR) &&
         (format != LIBX52_CLOCK_FORMAT_24HR)) {
 
-       return -EINVAL;
+       return LIBX52_ERROR_INVALID_PARAM;
     }
 
     switch (clock) {
@@ -165,20 +165,20 @@ int libx52_set_clock_format(libx52_device *x52,
         break;
 
     default:
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     x52->time_format[clock] = format;
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_date_format(libx52_device *x52, libx52_date_format format)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     x52->date_format = format;
     set_bit(&x52->update_mask, X52_BIT_MFD_DATE);
-    return 0;
+    return LIBX52_SUCCESS;
 }

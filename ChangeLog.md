@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+### Changed
+- `libx52_init` now returns a `libx52_error_code`, and returns the
+  `libx52_device` pointer in an output parameter.
+- All libx52 APIs now return a `libx52_error_code` indicating the error.
 
 ## [0.1.2] - 2017-08-17
 ### Added

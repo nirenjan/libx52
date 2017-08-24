@@ -442,9 +442,9 @@ int main(int argc, char **argv)
     }
 
     /* Lookup the X52 device */
-    x52 = libx52_init();
+    rc = libx52_init(&x52);
 
-    if (!x52) {
+    if (rc != LIBX52_SUCCESS) {
         fprintf(stderr, "Unable to find X52 joystick!\n");
         return 1;
     }

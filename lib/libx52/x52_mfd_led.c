@@ -20,11 +20,11 @@
 int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t length)
 {
     if (!x52 || !text) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (line > 2) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (length > X52_MFD_LINE_SIZE) {
@@ -36,13 +36,13 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
     x52->line[line].length = length;
     set_bit(&x52->update_mask, X52_BIT_MFD_LINE1 + line);
 
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     switch (led) {
@@ -56,7 +56,7 @@ static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_le
             set_bit(&x52->update_mask, led);
         } else {
             /* Colors not supported */
-            return -ENOTSUP;
+            return LIBX52_ERROR_NOT_SUPPORTED;
         }
         break;
 
@@ -88,7 +88,7 @@ static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_le
 
         default:
             /* Cannot set the LED to "ON" */
-            return -ENOTSUP;
+            return LIBX52_ERROR_NOT_SUPPORTED;
         }
 
         /* Set the update mask bits */
@@ -97,13 +97,13 @@ static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_le
         break;
     }
 
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (tst_bit(&x52->flags, X52_FLAG_IS_PRO)) {
@@ -114,13 +114,13 @@ int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state
      * For now, we only support setting the LEDs on the X52 Pro model.
      * Calling this API on a non-Pro model will return a not supported error.
      */
-    return -ENOTSUP;
+    return LIBX52_ERROR_NOT_SUPPORTED;
 }
 
 int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (mfd) {
@@ -131,13 +131,13 @@ int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness)
         set_bit(&x52->update_mask, X52_BIT_BRI_LED);
     }
 
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_shift(libx52_device *x52, uint8_t state)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (state) {
@@ -147,13 +147,13 @@ int libx52_set_shift(libx52_device *x52, uint8_t state)
     }
 
     set_bit(&x52->update_mask, X52_BIT_SHIFT);
-    return 0;
+    return LIBX52_SUCCESS;
 }
 
 int libx52_set_blink(libx52_device *x52, uint8_t state)
 {
     if (!x52) {
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     if (state) {
@@ -163,5 +163,5 @@ int libx52_set_blink(libx52_device *x52, uint8_t state)
     }
 
     set_bit(&x52->update_mask, X52_BIT_POV_BLINK);
-    return 0;
+    return LIBX52_SUCCESS;
 }

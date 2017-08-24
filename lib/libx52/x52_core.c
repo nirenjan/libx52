@@ -45,7 +45,7 @@ static int libx52_device_is_x52pro(uint16_t idProduct)
     return (idProduct == X52_PROD_X52PRO);
 }
 
-libx52_device* libx52_init(void)
+int libx52_init(libx52_device **dev)
 {
     int rc;
     ssize_t count;
@@ -56,20 +56,20 @@ libx52_device* libx52_init(void)
     struct libusb_device_descriptor desc;
     libx52_device *x52_dev;
 
+    /* Make sure that we have a valid return pointer */
+    if (dev == NULL) {
+        return LIBX52_ERROR_INVALID_PARAM;
+    }
+
     /* Allocate memory for the library's data structures */
     x52_dev = calloc(1, sizeof(libx52_device));
     if (!x52_dev) {
-        errno = ENOMEM;
-        return NULL;
+        return LIBX52_ERROR_OUT_OF_MEMORY;
     }
 
     rc = libusb_init(&(x52_dev->ctx));
     if (rc) {
-#if defined(__linux__)
-        errno = ELIBACC;
-#else
-        errno = ENOENT;
-#endif
+        rc = LIBX52_ERROR_INIT_FAILURE;
         goto err_recovery;
     }
     libusb_set_debug(x52_dev->ctx, LIBUSB_LOG_LEVEL_WARNING);
@@ -100,10 +100,12 @@ libx52_device* libx52_init(void)
         goto err_recovery;
     }
 
-    return x52_dev;
+    *dev = x52_dev;
+    return LIBX52_SUCCESS;
+
 err_recovery:
     free(x52_dev);
-    return NULL;
+    return rc;
 }
 
 void libx52_exit(libx52_device *dev)

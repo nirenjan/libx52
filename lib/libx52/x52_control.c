@@ -30,12 +30,16 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
             LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE | LIBUSB_ENDPOINT_OUT,
             X52_VENDOR_REQUEST, value, index, NULL, 0, 5000);
 
-        if (rc == 0) {
+        if (rc == LIBUSB_SUCCESS) {
             break;
         }
     }
     
-    return rc;
+    if (rc == LIBUSB_SUCCESS) {
+        return LIBX52_SUCCESS;
+    } else {
+        return LIBX52_ERROR_USB_FAILURE;
+    }
 }
 
 static int libx52_write_line(libx52_device *x52, uint8_t line_index)
@@ -97,11 +101,11 @@ static int libx52_write_date(libx52_device *x52)
         break;
 
     default:
-        return -EINVAL;
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     rc = libx52_vendor_command(x52, X52_DATE_DDMM, value1);
-    if (rc == 0) {
+    if (rc == LIBX52_SUCCESS) {
         rc = libx52_vendor_command(x52, X52_DATE_YEAR, value2);
     }
 
@@ -168,7 +172,7 @@ int libx52_update(libx52_device *x52)
     unsigned int i;
     uint32_t update_mask;
     uint16_t value;
-    int rc = 0;
+    int rc = LIBX52_SUCCESS;
 
     /* Save the update mask */
     update_mask = x52->update_mask;
@@ -221,7 +225,8 @@ int libx52_update(libx52_device *x52)
                 break;
 
             case X52_BIT_POV_BLINK:
-                value = tst_bit(&x52->led_mask, X52_BIT_POV_BLINK) ? X52_BLINK_ON : X52_BLINK_OFF;
+                value = tst_bit(&x52->led_mask, X52_BIT_POV_BLINK)
+                        ? X52_BLINK_ON : X52_BLINK_OFF;
                 rc = libx52_vendor_command(x52, X52_BLINK_INDICATOR, value);
                 break;
 
@@ -253,11 +258,11 @@ int libx52_update(libx52_device *x52)
 
             default:
                 /* Ignore any spurious bits */
-                rc = 0;
+                rc = LIBX52_SUCCESS;
                 break;
             }
 
-            if (rc == 0) {
+            if (rc == LIBX52_SUCCESS) {
                 clr_bit(&update_mask, i);
             } else {
                 /* Last transfer failed - reset the update mask */
