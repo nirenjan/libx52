@@ -5,7 +5,7 @@ lib_LTLIBRARIES = libx52.la
 # Core libx52 library
 # This library handles the USB communication between the host and the X52
 libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c
-libx52_la_LDFLAGS = -version-info 4:0:2 -lusb-1.0
+libx52_la_LDFLAGS = -version-info 2:0:0 -lusb-1.0
 
 # Header files that need to be copied
 x52includedir = $(includedir)/x52pro
