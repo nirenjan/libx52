@@ -19,6 +19,55 @@
 #include "x52_commands.h"
 #include "x52_common.h"
 
+/* Translate a libusb error to a libx52 error */
+static int libx52_translate_libusb_error(enum libusb_error errcode)
+{
+    switch (errcode) {
+    case LIBUSB_SUCCESS:
+        return LIBX52_SUCCESS;
+
+    case LIBUSB_ERROR_IO:
+        return LIBX52_ERROR_IO;
+
+    case LIBUSB_ERROR_INVALID_PARAM:
+        return LIBX52_ERROR_INVALID_PARAM;
+
+    case LIBUSB_ERROR_ACCESS:
+        return LIBX52_ERROR_PERM;
+
+    case LIBUSB_ERROR_NO_DEVICE:
+        return LIBX52_ERROR_NO_DEVICE;
+
+    case LIBUSB_ERROR_NOT_FOUND:
+        return LIBX52_ERROR_NOT_FOUND;
+
+    case LIBUSB_ERROR_BUSY:
+        return LIBX52_ERROR_BUSY;
+
+    case LIBUSB_ERROR_TIMEOUT:
+        return LIBX52_ERROR_TIMEOUT;
+
+    case LIBUSB_ERROR_OVERFLOW:
+        return LIBX52_ERROR_OVERFLOW;
+
+    case LIBUSB_ERROR_PIPE:
+        return LIBX52_ERROR_PIPE;
+
+    case LIBUSB_ERROR_INTERRUPTED:
+        return LIBX52_ERROR_INTERRUPTED;
+
+    case LIBUSB_ERROR_NO_MEM:
+        return LIBX52_ERROR_OUT_OF_MEMORY;
+
+    case LIBUSB_ERROR_NOT_SUPPORTED:
+        return LIBX52_ERROR_NOT_SUPPORTED;
+
+    case LIBUSB_ERROR_OTHER:
+    default:
+        return LIBX52_ERROR_USB_FAILURE;
+    };
+}
+
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 {
     int j;
@@ -34,11 +83,11 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
             break;
         }
     }
-    
+
     if (rc == LIBUSB_SUCCESS) {
         return LIBX52_SUCCESS;
     } else {
-        return LIBX52_ERROR_USB_FAILURE;
+        return libx52_translate_libusb_error(rc);
     }
 }
 

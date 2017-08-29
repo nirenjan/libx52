@@ -160,6 +160,34 @@ typedef enum {
 
     /** Error encountered during USB interaction */
     LIBX52_ERROR_USB_FAILURE,
+
+    /** Input output error */
+    LIBX52_ERROR_IO,
+
+    /** Insufficient permissions */
+    LIBX52_ERROR_PERM,
+
+    /** No such device */
+    LIBX52_ERROR_NO_DEVICE,
+
+    /** Entry not found */
+    LIBX52_ERROR_NOT_FOUND,
+
+    /** Busy */
+    LIBX52_ERROR_BUSY,
+
+    /** Timeout */
+    LIBX52_ERROR_TIMEOUT,
+
+    /** Overflow */
+    LIBX52_ERROR_OVERFLOW,
+
+    /** Pipe error */
+    LIBX52_ERROR_PIPE,
+
+    /** Operation interrupted */
+    LIBX52_ERROR_INTERRUPTED,
+
 } libx52_error_code;
 
 /**
