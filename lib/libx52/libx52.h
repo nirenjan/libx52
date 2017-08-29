@@ -460,6 +460,16 @@ int libx52_update(libx52_device *x52);
  */
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
 
+/**
+ * @brief Return a string representation of the error code
+ *
+ * @param[in]   error   Error code returned by libx52 function
+ *
+ * @returns Pointer to a NULL terminated string describing the error.
+ * Returned pointer must not be freed.
+ */
+char * libx52_strerror(libx52_error_code error);
+
 #ifdef __cplusplus
 }
 #endif
