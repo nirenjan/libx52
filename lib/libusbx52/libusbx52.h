@@ -10,7 +10,8 @@
  */
 
 #include <stdio.h>
-#include <libusb-1.0/libusb.h>
+// #include <libusb-1.0/libusb.h>
+#include <libusb.h>
 
 struct libusb_device {
     struct libusb_context *context;

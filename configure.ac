@@ -5,23 +5,14 @@ AC_PROG_CC
 AM_PROG_AR
 AM_PATH_PYTHON([2.6])
 LT_INIT
+PKG_PROG_PKG_CONFIG
 
 # Check for libusb-1.0
-AC_SEARCH_LIBS([libusb_init], [usb-1.0], [have_libusb=yes])
+PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
 
-AS_IF([test "x${have_libusb}" = xyes], [
-    AC_CHECK_HEADERS([libusb-1.0/libusb.h], [], [have_libusb=no])
-])
-
-AS_IF([test "x${have_libusb}" != xyes], [
-    AC_MSG_ERROR([
-    -------------------------------------------------------
-     The library libusb-1.0 and header file libusb.h
-     are required to build x52pro-linux. Stopping...
-     Check 'config.log' for more information.
-    -------------------------------------------------------
-    ])
-])
+AC_SUBST([LIBUSB_CFLAGS])
+AC_SUBST([LIBUSB_LDFLAGS])
+AC_SUBST([LIBUSB_LIBS])
 
 AC_SUBST([X52_PKG_VERSION], [0.1])
 AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
