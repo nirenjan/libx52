@@ -16,7 +16,12 @@ the individual folders for README information.
 
 # Building
 
-Build has been tested on Ubuntu 14.04 LTS on x86_64.
+Build has been tested on the following platforms:
+
+* Ubuntu 12.04 LTS on amd64
+* Ubuntu 14.04 LTS on amd64
+* Ubuntu 16.04 LTS on amd64
+* OS X 10.11.6 El Capitan
 
 ## Prerequisites
 
@@ -24,8 +29,12 @@ You will need the following packages:
 
 * automake
 * autoconf
+* libtool
 * libusb-1.0-0-dev (Package name may vary across distributions)
+* pkg-config
 * python (2.6 or greater)
+
+If you are on OSX, you can install the above packages using Homebrew
 
 ## Installation
 
