@@ -84,11 +84,7 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
         }
     }
 
-    if (rc == LIBUSB_SUCCESS) {
-        return LIBX52_SUCCESS;
-    } else {
-        return libx52_translate_libusb_error(rc);
-    }
+    return libx52_translate_libusb_error(rc);
 }
 
 static int libx52_write_line(libx52_device *x52, uint8_t line_index)
