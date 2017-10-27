@@ -171,6 +171,15 @@ static int libx52_write_time(libx52_device *x52, libx52_clock_id clock)
 
     if (clock != LIBX52_CLOCK_1) {
         offset = x52->timezone[clock] - x52->timezone[LIBX52_CLOCK_1];
+
+        /* Save the preliminary state, if negative, set the negative flag */
+        if (offset < 0) {
+            negative = 1;
+            offset = -offset;
+        } else {
+            negative = 0;
+        }
+
         /* Because the packet format limits the offset from the base clock to
          * a maximum of +/- 1023, we can only handle a maximum offset of 17
          * hours from the base clock. Eg. Honolulu and Auckland at -1000 and
@@ -180,15 +189,16 @@ static int libx52_write_time(libx52_device *x52, libx52_clock_id clock)
          * exceeds +/- 1023, and subtract 1440, which will convert the offset of
          * +22 to -2 hours, or +26 to +4 hours.
          */
-        if (offset < -1023 || offset > 1023) {
+        while (offset > 1023) {
             offset -= 1440; // Subtract 24 hours
         }
 
+        /* If offset is between 1024 and 1440, then we need to reverse the
+         * negative flag
+         */
         if (offset < 0) {
-            negative = 1;
+            negative = !negative;
             offset = -offset;
-        } else {
-            negative = 0;
         }
 
         value = h24 << 15 |
