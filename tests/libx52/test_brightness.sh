@@ -1,4 +1,9 @@
 #!/bin/bash
+# MFD & LED brightness tests
+#
+# Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
+#
+# SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
 source $(dirname $0)/../common_infra.sh
 

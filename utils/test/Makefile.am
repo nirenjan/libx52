@@ -1,3 +1,9 @@
+# Automake for x52test
+#
+# Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
+#
+# SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
+
 ACLOCAL_AMFLAGS = -I m4
 
 bin_PROGRAMS = x52test

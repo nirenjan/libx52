@@ -1,5 +1,9 @@
 #!/bin/bash
 # Common infrastructure for the test cases
+#
+# Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
+#
+# SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
 # Set up exit status codes
 EXIT_SUCCESS=0

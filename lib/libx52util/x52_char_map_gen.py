@@ -1,5 +1,9 @@
 #!/usr/bin/python
 # Character map generator
+#
+# Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
+#
+# SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 """
 Generator script to parse character mapping
 for the X52/X52 Pro MFD

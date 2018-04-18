@@ -1,3 +1,9 @@
+# Automake for libx52util
+#
+# Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
+#
+# SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
+
 ACLOCAL_AMFLAGS = -I m4
 
 lib_LTLIBRARIES = libx52util.la
@@ -23,3 +29,4 @@ EXTRA_DIST = 	x52_char_map.cfg \
 CLEANFILES = util_char_map.c
 util_char_map.c: $(srcdir)/x52_char_map.cfg x52_char_map_gen.py
 	$(AM_V_GEN) $(srcdir)/x52_char_map_gen.py $(srcdir)/x52_char_map.cfg $@
+
