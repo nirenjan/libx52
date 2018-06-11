@@ -34,6 +34,9 @@ struct libx52_device {
     libusb_context *ctx;
     libusb_device_handle *hdl;
 
+    libx52_memalloc memalloc;
+    libx52_memfree memfree;
+
     uint32_t update_mask;
     uint32_t flags;
 

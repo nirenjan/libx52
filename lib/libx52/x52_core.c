@@ -44,6 +44,14 @@ static int libx52_device_is_x52pro(uint16_t idProduct)
 
 int libx52_init(libx52_device **dev)
 {
+    /* Call libx52_init_mem with realloc and free */
+    return libx52_init_mem(dev, realloc, free);
+}
+
+int libx52_init_mem(libx52_device **dev,
+                    libx52_memalloc memalloc,
+                    libx52_memfree memfree)
+{
     int rc;
     ssize_t count;
     int i;
@@ -58,11 +66,19 @@ int libx52_init(libx52_device **dev)
         return LIBX52_ERROR_INVALID_PARAM;
     }
 
+    /* Make sure that our alloc and free functions are valid */
+    if (memalloc == NULL || memfree == NULL) {
+        return LIBX52_ERROR_INVALID_PARAM;
+    }
+
     /* Allocate memory for the library's data structures */
-    x52_dev = calloc(1, sizeof(libx52_device));
+    x52_dev = (*memalloc)(NULL, sizeof(libx52_device));
     if (!x52_dev) {
         return LIBX52_ERROR_OUT_OF_MEMORY;
     }
+
+    x52_dev->memalloc = memalloc;
+    x52_dev->memfree = memfree;
 
     rc = libusb_init(&(x52_dev->ctx));
     if (rc) {
@@ -109,6 +125,6 @@ void libx52_exit(libx52_device *dev)
 {
     libusb_close(dev->hdl);
     libusb_exit(dev->ctx);
-    free(dev);
+    (*(dev->memfree))(dev);
 }
 

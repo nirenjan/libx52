@@ -188,6 +188,24 @@ typedef enum {
 } libx52_error_code;
 
 /**
+ * @brief Memory allocation callback type
+ *
+ * This function has the same signature as realloc(3), but is passed
+ * to allow the calling application to manage memory instead of relying
+ * on the standard library.
+ */
+typedef void * (*libx52_memalloc)(void *ptr, size_t size);
+
+/**
+ * @brief Memory free callback type
+ *
+ * This function has the same signature as free(3), but is passed
+ * to allow the calling application to manage memory instead of relying
+ * on the standard library.
+ */
+typedef void (*libx52_memfree)(void *ptr);
+
+/**
  * @brief Initialize the X52 library
  *
  * This function initializes the libx52 library, sets up any internal data
@@ -205,6 +223,27 @@ typedef enum {
  * @returns \ref libx52_error_code indicating status
  */
 int libx52_init(libx52_device ** dev);
+
+/**
+ * @brief Initialize the X52 library
+ *
+ * This function does the exact same functionality as \ref libx52_init,
+ * except that it requires the user to provide function callbacks for
+ * allocating and releasing memory.
+ *
+ * @param[out]  dev         Pointer to a \ref libx52_device *
+ * @param[in]   memalloc    Pointer to a function that returns an allocated
+ *                          block of memory. Function should have the same
+ *                          signature as realloc(3)
+ * @param[in]   memfree     Pointer to a function that frees an allocated
+ *                          block of memory. Function should have the same
+ *                          signature as free(3)
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_init_mem(libx52_device ** dev,
+                    libx52_memalloc memalloc,
+                    libx52_memfree memfree);
 
 /**
  * @brief Exit the library and free up any resources used
