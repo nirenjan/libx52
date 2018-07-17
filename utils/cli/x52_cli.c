@@ -15,21 +15,6 @@
 
 #include "libx52.h"
 
-typedef enum {
-    X52_CTL_CMD_BRIGHTNESS,
-    X52_CTL_CMD_MFD_TEXT,
-    X52_CTL_CMD_LED_STATE,
-    X52_CTL_CMD_BLINK,
-    X52_CTL_CMD_SHIFT,
-    X52_CTL_CMD_CLOCK,
-    X52_CTL_CMD_OFFSET,
-    X52_CTL_CMD_TIME,
-    X52_CTL_CMD_DATE,
-    X52_CTL_CMD_RAW,
-
-    X52_CTL_CMD_MAX
-} x52_ctl_command;
-
 struct string_map {
     char *key;
     union {
@@ -160,21 +145,6 @@ DEFINE_MAP(time_format) = {
     MAP_TERMINATOR
 };
 
-/* Map for commands */
-DEFINE_MAP(command) = {
-    MAP_INT( "led",     X52_CTL_CMD_LED_STATE ),
-    MAP_INT( "bri",     X52_CTL_CMD_BRIGHTNESS ),
-    MAP_INT( "mfd",     X52_CTL_CMD_MFD_TEXT ),
-    MAP_INT( "blink",   X52_CTL_CMD_BLINK ),
-    MAP_INT( "shift",   X52_CTL_CMD_SHIFT ),
-    MAP_INT( "clock",   X52_CTL_CMD_CLOCK ),
-    MAP_INT( "offset",  X52_CTL_CMD_OFFSET ),
-    MAP_INT( "time",    X52_CTL_CMD_TIME ),
-    MAP_INT( "date",    X52_CTL_CMD_DATE ),
-    MAP_INT( "raw",     X52_CTL_CMD_RAW ),
-    MAP_TERMINATOR
-};
-
 static int update_led(libx52_device *x52, void *args[])
 {
     return libx52_set_led_state(x52,
@@ -276,7 +246,7 @@ static int update_date(libx52_device *x52, void *args[])
     return rc;
 }
 
-static int write_raw(libx52_device *x52, void *args[])
+static int update_raw(libx52_device *x52, void *args[])
 {
     uint16_t wIndex = (uint16_t)strtoul(args[0], NULL, 0);
     uint16_t wValue = (uint16_t)strtoul(args[1], NULL, 0);
@@ -284,97 +254,62 @@ static int write_raw(libx52_device *x52, void *args[])
     return libx52_vendor_command(x52, wIndex, wValue);
 }
 
-const struct command_handler handlers[X52_CTL_CMD_MAX] = {
-    [X52_CTL_CMD_LED_STATE] = {
-        update_led,
-        2,
-        {
-            MAP(led_id),
-            MAP(led_state),
-        },
-        "led <led-id> <state>"
-    },
-    [X52_CTL_CMD_BRIGHTNESS] = {
-        update_bri,
-        2,
-        {
-            MAP(brightness_targets),
-            NULL,
-        },
-        "bri {mfd | led} <brightness level>"
-    },
-    [X52_CTL_CMD_MFD_TEXT] = {
-        update_mfd,
-        2,
-        {
-            NULL,
-            NULL,
-        },
-        "mfd <line> <text in quotes>"
-    },
-    [X52_CTL_CMD_BLINK] = {
-        update_blink,
-        1,
-        { MAP(on_off) },
-        "blink { on | off }"
-    },
-    [X52_CTL_CMD_SHIFT] = {
-        update_shift,
-        1,
-        { MAP(on_off) },
-        "shift { on | off }"
-    },
-    [X52_CTL_CMD_CLOCK] = {
-        update_clock,
-        3,
-        {
-            MAP(clock0_timezone),
-            MAP(time_format),
-            MAP(date_format),
-        },
-        "clock {local | gmt} {12hr | 24hr} {ddmmyy | mmddyy | yymmdd}"
-    },
-    [X52_CTL_CMD_OFFSET] = {
-        update_offset,
-        3,
-        {
-            MAP(clocks),
-            NULL,
-            MAP(time_format)
-        },
-        "offset {2 | 3} <offset from clock 1 in minutes> {12hr | 24hr}"
-    },
-    [X52_CTL_CMD_TIME] = {
-        update_time,
-        3,
-        {
-            NULL,
-            NULL,
-            MAP(time_format)
-        },
-        "time <hour> <minute> {12hr | 24hr}"
-    },
-    [X52_CTL_CMD_DATE] = {
-        update_date,
-        4,
-        {
-            NULL,
-            NULL,
-            NULL,
-            MAP(date_format)
-        },
-        "date <dd> <mm> <yy> {ddmmyy | mmddyy | yymmdd}"
-    },
-    [X52_CTL_CMD_RAW] = {
-        write_raw,
-        2,
-        {
-            NULL,
-            NULL,
-        },
-        "raw <wIndex> <wValue>"
-    }
+/* Commands for CLI */
+#define COMMANDS \
+    X(led,      LED_STATE,  "<led-id> <state>",     2, \
+        MAP(led_id), MAP(led_state)) \
+    X(bri,      BRIGHTNESS, "{mfd | led} <brightness level>", 2, \
+        MAP(brightness_targets), NULL) \
+    X(mfd,      MFD_TEXT,   "<line> <text in quotes>", 2, \
+        NULL, NULL) \
+    X(blink,    BLINK,      "{ on | off }", 1, \
+        MAP(on_off)) \
+    X(shift,    SHIFT,      "{ on | off }", 1, \
+        MAP(on_off)) \
+    X(clock,    CLOCK, \
+        "{local | gmt} {12hr | 24hr} {ddmmyy | mmddyy | yymmdd}", \
+        3, MAP(clock0_timezone), MAP(time_format), MAP(date_format)) \
+    X(offset,   OFFSET, \
+        "{2 | 3} <offset from clock 1 in minutes> {12hr | 24hr}", \
+        3, MAP(clocks), NULL, MAP(time_format)) \
+    X(time,     TIME, \
+        "<hour> <minute> {12hr | 24hr}", 3, \
+        NULL, NULL, MAP(time_format)) \
+    X(date,     DATE, \
+        "<dd> <mm> <yy> {ddmmyy | mmddyy | yymmdd}", 4, \
+        NULL, NULL, NULL, MAP(date_format)) \
+    X(raw,      RAW,        "<wIndex> <wValue>", 2, NULL, NULL)
+
+/* Enums for command identification */
+#define X(cmd, en, help, args, ...) X52_CTL_CMD_ ## en,
+enum {
+    COMMANDS
+
+    X52_CTL_CMD_MAX
 };
+#undef X
+
+/* Map for commands */
+#define X(cmd, en, help, args, ...) MAP_INT( #cmd, X52_CTL_CMD_ ## en),
+DEFINE_MAP(command) = {
+    COMMANDS
+
+    MAP_TERMINATOR
+};
+#undef X
+
+/* Command handlers */
+#define X(cmd, en, help, args, ...) \
+    [X52_CTL_CMD_ ## en] = { \
+        update_ ## cmd, \
+        args, \
+        { __VA_ARGS__ }, \
+        #cmd " " help \
+    },
+const struct command_handler handlers[X52_CTL_CMD_MAX] = {
+    COMMANDS
+};
+#undef X
 
 static void do_help(const struct command_handler *cmd)
 {
