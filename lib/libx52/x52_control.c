@@ -17,7 +17,7 @@
 #include "x52_common.h"
 
 /* Translate a libusb error to a libx52 error */
-static int libx52_translate_libusb_error(enum libusb_error errcode)
+int libx52internal_translate_libusb_error(enum libusb_error errcode)
 {
     switch (errcode) {
     case LIBUSB_SUCCESS:
@@ -81,7 +81,7 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
         }
     }
 
-    return libx52_translate_libusb_error(rc);
+    return libx52internal_translate_libusb_error(rc);
 }
 
 static int libx52_write_line(libx52_device *x52, uint8_t line_index)

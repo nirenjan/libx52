@@ -78,6 +78,7 @@ int libx52_init(libx52_device **dev)
             if (libx52_check_product(desc.idVendor, desc.idProduct)) {
                 rc = libusb_open(device, &hdl);
                 if (rc) {
+                    rc = libx52internal_translate_libusb_error(rc);
                     goto err_recovery;
                 }
 
@@ -94,6 +95,7 @@ int libx52_init(libx52_device **dev)
 
     /* Make sure we actually have an X52 device detected */
     if (!x52_dev->hdl) {
+        rc = LIBX52_ERROR_NO_DEVICE;
         goto err_recovery;
     }
 
