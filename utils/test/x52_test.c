@@ -81,14 +81,29 @@ static void signal_handler(int sig)
     test_exit = sig;
 }
 
-#define TEST_brightness     (1 << 0)
-#define TEST_leds           (1 << 1)
-#define TEST_mfd_text       (1 << 2)
-#define TEST_mfd_display    (1 << 3)
-#define TEST_blink_n_shift  (1 << 4)
-#define TEST_clock          (1 << 5)
+#define TESTS \
+    X(brightness, bri, "Test brightness scale (~ 1m)") \
+    X(leds, led, "Test LED states (~ 45s)") \
+    X(mfd_text, mfd1, "Test MFD string display (~ 30s)") \
+    X(mfd_display, mfd2, "Test MFD displays all characters (~ 2m 15s)") \
+    X(blink_n_shift, blink, "Test the blink and shift commands (< 10s)") \
+    X(clock, clock, "Test the clock commands (~1m)")
 
-#define TEST_ALL (TEST_brightness | TEST_leds | TEST_mfd_text | TEST_blink_n_shift | TEST_clock | TEST_mfd_display)
+enum {
+#define X(en, kw, desc) TEST_BIT_ ## en,
+    TESTS
+#undef X
+};
+
+enum {
+#define X(en, kw, desc) TEST_ ## en = (1 << TEST_BIT_ ## en),
+    TESTS
+#undef X
+};
+
+#define X(en, kw, desc) | TEST_ ## en
+const int TEST_ALL = 0 TESTS;
+#undef X
 
 static int run_tests(int test_set)
 {
@@ -117,12 +132,9 @@ static int run_tests(int test_set)
     test_exit = 0;
 
     do {
-        RUN_TEST(brightness)
-        RUN_TEST(leds)
-        RUN_TEST(mfd_text)
-        RUN_TEST(mfd_display)
-        RUN_TEST(blink_n_shift)
-        RUN_TEST(clock)
+        #define X(en, cmd, desc) RUN_TEST(en)
+        TESTS
+        #undef X
     } while (0);
 
     if (rc > 0) {
@@ -146,19 +158,31 @@ void usage(void)
 
     puts("List of tests:");
     puts("==============");
-    puts("\tbri\tTest brightness scale (~ 1m)");
-    puts("\tled\tTest LED states (~ 45s)");
-    puts("\tmfd1\tTest MFD string display (~ 30s)");
-    puts("\tmfd2\tTest MFD displays all characters (~ 2m 15s)");
-    puts("\tblink\tTest the blink and shift commands (< 10s)");
-    puts("\tclock\tTest the clock commands (~ 1m)");
+
+    #define X(en, cmd, desc) puts("\t" #cmd "\t" desc);
+    TESTS
+    #undef X
+
     puts("");
 }
+
+struct test_map {
+    char *cmd;
+    int  test_bitmap;
+};
+const struct test_map tests[] = {
+#define X(en, cmd, desc) { #cmd, TEST_ ##en },
+    TESTS
+#undef X
+    { NULL, 0 }
+};
 
 int main(int argc, char **argv)
 {
     int test_list;
     int i;
+    const struct test_map *test;
+    int found;
 
     /* Usage: x52test [list of tests] */
     if (argc == 1) {
@@ -179,22 +203,21 @@ int main(int argc, char **argv)
             printf("Usage: %s [list of tests]\n\n", argv[0]);
             usage();
             return 0;
-        } else if (!strcmp(argv[i], "bri")) {
-            test_list |= TEST_brightness;
-        } else if (!strcmp(argv[i], "led")) {
-            test_list |= TEST_leds;
-        } else if (!strcmp(argv[i], "mfd1")) {
-            test_list |= TEST_mfd_text;
-        } else if (!strcmp(argv[i], "mfd2")) {
-            test_list |= TEST_mfd_display;
-        } else if (!strcmp(argv[i], "blink")) {
-            test_list |= TEST_blink_n_shift;
-        } else if (!strcmp(argv[i], "clock")) {
-            test_list |= TEST_clock;
         } else {
-            printf("Unrecognized test identifier: %s\n\n", argv[i]);
-            usage();
-            return 1;
+            found = 0;
+            for (test = tests; test->cmd; test++) {
+                if (!strcmp(argv[i], test->cmd)) {
+                    test_list |= test->test_bitmap;
+                    found = 1;
+                    break;
+                }
+            }
+
+            if (found == 0) {
+                printf("Unrecognized test identifier: %s\n\n", argv[i]);
+                usage();
+                return 1;
+            }
         }
     }
 
