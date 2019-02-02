@@ -41,7 +41,16 @@ static libusb_device_handle *libusbx52_init(void)
         return NULL;
     }
 
+    #if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000106)
+    /*
+     * Use the libusb_set_option flag instead of libusb_set_debug. This
+     * was introduced in libusb 1.0.22
+     */
+    libusb_set_option(global_context, LIBUSB_OPTION_LOG_LEVEL,
+                      LIBUSB_LOG_LEVEL_ERROR);
+    #else
     libusb_set_debug(global_context, LIBUSB_LOG_LEVEL_ERROR);
+    #endif
 
     count = libusb_get_device_list(global_context, &list);
     for (i = 0; i < count; i++) {

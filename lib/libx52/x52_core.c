@@ -69,7 +69,16 @@ int libx52_init(libx52_device **dev)
         rc = LIBX52_ERROR_INIT_FAILURE;
         goto err_recovery;
     }
+    #if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000106)
+    /*
+     * Use the libusb_set_option flag instead of libusb_set_debug. This
+     * was introduced in libusb 1.0.22
+     */
+    libusb_set_option(x52_dev->ctx, LIBUSB_OPTION_LOG_LEVEL,
+                      LIBUSB_LOG_LEVEL_WARNING);
+    #else
     libusb_set_debug(x52_dev->ctx, LIBUSB_LOG_LEVEL_WARNING);
+    #endif
 
     count = libusb_get_device_list(x52_dev->ctx, &list);
     for (i = 0; i < count; i++) {

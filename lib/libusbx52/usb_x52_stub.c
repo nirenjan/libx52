@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <libusb.h>
 #include "libusbx52.h"
 
@@ -128,6 +129,26 @@ void libusb_set_debug(libusb_context *ctx, int level)
     /* Set the debug level appropriately */
     ctx->debug_level = level;
 }
+
+#if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000106)
+int libusb_set_option(libusb_context *ctx, enum libusb_option option, ...)
+{
+    va_list args;
+    va_start(args, option);
+
+    /* Check if the option was provided */
+    if (option == LIBUSB_OPTION_LOG_LEVEL) {
+        int level = va_arg(args, int);
+
+        /* Set the debug level */
+        ctx->debug_level = level;
+    }
+
+    va_end(args);
+
+    return 0;
+}
+#endif
 
 ssize_t libusb_get_device_list(libusb_context *ctx, libusb_device ***list)
 {
