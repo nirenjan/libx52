@@ -52,10 +52,8 @@ mfd_text_test()
     local text="$2"
     TEST_ID="Test setting MFD line $line to '$text'"
 
-    set -x
     pattern=$(format_text $clear_index $set_index "$text")
     expect_pattern $pattern
-    set +x
 
     $X52CLI mfd $line "$text"
 
