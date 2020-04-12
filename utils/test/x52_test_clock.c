@@ -23,7 +23,7 @@ int test_clock(void)
     #define TEST_CLOCK_LOOP(bump) do { \
         for (i = start; i < end; i += bump) { \
             TEST(clock, i, 0); \
-            usleep(250000); \
+            if (!nodelay) usleep(250000); \
         } \
     } while (0)
 

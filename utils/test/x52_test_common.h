@@ -10,10 +10,12 @@
 #define X52_TEST_COMMON_H
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "libx52.h"
 
 extern libx52_device *dev;
 extern int test_exit;
+extern bool nodelay;
 
 #define TEST(tst, ...) do { \
     int rc; \

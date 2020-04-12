@@ -7,6 +7,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <signal.h>
 #include <string.h>
 #include <time.h>
@@ -15,6 +16,7 @@
 #include "x52_test_common.h"
 libx52_device *dev;
 int test_exit;
+bool nodelay;
 
 void test_cleanup(void)
 {
@@ -220,6 +222,9 @@ int main(int argc, char **argv)
             }
         }
     }
+
+    /* Initialize the nodelay variable */
+    nodelay = (getenv("LD_PRELOAD") != NULL || getenv("NO_DELAY") != NULL);
 
     if (test_list) {
         i = run_tests(test_list);

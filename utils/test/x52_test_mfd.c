@@ -29,14 +29,14 @@ int test_brightness(void)
         if (!(i & 3)) fputs("#", stdout);
         fflush(stdout);
         TEST_BRIGHTNESS(1, i);
-        usleep(250000);
+        if (!nodelay) usleep(250000);
     }
     fputs("\nLED: ", stdout);
     for (i = 0; i < 129; i++) {
         if (!(i & 3)) fputs("#", stdout);
         fflush(stdout);
         TEST_BRIGHTNESS(0, i);
-        usleep(250000);
+        if (!nodelay) usleep(250000);
     }
 
     fputs("\n\n", stdout);
@@ -66,7 +66,7 @@ int test_mfd_text(void)
         TEST(text, 1, str, 16);
         TEST(text, 2, str + 16, 16);
 
-        sleep(2);
+        if (!nodelay) sleep(2);
     } 
 
     return 0;
@@ -92,7 +92,7 @@ int test_mfd_display(void)
         TEST(text, 2, str, 16);
 
         puts("OK");
-        usleep(500000);
+        if (!nodelay) usleep(500000);
     } 
 
     return 0;

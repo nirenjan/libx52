@@ -16,19 +16,19 @@
 #define TEST_LED(name, state) do { \
     puts("LED " #name " - " #state); \
     TEST(led_state, LIBX52_LED_ ## name, LIBX52_LED_STATE_ ## state); \
-    usleep(500000); \
+    if (!nodelay) usleep(500000); \
 } while(0)
 
 #define TEST_LED_MONO(name) do { \
     puts("\nTesting LED " #name); \
-    sleep(2); \
+    if (!nodelay) sleep(2); \
     TEST_LED(name, OFF); \
     TEST_LED(name, ON); \
 } while(0)
 
 #define TEST_LED_COLOR(name) do {\
     puts("\nTesting LED " #name); \
-    sleep(2); \
+    if (!nodelay) sleep(2); \
     TEST_LED(name, OFF); \
     TEST_LED(name, RED); \
     TEST_LED(name, AMBER); \
@@ -57,10 +57,10 @@ int test_leds(void)
 
 #define TEST_BLINK_OR_SHIFT(type) do { \
     puts("\nTesting " #type); \
-    sleep(1); \
+    if (!nodelay) sleep(1); \
     puts(#type " ON"); \
     TEST(type, 1); \
-    sleep(2); \
+    if (!nodelay) sleep(2); \
     puts(#type " OFF"); \
     TEST(type, 0); \
 } while (0)
