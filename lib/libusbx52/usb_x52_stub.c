@@ -240,6 +240,8 @@ int libusb_open(libusb_device *dev, libusb_device_handle **handle)
         free(tmp_hdl);
         return LIBUSB_ERROR_IO;
     }
+    /* Set the packet data file to be line buffered */
+    setlinebuf(tmp_hdl->packet_data_file);
 
     LIBUSB_DUMP_LOG_FILE(tmp_hdl, LIBUSB_LOG_LEVEL_DEBUG,
         "VID: %04x PID: %04x idx: %d ref: %d\n",
