@@ -9,6 +9,13 @@ The format is based upon [Keep a Changelog].
 - `libx52_init` now returns a `libx52_error_code`, and returns the
   `libx52_device` pointer in an output parameter.
 - All libx52 APIs now return a `libx52_error_code` indicating the error.
+- libx52 now checks the version of libusb and calls the appropriate method
+  to set logging level.
+- x52test has an option to not sleep between consecutive calls to the libx52
+  APIs.
+
+### Fixed
+- `libx52_write_time` handling of large timezone offsets.
 
 ## [0.1.2] - 2017-08-17
 ### Added
@@ -71,7 +78,7 @@ The format is based upon [Keep a Changelog].
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
 [Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.2...HEAD
-[0.1.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.1...v0.1.2
+[0.1.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.0.2...v0.1.0
 [0.0.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.0.1...v0.0.2
