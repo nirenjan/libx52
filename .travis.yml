@@ -1,20 +1,50 @@
 language: c
 script: ./.travis_build.sh
 
+# Compile on both MacOS and Linux
+os:
+    - osx
+    - linux
+
 # Compile using both gcc & clang
 compiler:
     - gcc
     - clang
 
-# Use container based infrastructure
-sudo: false
-dist: trusty
+jobs:
+    include:
+        - os: linux
+          dist: trusty
+          compiler: gcc
+        - os: linux
+          dist: trusty
+          compiler: clang
+        - os: linux
+          dist: xenial
+          compiler: gcc
+        - os: linux
+          dist: xenial
+          compiler: clang
+        - os: linux
+          dist: bionic
+          compiler: gcc
+        - os: linux
+          dist: bionic
+          compiler: clang
+
+# Install dependencies
 addons:
     apt:
         packages:
         - libusb-1.0-0-dev
         - libudev-dev
-        - realpath
+    homebrew:
+        packages:
+        - libusb
+
+# Ensure realpath is available on Trusty
+before_script:
+    - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install realpath || true; fi
 
 # Enable parallel make
 env:
