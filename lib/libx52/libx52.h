@@ -27,6 +27,26 @@ struct libx52_device;
 typedef struct libx52_device libx52_device;
 
 /**
+ * @brief Opaque structure used by libx52 hotplug API
+ */
+struct libx52_hotplug_callback_handle;
+
+/**
+ * @brief Opaque structure used by libx52 hotplug API
+ */
+typedef struct libx52_hotplug_callback_handle libx52_hotplug_callback_handle;
+
+/**
+ * @brief Opaque structure used by libx52 hotplug API
+ */
+struct libx52_hotplug_service;
+
+/**
+ * @brief Opaque structure used by libx52 hotplug API
+ */
+typedef struct libx52_hotplug_service libx52_hotplug_service;
+
+/**
  * @brief List of supported clocks on the MFD
  */
 typedef enum {
@@ -194,7 +214,7 @@ typedef enum {
  * structures to access the joystick, and returns a \ref libx52_device pointer.
  * All calls to libx52 use the returned pointer to control the device.
  *
- * If no joystick is found `libx52_init()` returns _NULL_.
+ * If no joystick is found `libx52_init()` returns \ref LIBX52_ERROR_NO_DEVICE.
  *
  * @par Limitations
  * This function does not support hotplugging. The joystick must be plugged in

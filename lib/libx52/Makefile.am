@@ -20,4 +20,4 @@ x52includedir = $(includedir)/x52pro
 x52include_HEADERS = libx52.h
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
+EXTRA_DIST = libx52.h x52_commands.h x52_common.h x52_hotplug.h README.md
