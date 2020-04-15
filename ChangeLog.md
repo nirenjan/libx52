@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+### Added
+- USB Hotplug support to libx52 and libusbx52
 
 ## [0.2.0] - 2020-04-14
 ### Changed
