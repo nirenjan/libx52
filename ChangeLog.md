@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+
+## [0.2.0] - 2020-04-14
 ### Changed
 - `libx52_init` now returns a `libx52_error_code`, and returns the
   `libx52_device` pointer in an output parameter.
@@ -77,7 +79,8 @@ The format is based upon [Keep a Changelog].
 
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
-[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.0.2...v0.1.0
