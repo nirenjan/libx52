@@ -7,7 +7,7 @@
  */
 
 #include <stdio.h>
-// #include <libusb-1.0/libusb.h>
+#include <pthread.h>
 #include <libusb.h>
 
 struct libusb_device {
@@ -23,6 +23,17 @@ struct libusb_context {
     int debug_level;
     int num_devices;
     struct libusb_device *devices;
+
+    // Hotplug support
+    int hotplug_vid;
+    int hotplug_pid;
+    libusb_hotplug_event events;
+    libusb_hotplug_callback_fn callback;
+    void * cb_user_data;
+
+    // Hotplug threading
+    volatile int stop_thread;
+    pthread_t hotplug_pthread;
 };
 
 struct libusb_device_handle {
@@ -65,3 +76,20 @@ struct libusb_device_handle {
  */
 #define DEFAULT_OUTPUT_DATA_FILE        "/tmp/libusbx52_output_data"
 
+/**
+ * @brief Device update FIFO environment variable
+ *
+ * This is used by the test driver to update the simulated USB device list
+ */
+#define INPUT_DEVICE_FIFO_ENV           "LIBUSBX52_DEVICE_FIFO"
+
+/**
+ * @brief Default file location of the device update FIFO
+ *
+ * This FIFO is read by a thread in libusbx52 and used to simulate the hotplug
+ * functionality of libusb.
+ */
+#define DEFAULT_INPUT_DEVICE_FIFO_FILE  "/tmp/libusbx52_device_fifo"
+
+libusb_device* vector_push(libusb_context *ctx, int vid, int pid);
+libusb_device* vector_pop(libusb_context *ctx, int vid, int pid);
