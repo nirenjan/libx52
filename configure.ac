@@ -8,6 +8,7 @@ AC_INIT([x52pro-linux], [0.2.1], [nirenjan@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 AC_PROG_CC
+AC_PROG_CC_STDC
 AM_PROG_AR
 AM_PATH_PYTHON([2.6])
 LT_INIT
