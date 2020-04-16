@@ -24,6 +24,12 @@ AC_SUBST([LIBUSB_LIBS])
 AC_SUBST([X52_PKG_VERSION], [0.1])
 AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
 
+# Check for pthreads
+ACX_PTHREAD
+# LIBS="$PTHREAD_LIBS $LIBS"
+# CFLAGS="$PTHREAD_CFLAGS $CFLAGS"
+# CC="$PTHREAD_CC"
+
 AC_CONFIG_FILES([
     Makefile
     lib/Makefile
