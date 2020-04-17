@@ -14,12 +14,6 @@ compiler:
 jobs:
     include:
         - os: linux
-          dist: trusty
-          compiler: gcc
-        - os: linux
-          dist: trusty
-          compiler: clang
-        - os: linux
           dist: xenial
           compiler: gcc
         - os: linux
