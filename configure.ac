@@ -15,7 +15,7 @@ LT_INIT
 PKG_PROG_PKG_CONFIG
 
 # Check for libusb-1.0
-PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
+AX_PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
 
 AC_SUBST([LIBUSB_CFLAGS])
 AC_SUBST([LIBUSB_LDFLAGS])
@@ -34,6 +34,7 @@ AC_CONFIG_FILES([
     Makefile
     lib/Makefile
     lib/libx52/Makefile
+    lib/libx52/libx52.pc
     lib/libusbx52/Makefile
     lib/libx52util/Makefile
     utils/Makefile

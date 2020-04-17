@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE_NAME@
+Description: Linux/Unix library to control Saitek X52/X52Pro joystick extended functionality.
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -lx52
+Cflags: -I${includedir}/x52pro
+Requires: @AX_PACKAGE_REQUIRES@
