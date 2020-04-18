@@ -249,9 +249,9 @@ err_recovery:
     return rc;
 }
 
-int libx52_hotplug_exit(libx52_hotplug_service *svc) {
+void libx52_hotplug_exit(libx52_hotplug_service *svc) {
     if (svc == NULL || svc->dev == NULL || svc->callbacks == NULL) {
-        return LIBX52_ERROR_INVALID_PARAM;
+        return;
     }
 
     /* Deregister the callback handle */
@@ -276,8 +276,6 @@ int libx52_hotplug_exit(libx52_hotplug_service *svc) {
     /* Clear the service pointer before freeing it */
     memset(svc, 0, sizeof(*svc));
     free(svc);
-
-    return LIBX52_SUCCESS;
 }
 
 int libx52_hotplug_register_callback(libx52_hotplug_service *svc,
