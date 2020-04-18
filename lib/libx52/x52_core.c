@@ -328,7 +328,10 @@ int libx52_hotplug_register_callback(libx52_hotplug_service *svc,
     /* Insert the node into the callbacks list */
     svc->callbacks[i] = hdl;
 
-    *cb_handle = hdl;
+    if (cb_handle != NULL) {
+        *cb_handle = hdl;
+    }
+
     return LIBX52_SUCCESS;
 }
 
