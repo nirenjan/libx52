@@ -13,8 +13,8 @@ EXTRA_DIST = AUTHORS ChangeLog.md README.md LICENSE Doxyfile.in
 
 # Doxygen support
 if HAVE_DOXYGEN
-docs/.stamp:
-	$(AM_V_GEN)$(DOXYGEN) Doxyfile
+docs/.stamp: Doxyfile
+	$(AM_V_GEN)$(DOXYGEN) $<
 	$(AM_V_at)touch $@
 
 CLEANFILES = docs/.stamp

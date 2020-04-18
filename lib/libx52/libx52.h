@@ -29,18 +29,18 @@ extern "C" {
 
 /**
  * @brief Opaque structure used by libx52
- * @ingroup init
+ * @ingroup libx52init
  */
 struct libx52_device;
 
 /**
  * @brief Opaque structure used by libx52
- * @ingroup init
+ * @ingroup libx52init
  */
 typedef struct libx52_device libx52_device;
 
 /**
- * @addtogroup hotplug
+ * @addtogroup libx52hotplug
  * @{
  */
 
@@ -73,7 +73,7 @@ typedef void (*libx52_hotplug_fn)(bool inserted, void *user_data, libx52_device 
 
 /**
  * @brief List of supported clocks on the MFD
- * @ingroup clock
+ * @ingroup libx52clock
  */
 typedef enum {
     /** Primary clock on the MFD, indicated by the number 1 */
@@ -88,7 +88,7 @@ typedef enum {
 
 /**
  * @brief Supported clock formats
- * @ingroup clock
+ * @ingroup libx52clock
  */
 typedef enum {
     /** 12-hour display on the MFD clock */
@@ -100,7 +100,7 @@ typedef enum {
 
 /**
  * @brief Supported date formats
- * @ingroup clock
+ * @ingroup libx52clock
  */
 typedef enum {
     /** Date format DD-MM-YY */
@@ -115,7 +115,7 @@ typedef enum {
 
 /**
  * @brief Supported LED identifiers
- * @ingroup mfdled
+ * @ingroup libx52mfdled
  */
 typedef enum {
     /** Fire indicator LED */
@@ -157,7 +157,7 @@ typedef enum {
  *
  * Not all LEDs support all states
  *
- * @ingroup clock
+ * @ingroup libx52mfdled
  */
 typedef enum {
     /** LED is off */
@@ -184,7 +184,7 @@ typedef enum {
  *
  * Error codes returned by libx52
  *
- * @ingroup misc
+ * @ingroup libx52misc
  */
 typedef enum {
     /** No error, indicates success */
@@ -241,7 +241,7 @@ typedef enum {
 } libx52_error_code;
 
 /**
- * @defgroup init Library Initialization and Deinitialization
+ * @defgroup libx52init Library Initialization and Deinitialization
  * @{
  */
 
@@ -307,7 +307,7 @@ void libx52_hotplug_exit(libx52_hotplug_service *svc);
 /** @} */
 
 /**
- * @defgroup hotplug Hotplug Callbacks
+ * @defgroup libx52hotplug Hotplug Callbacks
  * @{
  */
 
@@ -359,7 +359,7 @@ int libx52_hotplug_deregister_callback(libx52_hotplug_callback_handle *hdl);
 /** @} */
 
 /**
- * @defgroup mfdled MFD & LED control
+ * @defgroup libx52mfdled MFD & LED control
  * @{
  */
 
@@ -420,7 +420,7 @@ int libx52_set_led_state(libx52_device *x52,
 /** @} */
 
 /**
- * @defgroup clock Clock control
+ * @defgroup libx52clock Clock control
  * @{
  */
 
@@ -541,7 +541,7 @@ int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
 /** @} */
 
 /**
- * @addtogroup mfdled
+ * @addtogroup libx52mfdled
  * @{
  */
 
@@ -602,7 +602,7 @@ int libx52_update(libx52_device *x52);
 /** @} */
 
 /**
- * @defgroup misc Miscellaneous
+ * @defgroup libx52misc Miscellaneous
  * @{
  */
 
