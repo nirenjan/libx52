@@ -6,11 +6,22 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
+/**
+ * @file libx52.h
+ * @brief Headers for the Saitek X52 MFD & LED driver library
+ *
+ * This file contains the type and function prototypes for the Saitek X52
+ * driver library. These are only needed to control the MFD and LEDs, and
+ * don't impact the joystick (HID) functionality.
+ *
+ * @author Nirenjan Krishnan (nirenjan@nirenjan.org)
+ */
 #ifndef LIBX52_H
 #define LIBX52_H
 
 #include <time.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,13 +29,20 @@ extern "C" {
 
 /**
  * @brief Opaque structure used by libx52
+ * @ingroup init
  */
 struct libx52_device;
 
 /**
  * @brief Opaque structure used by libx52
+ * @ingroup init
  */
 typedef struct libx52_device libx52_device;
+
+/**
+ * @addtogroup hotplug
+ * @{
+ */
 
 /**
  * @brief Opaque structure used by libx52 hotplug API
@@ -47,7 +65,15 @@ struct libx52_hotplug_service;
 typedef struct libx52_hotplug_service libx52_hotplug_service;
 
 /**
+ * @brief Callback function for hotplug events
+ */
+typedef void (*libx52_hotplug_fn)(bool inserted, void *user_data, libx52_device *dev);
+
+/** @} */
+
+/**
  * @brief List of supported clocks on the MFD
+ * @ingroup clock
  */
 typedef enum {
     /** Primary clock on the MFD, indicated by the number 1 */
@@ -62,6 +88,7 @@ typedef enum {
 
 /**
  * @brief Supported clock formats
+ * @ingroup clock
  */
 typedef enum {
     /** 12-hour display on the MFD clock */
@@ -73,6 +100,7 @@ typedef enum {
 
 /**
  * @brief Supported date formats
+ * @ingroup clock
  */
 typedef enum {
     /** Date format DD-MM-YY */
@@ -87,6 +115,7 @@ typedef enum {
 
 /**
  * @brief Supported LED identifiers
+ * @ingroup mfdled
  */
 typedef enum {
     /** Fire indicator LED */
@@ -127,6 +156,8 @@ typedef enum {
  * @brief Supported LED states
  *
  * Not all LEDs support all states
+ *
+ * @ingroup clock
  */
 typedef enum {
     /** LED is off */
@@ -152,6 +183,8 @@ typedef enum {
  * @brief LibX52 Error codes
  *
  * Error codes returned by libx52
+ *
+ * @ingroup misc
  */
 typedef enum {
     /** No error, indicates success */
@@ -208,6 +241,11 @@ typedef enum {
 } libx52_error_code;
 
 /**
+ * @defgroup init Library Initialization and Deinitialization
+ * @{
+ */
+
+/**
  * @brief Initialize the X52 library
  *
  * This function initializes the libx52 library, sets up any internal data
@@ -237,6 +275,93 @@ int libx52_init(libx52_device ** dev);
  * @returns None
  */
 void libx52_exit(libx52_device *dev);
+
+/**
+ * @brief Initialize the X52 library hotplug service
+ *
+ * This function initializes the libx52 library hotplug service, which will
+ * monitor the bus for insertion and removal of any X52/X52Pro joystick, and
+ * will trigger registered callbacks on such events.
+ *
+ * @see libx52_hotplug_register_callback
+ * @see libx52_hotplug_deregister_callback
+ *
+ * @param[out]  svc     Pointer to a \ref libx52_hotplug_service *
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_hotplug_init(libx52_hotplug_service **svc);
+
+/**
+ * @brief Exit the library and free up any resources used
+ *
+ * This function releases any resources allocated by \ref libx52_hotplug_init
+ * and terminates the library. Using the freed device now is invalid and can
+ * cause errors.
+ *
+ * @param[in]   svc     Pointer to the hotplug service
+ * @returns None
+ */
+void libx52_hotplug_exit(libx52_hotplug_service *svc);
+
+/** @} */
+
+/**
+ * @defgroup hotplug Hotplug Callbacks
+ * @{
+ */
+
+/**
+ * @brief Register a callback function
+ *
+ * This function registers a callback function that is triggered when a
+ * supported joystick is inserted or removed.
+ *
+ * @param[in]   svc         Pointer to the hotplug service
+ * @param[in]   callback_fn Pointer to callback function
+ * @param[in]   user_data   Any user data that needs to be passed to the
+ *                          callback function
+ * @param[out]  cb_handle   Pointer to a \ref libx52_hotplug_callback_handle *
+ *                          This will be used by the application to deregister
+ *                          the callback if necessary. This may be NULL, in
+ *                          which case, the callback handle is not saved.
+ *
+ * @returns \ref libx52_error_code indicating status
+ *
+ * @par Example
+ * @code
+ * libx52_hotplug_service *svc;
+ * libx52_hotplug_callback_handle *hdl;
+ * ...
+ * rc = libx52_hotplug_register_callback(svc, hotplug_cb, context, &hdl);
+ * if (rc != LIBX52_SUCCESS) {
+ *     return rc;
+ * }
+ * @endcode
+ */
+int libx52_hotplug_register_callback(libx52_hotplug_service *svc,
+                                     libx52_hotplug_fn callback_fn,
+                                     void *user_data,
+                                     libx52_hotplug_callback_handle **cb_handle);
+
+/**
+ * @brief Deregister a callback function
+ *
+ * This function deregisters a previously registered callback function when
+ * a supported joystick is inserted or removed.
+ *
+ * @param[in]   hdl         Pointer to the hotplug callback handle
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_hotplug_deregister_callback(libx52_hotplug_callback_handle *hdl);
+
+/** @} */
+
+/**
+ * @defgroup mfdled MFD & LED control
+ * @{
+ */
 
 /**
  * @brief Set the text on an MFD line
@@ -291,6 +416,13 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
 int libx52_set_led_state(libx52_device *x52,
                          libx52_led_id led,
                          libx52_led_state state);
+
+/** @} */
+
+/**
+ * @defgroup clock Clock control
+ * @{
+ */
 
 /**
  * @brief Set the clock
@@ -406,6 +538,13 @@ int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
  */
 int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
 
+/** @} */
+
+/**
+ * @addtogroup mfdled
+ * @{
+ */
+
 /**
  * @brief Set the MFD or LED brightness
  *
@@ -460,6 +599,13 @@ int libx52_set_blink(libx52_device *x52, uint8_t state);
  */
 int libx52_update(libx52_device *x52);
 
+/** @} */
+
+/**
+ * @defgroup misc Miscellaneous
+ * @{
+ */
+
 /**
  * @brief Write a raw vendor control packet
  *
@@ -486,6 +632,8 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
  * Returned pointer must not be freed.
  */
 char * libx52_strerror(libx52_error_code error);
+
+/** @} */
 
 #ifdef __cplusplus
 }
