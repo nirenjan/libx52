@@ -27,9 +27,13 @@ AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
 
 # Check for pthreads
 ACX_PTHREAD
-# LIBS="$PTHREAD_LIBS $LIBS"
-# CFLAGS="$PTHREAD_CFLAGS $CFLAGS"
-# CC="$PTHREAD_CC"
+
+# Doxygen Support
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
+AM_COND_IF([HAVE_DOXYGEN],
+    [AC_CONFIG_FILES([Doxyfile])],
+    [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
 AC_CONFIG_FILES([
     Makefile
