@@ -17,9 +17,12 @@ The format is based upon [Keep a Changelog].
   to set logging level.
 - x52test has an option to not sleep between consecutive calls to the libx52
   APIs.
+- x52test moves the LED tests to execute after all other tests. See
+  [#19](https://github.com/nirenjan/x52pro-linux/issues/19).
 
 ### Fixed
 - `libx52_write_time` handling of large timezone offsets.
+- Error reporting in x52cli and x52test commands.
 
 ## [0.1.2] - 2017-08-17
 ### Added
