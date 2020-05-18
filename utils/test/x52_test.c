@@ -85,11 +85,11 @@ static void signal_handler(int sig)
 
 #define TESTS \
     X(brightness, bri, "Test brightness scale (~ 1m)") \
-    X(leds, led, "Test LED states (~ 45s)") \
     X(mfd_text, mfd1, "Test MFD string display (~ 30s)") \
     X(mfd_display, mfd2, "Test MFD displays all characters (~ 2m 15s)") \
     X(blink_n_shift, blink, "Test the blink and shift commands (< 10s)") \
-    X(clock, clock, "Test the clock commands (~1m)")
+    X(clock, clock, "Test the clock commands (~1m)") \
+    X(leds, led, "Test LED states (~ 45s)")
 
 enum {
 #define X(en, kw, desc) TEST_BIT_ ## en,
