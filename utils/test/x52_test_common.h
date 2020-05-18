@@ -21,13 +21,13 @@ extern bool nodelay;
     int rc; \
     rc = ( libx52_set_ ## tst (dev, __VA_ARGS__) ); \
     if (rc) { \
-        fprintf(stderr, "\n%s(%s) failed with %d\n", #tst, #__VA_ARGS__, rc); \
+        fprintf(stderr, "\n%s(%s) failed with %d(%s)\n", #tst, #__VA_ARGS__, rc, libx52_strerror(rc)); \
         return rc; \
     } \
     if (test_exit) return test_exit; \
     rc  = libx52_update(dev); \
     if (rc) { \
-        fprintf(stderr, "\nupdate failed with %d\n", rc); \
+        fprintf(stderr, "\nupdate failed with %d(%s)\n", rc, libx52_strerror(rc)); \
         return rc; \
     } \
     if (test_exit) return test_exit; \

@@ -80,7 +80,7 @@ void print_banner(const char *message)
 
 static void signal_handler(int sig)
 {
-    test_exit = sig;
+    test_exit = -sig;
 }
 
 #define TESTS \
@@ -139,12 +139,12 @@ static int run_tests(int test_set)
         #undef X
     } while (0);
 
-    if (rc > 0) {
-        fprintf(stderr, "Received %s signal, quitting...\n", strsignal(rc));
-    } else if (rc < 0) {
-        fprintf(stderr, "Got error %s\n", strerror(-rc));
-    } else {
+    if (rc == LIBX52_SUCCESS) {
         puts("All tests completed successfully");
+    } else if (rc > 0) {
+        fprintf(stderr, "Got error %s\n", libx52_strerror(rc));
+    } else {
+        fprintf(stderr, "Received %s signal, quitting...\n", strsignal(-rc));
     }
 
     if (rc >= 0) test_cleanup();
