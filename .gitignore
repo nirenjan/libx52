@@ -43,3 +43,5 @@ Makefile.in
 *.m4
 test-driver
 
+# Build directory
+/build/
