@@ -378,13 +378,13 @@ int main(int argc, char **argv)
     rc = libx52_init(&x52);
 
     if (rc != LIBX52_SUCCESS) {
-        fprintf(stderr, "Unable to find X52 joystick!\n");
+        fprintf(stderr, "Error initializing X52 joystick: %s\n", libx52_strerror(rc));
         return 1;
     }
 
     rc = (*(cmd->handler))(x52, args);
-    if (rc != 0) {
-        fprintf(stderr, "Error: %s\n", strerror(-rc));
+    if (rc != LIBX52_SUCCESS) {
+        fprintf(stderr, "Error: %s\n", libx52_strerror(rc));
     }
 
     libx52_update(x52);
