@@ -32,13 +32,11 @@ addons:
         packages:
         - libusb-1.0-0-dev
         - libudev-dev
+        - autopoint
     homebrew:
         packages:
         - libusb
-
-# Ensure realpath is available on Trusty
-before_script:
-    - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install realpath || true; fi
+        - gettext
 
 # Enable parallel make
 env:
