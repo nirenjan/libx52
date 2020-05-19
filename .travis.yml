@@ -25,6 +25,8 @@ jobs:
         - os: linux
           dist: bionic
           compiler: clang
+    allow_failures:
+        - os: osx
 
 # Install dependencies
 addons:
