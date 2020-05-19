@@ -9,14 +9,15 @@
 #include <stdio.h>
 
 #include "libx52.h"
+#include "gettext.h"
 
 /** For future use in i18n */
-#define _(str)  str
+#define _(str)  dgettext(PACKAGE, str)
 
 /* Error buffer used for building custom error strings */
 static char error_buffer[256];
 
-char * libx52_strerror(libx52_error_code error)
+const char * libx52_strerror(libx52_error_code error)
 {
     switch (error) {
     case LIBX52_SUCCESS:

@@ -1,0 +1,2 @@
+# List of source files which contain translatable strings.
+lib/libx52/x52_strerror.c

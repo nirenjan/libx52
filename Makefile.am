@@ -6,10 +6,14 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = lib utils tests
+if USE_NLS
+po_SUBDIRS = po
+endif
+
+SUBDIRS = $(po_SUBDIRS) lib utils tests
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = AUTHORS ChangeLog.md README.md LICENSE Doxyfile.in
+EXTRA_DIST = config.rpath ABOUT-NLS gettext.h AUTHORS ChangeLog.md README.md LICENSE Doxyfile.in
 
 # Doxygen support
 if HAVE_DOXYGEN

@@ -16,6 +16,7 @@
 #include "x52_commands.h"
 #include "x52_common.h"
 #include "x52_hotplug.h"
+#include "gettext.h"
 
 #define VENDOR_SAITEK 0x06a3
 #define X52_PROD_X52PRO 0x0762
@@ -110,6 +111,10 @@ int libx52_init(libx52_device **dev)
     }
 
     *dev = x52_dev;
+
+    /* Setup the gettext utilities */
+    bindtextdomain(PACKAGE, LOCALEDIR);
+
     return LIBX52_SUCCESS;
 
 err_recovery:

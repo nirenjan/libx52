@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Nirenjan Krishnan
+# This file is distributed under the same license as the x52pro-linux package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: x52pro-linux 0.2.1\n"
+"Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
+"POT-Creation-Date: 2020-05-19 08:00-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/libx52/x52_strerror.c:24
+msgid "Success"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:27
+msgid "Initialization failure"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:30
+msgid "Insufficient memory"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:33
+msgid "Invalid parameter"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:36
+msgid "Operation not supported"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:39
+msgid "Try again"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:42
+msgid "Input parameter out of range"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:45
+msgid "USB transaction failure"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:48
+msgid "USB input/output error"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:51
+msgid "Access denied"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:54
+msgid "No such device"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:57
+msgid "Entity not found"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:60
+msgid "Resource busy"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:63
+msgid "Operation timeout"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:66
+msgid "Overflow"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:69
+msgid "Pipe error"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:72
+msgid "System call interrupted"
+msgstr ""
+
+#: lib/libx52/x52_strerror.c:76
+#, c-format
+msgid "Unknown error %d"
+msgstr ""

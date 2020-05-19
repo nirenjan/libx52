@@ -631,7 +631,7 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
  * @returns Pointer to a NULL terminated string describing the error.
  * Returned pointer must not be freed.
  */
-char * libx52_strerror(libx52_error_code error);
+const char * libx52_strerror(libx52_error_code error);
 
 /** @} */
 

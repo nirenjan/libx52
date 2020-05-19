@@ -6,7 +6,7 @@
 
 AC_INIT([x52pro-linux], [0.2.1], [nirenjan@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
+AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_PROG_CC
 AC_PROG_CC_STDC
 AM_PROG_AR
@@ -14,6 +14,11 @@ AM_PATH_PYTHON([2.6])
 LT_INIT
 PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
+
+# Internationalization
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION(0.18)
+AM_CONDITIONAL([USE_NLS], [test "x${USE_NLS}" == "xyes"])
 
 # Check for libusb-1.0
 AX_PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
@@ -35,7 +40,7 @@ AM_COND_IF([HAVE_DOXYGEN],
     [AC_CONFIG_FILES([Doxyfile])],
     [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
-AC_CONFIG_FILES([
+AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile
     lib/libx52/Makefile
