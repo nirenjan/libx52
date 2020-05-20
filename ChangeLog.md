@@ -7,6 +7,9 @@ The format is based upon [Keep a Changelog].
 ## [Unreleased]
 ### Added
 - USB Hotplug support to libx52 and libusbx52
+- Internationalization for the following:
+    * libx52
+    * x52test
 
 ### Changed
 - x52test moves the LED tests to execute after all other tests. See

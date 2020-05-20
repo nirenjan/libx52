@@ -27,35 +27,35 @@ int test_clock(void)
         } \
     } while (0)
 
-    print_banner("Clock");
-    puts("This tests the clock display");
+    print_banner(_("Clock"));
+    puts(_("This tests the clock display"));
     
     /* Start from midnight Jan 1 2015 GMT */
     start = 1420070400;
 
-    puts("\nTesting clock time minute display for 90 minutes");
+    puts(_("\nTesting clock time minute display for 90 minutes"));
     end = start + 90 * 60;
     TEST(clock_format, LIBX52_CLOCK_1, LIBX52_CLOCK_FORMAT_12HR);
     TEST_CLOCK_LOOP(60);
 
     end = start + 36 * 60 * 60;
-    puts("\nTesting clock time hour display for 36 hours, 12 hour mode");
+    puts(_("\nTesting clock time hour display for 36 hours, 12 hour mode"));
     TEST_CLOCK_LOOP(3600);
 
-    puts("\nTesting clock time hour display for 36 hours, 24 hour mode");
+    puts(_("\nTesting clock time hour display for 36 hours, 24 hour mode"));
     TEST(clock_format, LIBX52_CLOCK_1, LIBX52_CLOCK_FORMAT_24HR);
     TEST_CLOCK_LOOP(3600);
 
     end = start + 31 * 24 * 60 * 60;
-    puts("\nTesting clock date display for 31 days, dd-mm-yy");
+    puts(_("\nTesting clock date display for 31 days, dd-mm-yy"));
     TEST(date_format, LIBX52_DATE_FORMAT_DDMMYY);
     TEST_CLOCK_LOOP(86400);
 
-    puts("\nTesting clock date display for 31 days, mm-dd-yy");
+    puts(_("\nTesting clock date display for 31 days, mm-dd-yy"));
     TEST(date_format, LIBX52_DATE_FORMAT_MMDDYY);
     TEST_CLOCK_LOOP(86400);
 
-    puts("\nTesting clock date display for 31 days, yy-mm-dd");
+    puts(_("\nTesting clock date display for 31 days, yy-mm-dd"));
     TEST(date_format, LIBX52_DATE_FORMAT_YYMMDD);
     TEST_CLOCK_LOOP(86400);
 

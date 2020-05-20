@@ -14,20 +14,20 @@
 #include "x52_test_common.h"
 
 #define TEST_LED(name, state) do { \
-    puts("LED " #name " - " #state); \
+    printf(_("LED %s - %s\n"), #name, #state); \
     TEST(led_state, LIBX52_LED_ ## name, LIBX52_LED_STATE_ ## state); \
     if (!nodelay) usleep(500000); \
 } while(0)
 
 #define TEST_LED_MONO(name) do { \
-    puts("\nTesting LED " #name); \
+    printf(_("\nTesting LED %s\n"), #name); \
     if (!nodelay) sleep(2); \
     TEST_LED(name, OFF); \
     TEST_LED(name, ON); \
 } while(0)
 
 #define TEST_LED_COLOR(name) do {\
-    puts("\nTesting LED " #name); \
+    printf(_("\nTesting LED %s\n"), #name); \
     if (!nodelay) sleep(2); \
     TEST_LED(name, OFF); \
     TEST_LED(name, RED); \
@@ -37,8 +37,8 @@
 
 int test_leds(void)
 {
-    print_banner("LEDs");
-    puts("This cycles the LEDs through all possible states");
+    print_banner(_("LEDs"));
+    puts(_("This cycles the LEDs through all possible states"));
 
     TEST_LED_MONO(FIRE);
     TEST_LED_COLOR(A);
@@ -56,7 +56,7 @@ int test_leds(void)
 }
 
 #define TEST_BLINK_OR_SHIFT(type) do { \
-    puts("\nTesting " #type); \
+    printf(_("\nTesting %s\n"), #type); \
     if (!nodelay) sleep(1); \
     puts(#type " ON"); \
     TEST(type, 1); \
@@ -67,8 +67,8 @@ int test_leds(void)
 
 int test_blink_n_shift(void)
 {
-    print_banner("Blink & Shift");
-    puts("This tests the blink indicator and shift functionality");
+    print_banner(_("Blink & Shift"));
+    puts(_("This tests the blink indicator and shift functionality"));
 
     TEST_BLINK_OR_SHIFT(blink);
     TEST_BLINK_OR_SHIFT(shift);

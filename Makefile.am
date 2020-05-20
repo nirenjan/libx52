@@ -13,7 +13,16 @@ endif
 SUBDIRS = $(po_SUBDIRS) lib utils tests
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = config.rpath ABOUT-NLS gettext.h AUTHORS ChangeLog.md README.md LICENSE Doxyfile.in
+EXTRA_DIST = \
+	ABOUT-NLS \
+	AUTHORS \
+	ChangeLog.md \
+	Doxyfile.in \
+	LICENSE \
+	README.md \
+	config.rpath \
+	gettext.h \
+	po/README.md
 
 # Doxygen support
 if HAVE_DOXYGEN

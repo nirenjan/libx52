@@ -19,19 +19,19 @@ int test_brightness(void)
 {
     int i;
 
-    print_banner("Brightness");
+    print_banner(_("Brightness"));
 
-    puts("This test cycles through the MFD and LED brightness scales");
+    puts(_("This test cycles through the MFD and LED brightness scales"));
 
     fputs("\n    |+---+---+---+---+---+---+---+---+|", stdout);
-    fputs("\nMFD: ", stdout);
+    fputs(_("\nMFD: "), stdout);
     for (i = 0; i < 129; i++) {
         if (!(i & 3)) fputs("#", stdout);
         fflush(stdout);
         TEST_BRIGHTNESS(1, i);
         if (!nodelay) usleep(250000);
     }
-    fputs("\nLED: ", stdout);
+    fputs(_("\nLED: "), stdout);
     for (i = 0; i < 129; i++) {
         if (!(i & 3)) fputs("#", stdout);
         fflush(stdout);
@@ -50,12 +50,12 @@ int test_mfd_text(void)
     int j;
     char str[32];
 
-    print_banner("MFD text");
-    puts("This test tests the character displays of the MFD\n");
+    print_banner(_("MFD text"));
+    puts(_("This test tests the character displays of the MFD\n"));
 
     for (i = 0; i < 256; i += 16) {
         j = snprintf(str, 16, "0x%02x - 0x%02x", i, i + 0xf);
-        printf("Writing characters %s\n", str);
+        printf(_("Writing characters %s\n"), str);
         TEST(text, 0, str, j);
 
         memset(str, ' ', 32);
@@ -77,13 +77,13 @@ int test_mfd_display(void)
     int i;
     char str[16];
 
-    print_banner("MFD display");
-    puts("This test checks if the display elements can display all characters");
-    puts("You should see the display cycling through each character, with every");
-    puts("cell displaying the same character\n");
+    print_banner(_("MFD display"));
+    puts(_("This test checks if the display elements can display all characters\n"
+           "You should see the display cycling through each character, with every\n"
+           "cell displaying the same character\n"));
 
     for (i = 0; i < 256; i++) {
-        printf("Testing character 0x%02x...", i);
+        printf(_("Testing character 0x%02x..."), i);
 
         memset(str, i, 16);
 
@@ -91,7 +91,7 @@ int test_mfd_display(void)
         TEST(text, 1, str, 16);
         TEST(text, 2, str, 16);
 
-        puts("OK");
+        puts(_("OK"));
         if (!nodelay) usleep(500000);
     } 
 

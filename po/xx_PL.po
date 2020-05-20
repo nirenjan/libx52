@@ -1,151 +1,155 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Nirenjan Krishnan
+# Language xx translations for x52pro-linux package.
+# Copyright (C) 2020 Nirenjan Krishnan
 # This file is distributed under the same license as the x52pro-linux package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Nirenjan Krishnan <nirenjan@gmail.com>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
 "POT-Creation-Date: 2020-05-20 03:17-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-05-19 17:03-0700\n"
+"Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
+"Language-Team: Dummy Language for testing i18n\n"
+"Language: xx_PL\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/libx52/x52_strerror.c:24
 msgid "Success"
-msgstr ""
+msgstr "UccessSAy"
 
 #: lib/libx52/x52_strerror.c:27
 msgid "Initialization failure"
-msgstr ""
+msgstr "Initializationay ailurefay"
 
 #: lib/libx52/x52_strerror.c:30
 msgid "Insufficient memory"
-msgstr ""
+msgstr "Insufficientay emorymay"
 
 #: lib/libx52/x52_strerror.c:33
 msgid "Invalid parameter"
-msgstr ""
+msgstr "Invaliday arameterpay"
 
 #: lib/libx52/x52_strerror.c:36
 msgid "Operation not supported"
-msgstr ""
+msgstr "Operationay otnay upportedsay"
 
 #: lib/libx52/x52_strerror.c:39
 msgid "Try again"
-msgstr ""
+msgstr "Rytay againay"
 
 #: lib/libx52/x52_strerror.c:42
 msgid "Input parameter out of range"
-msgstr ""
+msgstr "Inputay arameterpay outay ofay angeray"
 
 #: lib/libx52/x52_strerror.c:45
 msgid "USB transaction failure"
-msgstr ""
+msgstr "USBay ransactiontay ailurefay"
 
 #: lib/libx52/x52_strerror.c:48
 msgid "USB input/output error"
-msgstr ""
+msgstr "USBay inputay/outputay erroray"
 
 #: lib/libx52/x52_strerror.c:51
 msgid "Access denied"
-msgstr ""
+msgstr "Accessay eniedday"
 
 #: lib/libx52/x52_strerror.c:54
 msgid "No such device"
-msgstr ""
+msgstr "Onay uchsay eviceday"
 
 #: lib/libx52/x52_strerror.c:57
 msgid "Entity not found"
-msgstr ""
+msgstr "Entityay notnay oundfay"
 
 #: lib/libx52/x52_strerror.c:60
 msgid "Resource busy"
-msgstr ""
+msgstr "Esourceray usybay"
 
 #: lib/libx52/x52_strerror.c:63
 msgid "Operation timeout"
-msgstr ""
+msgstr "Operationay imeouttay"
 
 #: lib/libx52/x52_strerror.c:66
 msgid "Overflow"
-msgstr ""
+msgstr "Overfloway"
 
 #: lib/libx52/x52_strerror.c:69
 msgid "Pipe error"
-msgstr ""
+msgstr "Ipepay erroray"
 
 #: lib/libx52/x52_strerror.c:72
 msgid "System call interrupted"
-msgstr ""
+msgstr "Ystemsay allcay interrupteday"
 
 #: lib/libx52/x52_strerror.c:76
 #, c-format
 msgid "Unknown error %d"
-msgstr ""
+msgstr "Unknownay erroray %d"
 
 #: utils/test/x52_test.c:87
 msgid "Test brightness scale (~ 1m)"
-msgstr ""
+msgstr "Esttay rightnessbay calesay (~ 1m)"
 
 #: utils/test/x52_test.c:88
 msgid "Test MFD string display (~ 30s)"
-msgstr ""
+msgstr "Esttay MFDay tringsay isplayday (~ 30s)"
 
 #: utils/test/x52_test.c:89
 msgid "Test MFD displays all characters (~ 2m 15s)"
-msgstr ""
+msgstr "Esttay MFDay isplaysday allay haracterscay (~ 2m 15s)"
 
 #: utils/test/x52_test.c:90
 msgid "Test the blink and shift commands (< 10s)"
-msgstr ""
+msgstr "Esttay hetay linkbay anday hiftsay ommandscay (< 10s)"
 
 #: utils/test/x52_test.c:91
 msgid "Test the clock commands (~1m)"
-msgstr ""
+msgstr "Esttay hetay lockcay ommandscay (~1m)"
 
 #: utils/test/x52_test.c:92
 msgid "Test LED states (~ 45s)"
-msgstr ""
+msgstr "Esstay EDLay tatessay (~ 45s)"
 
 #: utils/test/x52_test.c:116
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
 msgstr ""
+"x52test isay ay uitesay ofay eststay otay riteway otay hetay\n"
+"X52 Pro eviceday anday esttay hetay extray unctionalityfay\n"
+"availableay inay hetay EDsLay anday FDMay\n"
 
 #: utils/test/x52_test.c:120
 msgid "These tests take roughly 6 minutes to run"
-msgstr ""
+msgstr "Hesetay eststay aketay oughlyray 6 inutesmay otay unray"
 
 #: utils/test/x52_test.c:122
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
+"Resspay Enteray otay eginbay hetay eststay, resspay Ctrl-C otay abortay "
+"anytimeay"
 
 #: utils/test/x52_test.c:128
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
-msgstr ""
+msgstr "Unableay otay initializeay X52 ibrarylay: %s\n"
 
 #: utils/test/x52_test.c:143
 msgid "All tests completed successfully"
-msgstr ""
+msgstr "Allay eststay ompletedcay uccessfullysay"
 
 #: utils/test/x52_test.c:145
 #, c-format
 msgid "Got error %s\n"
-msgstr ""
+msgstr "Otgay erroray %s\n"
 
 #: utils/test/x52_test.c:147
 #, c-format
 msgid "Received %s signal, quitting...\n"
-msgstr ""
+msgstr "Eceivedray %s ignalsay, uittingqay...\n"
 
 #: utils/test/x52_test.c:166
 msgid ""
@@ -153,17 +157,21 @@ msgid ""
 "approximate runtime. Not specifying any tests will run\n"
 "all the tests\n"
 msgstr ""
+"Hesetay areay hetay availableay eststay ithway\n"
+"escriptionday anday approximateay untimeray. Otnay\n"
+"pecifyingsay anyay eststay illway unray allay hetay\n"
+"eststay\n"
 
 #: utils/test/x52_test.c:170
 msgid "List of tests:"
-msgstr ""
+msgstr "Istlay ofay eststay:"
 
 #: utils/test/x52_test.c:220
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
-msgstr ""
+msgstr "Usageay: %s [istlay ofay eststay]\n"
 
 #: utils/test/x52_test.c:234
 #, c-format
@@ -171,54 +179,68 @@ msgid ""
 "Unrecognized test identifier: %s\n"
 "\n"
 msgstr ""
+"Unrecognizeday esttay identifieray: %s\n"
+"\n"
 
 #: utils/test/x52_test.c:247
 msgid "Not running any tests"
-msgstr ""
+msgstr "Otnay unningray anyay eststay"
 
 #: utils/test/x52_test_clock.c:30
 msgid "Clock"
-msgstr ""
+msgstr "Lockcay"
 
 #: utils/test/x52_test_clock.c:31
 msgid "This tests the clock display"
-msgstr ""
+msgstr "Histay eststay hetay lockcay isplayday"
 
 #: utils/test/x52_test_clock.c:36
 msgid ""
 "\n"
 "Testing clock time minute display for 90 minutes"
 msgstr ""
+"\n"
+"Estingtay lockcay imetay inutemay isplayday orfay 90 inutesmay"
 
 #: utils/test/x52_test_clock.c:42
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 12 hour mode"
 msgstr ""
+"\n"
+"Estingtay lockcay imetay ourhay isplayday orfay 36 ourshay, 12 ourhay odemay"
 
 #: utils/test/x52_test_clock.c:45
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 24 hour mode"
 msgstr ""
+"\n"
+"Estingtay lockcay imetay ourhay isplayday orfay 36 ourshay, 24 ourhay odemay"
 
 #: utils/test/x52_test_clock.c:50
 msgid ""
 "\n"
 "Testing clock date display for 31 days, dd-mm-yy"
 msgstr ""
+"\n"
+"Estingtay lockcay ateday isplayday orfay 31 aysday, dd-mm-yy"
 
 #: utils/test/x52_test_clock.c:54
 msgid ""
 "\n"
 "Testing clock date display for 31 days, mm-dd-yy"
 msgstr ""
+"\n"
+"Estingtay lockcay ateday isplayday orfay 31 aysday, mm-dd-yy"
 
 #: utils/test/x52_test_clock.c:58
 msgid ""
 "\n"
 "Testing clock date display for 31 days, yy-mm-dd"
 msgstr ""
+"\n"
+"Estingtay lockcay ateday isplayday orfay 31 aysday, yy-mm-dd"
 
 #: utils/test/x52_test_common.h:25
 #, c-format
@@ -226,6 +248,8 @@ msgid ""
 "\n"
 "%s(%s) failed with %d(%s)\n"
 msgstr ""
+"\n"
+"%s(%s) ailedfay ithway %d(%s)\n"
 
 #: utils/test/x52_test_common.h:31
 #, c-format
@@ -233,11 +257,13 @@ msgid ""
 "\n"
 "update failed with %d(%s)\n"
 msgstr ""
+"\n"
+"updateay ailedfay ithway %d(%s)\n"
 
 #: utils/test/x52_test_led.c:17
 #, c-format
 msgid "LED %s - %s\n"
-msgstr ""
+msgstr "EDLay %s - %s\n"
 
 #: utils/test/x52_test_led.c:23 utils/test/x52_test_led.c:30
 #, c-format
@@ -245,14 +271,16 @@ msgid ""
 "\n"
 "Testing LED %s\n"
 msgstr ""
+"\n"
+"Estingtay EDLay %s\n"
 
 #: utils/test/x52_test_led.c:40
 msgid "LEDs"
-msgstr ""
+msgstr "EDsLay"
 
 #: utils/test/x52_test_led.c:41
 msgid "This cycles the LEDs through all possible states"
-msgstr ""
+msgstr "Histay yclescay hetay EDsLay hroughtay allay ossiblepay tatessay"
 
 #: utils/test/x52_test_led.c:59
 #, c-format
@@ -260,51 +288,59 @@ msgid ""
 "\n"
 "Testing %s\n"
 msgstr ""
+"\n"
+"Estingtay %s\n"
 
 #: utils/test/x52_test_led.c:70
 msgid "Blink & Shift"
-msgstr ""
+msgstr "Linkbay & Hiftsay"
 
 #: utils/test/x52_test_led.c:71
 msgid "This tests the blink indicator and shift functionality"
-msgstr ""
+msgstr "Histay eststay hetay linkbay indicatoray anday hiftsay unctionalityfay"
 
 #: utils/test/x52_test_mfd.c:22
 msgid "Brightness"
-msgstr ""
+msgstr "Rightnessbay"
 
 #: utils/test/x52_test_mfd.c:24
 msgid "This test cycles through the MFD and LED brightness scales"
 msgstr ""
+"Histay esttay yclescay hroughtay hetay FDMay anday EDLay rightnessbay "
+"calessay"
 
 #: utils/test/x52_test_mfd.c:27
 msgid ""
 "\n"
 "MFD: "
 msgstr ""
+"\n"
+"FDMay: "
 
 #: utils/test/x52_test_mfd.c:34
 msgid ""
 "\n"
 "LED: "
 msgstr ""
+"\n"
+"EDLay: "
 
 #: utils/test/x52_test_mfd.c:53
 msgid "MFD text"
-msgstr ""
+msgstr "FDMay exttay"
 
 #: utils/test/x52_test_mfd.c:54
 msgid "This test tests the character displays of the MFD\n"
-msgstr ""
+msgstr "Histay esttay eststay hetay haractercay isplaysday ofay the FDMay\n"
 
 #: utils/test/x52_test_mfd.c:58
 #, c-format
 msgid "Writing characters %s\n"
-msgstr ""
+msgstr "Ritingway haracterscay %s\n"
 
 #: utils/test/x52_test_mfd.c:80
 msgid "MFD display"
-msgstr ""
+msgstr "FDMay isplayday"
 
 #: utils/test/x52_test_mfd.c:81
 msgid ""
@@ -312,12 +348,16 @@ msgid ""
 "You should see the display cycling through each character, with every\n"
 "cell displaying the same character\n"
 msgstr ""
+"Histay esttay heckscay ifay hetay isplayday lementseay ancay isplayday\n"
+"allay haracterscay.Ouyay houldsay eesay hetay isplayday yclingcay\n"
+"hroughtay eachay haractercay, ithway everyay ellcay isplayingday hetay\n"
+"amesay haractercay\n"
 
 #: utils/test/x52_test_mfd.c:86
 #, c-format
 msgid "Testing character 0x%02x..."
-msgstr ""
+msgstr "Estingtay haractercay 0x%02x..."
 
 #: utils/test/x52_test_mfd.c:94
 msgid "OK"
-msgstr ""
+msgstr "OKay"

@@ -1,2 +1,8 @@
 # List of source files which contain translatable strings.
 lib/libx52/x52_strerror.c
+
+utils/test/x52_test.c
+utils/test/x52_test_clock.c
+utils/test/x52_test_common.h
+utils/test/x52_test_led.c
+utils/test/x52_test_mfd.c

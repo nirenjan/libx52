@@ -84,12 +84,12 @@ static void signal_handler(int sig)
 }
 
 #define TESTS \
-    X(brightness, bri, "Test brightness scale (~ 1m)") \
-    X(mfd_text, mfd1, "Test MFD string display (~ 30s)") \
-    X(mfd_display, mfd2, "Test MFD displays all characters (~ 2m 15s)") \
-    X(blink_n_shift, blink, "Test the blink and shift commands (< 10s)") \
-    X(clock, clock, "Test the clock commands (~1m)") \
-    X(leds, led, "Test LED states (~ 45s)")
+    X(brightness, bri, gettext_noop("Test brightness scale (~ 1m)")) \
+    X(mfd_text, mfd1, gettext_noop("Test MFD string display (~ 30s)")) \
+    X(mfd_display, mfd2, gettext_noop("Test MFD displays all characters (~ 2m 15s)")) \
+    X(blink_n_shift, blink, gettext_noop("Test the blink and shift commands (< 10s)")) \
+    X(clock, clock, gettext_noop("Test the clock commands (~1m)")) \
+    X(leds, led, gettext_noop("Test LED states (~ 45s)"))
 
 enum {
 #define X(en, kw, desc) TEST_BIT_ ## en,
@@ -113,19 +113,19 @@ static int run_tests(int test_set)
 
     int rc = 0;
 
-    puts("x52test is a suite of tests to write to the X52 Pro device");
-    puts("and test the extra functionality available in the LEDs and MFD\n");
+    puts(_("x52test is a suite of tests to write to the X52 Pro device\n"
+           "and test the extra functionality available in the LEDs and MFD\n"));
 
     if (test_set == TEST_ALL) {
-        puts("These tests take roughly 6 minutes to run");
+        puts(_("These tests take roughly 6 minutes to run"));
     }
-    puts("Press Enter to begin the tests, press Ctrl-C to abort anytime");
+    puts(_("Press Enter to begin the tests, press Ctrl-C to abort anytime"));
 
     getc(stdin);
 
     rc = libx52_init(&dev);
     if (rc != LIBX52_SUCCESS) {
-        fprintf(stderr, "Unable to connect to X52 Pro Joystick!\n");
+        fprintf(stderr, _("Unable to initialize X52 library: %s\n"), libx52_strerror(rc));
         return 1;
     }
 
@@ -140,11 +140,11 @@ static int run_tests(int test_set)
     } while (0);
 
     if (rc == LIBX52_SUCCESS) {
-        puts("All tests completed successfully");
+        puts(_("All tests completed successfully"));
     } else if (rc > 0) {
-        fprintf(stderr, "Got error %s\n", libx52_strerror(rc));
+        fprintf(stderr, _("Got error %s\n"), libx52_strerror(rc));
     } else {
-        fprintf(stderr, "Received %s signal, quitting...\n", strsignal(-rc));
+        fprintf(stderr, _("Received %s signal, quitting...\n"), strsignal(-rc));
     }
 
     if (rc >= 0) test_cleanup();
@@ -152,14 +152,22 @@ static int run_tests(int test_set)
     return 0;
 }
 
+void underline(const char *msg) {
+    int i;
+    puts(msg);
+    for (i = 0; i < strlen(msg); i++) {
+        putchar('=');
+    }
+    putchar('\n');
+}
+
 void usage(void)
 {
-    puts("These are the available tests with a description and");
-    puts("approximate runtime. Not specifying any tests will run");
-    puts("all the tests\n");
+    puts(_("These are the available tests with a description and\n"
+           "approximate runtime. Not specifying any tests will run\n"
+           "all the tests\n"));
 
-    puts("List of tests:");
-    puts("==============");
+    underline(_("List of tests:"));
 
     #define X(en, cmd, desc) puts("\t" #cmd "\t" desc);
     TESTS
@@ -186,6 +194,13 @@ int main(int argc, char **argv)
     const struct test_map *test;
     int found;
 
+    /* Initialize gettext */
+    #if ENABLE_NLS
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    textdomain(PACKAGE);
+    #endif
+
     /* Usage: x52test [list of tests] */
     if (argc == 1) {
         /* Run all tests, if none specified */
@@ -202,7 +217,7 @@ int main(int argc, char **argv)
             !strcmp(argv[i], "--help")) {
 
             /* Display help string and exit */
-            printf("Usage: %s [list of tests]\n\n", argv[0]);
+            printf(_("Usage: %s [list of tests]\n\n"), argv[0]);
             usage();
             return 0;
         } else {
@@ -216,7 +231,7 @@ int main(int argc, char **argv)
             }
 
             if (found == 0) {
-                printf("Unrecognized test identifier: %s\n\n", argv[i]);
+                printf(_("Unrecognized test identifier: %s\n\n"), argv[i]);
                 usage();
                 return 1;
             }
@@ -229,7 +244,7 @@ int main(int argc, char **argv)
     if (test_list) {
         i = run_tests(test_list);
     } else {
-        puts("Not running any tests");
+        puts(_("Not running any tests"));
     }
 
     return i;
