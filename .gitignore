@@ -43,5 +43,15 @@ Makefile.in
 *.m4
 test-driver
 
+# Autotools Gettext objects
+po/Makevars.template
+po/*.in
+po/*.sin
+po/*.sed
+po/*.header
+po/Rules-quot
+ABOUT-NLS
+po/*.gmo
+
 # Build directory
 /build/
