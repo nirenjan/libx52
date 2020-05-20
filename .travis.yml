@@ -40,6 +40,10 @@ addons:
         - libusb
         - gettext
 
+# Ensure that gettext is available on OSX
+before_script:
+    - if [ "$TRAVIS_OS_NAME" = osx ]; then brew upgrade libusb gettext || brew install libusb gettext ; fi
+
 # Enable parallel make
 env:
     global:
