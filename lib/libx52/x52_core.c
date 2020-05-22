@@ -132,3 +132,18 @@ void libx52_exit(libx52_device *dev)
     free(dev);
 }
 
+int libx52_check_feature(libx52_device *dev, libx52_feature feature)
+{
+    if (!dev) {
+        return LIBX52_ERROR_INVALID_PARAM;
+    }
+
+    switch (feature) {
+    case LIBX52_FEATURE_LED:
+        return tst_bit(&(dev->flags), X52_FLAG_IS_PRO) ?
+            LIBX52_SUCCESS :
+            LIBX52_ERROR_NOT_SUPPORTED;
+    }
+
+    return LIBX52_ERROR_INVALID_PARAM;
+}

@@ -198,6 +198,21 @@ typedef enum {
 } libx52_error_code;
 
 /**
+ * @brief Feature support for libx52
+ *
+ * Each flag is passed to \ref libx52_has_feature to determine if the connected
+ * device has the given feature. This list of features is only limited to those
+ * which differ between the supported devices.
+ *
+ * @ingroup libx52misc
+ */
+typedef enum {
+    /** Individual LED control */
+    LIBX52_FEATURE_LED,
+
+} libx52_feature;
+
+/**
  * @defgroup libx52init Library Initialization and Deinitialization
  * @{
  */
@@ -499,6 +514,21 @@ int libx52_update(libx52_device *x52);
  * @returns 0 on success, \ref LIBX52_ERROR_USB_FAILURE on failure
  */
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
+
+/**
+ * @brief Check if the device supports the given feature.
+ *
+ * This will check if the connected device supports the requested feature.
+ * It will return \ref LIBX52_SUCCESS if it does support it,
+ * \ref LIBX52_ERROR_NOT_SUPPORTED if it does not, and another \ref
+ * libx52_error_code on errors.
+ *
+ * @param[in]   x52     Pointer to the device
+ * @param[in]   feature Feature identifier (\ref libx52_feature)
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_check_feature(libx52_device *x52, libx52_feature feature);
 
 /**
  * @brief Return a string representation of the error code
