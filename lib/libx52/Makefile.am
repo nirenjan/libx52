@@ -13,7 +13,7 @@ lib_LTLIBRARIES = libx52.la
 libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c \
 					x52_strerror.c
 libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir)
-libx52_la_LDFLAGS = -version-info 3:0:1 @LIBUSB_LIBS@
+libx52_la_LDFLAGS = -version-info 4:0:2 @LIBUSB_LIBS@
 libx52_la_LIBADD = @LTLIBINTL@
 
 # Header files that need to be copied
