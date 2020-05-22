@@ -51,6 +51,7 @@ int libusb_init(libusb_context **ctx)
     }
 
     /* Determine the number of devices in the file */
+    dev_count = 0;
     do {
         parsed = fscanf(dev_list, "%x %x", &vid, &pid);
         /*
@@ -60,11 +61,40 @@ int libusb_init(libusb_context **ctx)
         if (parsed < 2) {
             break;
         }
-
-        if (vector_push(tmp_ctx, vid, pid) == NULL) {
-            goto init_err_recovery;
-        }
+        dev_count++;
     } while (!feof(dev_list));
+
+    /* Make sure we have at least 1 device */
+    if (dev_count == 0) {
+        rc = LIBUSB_ERROR_NOT_FOUND;
+        goto init_err_recovery;
+    }
+
+    /* We now have the number of devices, allocate memory for them */
+    tmp_ctx->devices = calloc(dev_count, sizeof(*(tmp_ctx->devices)));
+    if (tmp_ctx->devices == NULL) {
+        rc = LIBUSB_ERROR_NO_MEM;
+        goto init_err_recovery;
+    }
+    tmp_ctx->num_devices = dev_count;
+
+    /* Rewind and read the file again, but now put them into the device list */
+    rewind(dev_list);
+
+    for (i = 0; i < dev_count && !feof(dev_list); i++) {
+        /* Set the base fields */
+        tmp_ctx->devices[i].context = tmp_ctx;
+        tmp_ctx->devices[i].index = i;
+
+        parsed = fscanf(dev_list, "%x %x", &vid, &pid);
+        if (parsed < 2) {
+            /* Parse error, skip this device */
+            continue;
+        }
+        /* Set the VID & PID */
+        tmp_ctx->devices[i].desc.idVendor = vid;
+        tmp_ctx->devices[i].desc.idProduct = pid;
+    }
 
     /* Done, close the file and return */
     fclose(dev_list);
@@ -73,11 +103,6 @@ int libusb_init(libusb_context **ctx)
     return LIBUSB_SUCCESS;
 
 init_err_recovery:
-    /* Free the device list, if it is available */
-    if (tmp_ctx->devices != NULL) {
-        free(tmp_ctx->devices);
-    }
-
     /* Close the device list file if it is open */
     if (dev_list) {
         fclose(dev_list);

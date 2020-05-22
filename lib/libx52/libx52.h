@@ -6,22 +6,11 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-/**
- * @file libx52.h
- * @brief Headers for the Saitek X52 MFD & LED driver library
- *
- * This file contains the type and function prototypes for the Saitek X52
- * driver library. These are only needed to control the MFD and LEDs, and
- * don't impact the joystick (HID) functionality.
- *
- * @author Nirenjan Krishnan (nirenjan@nirenjan.org)
- */
 #ifndef LIBX52_H
 #define LIBX52_H
 
 #include <time.h>
 #include <stdint.h>
-#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,38 +27,6 @@ struct libx52_device;
  * @ingroup libx52init
  */
 typedef struct libx52_device libx52_device;
-
-/**
- * @addtogroup libx52hotplug
- * @{
- */
-
-/**
- * @brief Opaque structure used by libx52 hotplug API
- */
-struct libx52_hotplug_callback_handle;
-
-/**
- * @brief Opaque structure used by libx52 hotplug API
- */
-typedef struct libx52_hotplug_callback_handle libx52_hotplug_callback_handle;
-
-/**
- * @brief Opaque structure used by libx52 hotplug API
- */
-struct libx52_hotplug_service;
-
-/**
- * @brief Opaque structure used by libx52 hotplug API
- */
-typedef struct libx52_hotplug_service libx52_hotplug_service;
-
-/**
- * @brief Callback function for hotplug events
- */
-typedef void (*libx52_hotplug_fn)(bool inserted, void *user_data, libx52_device *dev);
-
-/** @} */
 
 /**
  * @brief List of supported clocks on the MFD
@@ -252,7 +209,7 @@ typedef enum {
  * structures to access the joystick, and returns a \ref libx52_device pointer.
  * All calls to libx52 use the returned pointer to control the device.
  *
- * If no joystick is found `libx52_init()` returns \ref LIBX52_ERROR_NO_DEVICE.
+ * If no joystick is found `libx52_init()` returns _NULL_.
  *
  * @par Limitations
  * This function does not support hotplugging. The joystick must be plugged in
@@ -276,90 +233,10 @@ int libx52_init(libx52_device ** dev);
  */
 void libx52_exit(libx52_device *dev);
 
-/**
- * @brief Initialize the X52 library hotplug service
- *
- * This function initializes the libx52 library hotplug service, which will
- * monitor the bus for insertion and removal of any X52/X52Pro joystick, and
- * will trigger registered callbacks on such events.
- *
- * @see libx52_hotplug_register_callback
- * @see libx52_hotplug_deregister_callback
- *
- * @param[out]  svc     Pointer to a \ref libx52_hotplug_service *
- *
- * @returns \ref libx52_error_code indicating status
- */
-int libx52_hotplug_init(libx52_hotplug_service **svc);
-
-/**
- * @brief Exit the library and free up any resources used
- *
- * This function releases any resources allocated by \ref libx52_hotplug_init
- * and terminates the library. Using the freed device now is invalid and can
- * cause errors.
- *
- * @param[in]   svc     Pointer to the hotplug service
- * @returns None
- */
-void libx52_hotplug_exit(libx52_hotplug_service *svc);
-
 /** @} */
 
 /**
- * @defgroup libx52hotplug Hotplug Callbacks
- * @{
- */
-
-/**
- * @brief Register a callback function
- *
- * This function registers a callback function that is triggered when a
- * supported joystick is inserted or removed.
- *
- * @param[in]   svc         Pointer to the hotplug service
- * @param[in]   callback_fn Pointer to callback function
- * @param[in]   user_data   Any user data that needs to be passed to the
- *                          callback function
- * @param[out]  cb_handle   Pointer to a \ref libx52_hotplug_callback_handle *
- *                          This will be used by the application to deregister
- *                          the callback if necessary. This may be NULL, in
- *                          which case, the callback handle is not saved.
- *
- * @returns \ref libx52_error_code indicating status
- *
- * @par Example
- * @code
- * libx52_hotplug_service *svc;
- * libx52_hotplug_callback_handle *hdl;
- * ...
- * rc = libx52_hotplug_register_callback(svc, hotplug_cb, context, &hdl);
- * if (rc != LIBX52_SUCCESS) {
- *     return rc;
- * }
- * @endcode
- */
-int libx52_hotplug_register_callback(libx52_hotplug_service *svc,
-                                     libx52_hotplug_fn callback_fn,
-                                     void *user_data,
-                                     libx52_hotplug_callback_handle **cb_handle);
-
-/**
- * @brief Deregister a callback function
- *
- * This function deregisters a previously registered callback function when
- * a supported joystick is inserted or removed.
- *
- * @param[in]   hdl         Pointer to the hotplug callback handle
- *
- * @returns \ref libx52_error_code indicating status
- */
-int libx52_hotplug_deregister_callback(libx52_hotplug_callback_handle *hdl);
-
-/** @} */
-
-/**
- * @defgroup libx52mfdled MFD & LED control
+ * @defgroup mfdled MFD & LED control
  * @{
  */
 
@@ -632,8 +509,6 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
  * Returned pointer must not be freed.
  */
 const char * libx52_strerror(libx52_error_code error);
-
-/** @} */
 
 #ifdef __cplusplus
 }

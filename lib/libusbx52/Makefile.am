@@ -14,7 +14,7 @@ CC = $(PTHREAD_CC)
 # libusb stub library for use by test programs
 check_LTLIBRARIES = libusbx52.la
 
-libusbx52_la_SOURCES = usb_x52_stub.c usb_x52_hotplug.c usb_x52_vector.c
+libusbx52_la_SOURCES = usb_x52_stub.c
 libusbx52_la_CFLAGS = @LIBUSB_CFLAGS@
 libusbx52_la_LDFLAGS = -rpath /nowhere -module
 

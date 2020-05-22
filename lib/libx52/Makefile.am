@@ -24,4 +24,4 @@ x52include_HEADERS = libx52.h
 pkgconfig_DATA = libx52.pc
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = libx52.h x52_commands.h x52_common.h x52_hotplug.h README.md
+EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
