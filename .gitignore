@@ -52,6 +52,7 @@ po/*.header
 po/Rules-quot
 ABOUT-NLS
 po/*.gmo
+po/*.mo
 
 # Build directory
 /build/
