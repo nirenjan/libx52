@@ -125,6 +125,10 @@ void libx52_exit(libx52_device *dev)
 {
     libusb_close(dev->hdl);
     libusb_exit(dev->ctx);
+
+    /* Clear the memory to prevent reuse */
+    memset(dev, 0, sizeof(*dev));
+
     free(dev);
 }
 
