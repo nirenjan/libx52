@@ -85,11 +85,11 @@ static void signal_handler(int sig)
 
 #define TESTS \
     X(brightness, bri, gettext_noop("Test brightness scale (~ 1m)")) \
+    X(leds, led, gettext_noop("Test LED states (~ 45s)")) \
     X(mfd_text, mfd1, gettext_noop("Test MFD string display (~ 30s)")) \
     X(mfd_display, mfd2, gettext_noop("Test MFD displays all characters (~ 2m 15s)")) \
     X(blink_n_shift, blink, gettext_noop("Test the blink and shift commands (< 10s)")) \
-    X(clock, clock, gettext_noop("Test the clock commands (~1m)")) \
-    X(leds, led, gettext_noop("Test LED states (~ 45s)"))
+    X(clock, clock, gettext_noop("Test the clock commands (~1m)"))
 
 enum {
 #define X(en, kw, desc) TEST_BIT_ ## en,

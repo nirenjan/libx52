@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-05-20 03:17-0700\n"
-"PO-Revision-Date: 2020-05-19 17:03-0700\n"
+"POT-Creation-Date: 2020-05-22 10:45-0700\n"
+"PO-Revision-Date: 2020-05-22 11:15-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -274,15 +274,21 @@ msgstr ""
 "\n"
 "Estingtay EDLay %s\n"
 
-#: utils/test/x52_test_led.c:40
+#: utils/test/x52_test_led.c:41
 msgid "LEDs"
 msgstr "EDsLay"
 
-#: utils/test/x52_test_led.c:41
+#: utils/test/x52_test_led.c:46
+msgid "Skipping LED tests since the device does not support LED control"
+msgstr ""
+"Ippingskay EDLay eststay incesay ethay eviceday oesday otnay\n"
+"upportsay EDLay ontrolcay"
+
+#: utils/test/x52_test_led.c:52
 msgid "This cycles the LEDs through all possible states"
 msgstr "Histay yclescay hetay EDsLay hroughtay allay ossiblepay tatessay"
 
-#: utils/test/x52_test_led.c:59
+#: utils/test/x52_test_led.c:70
 #, c-format
 msgid ""
 "\n"
@@ -291,11 +297,11 @@ msgstr ""
 "\n"
 "Estingtay %s\n"
 
-#: utils/test/x52_test_led.c:70
+#: utils/test/x52_test_led.c:81
 msgid "Blink & Shift"
 msgstr "Linkbay & Hiftsay"
 
-#: utils/test/x52_test_led.c:71
+#: utils/test/x52_test_led.c:82
 msgid "This tests the blink indicator and shift functionality"
 msgstr "Histay eststay hetay linkbay indicatoray anday hiftsay unctionalityfay"
 
