@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-05-22 10:45-0700\n"
+"POT-Creation-Date: 2020-05-22 18:05-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,23 +95,23 @@ msgid "Test brightness scale (~ 1m)"
 msgstr ""
 
 #: utils/test/x52_test.c:88
-msgid "Test MFD string display (~ 30s)"
+msgid "Test LED states (~ 45s)"
 msgstr ""
 
 #: utils/test/x52_test.c:89
-msgid "Test MFD displays all characters (~ 2m 15s)"
+msgid "Test MFD string display (~ 30s)"
 msgstr ""
 
 #: utils/test/x52_test.c:90
-msgid "Test the blink and shift commands (< 10s)"
+msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr ""
 
 #: utils/test/x52_test.c:91
-msgid "Test the clock commands (~1m)"
+msgid "Test the blink and shift commands (< 10s)"
 msgstr ""
 
 #: utils/test/x52_test.c:92
-msgid "Test LED states (~ 45s)"
+msgid "Test the clock commands (~1m)"
 msgstr ""
 
 #: utils/test/x52_test.c:116
