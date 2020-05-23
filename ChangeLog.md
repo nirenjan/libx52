@@ -6,11 +6,15 @@ The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
 ### Added
+- Connect/Disconnect methods in libx52. These allow for dynamically connecting
+  or disconnecting from a supported joystick without having to reinitialize the
+  library.
 - Internationalization for the following:
     * libx52
     * x52test
 
 ### Changed
+- libx52_init no longer fails when a supported joystick is not connected.
 - x52test moves the LED tests to execute after all other tests. See
   [#19](https://github.com/nirenjan/x52pro-linux/issues/19).
 

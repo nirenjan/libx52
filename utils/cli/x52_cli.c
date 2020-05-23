@@ -374,11 +374,18 @@ int main(int argc, char **argv)
         }
     }
 
-    /* Lookup the X52 device */
+    /* Initialize libx52 */
     rc = libx52_init(&x52);
 
     if (rc != LIBX52_SUCCESS) {
-        fprintf(stderr, "Error initializing X52 joystick: %s\n", libx52_strerror(rc));
+        fprintf(stderr, "Error initializing X52 library: %s\n", libx52_strerror(rc));
+        return 1;
+    }
+
+    /* Make sure we are connected to the joystick */
+    rc = libx52_connect(x52);
+    if (rc != LIBX52_SUCCESS) {
+        fprintf(stderr, "Error connecting to joystick: %s\n", libx52_strerror(rc));
         return 1;
     }
 

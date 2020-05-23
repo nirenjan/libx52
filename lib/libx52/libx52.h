@@ -227,11 +227,10 @@ typedef enum {
  * structures to access the joystick, and returns a \ref libx52_device pointer.
  * All calls to libx52 use the returned pointer to control the device.
  *
- * If no joystick is found `libx52_init()` returns _NULL_.
- *
- * @par Limitations
- * This function does not support hotplugging. The joystick must be plugged in
- * before calling this function.
+ * This function attempts to connect to the joystick upon initialization.
+ * However, if no device is connected, then the library initialization does
+ * not fail, but the application must call \ref libx52_connect prior to any
+ * calls to \ref libx52_update
  *
  * @param[out]  dev     Pointer to a \ref libx52_device *. This function will
  * allocate a device context and return the pointer to that in this variable.
@@ -251,6 +250,33 @@ int libx52_init(libx52_device ** dev);
  * @returns None
  */
 void libx52_exit(libx52_device *dev);
+
+/**
+ * @brief Connect to the X52 device
+ *
+ * Attempt to connect to a supported X52/X52Pro joystick. If no supported
+ * joysticks are found, it will return \ref LIBX52_ERROR_NO_DEVICE. If any
+ * errors are encountered during device enumeration, it will return an
+ * appropriate \ref libx52_error_code.
+ *
+ * @param[in]   dev     Pointer to the device
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_connect(libx52_device *dev);
+
+/**
+ * @brief Disconnect from the X52 device
+ *
+ * This function disconnects any active connections to supported joysticks.
+ * Applications must reconnect to the joystick using \ref libx52_connect prior
+ * to calling \ref libx52_update.
+ *
+ * @param[in]   dev     Pointer to the device
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_disconnect(libx52_device *dev);
 
 /** @} */
 

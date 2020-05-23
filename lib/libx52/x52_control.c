@@ -70,6 +70,13 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
     int j;
     int rc = 0;
 
+    /* It is possible for the vendor command to be called when the joystick
+     * is not connected. Check for this and return an appropriate error.
+     */
+    if (!x52->hdl) {
+        return LIBX52_ERROR_NO_DEVICE;
+    }
+
     /* Allow retry in case of failure */
     for (j = 0; j < 3; j++) {
         rc = libusb_control_transfer(x52->hdl,
@@ -225,6 +232,13 @@ int libx52_update(libx52_device *x52)
     uint32_t update_mask;
     uint16_t value;
     int rc = LIBX52_SUCCESS;
+
+    /* It is possible for the update command to be called when the joystick
+     * is not connected. Check for this and return an appropriate error.
+     */
+    if (!x52->hdl) {
+        return LIBX52_ERROR_NO_DEVICE;
+    }
 
     /* Save the update mask */
     update_mask = x52->update_mask;
