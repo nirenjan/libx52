@@ -1,0 +1,40 @@
+/**
+@page libx52_api Application Programming Interface
+
+This is the complete list of libx52 functions, structures and enumerations
+in alphabetical order.
+
+@section functions Functions
+
+- @ref libx52_check_feature
+- @ref libx52_exit
+- @ref libx52_init
+- @ref libx52_set_blink
+- @ref libx52_set_brightness
+- @ref libx52_set_clock
+- @ref libx52_set_clock_format
+- @ref libx52_set_clock_timezone
+- @ref libx52_set_date
+- @ref libx52_set_date_format
+- @ref libx52_set_led_state
+- @ref libx52_set_shift
+- @ref libx52_set_text
+- @ref libx52_set_time
+- @ref libx52_update
+- @ref libx52_vendor_command
+
+@section structs Structures
+
+- @ref libx52_device
+
+@section enums Enumerations
+
+- @ref libx52_clock_format
+- @ref libx52_clock_id
+- @ref libx52_date_format
+- @ref libx52_error_code
+- @ref libx52_feature
+- @ref libx52_led_id
+- @ref libx52_led_state
+
+*/

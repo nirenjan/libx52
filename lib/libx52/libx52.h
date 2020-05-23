@@ -23,7 +23,7 @@ extern "C" {
 struct libx52_device;
 
 /**
- * @brief Opaque structure used by libx52
+ * @brief Device context structure used by libx52
  * @ingroup libx52init
  */
 typedef struct libx52_device libx52_device;
@@ -200,9 +200,9 @@ typedef enum {
 /**
  * @brief Feature support for libx52
  *
- * Each flag is passed to \ref libx52_has_feature to determine if the connected
- * device has the given feature. This list of features is only limited to those
- * which differ between the supported devices.
+ * Each flag is passed to \ref libx52_check_feature to determine if the
+ * connected device has the given feature. This list of features is only
+ * limited to those which differ between the supported devices.
  *
  * @ingroup libx52misc
  */
@@ -214,6 +214,9 @@ typedef enum {
 
 /**
  * @defgroup libx52init Library Initialization and Deinitialization
+ *
+ * These functions are used at application entry and exit.
+ *
  * @{
  */
 
@@ -230,7 +233,8 @@ typedef enum {
  * This function does not support hotplugging. The joystick must be plugged in
  * before calling this function.
  *
- * @param[out]  dev     Pointer to a \ref libx52_device *
+ * @param[out]  dev     Pointer to a \ref libx52_device *. This function will
+ * allocate a device context and return the pointer to that in this variable.
  *
  * @returns \ref libx52_error_code indicating status
  */
@@ -243,7 +247,7 @@ int libx52_init(libx52_device ** dev);
  * terminates the library. Using the freed device now is invalid and can
  * cause errors.
  *
- * @param[in]   dev     Pointer to the device
+ * @param[in]   dev     Pointer to the device context
  * @returns None
  */
 void libx52_exit(libx52_device *dev);
@@ -251,7 +255,10 @@ void libx52_exit(libx52_device *dev);
 /** @} */
 
 /**
- * @defgroup mfdled MFD & LED control
+ * @defgroup libx52mfdled MFD & LED control
+ *
+ * Control the MFD text and LED states
+ *
  * @{
  */
 
@@ -272,7 +279,7 @@ void libx52_exit(libx52_device *dev);
  * This function can only store a maximum of 16 characters per line. Any
  * additional characters are silently discarded.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   line    Line to be updated (0, 1 or 2)
  * @param[in]   text    Pointer to the text string. The text must be mapped to
  *                      the code page of the X52 display.
@@ -295,7 +302,7 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
  * \ref LIBX52_LED_STATE_ON. The remaining LEDs support all the states with
  * the exception of \ref LIBX52_LED_STATE_ON.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   led     LED identifier (refer \ref libx52_led_id)
  * @param[in]   state   State of the LED (refer \ref libx52_led_state)
  *
@@ -313,6 +320,9 @@ int libx52_set_led_state(libx52_device *x52,
 
 /**
  * @defgroup libx52clock Clock control
+ *
+ * Control the clocks on the MFD
+ *
  * @{
  */
 
@@ -333,7 +343,7 @@ int libx52_set_led_state(libx52_device *x52,
  * The secondary and tertiary clocks are driven off the primary clock and set
  * using \ref libx52_set_clock_timezone.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   time    Time value from \c time(3)
  * @param[in]   local   0 for GM time, non-zero for localtime
  *
@@ -352,7 +362,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local);
  * from GMT. \p offset is limited to +/- 1440 minutes, and any offset outside
  * this range will result in a return value of \ref LIBX52_ERROR_OUT_OF_RANGE
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   clock   \ref libx52_clock_id, cannot be \ref
  *                      LIBX52_CLOCK_1
  * @param[in]   offset  Offset in minutes from GMT (east is positive, west
@@ -377,7 +387,7 @@ int libx52_set_clock_timezone(libx52_device *x52,
  * The hardware has a limitation that it cannot display 12:00 am in 12 hour
  * mode - instead it will display as 00:00 am
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   clock   \ref libx52_clock_id
  * @param[in]   format  \ref libx52_clock_format
  *
@@ -395,7 +405,7 @@ int libx52_set_clock_format(libx52_device *x52,
  * so desires, however, it will not update the timezone or the date
  * values.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   hour    Hour to display
  * @param[in]   minute  Minute to display
  *
@@ -409,7 +419,7 @@ int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
  * This is a raw API which can be used for manual control if the user
  * so desires, however, it will not update the timezone or the time values.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   dd      Day to display
  * @param[in]   mm      Month to display
  * @param[in]   yy      Year to display
@@ -423,7 +433,7 @@ int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
  *
  * If not set, the date format defaults to DD-MM-YY
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   format  \ref libx52_date_format
  *
  * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
@@ -445,7 +455,7 @@ int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
  * the library does not fail on values higher than 128, the effect may not
  * be what is intended.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   mfd     0 for LED brightness, 1 for MFD brightness
  * @param[in]   brightness  Brightness level to set
  *
@@ -459,7 +469,7 @@ int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness);
  * The X52 Pro MFD has a single shift indicator that indicates when the
  * "shift" button is pressed.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   state   0 for off, 1 for on
  *
  * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
@@ -471,7 +481,7 @@ int libx52_set_shift(libx52_device *x52, uint8_t state);
  *
  * The X52 Pro has a "blink" state where it blinks the clutch and hat LEDs.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   state   0 for off, 1 for on
  *
  * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
@@ -485,7 +495,7 @@ int libx52_set_blink(libx52_device *x52, uint8_t state);
  * not actually write anything to the joystick. This function writes the saved
  * data to the joystick and updates the internal data structures as necessary.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  *
  * @returns 0 on success, \ref LIBX52_ERROR_USB_FAILURE on failure
  */
@@ -495,6 +505,9 @@ int libx52_update(libx52_device *x52);
 
 /**
  * @defgroup libx52misc Miscellaneous
+ *
+ * Miscellaneous functionality
+ *
  * @{
  */
 
@@ -507,7 +520,7 @@ int libx52_update(libx52_device *x52);
  * This can be used to debug issues seen on the hardware, however, it is \b NOT
  * recommended for use by end users, as it can potentially damage the hardware.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   index   wIndex in the USB packet
  * @param[in]   value   wValue in the USB packet
  *
@@ -523,7 +536,7 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
  * \ref LIBX52_ERROR_NOT_SUPPORTED if it does not, and another \ref
  * libx52_error_code on errors.
  *
- * @param[in]   x52     Pointer to the device
+ * @param[in]   x52     Pointer to the device context
  * @param[in]   feature Feature identifier (\ref libx52_feature)
  *
  * @returns \ref libx52_error_code indicating status
@@ -539,6 +552,8 @@ int libx52_check_feature(libx52_device *x52, libx52_feature feature);
  * Returned pointer must not be freed.
  */
 const char * libx52_strerror(libx52_error_code error);
+
+/** @} */
 
 #ifdef __cplusplus
 }

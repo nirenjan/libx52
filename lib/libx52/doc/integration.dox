@@ -1,0 +1,66 @@
+/**
+@page libx52_integration Integration
+
+libx52 performs all its operations with a device context pointer. The
+application must call \ref libx52_init before performing any operation, and
+must call \ref libx52_exit prior to terminating.
+
+<b>Example Initialization/Deinitialization Code</b>
+
+@code{.c}
+#include <libx52.h>
+
+libx52_device* init_libx52(void)
+{
+    libx52_device *dev;
+    int rc;
+
+    // Initialize the libx52 library
+    rc = libx52_init(&dev);
+    if (rc != LIBX52_SUCCESS) {
+        fputs(libx52_strerror(rc), stderr);
+        return NULL;
+    }
+
+    return dev;
+}
+
+// Close the library and any associated devices
+libx52_exit(dev);
+@endcode
+
+# Joystick Updates
+
+Most libx52 functions to update the joystick state do not directly write to the
+connected joystick, but only update internal data structures within the device
+context. In order to actually update the joystick, the application must call
+\ref libx52_update. This function writes the updates to the joystick and resets
+any internal state.
+
+\b Example
+
+@code{.c}
+libx52_set_text(dev, 0, " Saitek X52 Pro ", 16);
+libx52_set_text(dev, 1, "     Flight     ", 16);
+libx52_set_text(dev, 2, " Control System ", 16);
+libx52_update(dev);
+@endcode
+
+# Error handling
+
+Most libx52 functions return a standard \ref libx52_error_code integer value
+that indicates the status of the operation. As long as the operation succeeded,
+the function will return \ref LIBX52_SUCCESS. Other values returned indicate a
+failure of some sort.
+
+\ref libx52_strerror can convert the return code into a descriptive string that
+may be displayed to users.
+
+## Internationalization of error strings
+
+\ref libx52_strerror automatically handles internationalization. As long as your
+application sets up the locale correctly, and the error strings have been
+translated to that locale, the returned strings will correspond to the translated
+values for your locale.
+
+*/

@@ -1,0 +1,26 @@
+/**
+@page libx52_caveats Caveats
+
+@section general General Caveats
+
+libx52 uses [libusb](https://libusb.info) under the hood. Therefore, any
+[caveats](http://libusb.sourceforge.net/api-1.0/libusb_caveats.html) that apply
+to libusb also apply to libx52.
+
+@section threads Thread Safety
+
+libx52 is not designed to be thread-safe. The application must ensure that
+calls to libx52 from multiple threads are protected by a semaphore/mutex.
+
+@section hotplug Hotplugging
+
+libx52 does not support hotplugging. The joystick must be plugged in prior to
+the application initializing libx52.
+
+@section leds LED Support
+
+The Saitek X52 does not support controlling the color of individual LEDs. This
+is only supported on the X52 Pro. The application can use \ref
+libx52_check_feature to verify support.
+
+*/
