@@ -42,6 +42,7 @@ Makefile.in
 *.lo
 *.m4
 test-driver
+*.pc
 
 # Autotools Gettext objects
 po/Makevars.template
@@ -53,6 +54,10 @@ po/Rules-quot
 ABOUT-NLS
 po/*.gmo
 po/*.mo
+po/POTFILES
+
+# Doxygen files
+Doxyfile
 
 # Build directory
 /build/
