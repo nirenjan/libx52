@@ -26,11 +26,14 @@ EXTRA_DIST = \
 
 # Doxygen support
 if HAVE_DOXYGEN
+DXGEN = $(DXGEN_$(V))
+DXGEN_ = $(DXGEN_$(AM_DEFAULT_VERBOSITY))
+DXGEN_0 = @printf "  DXGEN    $<\n";
 docs/.stamp: Doxyfile
-	$(AM_V_GEN)$(DOXYGEN) $<
+	$(DXGEN)$(DOXYGEN) $<
 	$(AM_V_at)touch $@
 
-CLEANFILES = docs/.stamp
+CLEANFILES = docs
 
 all-local: docs/.stamp
 clean-local:
