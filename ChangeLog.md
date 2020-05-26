@@ -12,6 +12,7 @@ The format is based upon [Keep a Changelog].
 - Internationalization for the following:
     * libx52
     * x52test
+- Doxygen generation of HTML documentation for libx52 methods.
 
 ### Changed
 - libx52_init no longer fails when a supported joystick is not connected.

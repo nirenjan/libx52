@@ -38,4 +38,7 @@ CLEANFILES = docs
 all-local: docs/.stamp
 clean-local:
 	rm -rf $(top_builddir)/docs
+install-data-local:
+	$(INSTALL) -d $(DESTDIR)$(docdir)
+	rsync -a $(top_builddir)/docs/html $(DESTDIR)$(docdir)
 endif
