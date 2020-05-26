@@ -5,11 +5,11 @@
 
 # Generated objects (source, executables, tarballs, etc.)
 a.out
-cli/x52cli*
-test/x52test*
-util/util_char_map.c
+utils/cli/x52cli*
+utils/test/x52test*
+lib/libx52util/util_char_map.c
 util/x52charmapgen*
-libusbx52/x52test*
+lib/libusbx52/x52test*
 x52pro-linux-*.tar.gz
 
 # Module files
@@ -42,6 +42,7 @@ Makefile.in
 *.lo
 *.m4
 test-driver
+tests/test-suite.log
 *.pc
 
 # Autotools Gettext objects
@@ -55,9 +56,12 @@ ABOUT-NLS
 po/*.gmo
 po/*.mo
 po/POTFILES
+po/stamp-po
 
 # Doxygen files
 Doxyfile
+docs/.stamp
+docs/html
 
 # Build directory
 /build/
