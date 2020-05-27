@@ -1,0 +1,20 @@
+Source: x52pro-linux
+Priority: optional
+Maintainer: Nirenjan Krishnan <nirenjan@gmail.com>
+Build-Depends: debhelper (>= 9), autotools-dev, libusb-1.0-0-dev, python, doxygen, rsync, pkg-config, gettext
+Standards-Version: 4.4.1
+Section: libs
+Homepage: https://github.com/nirenjan/x52pro-linux
+
+Package: x52pro-linux-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: x52pro-linux1
+Description: X52/X52Pro interface library: Development libraries and header files
+
+Package: x52pro-linux1
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: X52/X52Pro interface library: Shared libraries and utilities

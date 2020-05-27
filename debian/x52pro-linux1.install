@@ -1,0 +1,4 @@
+usr/lib/*/lib*.so.*
+usr/bin/x52cli
+usr/bin/x52test
+usr/share/man/man1/x52cli.1
