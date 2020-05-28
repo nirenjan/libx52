@@ -29,6 +29,5 @@ EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
 # Add documentation files to the distribution
 EXTRA_DIST += \
 	doc/main.dox \
-	doc/api.dox \
 	doc/caveats.dox \
 	doc/integration.dox

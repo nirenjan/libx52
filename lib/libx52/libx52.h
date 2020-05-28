@@ -6,6 +6,17 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
+/**
+ * @file libx52.h
+ * @brief Functions, structures and enumerations for the Saitek X52 MFD & LED
+ * driver library.
+ *
+ * This file contains the type, enum and function prototypes for the Saitek X52
+ * driver library. These functions allow an application to connect to a supported
+ * X52/X52Pro joystick and control the MFD and LEDs.
+ *
+ * @author Nirenjan Krishnan (nirenjan@nirenjan.org)
+ */
 #ifndef LIBX52_H
 #define LIBX52_H
 
