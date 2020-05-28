@@ -12,6 +12,3 @@ bin_PROGRAMS = x52cli
 x52cli_SOURCES = x52_cli.c
 x52cli_CFLAGS = @X52_INCLUDE@
 x52cli_LDADD = ../../lib/libx52/libx52.la
-
-# Man pages for CLI utility
-dist_man1_MANS = x52cli.man

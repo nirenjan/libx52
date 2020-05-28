@@ -26,19 +26,23 @@ EXTRA_DIST = \
 
 # Doxygen support
 if HAVE_DOXYGEN
-DXGEN = $(DXGEN_$(V))
-DXGEN_ = $(DXGEN_$(AM_DEFAULT_VERBOSITY))
+DXGEN = $(DXGEN_@AM_V@)
+DXGEN_ = $(DXGEN_@AM_DEFAULT_V@)
 DXGEN_0 = @printf "  DXGEN    $<\n";
 docs/.stamp: Doxyfile
 	$(DXGEN)$(DOXYGEN) $<
 	$(AM_V_at)touch $@
 
-CLEANFILES = docs
-
 all-local: docs/.stamp
 clean-local:
 	rm -rf $(top_builddir)/docs
+
+# Install Doxygen generated HTML documentation and manpages
 install-data-local:
 	$(INSTALL) -d $(DESTDIR)$(docdir)
 	rsync -a $(top_builddir)/docs/html $(DESTDIR)$(docdir)
+
+	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
+	$(INSTALL) -D docs/man/man1/x52cli.1 $(DESTDIR)$(mandir)/man1
+
 endif
