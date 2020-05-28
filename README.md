@@ -39,8 +39,8 @@ You will need the following packages:
 
 If you are on OSX, you can install the above packages using Homebrew
 
-If you want to generate HTML documentation for the library, you will need the
-following packages:
+If you want to generate HTML documentation for the library, and manpages for
+the utilities, you will need the following packages:
 
 * doxygen
 * rsync
