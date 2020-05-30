@@ -45,4 +45,8 @@ install-data-local:
 	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
 	$(INSTALL) -D docs/man/man1/x52cli.1 $(DESTDIR)$(mandir)/man1
 
+uninstall-local:
+	rm -rf $(DESTDIR)$(docdir)
+	rm -rf $(DESTDIR)$(mandir)/man1/x52cli.1
+
 endif
