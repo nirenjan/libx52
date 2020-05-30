@@ -49,5 +49,11 @@ the utilities, you will need the following packages:
 
 1. Clone the repository
 2. Run autogen.sh
-3. Run configure; make and sudo make install.
+3. Run the following commands:
+```
+./configure \
+    --prefix=/usr \
+    --with-udevrulesdir=$(pkg-config --variable=udevdir)/rules.d
+make && sudo make install
+```
 
