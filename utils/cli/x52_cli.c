@@ -78,8 +78,9 @@ Commands are not case sensitive.
 
 - <tt>\b raw < \a wIndex > < \a wValue ></tt>\n \manonly \fR \endmanonly
   Send a raw vendor control request to the connected joystick.\n
-  \warning You should only use this if you know what you are doing. Sending
-  an invalid control sequence can potentially destroy your device.
+  \warning You should only use the raw command if you know what you are doing.
+  Sending an invalid control sequence can potentially damage or destroy your
+  device.
 
 @section x52cli_leds LEDs
 This is the list of LED IDs and corresponding states supported by the X52 Pro.

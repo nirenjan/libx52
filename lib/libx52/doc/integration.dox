@@ -40,8 +40,8 @@ any internal state.
 \b Example
 
 @code{.c}
-libx52_set_text(dev, 0, " Saitek X52 Pro ", 16);
-libx52_set_text(dev, 1, "     Flight     ", 16);
+libx52_set_text(dev, 0, "     Saitek     ", 16);
+libx52_set_text(dev, 1, "   X52 Flight   ", 16);
 libx52_set_text(dev, 2, " Control System ", 16);
 libx52_update(dev);
 @endcode

@@ -35,6 +35,11 @@ struct libx52_device;
 
 /**
  * @brief Device context structure used by libx52
+ *
+ * All libx52 API functions require the application to pass in a pointer to
+ * a valid device context structure. A pointer can be obtained by calling
+ * \ref libx52_init
+ *
  * @ingroup libx52init
  */
 typedef struct libx52_device libx52_device;
@@ -179,7 +184,7 @@ typedef enum {
     /** Error encountered during USB interaction */
     LIBX52_ERROR_USB_FAILURE,
 
-    /** Input output error */
+    /** Input/output error */
     LIBX52_ERROR_IO,
 
     /** Insufficient permissions */
@@ -235,16 +240,39 @@ typedef enum {
  * @brief Initialize the X52 library
  *
  * This function initializes the libx52 library, sets up any internal data
- * structures to access the joystick, and returns a \ref libx52_device pointer.
- * All calls to libx52 use the returned pointer to control the device.
+ * structures to access the joystick, and returns a \ref libx52_device pointer
+ * in the output parameter. All calls to libx52 use the returned pointer to
+ * control the device.
  *
+ * @par Example
+ * @code
+ * int rc;
+ * libx52_device *dev;
+ * rc = libx52_init(&dev);
+ * if (rc != LIBX52_SUCCESS) {
+ *     // Error handling omitted for brevity
+ * }
+ *
+ * // Save dev for use later
+ * @endcode
+ *
+ * @since \b 0.2.1 -
  * This function attempts to connect to the joystick upon initialization.
  * However, if no device is connected, then the library initialization does
  * not fail, but the application must call \ref libx52_connect prior to any
  * calls to \ref libx52_update
  *
+ * @deprecated
+ * Connection to a supported joystick is no longer a goal of this function.
+ * It will continue to attempt to connect to the joystick during initialization
+ * so that existing clients don't break, but it is highly recommended that all
+ * clients use \ref libx52_connect to explicitly connect to the joystick.
+ * <br><br>
+ * A future release will remove the automatic connection.
+ *
  * @param[out]  dev     Pointer to a \ref libx52_device *. This function will
- * allocate a device context and return the pointer to that in this variable.
+ * allocate a device context and return the pointer to the device context in
+ * this variable.
  *
  * @returns \ref libx52_error_code indicating status
  */
@@ -270,7 +298,7 @@ void libx52_exit(libx52_device *dev);
  * errors are encountered during device enumeration, it will return an
  * appropriate \ref libx52_error_code.
  *
- * @param[in]   dev     Pointer to the device
+ * @param[in]   dev     Pointer to the device context
  *
  * @returns \ref libx52_error_code indicating status
  */
@@ -283,7 +311,7 @@ int libx52_connect(libx52_device *dev);
  * Applications must reconnect to the joystick using \ref libx52_connect prior
  * to calling \ref libx52_update.
  *
- * @param[in]   dev     Pointer to the device
+ * @param[in]   dev     Pointer to the device context
  *
  * @returns \ref libx52_error_code indicating status
  */
@@ -322,8 +350,10 @@ int libx52_disconnect(libx52_device *dev);
  *                      the code page of the X52 display.
  * @param[in]   length  Length of the text to display
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if either \p x52 is
- * invalid, or \p line is outside the accepted range.
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if either \p x52 is invalid, or \p line is
+ *   outside the accepted range.
  */
 int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t length);
 
@@ -343,11 +373,12 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
  * @param[in]   led     LED identifier (refer \ref libx52_led_id)
  * @param[in]   state   State of the LED (refer \ref libx52_led_state)
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if the \p x52
- * parameter is not valid, and \ref LIBX52_ERROR_NOT_SUPPORTED if the \p led
- * and \p state combination is not a supported one.  The API also returns \ref
- * LIBX52_ERROR_NOT_SUPPORTED if the probed joystick is not an X52 Pro, but the
- * non-Pro X52 variant.
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if the \p x52 parameter is not valid
+ * - \ref LIBX52_ERROR_NOT_SUPPORTED if the \p led and \p state combination is
+ *   not a supported one. The API also returns \ref LIBX52_ERROR_NOT_SUPPORTED
+ *   if the probed joystick is not an X52 Pro, but the non-Pro X52 variant.
  */
 int libx52_set_led_state(libx52_device *x52,
                          libx52_led_id led,
@@ -384,8 +415,10 @@ int libx52_set_led_state(libx52_device *x52,
  * @param[in]   time    Time value from \c time(3)
  * @param[in]   local   0 for GM time, non-zero for localtime
  *
- * @returns 0 on success, \ref LIBX52_ERROR_TRY_AGAIN if no change from previous
- *          time, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid.
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_TRY_AGAIN if no change from previous time
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid.
  */
 int libx52_set_clock(libx52_device *x52, time_t time, int local);
 
@@ -395,9 +428,17 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local);
  * The X52 Pro has a total of 3 clock displays. The secondary and tertiary
  * clocks are controlled as an offset from the primary clock in minutes.
  * However, for convenience, the X52 library calculates this offset internally
- * and only requires you to set the timezone as the number of minutes offset
- * from GMT. \p offset is limited to +/- 1440 minutes, and any offset outside
+ * and only requires you to set the timezone as the number of minutes east
+ * of UTC. \p offset is limited to &plusmn; 1440 minutes, and any offset outside
  * this range will result in a return value of \ref LIBX52_ERROR_OUT_OF_RANGE
+ *
+ * @par Example
+ * @code
+ * // Set clock 2 timezone to Pacific Standard Time (UTC-08:00)
+ * rc = libx52_set_clock_timezone(dev, LIBX52_CLOCK_2, -480);
+ * // Set clock 3 timezone to Indian Standard Time (UTC+05:30)
+ * rc = libx52_set_clock_timezone(dev, LIBX52_CLOCK_2, 330);
+ * @endcode
  *
  * @param[in]   x52     Pointer to the device context
  * @param[in]   clock   \ref libx52_clock_id, cannot be \ref
@@ -405,9 +446,11 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local);
  * @param[in]   offset  Offset in minutes from GMT (east is positive, west
  *                      is negative)
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is invalid,
- * \ref LIBX52_ERROR_NOT_SUPPORTED if \p clock is \ref LIBX52_CLOCK_1, \ref
- * LIBX52_ERROR_OUT_OF_RANGE if \p offset is more than +/- 24 hours.
+ * @returns 
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is invalid
+ * - \ref LIBX52_ERROR_NOT_SUPPORTED if \p clock is \ref LIBX52_CLOCK_1
+ * - \ref LIBX52_ERROR_OUT_OF_RANGE if \p offset is more than &plusmn; 24 hours.
  */
 int libx52_set_clock_timezone(libx52_device *x52,
                               libx52_clock_id clock,
@@ -428,8 +471,10 @@ int libx52_set_clock_timezone(libx52_device *x52,
  * @param[in]   clock   \ref libx52_clock_id
  * @param[in]   format  \ref libx52_clock_format
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid,
- * or if either of \p clock or \p format are outside their respective ranges.
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid, or if either of \p
+ *   clock or \p format are outside their respective ranges.
  */
 int libx52_set_clock_format(libx52_device *x52,
                             libx52_clock_id clock,
@@ -446,7 +491,9 @@ int libx52_set_clock_format(libx52_device *x52,
  * @param[in]   hour    Hour to display
  * @param[in]   minute  Minute to display
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
 int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
 
@@ -461,7 +508,9 @@ int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
  * @param[in]   mm      Month to display
  * @param[in]   yy      Year to display
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
 int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
 
@@ -473,7 +522,9 @@ int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
  * @param[in]   x52     Pointer to the device context
  * @param[in]   format  \ref libx52_date_format
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
 int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
 
@@ -496,7 +547,9 @@ int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
  * @param[in]   mfd     0 for LED brightness, 1 for MFD brightness
  * @param[in]   brightness  Brightness level to set
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid.
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
 int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness);
 
@@ -509,7 +562,9 @@ int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness);
  * @param[in]   x52     Pointer to the device context
  * @param[in]   state   0 for off, 1 for on
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
 int libx52_set_shift(libx52_device *x52, uint8_t state);
 
@@ -521,22 +576,11 @@ int libx52_set_shift(libx52_device *x52, uint8_t state);
  * @param[in]   x52     Pointer to the device context
  * @param[in]   state   0 for off, 1 for on
  *
- * @returns 0 on success, \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
+ * @returns
+ * - 0 on success
+ * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
 int libx52_set_blink(libx52_device *x52, uint8_t state);
-
-/**
- * @brief Update the X52
- *
- * All the libx52_set functions only set the internal data structures, but do
- * not actually write anything to the joystick. This function writes the saved
- * data to the joystick and updates the internal data structures as necessary.
- *
- * @param[in]   x52     Pointer to the device context
- *
- * @returns 0 on success, \ref LIBX52_ERROR_USB_FAILURE on failure
- */
-int libx52_update(libx52_device *x52);
 
 /** @} */
 
@@ -547,6 +591,19 @@ int libx52_update(libx52_device *x52);
  *
  * @{
  */
+
+/**
+ * @brief Update the X52
+ *
+ * All the libx52_set functions only set the internal data structures, but do
+ * not actually write anything to the joystick. This function writes the saved
+ * data to the joystick and updates the internal data structures as necessary.
+ *
+ * @param[in]   x52     Pointer to the device context
+ *
+ * @returns \ref libx52_error_code indicating status
+ */
+int libx52_update(libx52_device *x52);
 
 /**
  * @brief Write a raw vendor control packet
@@ -561,7 +618,7 @@ int libx52_update(libx52_device *x52);
  * @param[in]   index   wIndex in the USB packet
  * @param[in]   value   wValue in the USB packet
  *
- * @returns 0 on success, \ref LIBX52_ERROR_USB_FAILURE on failure
+ * @returns \ref libx52_error_code indicating status
  */
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
 

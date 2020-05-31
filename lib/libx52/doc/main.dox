@@ -30,7 +30,7 @@ libx52 supports setting the following parameters on the joystick
 
 @section api Application Programming Interface
 
-See the documentation for the folloowing files for a complete list of all
+See the documentation for the following files for a complete list of all
 functions.
 
 - libx52.h
