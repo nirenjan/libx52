@@ -20,21 +20,28 @@ bool nodelay;
 
 void test_cleanup(void)
 {
-    libx52_set_text(dev, 0, " Saitek X52 Pro ", 16);
-    libx52_set_text(dev, 1, "     Flight     ", 16);
-    libx52_set_text(dev, 2, " Control System ", 16);
+    if (libx52_check_feature(dev, LIBX52_FEATURE_LED) == LIBX52_SUCCESS) {
+        /* X52 Pro */
+        libx52_set_text(dev, 0, " Saitek X52 Pro ", 16);
+        libx52_set_text(dev, 1, "     Flight     ", 16);
+        libx52_set_text(dev, 2, " Control System ", 16);
 
-    libx52_set_led_state(dev, LIBX52_LED_FIRE, LIBX52_LED_STATE_ON);
-    libx52_set_led_state(dev, LIBX52_LED_THROTTLE, LIBX52_LED_STATE_ON);
-    libx52_set_led_state(dev, LIBX52_LED_A, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_B, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_D, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_E, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_T1, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_T2, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_T3, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_POV, LIBX52_LED_STATE_GREEN);
-    libx52_set_led_state(dev, LIBX52_LED_CLUTCH, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_FIRE, LIBX52_LED_STATE_ON);
+        libx52_set_led_state(dev, LIBX52_LED_THROTTLE, LIBX52_LED_STATE_ON);
+        libx52_set_led_state(dev, LIBX52_LED_A, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_B, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_D, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_E, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_T1, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_T2, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_T3, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_POV, LIBX52_LED_STATE_GREEN);
+        libx52_set_led_state(dev, LIBX52_LED_CLUTCH, LIBX52_LED_STATE_GREEN);
+    } else {
+        libx52_set_text(dev, 0, "     Saitek     ", 16);
+        libx52_set_text(dev, 1, "   X52 Flight   ", 16);
+        libx52_set_text(dev, 2, " Control System ", 16);
+    }
 
     libx52_set_blink(dev, 0);
     libx52_set_shift(dev, 0);

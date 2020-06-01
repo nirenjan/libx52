@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-05-22 18:05-0700\n"
+"POT-Creation-Date: 2020-06-01 00:08-0700\n"
 "PO-Revision-Date: 2020-05-22 13:25-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -90,31 +90,31 @@ msgstr "Ystemsay allcay interrupteday"
 msgid "Unknown error %d"
 msgstr "Unknownay erroray %d"
 
-#: utils/test/x52_test.c:87
+#: utils/test/x52_test.c:94
 msgid "Test brightness scale (~ 1m)"
 msgstr "Esttay ightnessbray alescay (~ 1m)"
 
-#: utils/test/x52_test.c:88
+#: utils/test/x52_test.c:95
 msgid "Test LED states (~ 45s)"
 msgstr "Esstay EDLay atesstay (~ 45s)"
 
-#: utils/test/x52_test.c:89
+#: utils/test/x52_test.c:96
 msgid "Test MFD string display (~ 30s)"
 msgstr "Esttay MFDay ingstray isplayday (~ 30s)"
 
-#: utils/test/x52_test.c:90
+#: utils/test/x52_test.c:97
 msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr "Esttay MFDay isplaysday allay aracterschay (~ 2m 15s)"
 
-#: utils/test/x52_test.c:91
+#: utils/test/x52_test.c:98
 msgid "Test the blink and shift commands (< 10s)"
 msgstr "Esttay ethay inkblay anday iftshay ommandscay (< 10s)"
 
-#: utils/test/x52_test.c:92
+#: utils/test/x52_test.c:99
 msgid "Test the clock commands (~1m)"
 msgstr "Esttay ethay ockclay ommandscay (~1m)"
 
-#: utils/test/x52_test.c:116
+#: utils/test/x52_test.c:123
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
@@ -123,36 +123,36 @@ msgstr ""
 "X52 Pro eviceday anday esttay ethay extray unctionalityfay\n"
 "availableay inay ethay EDsLay anday FDMay\n"
 
-#: utils/test/x52_test.c:120
+#: utils/test/x52_test.c:127
 msgid "These tests take roughly 6 minutes to run"
 msgstr "Esethay eststay aketay oughlyray 6 inutesmay otay unray"
 
-#: utils/test/x52_test.c:122
+#: utils/test/x52_test.c:129
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
 "Esspray Enteray otay eginbay ethay eststay, esspray Ctrl-C otay abortay "
 "anytimeay"
 
-#: utils/test/x52_test.c:128
+#: utils/test/x52_test.c:135
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
 msgstr "Unableay otay initializeay X52 ibrarylay: %s\n"
 
-#: utils/test/x52_test.c:143
+#: utils/test/x52_test.c:150
 msgid "All tests completed successfully"
 msgstr "Allay eststay ompletedcay uccessfullysay"
 
-#: utils/test/x52_test.c:145
+#: utils/test/x52_test.c:152
 #, c-format
 msgid "Got error %s\n"
 msgstr "Otgay erroray %s\n"
 
-#: utils/test/x52_test.c:147
+#: utils/test/x52_test.c:154
 #, c-format
 msgid "Received %s signal, quitting...\n"
 msgstr "Eceivedray %s ignalsay, uittingqay...\n"
 
-#: utils/test/x52_test.c:166
+#: utils/test/x52_test.c:173
 msgid ""
 "These are the available tests with a description and\n"
 "approximate runtime. Not specifying any tests will run\n"
@@ -163,18 +163,18 @@ msgstr ""
 "ecifyingspay anyay eststay illway unray allay ethay\n"
 "eststay\n"
 
-#: utils/test/x52_test.c:170
+#: utils/test/x52_test.c:177
 msgid "List of tests:"
 msgstr "Istlay ofay eststay:"
 
-#: utils/test/x52_test.c:220
+#: utils/test/x52_test.c:227
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
 msgstr "Usageay: %s [istlay ofay eststay]\n"
 
-#: utils/test/x52_test.c:234
+#: utils/test/x52_test.c:241
 #, c-format
 msgid ""
 "Unrecognized test identifier: %s\n"
@@ -183,7 +183,7 @@ msgstr ""
 "Unrecognizeday esttay identifieray: %s\n"
 "\n"
 
-#: utils/test/x52_test.c:247
+#: utils/test/x52_test.c:254
 msgid "Not running any tests"
 msgstr "Otnay unningray anyay eststay"
 
