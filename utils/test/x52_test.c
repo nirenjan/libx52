@@ -147,7 +147,7 @@ static int run_tests(int test_set)
         fprintf(stderr, _("Received %s signal, quitting...\n"), strsignal(-rc));
     }
 
-    if (rc >= 0) test_cleanup();
+    if (rc <= 0) test_cleanup();
     libx52_exit(dev);
     return 0;
 }
