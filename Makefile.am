@@ -18,6 +18,7 @@ EXTRA_DIST = \
 	AUTHORS \
 	ChangeLog.md \
 	Doxyfile.in \
+	INSTALL.md \
 	LICENSE \
 	README.md \
 	config.rpath \
