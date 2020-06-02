@@ -106,6 +106,25 @@ find_programs()
     fi
 }
 
+# This is for additional programs that are not needed by every test case
+require_programs()
+{
+    local skip=false
+    for prog in "$@"
+    do
+        if ! command -v "$prog"
+        then
+            echo "Required program '$prog' not found, skipping test suite"
+            skip=true
+        fi
+    done
+
+    if $skip
+    then
+        exit $EXIT_SKIP
+    fi
+}
+
 setup_preload()
 {
     # Find the libusb stub library

@@ -13,7 +13,12 @@ TESTS = \
 	libx52/test_brightness.sh \
 	libx52/test_indicator.sh \
 	libx52/test_mfd.sh \
-	libx52/test_clock.sh
+	libx52/test_clock.sh \
+	libx52/test_timezone.sh
+
+# NOTE: Timezone tests currently fail when local time is daylight time. Once
+# this is fixed, remove the line below.
+XFAIL_TESTS = libx52/test_timezone.sh
 
 EXTRA_DIST = common_infra.sh $(TESTS)
 
