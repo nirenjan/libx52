@@ -17,6 +17,7 @@ EXTRA_DIST = \
 	ABOUT-NLS \
 	AUTHORS \
 	ChangeLog.md \
+	CONTRIBUTING.md \
 	Doxyfile.in \
 	INSTALL.md \
 	LICENSE \
