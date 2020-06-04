@@ -178,7 +178,7 @@ typedef enum {
     /** No change necessary, try again */
     LIBX52_ERROR_TRY_AGAIN,
 
-    /** Clock timezone out of range */
+    /** Clock time value or timezone out of range */
     LIBX52_ERROR_OUT_OF_RANGE,
 
     /** Error encountered during USB interaction */
@@ -454,7 +454,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local);
  * @param[in]   offset  Offset in minutes from GMT (east is positive, west
  *                      is negative)
  *
- * @returns 
+ * @returns
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is invalid
  * - \ref LIBX52_ERROR_NOT_SUPPORTED if \p clock is \ref LIBX52_CLOCK_1

@@ -21,6 +21,7 @@ The format is based upon [Keep a Changelog].
 
 ### Fixed
 - Error reporting in x52cli and x52test commands.
+- Handling of very large time_t values in `libx52_set_clock`
 
 ## [0.2.0] - 2020-04-14
 ### Changed

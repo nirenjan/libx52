@@ -19,6 +19,7 @@
 int libx52_set_clock(libx52_device *x52, time_t time, int local)
 {
     struct tm timeval;
+    struct tm *ptr;
     int local_tz;
     int local_date_day;
     int local_date_month;
@@ -32,15 +33,22 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
     }
 
     if (local) {
-        timeval = *localtime(&time);
+        ptr = localtime_r(&time, &timeval);
         /* timezone from time.h presents the offset in seconds west of GMT.
          * Negate and divide by 60 to get the offset in minutes east of GMT.
          */
         local_tz = (int)(-timezone / 60);
     } else {
-        timeval = *gmtime(&time);
+        ptr = gmtime_r(&time, &timeval);
         /* No offset from GMT */
         local_tz = 0;
+    }
+
+    if (ptr == NULL) {
+        /* Time conversion failed. This happens if the time value exceeds the
+         * range which can be represented.
+         */
+        return LIBX52_ERROR_OUT_OF_RANGE;
     }
 
     local_date_day = timeval.tm_mday;
