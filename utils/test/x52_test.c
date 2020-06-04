@@ -160,7 +160,7 @@ static int run_tests(int test_set)
 }
 
 void underline(const char *msg) {
-    int i;
+    size_t i;
     puts(msg);
     for (i = 0; i < strlen(msg); i++) {
         putchar('=');
