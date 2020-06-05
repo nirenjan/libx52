@@ -19,9 +19,8 @@ int main(int argc, char *argv[])
     char *data_file;
     FILE *data;
     char **id_pair;
-    int vid;
-    int pid;
-    int parsed;
+    unsigned int vid;
+    unsigned int pid;
     int i;
 
     data_file = getenv(INPUT_DEVICE_LIST_ENV);
@@ -36,6 +35,7 @@ int main(int argc, char *argv[])
 
     /* Process arguments until there are fewer than 2 remaining */
     for (i = 1; i < argc && (argc - i) >= 2; i += 2) {
+        int parsed;
         parsed = sscanf(argv[i], "%x", &vid);
         if (parsed != 1) break;
 

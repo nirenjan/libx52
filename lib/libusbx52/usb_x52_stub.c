@@ -16,8 +16,8 @@ int libusb_init(libusb_context **ctx)
 {
     int rc;
     int dev_count;
-    int vid;
-    int pid;
+    unsigned int vid;
+    unsigned int pid;
     int parsed;
     char *dev_list_file;
     FILE *dev_list;
@@ -180,9 +180,8 @@ ssize_t libusb_get_device_list(libusb_context *ctx, libusb_device ***list)
 
 void libusb_free_device_list(libusb_device **list, int unref_devices)
 {
-    libusb_device **dev;
-
     if (unref_devices) {
+        libusb_device **dev;
         for (dev = list; *dev; dev++) {
             /* Decrement the refcount */
             (*dev)->ref_count -= 1;
@@ -277,14 +276,13 @@ int libusb_control_transfer(libusb_device_handle *dev_handle,
                             uint16_t wLength,
                             unsigned int timeout)
 {
-    int i;
-
     /* Always log the control transfer */
     fprintf(dev_handle->packet_data_file,
         "%s: RqType: %02x bRequest: %02x wValue: %04x wIndex: %04x timeout: %d\n",
         __func__, request_type, bRequest, wValue, wIndex, timeout);
     if (data != NULL) {
-        fprintf(dev_handle->packet_data_file, "%s: Data[%d]: ", __func__,
+        int i;
+        fprintf(dev_handle->packet_data_file, "%s: Data[%u]: ", __func__,
                 wLength);
         for (i = 0; i < wLength; i++) {
             fprintf(dev_handle->packet_data_file, "%02x ", data[i]);

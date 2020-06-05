@@ -32,7 +32,6 @@ static libusb_device_handle *libusbx52_init(void)
     ssize_t count;
     int i;
     libusb_device **list;
-    libusb_device *device;
     libusb_device_handle *hdl = NULL;
     struct libusb_device_descriptor desc;
 
@@ -54,7 +53,7 @@ static libusb_device_handle *libusbx52_init(void)
 
     count = libusb_get_device_list(global_context, &list);
     for (i = 0; i < count; i++) {
-        device = list[i];
+        libusb_device *device = list[i];
         if (!libusb_get_device_descriptor(device, &desc)) {
             if (desc.idVendor == 0x06a3) {
                 if (desc.idProduct == 0x0762) {
@@ -76,9 +75,8 @@ static libusb_device_handle *libusbx52_init(void)
 
 int main(int argc, char *argv[])
 {
-    int index;
-    int value;
-    int parsed;
+    unsigned int index;
+    unsigned int value;
     int i;
     libusb_device_handle *hdl;
     libusb_context *ctx;
@@ -88,6 +86,7 @@ int main(int argc, char *argv[])
 
     /* Process arguments until there are fewer than 2 remaining */
     for (i = 1; i < argc && (argc - i) >= 2; i += 2) {
+        int parsed;
         parsed = sscanf(argv[i], "%x", &index);
         if (parsed != 1) break;
 
