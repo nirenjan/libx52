@@ -9,6 +9,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
+#include "config.h"
 #include <stdint.h>
 #include <errno.h>
 

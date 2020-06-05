@@ -59,6 +59,9 @@ AM_COND_IF([HAVE_DOXYGEN],
     [AC_CONFIG_FILES([Doxyfile])],
     [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
+# Configuration headers
+AC_CONFIG_HEADERS([config.h])
+
 AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile

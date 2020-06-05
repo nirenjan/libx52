@@ -143,6 +143,7 @@ possibly through \b sudo(8)
 
 */
 
+#include "config.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

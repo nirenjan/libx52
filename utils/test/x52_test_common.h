@@ -9,6 +9,7 @@
 #ifndef X52_TEST_COMMON_H
 #define X52_TEST_COMMON_H
 
+#include "config.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include "libx52.h"
