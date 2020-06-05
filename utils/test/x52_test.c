@@ -6,11 +6,13 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
+#define _GNU_SOURCE
 #include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <string.h>
+#include <locale.h>
 #include <time.h>
 
 #include "libx52.h"

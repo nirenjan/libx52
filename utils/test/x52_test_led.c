@@ -6,6 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
+#define _GNU_SOURCE
 #include "config.h"
 #include <stdio.h>
 #include <string.h>
