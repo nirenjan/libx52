@@ -5,12 +5,6 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-# Set up exit status codes
-EXIT_SUCCESS=0
-EXIT_SKIP=77
-EXIT_HARD_ERROR=99
-EXIT_FAILURE=1
-
 # Set up some command sequences
 X52_LED_COMMAND_INDEX='00b8'
 X52_LED_FIRE_ON='0101'
@@ -80,7 +74,8 @@ find_programs()
     # Tests and distcheck do not work on OSX, skip the tests
     if [[ `uname -s` == [Dd]arwin* ]]
     then
-        exit $EXIT_SKIP
+        echo "1..0 # skip Tests not supported on OSX"
+        exit 0
     fi
 
     # Find the X52cli script
@@ -88,21 +83,21 @@ find_programs()
 
     if [[ -z "$X52CLI" ]]
     then
-        exit $EXIT_HARD_ERROR
+        exit 1
     fi
 
     # Find the x52test_log_actions program
     X52LOGACT=$(find .. -path '*/libusbx52/x52test_log_actions' -executable)
     if [[ -z "$X52LOGACT" ]]
     then
-        exit $EXIT_HARD_ERROR
+        exit 1
     fi
 
     # Find the x52test_create_device_list program
     X52DEVLIST=$(find .. -path '*/libusbx52/x52test_create_device_list' -executable)
     if [[ -z "$X52DEVLIST" ]]
     then
-        exit $EXIT_HARD_ERROR
+        exit 1
     fi
 }
 
@@ -114,14 +109,14 @@ require_programs()
     do
         if ! command -v "$prog"
         then
-            echo "Required program '$prog' not found, skipping test suite"
+            echo "1..0 # skip Required program '$prog' not found"
             skip=true
         fi
     done
 
     if $skip
     then
-        exit $EXIT_SKIP
+        exit 0
     fi
 }
 
@@ -132,7 +127,7 @@ setup_preload()
 
     if [[ -z "$LIBUSB" ]]
     then
-        exit $EXIT_HARD_ERROR
+        exit 1
     fi
 
     export LD_PRELOAD=$(realpath $LIBUSB)
@@ -154,6 +149,7 @@ setup_test()
 
 expect_pattern()
 {
+    TEST_NUM=$((TEST_NUM + 1))
     # Save pattern to expected output file
     export LIBUSBX52_OUTPUT_DATA=$EXPECTED_OUTPUT
     $X52LOGACT $@
@@ -164,23 +160,22 @@ expect_pattern()
 
 verify_output()
 {
+    TEST_COUNT=$(($TEST_COUNT + 1))
     if diff -q $EXPECTED_OUTPUT $OBSERVED_OUTPUT
     then
-        echo "PASS: $TEST_ID"
+        echo "ok $TEST_COUNT $TEST_ID"
         TEST_PASS=$(($TEST_PASS + 1))
     else
-        echo "FAIL: $TEST_ID"
-        echo 'Expected:'
-        echo '========='
-        sed 's/^/\t/' $EXPECTED_OUTPUT
-        echo
-        echo 'Observed:'
-        echo '========='
-        sed 's/^/\t/' $OBSERVED_OUTPUT
+        echo "not ok $TEST_COUNT $TEST_ID"
+        echo '# Expected:'
+        echo '# ========='
+        sed 's/^/#\t/' $EXPECTED_OUTPUT
+        echo '#'
+        echo '# Observed:'
+        echo '# ========='
+        sed 's/^/#\t/' $OBSERVED_OUTPUT
         TEST_FAIL=$(($TEST_FAIL + 1))
     fi
-
-    TEST_COUNT=$(($TEST_COUNT + 1))
 }
 
 verify_test_suite()
@@ -190,22 +185,15 @@ verify_test_suite()
     sep="$sep$sep"
     sep="$sep$sep"
 
-    echo
-    echo $sep
-    echo $TEST_SUITE_ID
-    echo $sep
-    echo -e "Total Tests:\t$TEST_COUNT"
-    echo -e "Tests Passed:\t$TEST_PASS"
-    echo -e "Tests Failed:\t$TEST_FAIL"
-    echo $sep
-    echo
+    echo '#' $sep
+    echo '#' $TEST_SUITE_ID
+    echo '#' $sep
+    echo -e "# Total Tests:\t$TEST_COUNT"
+    echo -e "# Tests Passed:\t$TEST_PASS"
+    echo -e "# Tests Failed:\t$TEST_FAIL"
+    echo '#' $sep
 
-    if [[ "$TEST_FAIL" != 0 ]]
-    then
-        exit $EXIT_FAILURE
-    else
-        exit $EXIT_SUCCESS
-    fi
+    echo "1..$TEST_COUNT"
 }
 
 set -e

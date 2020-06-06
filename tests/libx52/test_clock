@@ -93,7 +93,7 @@ raw_time_test()
     local hh=$1
     local mm=$2
     local time_format=$3
-    TEST_ID="Test setting time to $hh:$mm, $time_format"
+    TEST_ID=$(printf "Test setting time to %02d:%02d, %s" $hh $mm $time_format)
 
     local value=$(($hh * 256 + $mm))
     if [[ $time_format == 24hr ]]
@@ -133,7 +133,7 @@ raw_date_test()
         ;;
     esac
 
-    TEST_ID="Test setting date in $date_format format to ${dd1}-${mm1}-${yy1}"
+    TEST_ID=$(printf "Test setting date in %s format to %02d-%02d-%02d" $date_format $dd1 $mm1 $yy1)
 
     local date_value=$(printf '%04x' $(($mm1 * 256 + $dd1)))
     local year_value=$(printf '%04x' $yy1)

@@ -41,8 +41,12 @@ Makefile.in
 *.la
 *.lo
 *.m4
+stamp-h1
+tap-driver.sh
 test-driver
 tests/test-suite.log
+tests/**/*.log
+tests/**/*.trs
 *.pc
 
 # Autotools Gettext objects
