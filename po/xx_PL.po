@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-06-01 00:08-0700\n"
+"POT-Creation-Date: 2020-06-06 07:38-0700\n"
 "PO-Revision-Date: 2020-05-22 13:25-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -17,104 +17,104 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: lib/libx52/x52_strerror.c:24
+#: lib/libx52/x52_strerror.c:25
 msgid "Success"
 msgstr "Uccesssay"
 
-#: lib/libx52/x52_strerror.c:27
+#: lib/libx52/x52_strerror.c:28
 msgid "Initialization failure"
 msgstr "Initializationay ailurefay"
 
-#: lib/libx52/x52_strerror.c:30
+#: lib/libx52/x52_strerror.c:31
 msgid "Insufficient memory"
 msgstr "Insufficientay emorymay"
 
-#: lib/libx52/x52_strerror.c:33
+#: lib/libx52/x52_strerror.c:34
 msgid "Invalid parameter"
 msgstr "Invaliday arameterpay"
 
-#: lib/libx52/x52_strerror.c:36
+#: lib/libx52/x52_strerror.c:37
 msgid "Operation not supported"
 msgstr "Operationay otnay upportedsay"
 
-#: lib/libx52/x52_strerror.c:39
+#: lib/libx52/x52_strerror.c:40
 msgid "Try again"
 msgstr "Ytray againay"
 
-#: lib/libx52/x52_strerror.c:42
+#: lib/libx52/x52_strerror.c:43
 msgid "Input parameter out of range"
 msgstr "Inputay arameterpay outay ofay angeray"
 
-#: lib/libx52/x52_strerror.c:45
+#: lib/libx52/x52_strerror.c:46
 msgid "USB transaction failure"
 msgstr "USBay ransactiontay ailurefay"
 
-#: lib/libx52/x52_strerror.c:48
+#: lib/libx52/x52_strerror.c:49
 msgid "USB input/output error"
 msgstr "USBay inputay/outputay erroray"
 
-#: lib/libx52/x52_strerror.c:51
+#: lib/libx52/x52_strerror.c:52
 msgid "Access denied"
 msgstr "Accessay eniedday"
 
-#: lib/libx52/x52_strerror.c:54
+#: lib/libx52/x52_strerror.c:55
 msgid "No such device"
 msgstr "Onay uchsay eviceday"
 
-#: lib/libx52/x52_strerror.c:57
+#: lib/libx52/x52_strerror.c:58
 msgid "Entity not found"
 msgstr "Entityay otnay oundfay"
 
-#: lib/libx52/x52_strerror.c:60
+#: lib/libx52/x52_strerror.c:61
 msgid "Resource busy"
 msgstr "Esourceray usybay"
 
-#: lib/libx52/x52_strerror.c:63
+#: lib/libx52/x52_strerror.c:64
 msgid "Operation timeout"
 msgstr "Operationay imeouttay"
 
-#: lib/libx52/x52_strerror.c:66
+#: lib/libx52/x52_strerror.c:67
 msgid "Overflow"
 msgstr "Overfloway"
 
-#: lib/libx52/x52_strerror.c:69
+#: lib/libx52/x52_strerror.c:70
 msgid "Pipe error"
 msgstr "Ipepay erroray"
 
-#: lib/libx52/x52_strerror.c:72
+#: lib/libx52/x52_strerror.c:73
 msgid "System call interrupted"
 msgstr "Ystemsay allcay interrupteday"
 
-#: lib/libx52/x52_strerror.c:76
+#: lib/libx52/x52_strerror.c:77
 #, c-format
 msgid "Unknown error %d"
 msgstr "Unknownay erroray %d"
 
-#: utils/test/x52_test.c:94
+#: utils/test/x52_test.c:97
 msgid "Test brightness scale (~ 1m)"
 msgstr "Esttay ightnessbray alescay (~ 1m)"
 
-#: utils/test/x52_test.c:95
+#: utils/test/x52_test.c:98
 msgid "Test LED states (~ 45s)"
 msgstr "Esstay EDLay atesstay (~ 45s)"
 
-#: utils/test/x52_test.c:96
+#: utils/test/x52_test.c:99
 msgid "Test MFD string display (~ 30s)"
 msgstr "Esttay MFDay ingstray isplayday (~ 30s)"
 
-#: utils/test/x52_test.c:97
+#: utils/test/x52_test.c:100
 msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr "Esttay MFDay isplaysday allay aracterschay (~ 2m 15s)"
 
-#: utils/test/x52_test.c:98
+#: utils/test/x52_test.c:101
 msgid "Test the blink and shift commands (< 10s)"
 msgstr "Esttay ethay inkblay anday iftshay ommandscay (< 10s)"
 
-#: utils/test/x52_test.c:99
+#: utils/test/x52_test.c:102
 msgid "Test the clock commands (~1m)"
 msgstr "Esttay ethay ockclay ommandscay (~1m)"
 
-#: utils/test/x52_test.c:123
+#: utils/test/x52_test.c:126
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
@@ -123,36 +123,36 @@ msgstr ""
 "X52 Pro eviceday anday esttay ethay extray unctionalityfay\n"
 "availableay inay ethay EDsLay anday FDMay\n"
 
-#: utils/test/x52_test.c:127
+#: utils/test/x52_test.c:130
 msgid "These tests take roughly 6 minutes to run"
 msgstr "Esethay eststay aketay oughlyray 6 inutesmay otay unray"
 
-#: utils/test/x52_test.c:129
+#: utils/test/x52_test.c:132
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
 "Esspray Enteray otay eginbay ethay eststay, esspray Ctrl-C otay abortay "
 "anytimeay"
 
-#: utils/test/x52_test.c:135
+#: utils/test/x52_test.c:138
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
 msgstr "Unableay otay initializeay X52 ibrarylay: %s\n"
 
-#: utils/test/x52_test.c:150
+#: utils/test/x52_test.c:153
 msgid "All tests completed successfully"
 msgstr "Allay eststay ompletedcay uccessfullysay"
 
-#: utils/test/x52_test.c:152
+#: utils/test/x52_test.c:155
 #, c-format
 msgid "Got error %s\n"
 msgstr "Otgay erroray %s\n"
 
-#: utils/test/x52_test.c:154
+#: utils/test/x52_test.c:157
 #, c-format
 msgid "Received %s signal, quitting...\n"
 msgstr "Eceivedray %s ignalsay, uittingqay...\n"
 
-#: utils/test/x52_test.c:173
+#: utils/test/x52_test.c:176
 msgid ""
 "These are the available tests with a description and\n"
 "approximate runtime. Not specifying any tests will run\n"
@@ -163,18 +163,18 @@ msgstr ""
 "ecifyingspay anyay eststay illway unray allay ethay\n"
 "eststay\n"
 
-#: utils/test/x52_test.c:177
+#: utils/test/x52_test.c:180
 msgid "List of tests:"
 msgstr "Istlay ofay eststay:"
 
-#: utils/test/x52_test.c:227
+#: utils/test/x52_test.c:230
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
 msgstr "Usageay: %s [istlay ofay eststay]\n"
 
-#: utils/test/x52_test.c:241
+#: utils/test/x52_test.c:244
 #, c-format
 msgid ""
 "Unrecognized test identifier: %s\n"
@@ -183,19 +183,19 @@ msgstr ""
 "Unrecognizeday esttay identifieray: %s\n"
 "\n"
 
-#: utils/test/x52_test.c:254
+#: utils/test/x52_test.c:257
 msgid "Not running any tests"
 msgstr "Otnay unningray anyay eststay"
 
-#: utils/test/x52_test_clock.c:30
+#: utils/test/x52_test_clock.c:32
 msgid "Clock"
 msgstr "Ockclay"
 
-#: utils/test/x52_test_clock.c:31
+#: utils/test/x52_test_clock.c:33
 msgid "This tests the clock display"
 msgstr "Isthay eststay ethay ockclay isplayday"
 
-#: utils/test/x52_test_clock.c:36
+#: utils/test/x52_test_clock.c:38
 msgid ""
 "\n"
 "Testing clock time minute display for 90 minutes"
@@ -203,7 +203,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay imetay inutemay isplayday orfay 90 inutesmay"
 
-#: utils/test/x52_test_clock.c:42
+#: utils/test/x52_test_clock.c:44
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 12 hour mode"
@@ -211,7 +211,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay imetay ourhay isplayday orfay 36 ourshay, 12 ourhay odemay"
 
-#: utils/test/x52_test_clock.c:45
+#: utils/test/x52_test_clock.c:47
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 24 hour mode"
@@ -219,7 +219,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay imetay ourhay isplayday orfay 36 ourshay, 24 ourhay odemay"
 
-#: utils/test/x52_test_clock.c:50
+#: utils/test/x52_test_clock.c:52
 msgid ""
 "\n"
 "Testing clock date display for 31 days, dd-mm-yy"
@@ -227,7 +227,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay ateday isplayday orfay 31 aysday, dd-mm-yy"
 
-#: utils/test/x52_test_clock.c:54
+#: utils/test/x52_test_clock.c:56
 msgid ""
 "\n"
 "Testing clock date display for 31 days, mm-dd-yy"
@@ -235,7 +235,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay ateday isplayday orfay 31 aysday, mm-dd-yy"
 
-#: utils/test/x52_test_clock.c:58
+#: utils/test/x52_test_clock.c:60
 msgid ""
 "\n"
 "Testing clock date display for 31 days, yy-mm-dd"
@@ -243,7 +243,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay ateday isplayday orfay 31 aysday, yy-mm-dd"
 
-#: utils/test/x52_test_common.h:25
+#: utils/test/x52_test_common.h:26
 #, c-format
 msgid ""
 "\n"
@@ -252,7 +252,7 @@ msgstr ""
 "\n"
 "%s(%s) ailedfay ithway %d(%s)\n"
 
-#: utils/test/x52_test_common.h:31
+#: utils/test/x52_test_common.h:32
 #, c-format
 msgid ""
 "\n"
@@ -261,12 +261,12 @@ msgstr ""
 "\n"
 "updateay ailedfay ithway %d(%s)\n"
 
-#: utils/test/x52_test_led.c:17
+#: utils/test/x52_test_led.c:19
 #, c-format
 msgid "LED %s - %s\n"
 msgstr "EDLay %s - %s\n"
 
-#: utils/test/x52_test_led.c:23 utils/test/x52_test_led.c:30
+#: utils/test/x52_test_led.c:25 utils/test/x52_test_led.c:32
 #, c-format
 msgid ""
 "\n"
@@ -275,21 +275,21 @@ msgstr ""
 "\n"
 "Estingtay EDLay %s\n"
 
-#: utils/test/x52_test_led.c:41
+#: utils/test/x52_test_led.c:43
 msgid "LEDs"
 msgstr "EDsLay"
 
-#: utils/test/x52_test_led.c:46
+#: utils/test/x52_test_led.c:48
 msgid "Skipping LED tests since the device does not support LED control"
 msgstr ""
 "Ippingskay EDLay eststay incesay ethay eviceday oesday otnay\n"
 "upportsay EDLay ontrolcay"
 
-#: utils/test/x52_test_led.c:52
+#: utils/test/x52_test_led.c:54
 msgid "This cycles the LEDs through all possible states"
 msgstr "Isthay yclescay ethay EDsLay oughthray allay ossiblepay tatessay"
 
-#: utils/test/x52_test_led.c:70
+#: utils/test/x52_test_led.c:72
 #, c-format
 msgid ""
 "\n"
@@ -298,25 +298,25 @@ msgstr ""
 "\n"
 "Estingtay %s\n"
 
-#: utils/test/x52_test_led.c:81
+#: utils/test/x52_test_led.c:83
 msgid "Blink & Shift"
 msgstr "Inkblay & Iftshay"
 
-#: utils/test/x52_test_led.c:82
+#: utils/test/x52_test_led.c:84
 msgid "This tests the blink indicator and shift functionality"
 msgstr "Isthay eststay ethay inkblay indicatoray anday iftshay unctionalityfay"
 
-#: utils/test/x52_test_mfd.c:22
+#: utils/test/x52_test_mfd.c:24
 msgid "Brightness"
 msgstr "Ightnessbray"
 
-#: utils/test/x52_test_mfd.c:24
+#: utils/test/x52_test_mfd.c:26
 msgid "This test cycles through the MFD and LED brightness scales"
 msgstr ""
 "Isthay esttay yclescay oughthray ethay FDMay anday EDLay ightnessbray "
 "alesscay"
 
-#: utils/test/x52_test_mfd.c:27
+#: utils/test/x52_test_mfd.c:29
 msgid ""
 "\n"
 "MFD: "
@@ -324,7 +324,7 @@ msgstr ""
 "\n"
 "FDMay: "
 
-#: utils/test/x52_test_mfd.c:34
+#: utils/test/x52_test_mfd.c:36
 msgid ""
 "\n"
 "LED: "
@@ -332,24 +332,24 @@ msgstr ""
 "\n"
 "EDLay: "
 
-#: utils/test/x52_test_mfd.c:53
+#: utils/test/x52_test_mfd.c:55
 msgid "MFD text"
 msgstr "FDMay exttay"
 
-#: utils/test/x52_test_mfd.c:54
+#: utils/test/x52_test_mfd.c:56
 msgid "This test tests the character displays of the MFD\n"
 msgstr "Isthay esttay eststay ethay aracterchay isplaysday ofay the FDMay\n"
 
-#: utils/test/x52_test_mfd.c:58
+#: utils/test/x52_test_mfd.c:60
 #, c-format
 msgid "Writing characters %s\n"
 msgstr "Itingwray aracterschay %s\n"
 
-#: utils/test/x52_test_mfd.c:80
+#: utils/test/x52_test_mfd.c:82
 msgid "MFD display"
 msgstr "FDMay isplayday"
 
-#: utils/test/x52_test_mfd.c:81
+#: utils/test/x52_test_mfd.c:83
 msgid ""
 "This test checks if the display elements can display all characters\n"
 "You should see the display cycling through each character, with every\n"
@@ -360,11 +360,11 @@ msgstr ""
 "oughthray eachay aracterchay, ithway everyay ellcay isplayingday ethay\n"
 "amesay aracterchay\n"
 
-#: utils/test/x52_test_mfd.c:86
+#: utils/test/x52_test_mfd.c:88
 #, c-format
 msgid "Testing character 0x%02x..."
 msgstr "Estingtay aracterchay 0x%02x..."
 
-#: utils/test/x52_test_mfd.c:94
+#: utils/test/x52_test_mfd.c:96
 msgid "OK"
 msgstr "OKay"
