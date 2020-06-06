@@ -33,4 +33,5 @@ var menudata={children:[
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html",children:[
-{text:"l",url:"globals_eval.html#index_l"}]}]}]}]}
+{text:"l",url:"globals_eval.html#index_l"}]}]}]},
+{text:"View on GitHub",url:"https://github.com/nirenjan/x52pro-linux"}]}
