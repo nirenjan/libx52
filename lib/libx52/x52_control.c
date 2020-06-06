@@ -66,7 +66,15 @@ int _x52_translate_libusb_error(enum libusb_error errcode)
     };
 }
 
-int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
+#if defined HAVE_SYS_WEAK_ALIAS
+#if defined HAVE_SYS_WEAK_ALIAS_PRAGMA
+#pragma weak libx52_vendor_command = _x52_vendor_command
+#endif
+int _x52_vendor_command
+#else
+int libx52_vendor_command
+#endif
+    (libx52_device *x52, uint16_t index, uint16_t value)
 {
     int j;
     int rc = 0;
@@ -91,6 +99,12 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 
     return _x52_translate_libusb_error(rc);
 }
+#if defined HAVE_SYS_WEAK_ALIAS
+#if defined HAVE_SYS_WEAK_ALIAS_ATTRIBUTE
+int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
+    __attribute__((weak, alias("_x52_vendor_command")));
+#endif
+#endif
 
 static int _x52_write_line(libx52_device *x52, uint8_t line_index)
 {

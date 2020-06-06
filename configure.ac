@@ -64,6 +64,16 @@ AM_COND_IF([HAVE_DOXYGEN],
 # Configuration headers
 AC_CONFIG_HEADERS([config.h])
 
+# Weak symbol support
+# By default, libx52 is compiled with weak symbols, allowing certain functions
+# to be overridden by the application, if necessary. However, you can get away
+# with disabling the weak symbols, which will also disable some of the checks.
+AC_ARG_ENABLE([weak_symbols],
+    AS_HELP_STRING([--disable-weak-symbols],
+                   [Disable weak symbols during compilation]))
+AM_CONDITIONAL([USE_WEAK_SYMBOLS], [test "x$enable_weak_symbols" != "xno"])
+AM_COND_IF([USE_WEAK_SYMBOLS], [AX_SYS_WEAK_ALIAS])
+
 AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile
