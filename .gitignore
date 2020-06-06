@@ -62,6 +62,7 @@ po/stamp-po
 Doxyfile
 docs/.stamp
 docs/html
+docs/man
 
 # Build directory
 /build/
