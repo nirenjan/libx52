@@ -104,6 +104,6 @@ static inline uint32_t tst_bit(uint32_t *value, uint32_t bit)
     return (*value & (1UL << bit));
 }
 
-int libx52internal_translate_libusb_error(enum libusb_error errcode);
+int _x52_translate_libusb_error(enum libusb_error errcode);
 
 #endif /* !defined X52JOY_COMMON_H */

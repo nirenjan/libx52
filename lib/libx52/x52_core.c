@@ -89,7 +89,7 @@ int libx52_connect(libx52_device *dev)
             if (libx52_check_product(desc.idVendor, desc.idProduct)) {
                 rc = libusb_open(device, &hdl);
                 if (rc) {
-                    return libx52internal_translate_libusb_error(rc);
+                    return _x52_translate_libusb_error(rc);
                 }
 
                 dev->hdl = hdl;

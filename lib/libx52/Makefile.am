@@ -10,10 +10,17 @@ lib_LTLIBRARIES = libx52.la
 
 # Core libx52 library
 # This library handles the USB communication between the host and the X52
+# Libtool Version Info
+# See: https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
+libx52_v_CUR=4
+libx52_v_AGE=2
+libx52_v_REV=0
 libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c \
 					x52_strerror.c
 libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir)
-libx52_la_LDFLAGS = -version-info 4:0:2 @LIBUSB_LIBS@
+libx52_la_LDFLAGS = \
+	-export-symbols-regex '^libx52_' \
+	-version-info $(libx52_v_CUR):$(libx52_v_REV):$(libx52_v_AGE) @LIBUSB_LIBS@
 libx52_la_LIBADD = @LTLIBINTL@
 
 # Header files that need to be copied

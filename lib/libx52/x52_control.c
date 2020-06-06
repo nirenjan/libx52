@@ -18,7 +18,7 @@
 #include "x52_common.h"
 
 /* Translate a libusb error to a libx52 error */
-int libx52internal_translate_libusb_error(enum libusb_error errcode)
+int _x52_translate_libusb_error(enum libusb_error errcode)
 {
     switch (errcode) {
     case LIBUSB_SUCCESS:
@@ -89,10 +89,10 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
         }
     }
 
-    return libx52internal_translate_libusb_error(rc);
+    return _x52_translate_libusb_error(rc);
 }
 
-static int libx52_write_line(libx52_device *x52, uint8_t line_index)
+static int _x52_write_line(libx52_device *x52, uint8_t line_index)
 {
     uint8_t i;
     uint16_t value;
@@ -125,7 +125,7 @@ static int libx52_write_line(libx52_device *x52, uint8_t line_index)
     return rc;
 }
 
-static int libx52_write_date(libx52_device *x52)
+static int _x52_write_date(libx52_device *x52)
 {
     uint16_t value1; //dd-mm
     uint16_t value2; //yy
@@ -162,7 +162,7 @@ static int libx52_write_date(libx52_device *x52)
     return rc;
 }
 
-static int libx52_write_time(libx52_device *x52, libx52_clock_id clock)
+static int _x52_write_time(libx52_device *x52, libx52_clock_id clock)
 {
     uint16_t value = 0;
     uint16_t index;
@@ -280,15 +280,15 @@ int libx52_update(libx52_device *x52)
                 break;
 
             case X52_BIT_MFD_LINE1:
-                rc = libx52_write_line(x52, 0);
+                rc = _x52_write_line(x52, 0);
                 break;
 
             case X52_BIT_MFD_LINE2:
-                rc = libx52_write_line(x52, 1);
+                rc = _x52_write_line(x52, 1);
                 break;
 
             case X52_BIT_MFD_LINE3:
-                rc = libx52_write_line(x52, 2);
+                rc = _x52_write_line(x52, 2);
                 break;
 
             case X52_BIT_POV_BLINK:
@@ -308,19 +308,19 @@ int libx52_update(libx52_device *x52)
                 break;
 
             case X52_BIT_MFD_DATE:
-                rc = libx52_write_date(x52);
+                rc = _x52_write_date(x52);
                 break;
 
             case X52_BIT_MFD_TIME:
-                rc = libx52_write_time(x52, LIBX52_CLOCK_1);
+                rc = _x52_write_time(x52, LIBX52_CLOCK_1);
                 break;
 
             case X52_BIT_MFD_OFFS1:
-                rc = libx52_write_time(x52, LIBX52_CLOCK_2);
+                rc = _x52_write_time(x52, LIBX52_CLOCK_2);
                 break;
 
             case X52_BIT_MFD_OFFS2:
-                rc = libx52_write_time(x52, LIBX52_CLOCK_3);
+                rc = _x52_write_time(x52, LIBX52_CLOCK_3);
                 break;
 
             default:
