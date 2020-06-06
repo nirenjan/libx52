@@ -109,7 +109,6 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 static int _x52_write_line(libx52_device *x52, uint8_t line_index)
 {
     uint8_t i;
-    uint16_t value;
     int rc;
 
     const uint16_t line_index_map[X52_MFD_LINES] = {
@@ -126,6 +125,7 @@ static int _x52_write_line(libx52_device *x52, uint8_t line_index)
     }
 
     for (i = 0; i < x52->line[line_index].length; i += 2) {
+        uint16_t value;
         value = x52->line[line_index].text[i + 1] << 8 |
                 x52->line[line_index].text[i];
 
@@ -180,11 +180,12 @@ static int _x52_write_time(libx52_device *x52, libx52_clock_id clock)
 {
     uint16_t value = 0;
     uint16_t index;
-    int offset;
-    int negative;
     uint16_t h24 = !!(x52->time_format[clock]);
 
     if (clock != LIBX52_CLOCK_1) {
+        int offset;
+        int negative;
+
         offset = x52->timezone[clock] - x52->timezone[LIBX52_CLOCK_1];
 
         /* Save the preliminary state, if negative, set the negative flag */

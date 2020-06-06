@@ -65,7 +65,6 @@ int libx52_connect(libx52_device *dev)
     ssize_t count;
     int i;
     libusb_device **list;
-    libusb_device *device;
     libusb_device_handle *hdl;
     struct libusb_device_descriptor desc;
 
@@ -84,6 +83,8 @@ int libx52_connect(libx52_device *dev)
 
     count = libusb_get_device_list(dev->ctx, &list);
     for (i = 0; i < count; i++) {
+        libusb_device *device;
+
         device = list[i];
         if (!libusb_get_device_descriptor(device, &desc)) {
             if (libx52_check_product(desc.idVendor, desc.idProduct)) {
