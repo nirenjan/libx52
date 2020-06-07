@@ -14,7 +14,7 @@ lib_LTLIBRARIES = libx52.la
 # See: https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
 libx52_v_CUR=4
 libx52_v_AGE=2
-libx52_v_REV=0
+libx52_v_REV=1
 libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c \
 					x52_strerror.c
 libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir)
