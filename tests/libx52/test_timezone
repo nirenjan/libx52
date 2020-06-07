@@ -33,9 +33,6 @@ timezone_test()
         # Pacific Daylight Time
         # Default offset for clocks 2 & 3 should be +420 minutes
         off=420
-
-        # TODO: Remove the following line once #20 is fixed.
-        TEST_ID="$TEST_ID # TODO Fix issue #20"
     else
         # Pacific Standard time
         # Default offset for clocks 2 & 3 should be +480 minutes

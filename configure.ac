@@ -61,6 +61,14 @@ AM_COND_IF([HAVE_DOXYGEN],
     [AC_CONFIG_FILES([Doxyfile])],
     [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
+# Check for the presence of tm_gmtoff in struct tm. If we have this, then we
+# can use it to determine the true GMT offset
+AC_CHECK_MEMBERS([struct tm.tm_gmtoff],,
+    [AC_MSG_WARN(["Cannot find tm_gmtoff in struct tm, using slower method"])],
+    [#define _GNU_SOURCE
+     #include <time.h>
+    ])
+
 # Configuration headers
 AC_CONFIG_HEADERS([config.h])
 

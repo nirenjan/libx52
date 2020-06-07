@@ -18,6 +18,33 @@
 #include "x52_commands.h"
 #include "x52_common.h"
 
+#if !HAVE_STRUCT_TM_TM_GMTOFF
+/* Slow method to compute GMT offset */
+static int _x52_compute_gmtoff(struct tm *timeval)
+{
+    char buf[20];
+    size_t written;
+    int offset;
+
+    /* This function uses strftime to get the timezone as a string, then
+     * converts that back into an integer offset.
+     */
+    written = strftime(buf, sizeof(buf), "%z", timeval);
+    if (written != 5) {
+        /* Expect %z to return 5 characters - e.g. +0530, -0700, +0000 */
+        return 0;
+    }
+
+    offset = 600 * (buf[1] - '0') + 60 * (buf[2] - '0') + 10 * (buf[3] - '0') + (buf[4] - '0');
+    if (buf[0] == '-') {
+        offset = -offset;
+    } else if (buf[0] != '+') {
+        offset = 0;
+    }
+    return offset;
+}
+#endif
+
 int libx52_set_clock(libx52_device *x52, time_t time, int local)
 {
     struct tm timeval;
@@ -36,10 +63,14 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local)
 
     if (local) {
         ptr = localtime_r(&time, &timeval);
-        /* timezone from time.h presents the offset in seconds west of GMT.
-         * Negate and divide by 60 to get the offset in minutes east of GMT.
+        #if HAVE_STRUCT_TM_TM_GMTOFF
+        /* If valid, then timeval.tm_gmtoff contains the offset in seconds
+         * east of GMT. Divide by 60 to get the offset in minutes east of GMT.
          */
-        local_tz = (int)(-timezone / 60);
+        local_tz = (int)(timeval.tm_gmtoff / 60);
+        #else
+        local_tz = _x52_compute_gmtoff(&timeval);
+        #endif
     } else {
         ptr = gmtime_r(&time, &timeval);
         /* No offset from GMT */
