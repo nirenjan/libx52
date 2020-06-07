@@ -236,12 +236,9 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>0 on success</li>
 <li><a class="el" href="group__libx52misc.html#gga93b777d9cea6e733b63c222e6115ccb7a9e4acff4906865192086c8957047b35f">LIBX52_ERROR_TRY_AGAIN</a> if no change from previous time</li>
-<li><a class="el" href="group__libx52misc.html#gga93b777d9cea6e733b63c222e6115ccb7a049c93e363d70c5a6cc5a735371e5e3b">LIBX52_ERROR_INVALID_PARAM</a> if <code>x52</code> is not valid.</li>
+<li><a class="el" href="group__libx52misc.html#gga93b777d9cea6e733b63c222e6115ccb7a049c93e363d70c5a6cc5a735371e5e3b">LIBX52_ERROR_INVALID_PARAM</a> if <code>x52</code> is not valid. </li>
 </ul>
 </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>Offsets are not computed correctly if setting the clock to local time, and local time is not standard time. E.g. local time is Pacific Daylight Time (UTC-07:00), but the offsets are computed using the local timezone as Pacific Standard Time (UTC-08:00). <br  />
-<br  />
- <b>Workaround:</b> Set primary clock to GMT, and use offsets in secondary and tertiary clocks. </dd></dl>
 
 </div>
 </div>

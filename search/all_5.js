@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['mfd_20_26_20led_20control_79',['MFD &amp; LED control',['../group__libx52mfdled.html',1,'']]],
-  ['miscellaneous_80',['Miscellaneous',['../group__libx52misc.html',1,'']]]
+  ['saitek_20x52_2fx52pro_20drivers_20for_20linux_2funix_80',['Saitek X52/X52Pro drivers for Linux/Unix',['../index.html',1,'']]]
 ];
