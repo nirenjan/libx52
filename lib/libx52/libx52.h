@@ -419,14 +419,6 @@ int libx52_set_led_state(libx52_device *x52,
  * - 0 on success
  * - \ref LIBX52_ERROR_TRY_AGAIN if no change from previous time
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid.
- *
- * @bug Offsets are not computed correctly if setting the clock to local time,
- * and local time is not standard time.  E.g. local time is Pacific Daylight
- * Time (UTC-07:00), but the offsets are computed using the local timezone as
- * Pacific Standard Time (UTC-08:00).
- * <br><br>
- * \b Workaround: Set primary clock to GMT, and use offsets in secondary and
- * tertiary clocks.
  */
 int libx52_set_clock(libx52_device *x52, time_t time, int local);
 
