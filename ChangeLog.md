@@ -16,12 +16,13 @@ The format is based upon [Keep a Changelog].
 
 ### Changed
 - libx52_init no longer fails when a supported joystick is not connected.
-- x52test moves the LED tests to execute after all other tests. See
-  [#19](https://github.com/nirenjan/x52pro-linux/issues/19).
 
 ### Fixed
 - Error reporting in x52cli and x52test commands.
 - Handling of very large time_t values in `libx52_set_clock`
+- Secondary and tertiary clock setting when primary clock is set to local time
+  and local timezone is observing daylight savings time (summer time). See
+  [#20](https://github.com/nirenjan/x52pro-linux/issues/20).
 
 ## [0.2.0] - 2020-04-14
 ### Changed
