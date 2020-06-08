@@ -89,6 +89,14 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
         }
     }
 
+    /* Handle device removal */
+    if (rc == LIBUSB_ERROR_NO_DEVICE) {
+        /* Physical device has likely been disconnected, disconnect the virtual
+         * handle, and report the failure.
+         */
+        (void)libx52_disconnect(x52);
+    }
+
     return _x52_translate_libusb_error(rc);
 }
 
