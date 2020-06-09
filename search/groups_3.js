@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['utility_20functions_158',['Utility Functions',['../group__libx52util.html',1,'']]]
+  ['mfd_20_26_20led_20control_160',['MFD &amp; LED control',['../group__libx52mfdled.html',1,'']]],
+  ['miscellaneous_161',['Miscellaneous',['../group__libx52misc.html',1,'']]]
 ];

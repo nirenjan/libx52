@@ -6,7 +6,7 @@ var indexSectionsWithContent =
   3: "l",
   4: "l",
   5: "l",
-  6: "clmu",
+  6: "cdlmu",
   7: "cdis"
 };
 
