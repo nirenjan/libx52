@@ -209,6 +209,45 @@ static int _x52_write_date(libx52_device *x52, uint32_t bit)
     return rc;
 }
 
+int _x52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24)
+{
+    int offset;
+    int negative;
+
+    offset = x52->timezone[clock] - x52->timezone[LIBX52_CLOCK_1];
+
+    /* Save the preliminary state, if negative, set the negative flag */
+    if (offset < 0) {
+        negative = 1;
+        offset = -offset;
+    } else {
+        negative = 0;
+    }
+
+    /* Because the packet format limits the offset from the base clock to
+     * a maximum of +/- 1023, we can only handle a maximum offset of 17
+     * hours from the base clock. Eg. Honolulu and Auckland at -1000 and
+     * +1200 respectively have a direct offset of +22 hours. A potentially
+     * greater issue is to take the two extreme timezones at -1200 and +1400
+     * for a difference of +26 hours. The safe bet is to check if the offset
+     * exceeds +/- 1023, and subtract 1440, which will convert the offset of
+     * +22 to -2 hours, or +26 to +4 hours.
+     */
+    while (offset > 1023) {
+        offset -= 1440; // Subtract 24 hours
+    }
+
+    /* If offset is between 1024 and 1440, then we need to reverse the
+     * negative flag
+     */
+    if (offset < 0) {
+        negative = !negative;
+        offset = -offset;
+    }
+
+    return (h24 << 15 | negative << 10 | (offset & 0x3FF));
+}
+
 static int _x52_write_time(libx52_device *x52, uint32_t bit)
 {
     uint16_t value = 0;
@@ -218,72 +257,26 @@ static int _x52_write_time(libx52_device *x52, uint32_t bit)
     switch (bit) {
     case X52_BIT_MFD_TIME:
         clock = LIBX52_CLOCK_1;
+        index = X52_TIME_CLOCK1;
         break;
     case X52_BIT_MFD_OFFS1:
         clock = LIBX52_CLOCK_2;
+        index = X52_OFFS_CLOCK2;
         break;
     case X52_BIT_MFD_OFFS2:
         clock = LIBX52_CLOCK_3;
+        index = X52_OFFS_CLOCK3;
         break;
     }
 
     uint16_t h24 = !!(x52->time_format[clock]);
 
     if (clock != LIBX52_CLOCK_1) {
-        int offset;
-        int negative;
-
-        offset = x52->timezone[clock] - x52->timezone[LIBX52_CLOCK_1];
-
-        /* Save the preliminary state, if negative, set the negative flag */
-        if (offset < 0) {
-            negative = 1;
-            offset = -offset;
-        } else {
-            negative = 0;
-        }
-
-        /* Because the packet format limits the offset from the base clock to
-         * a maximum of +/- 1023, we can only handle a maximum offset of 17
-         * hours from the base clock. Eg. Honolulu and Auckland at -1000 and
-         * +1200 respectively have a direct offset of +22 hours. A potentially
-         * greater issue is to take the two extreme timezones at -1200 and +1400
-         * for a difference of +26 hours. The safe bet is to check if the offset
-         * exceeds +/- 1023, and subtract 1440, which will convert the offset of
-         * +22 to -2 hours, or +26 to +4 hours.
-         */
-        while (offset > 1023) {
-            offset -= 1440; // Subtract 24 hours
-        }
-
-        /* If offset is between 1024 and 1440, then we need to reverse the
-         * negative flag
-         */
-        if (offset < 0) {
-            negative = !negative;
-            offset = -offset;
-        }
-
-        value = h24 << 15 |
-                negative << 10 |
-                (offset & 0x3FF);
-    }
-
-    switch (clock) {
-    case LIBX52_CLOCK_1:
-        index = X52_TIME_CLOCK1;
+        value = _x52_calculate_clock_offset(x52, clock, h24);
+    } else {
         value = h24 << 15 |
                 (x52->time_hour & 0x7F) << 8 |
                 (x52->time_minute & 0xFF);
-        break;
-
-    case LIBX52_CLOCK_2:
-        index = X52_OFFS_CLOCK2;
-        break;
-
-    case LIBX52_CLOCK_3:
-        index = X52_OFFS_CLOCK3;
-        break;
     }
 
     return libx52_vendor_command(x52, index, value);
@@ -329,7 +322,6 @@ int libx52_update(libx52_device *x52)
 {
     unsigned int i;
     uint32_t update_mask;
-    uint16_t value;
     int rc = LIBX52_SUCCESS;
     x52_handler handler;
 
