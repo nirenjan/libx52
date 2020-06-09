@@ -16,20 +16,15 @@
 
 int main(int argc, char *argv[])
 {
-    char *data_file;
     FILE *data;
     char **id_pair;
     unsigned int vid;
     unsigned int pid;
     int i;
 
-    data_file = getenv(INPUT_DEVICE_LIST_ENV);
-    if (data_file == NULL || data_file[0] == '\0') {
-        data_file = DEFAULT_INPUT_DEVICE_LIST_FILE;
-    }
-    data = fopen(data_file, "w");
+    data = fopen_env(INPUT_DEVICE_LIST_ENV, DEFAULT_INPUT_DEVICE_LIST_FILE, "w");
     if (data == NULL) {
-        fprintf(stderr, "Unable to open %s for writing\n", data_file);
+        fprintf(stderr, "Unable to open device list file for writing\n");
         fprintf(stderr, "%s\n", strerror(errno));
     }
 

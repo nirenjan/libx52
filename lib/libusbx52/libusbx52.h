@@ -7,7 +7,6 @@
  */
 
 #include <stdio.h>
-// #include <libusb-1.0/libusb.h>
 #include <libusb.h>
 
 struct libusb_device {
@@ -65,3 +64,5 @@ struct libusb_device_handle {
  */
 #define DEFAULT_OUTPUT_DATA_FILE        "/tmp/libusbx52_output_data"
 
+/* Open file from environment variable */
+FILE * fopen_env(const char *env, const char *env_default, const char *mode);
