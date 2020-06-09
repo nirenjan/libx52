@@ -291,6 +291,19 @@ int libx52_init(libx52_device ** dev);
  */
 void libx52_exit(libx52_device *dev);
 
+/** @} */
+
+/**
+ * @defgroup libx52dev Device Handling
+ *
+ * Handle connections to the device.
+ *
+ * These functions allow the application to dynamically connect and disconnect
+ * from a supported device.
+ *
+ * @{
+ */
+
 /**
  * @brief Connect to the X52 device
  *
