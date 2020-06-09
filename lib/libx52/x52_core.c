@@ -44,6 +44,11 @@ static int libx52_device_is_x52pro(uint16_t idProduct)
     return (idProduct == X52_PROD_X52PRO);
 }
 
+bool libx52_is_connected(libx52_device *dev)
+{
+    return (dev && dev->hdl);
+}
+
 int libx52_disconnect(libx52_device *dev)
 {
     if (!dev) {

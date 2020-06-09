@@ -1,7 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver
  *
- * Copyright (C) 2012-2017 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2012-2020 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
@@ -22,6 +22,7 @@
 
 #include <time.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -298,6 +299,9 @@ void libx52_exit(libx52_device *dev);
  * errors are encountered during device enumeration, it will return an
  * appropriate \ref libx52_error_code.
  *
+ * If this function is called after it has already connected to a joystick,
+ * then it will re-enumerate the bus and ensure that it is still connected.
+ *
  * @param[in]   dev     Pointer to the device context
  *
  * @returns \ref libx52_error_code indicating status
@@ -316,6 +320,27 @@ int libx52_connect(libx52_device *dev);
  * @returns \ref libx52_error_code indicating status
  */
 int libx52_disconnect(libx52_device *dev);
+
+/**
+ * @brief Check if joystick is connected
+ *
+ * This function reports if it is possible to try to communicate with a
+ * supported joystick. The application can communicate with the joystick,
+ * only if the following conditions are met.
+ *
+ * 1. The joystick is plugged in and powered up.
+ * 2. The application has called \ref libx52_connect to connect to the joystick.
+ *
+ * This function, however, does not check if the joystick is physically
+ * connected. A call to \ref libx52_update or \ref libx52_vendor_command will
+ * return an error of \ref LIBX52_ERROR_NO_DEVICE if the joystick has either
+ * been disconnected, or \ref libx52_connect was never called.
+ *
+ * @param[in]   dev     Pointer to the device context
+ *
+ * @returns Boolean indicating if the internal device handle is valid.
+ */
+bool libx52_is_connected(libx52_device *dev);
 
 /** @} */
 
