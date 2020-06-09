@@ -211,7 +211,6 @@ typedef enum {
 
     /** Operation interrupted */
     LIBX52_ERROR_INTERRUPTED,
-
 } libx52_error_code;
 
 /**
@@ -226,7 +225,6 @@ typedef enum {
 typedef enum {
     /** Individual LED control */
     LIBX52_FEATURE_LED,
-
 } libx52_feature;
 
 /**
