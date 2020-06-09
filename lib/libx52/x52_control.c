@@ -100,9 +100,25 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
     return _x52_translate_libusb_error(rc);
 }
 
-static int _x52_write_line(libx52_device *x52, uint8_t line_index)
+static int _x52_write_shift(libx52_device *x52, uint32_t bit)
+{
+    uint16_t value;
+    value = tst_bit(&x52->led_mask, X52_BIT_SHIFT) ? X52_SHIFT_ON : X52_SHIFT_OFF;
+    return libx52_vendor_command(x52, X52_SHIFT_INDICATOR, value);
+}
+
+static int _x52_write_led(libx52_device *x52, uint32_t bit)
+{
+    uint16_t value;
+    /* The bits correspond exactly to the LED identifiers */
+    value = tst_bit(&x52->led_mask, bit) ? 1 : 0;
+    return libx52_vendor_command(x52, X52_LED, value | (bit << 8));
+}
+
+static int _x52_write_line(libx52_device *x52, uint32_t bit)
 {
     uint8_t i;
+    uint8_t line_index = bit - X52_BIT_MFD_LINE1;
     int rc;
 
     const uint16_t line_index_map[X52_MFD_LINES] = {
@@ -133,7 +149,30 @@ static int _x52_write_line(libx52_device *x52, uint8_t line_index)
     return rc;
 }
 
-static int _x52_write_date(libx52_device *x52)
+static int _x52_write_pov_blink(libx52_device *x52, uint32_t bit)
+{
+    uint16_t value;
+    value = tst_bit(&x52->led_mask, X52_BIT_POV_BLINK) ? X52_BLINK_ON : X52_BLINK_OFF;
+    return libx52_vendor_command(x52, X52_BLINK_INDICATOR, value);
+}
+
+static int _x52_write_brightness(libx52_device *x52, uint32_t bit)
+{
+    uint16_t index;
+    uint16_t value;
+
+    if (bit == X52_BIT_BRI_MFD) {
+        index = X52_MFD_BRIGHTNESS;
+        value = x52->mfd_brightness;
+    } else {
+        index = X52_LED_BRIGHTNESS;
+        value = x52->led_brightness;
+    }
+
+    return libx52_vendor_command(x52, index, value);
+}
+
+static int _x52_write_date(libx52_device *x52, uint32_t bit)
 {
     uint16_t value1; //dd-mm
     uint16_t value2; //yy
@@ -170,10 +209,24 @@ static int _x52_write_date(libx52_device *x52)
     return rc;
 }
 
-static int _x52_write_time(libx52_device *x52, libx52_clock_id clock)
+static int _x52_write_time(libx52_device *x52, uint32_t bit)
 {
     uint16_t value = 0;
     uint16_t index;
+    libx52_clock_id clock;
+
+    switch (bit) {
+    case X52_BIT_MFD_TIME:
+        clock = LIBX52_CLOCK_1;
+        break;
+    case X52_BIT_MFD_OFFS1:
+        clock = LIBX52_CLOCK_2;
+        break;
+    case X52_BIT_MFD_OFFS2:
+        clock = LIBX52_CLOCK_3;
+        break;
+    }
+
     uint16_t h24 = !!(x52->time_format[clock]);
 
     if (clock != LIBX52_CLOCK_1) {
@@ -236,12 +289,49 @@ static int _x52_write_time(libx52_device *x52, libx52_clock_id clock)
     return libx52_vendor_command(x52, index, value);
 }
 
+typedef int (*x52_handler)(libx52_device *, uint32_t);
+
+const x52_handler _x52_handlers[32] = {
+    [X52_BIT_SHIFT]         = _x52_write_shift,
+    [X52_BIT_LED_FIRE]      = _x52_write_led,
+    [X52_BIT_LED_A_RED]     = _x52_write_led,
+    [X52_BIT_LED_A_GREEN]   = _x52_write_led,
+    [X52_BIT_LED_B_RED]     = _x52_write_led,
+    [X52_BIT_LED_B_GREEN]   = _x52_write_led,
+    [X52_BIT_LED_D_RED]     = _x52_write_led,
+    [X52_BIT_LED_D_GREEN]   = _x52_write_led,
+    [X52_BIT_LED_E_RED]     = _x52_write_led,
+    [X52_BIT_LED_E_GREEN]   = _x52_write_led,
+    [X52_BIT_LED_T1_RED]    = _x52_write_led,
+    [X52_BIT_LED_T1_GREEN]  = _x52_write_led,
+    [X52_BIT_LED_T2_RED]    = _x52_write_led,
+    [X52_BIT_LED_T2_GREEN]  = _x52_write_led,
+    [X52_BIT_LED_T3_RED]    = _x52_write_led,
+    [X52_BIT_LED_T3_GREEN]  = _x52_write_led,
+    [X52_BIT_LED_POV_RED]   = _x52_write_led,
+    [X52_BIT_LED_POV_GREEN] = _x52_write_led,
+    [X52_BIT_LED_I_RED]     = _x52_write_led,
+    [X52_BIT_LED_I_GREEN]   = _x52_write_led,
+    [X52_BIT_LED_THROTTLE]  = _x52_write_led,
+    [X52_BIT_MFD_LINE1]     = _x52_write_line,
+    [X52_BIT_MFD_LINE2]     = _x52_write_line,
+    [X52_BIT_MFD_LINE3]     = _x52_write_line,
+    [X52_BIT_POV_BLINK]     = _x52_write_pov_blink,
+    [X52_BIT_BRI_MFD]       = _x52_write_brightness,
+    [X52_BIT_BRI_LED]       = _x52_write_brightness,
+    [X52_BIT_MFD_DATE]      = _x52_write_date,
+    [X52_BIT_MFD_TIME]      = _x52_write_time,
+    [X52_BIT_MFD_OFFS1]     = _x52_write_time,
+    [X52_BIT_MFD_OFFS2]     = _x52_write_time,
+};
+
 int libx52_update(libx52_device *x52)
 {
     unsigned int i;
     uint32_t update_mask;
     uint16_t value;
     int rc = LIBX52_SUCCESS;
+    x52_handler handler;
 
     /* It is possible for the update command to be called when the joystick
      * is not connected. Check for this and return an appropriate error.
@@ -257,85 +347,10 @@ int libx52_update(libx52_device *x52)
 
     for (i = 0; i < 32; i++) {
         if (tst_bit(&update_mask, i)) {
-            switch (i) {
-            case X52_BIT_SHIFT:
-                value = tst_bit(&x52->led_mask, X52_BIT_SHIFT) ? X52_SHIFT_ON : X52_SHIFT_OFF;
-                rc = libx52_vendor_command(x52, X52_SHIFT_INDICATOR, value);
-                break;
-
-            case X52_BIT_LED_FIRE:
-            case X52_BIT_LED_A_RED:
-            case X52_BIT_LED_A_GREEN:
-            case X52_BIT_LED_B_RED:
-            case X52_BIT_LED_B_GREEN:
-            case X52_BIT_LED_D_RED:
-            case X52_BIT_LED_D_GREEN:
-            case X52_BIT_LED_E_RED:
-            case X52_BIT_LED_E_GREEN:
-            case X52_BIT_LED_T1_RED:
-            case X52_BIT_LED_T1_GREEN:
-            case X52_BIT_LED_T2_RED:
-            case X52_BIT_LED_T2_GREEN:
-            case X52_BIT_LED_T3_RED:
-            case X52_BIT_LED_T3_GREEN:
-            case X52_BIT_LED_POV_RED:
-            case X52_BIT_LED_POV_GREEN:
-            case X52_BIT_LED_I_RED:
-            case X52_BIT_LED_I_GREEN:
-            case X52_BIT_LED_THROTTLE:
-                /* The bits correspond exactly to the LED identifiers */
-                value = tst_bit(&x52->led_mask, i) ? 1 : 0;
-                rc = libx52_vendor_command(x52, X52_LED, value | (i << 8));
-                break;
-
-            case X52_BIT_MFD_LINE1:
-                rc = _x52_write_line(x52, 0);
-                break;
-
-            case X52_BIT_MFD_LINE2:
-                rc = _x52_write_line(x52, 1);
-                break;
-
-            case X52_BIT_MFD_LINE3:
-                rc = _x52_write_line(x52, 2);
-                break;
-
-            case X52_BIT_POV_BLINK:
-                value = tst_bit(&x52->led_mask, X52_BIT_POV_BLINK)
-                        ? X52_BLINK_ON : X52_BLINK_OFF;
-                rc = libx52_vendor_command(x52, X52_BLINK_INDICATOR, value);
-                break;
-
-            case X52_BIT_BRI_MFD:
-                rc = libx52_vendor_command(x52, X52_MFD_BRIGHTNESS,
-                        x52->mfd_brightness);
-                break;
-
-            case X52_BIT_BRI_LED:
-                rc = libx52_vendor_command(x52, X52_LED_BRIGHTNESS,
-                        x52->led_brightness);
-                break;
-
-            case X52_BIT_MFD_DATE:
-                rc = _x52_write_date(x52);
-                break;
-
-            case X52_BIT_MFD_TIME:
-                rc = _x52_write_time(x52, LIBX52_CLOCK_1);
-                break;
-
-            case X52_BIT_MFD_OFFS1:
-                rc = _x52_write_time(x52, LIBX52_CLOCK_2);
-                break;
-
-            case X52_BIT_MFD_OFFS2:
-                rc = _x52_write_time(x52, LIBX52_CLOCK_3);
-                break;
-
-            default:
-                /* Ignore any spurious bits */
-                rc = LIBX52_SUCCESS;
-                break;
+            rc = LIBX52_SUCCESS;
+            handler = _x52_handlers[i];
+            if (handler != NULL) {
+                rc = (*handler)(x52, i);
             }
 
             if (rc == LIBX52_SUCCESS) {
