@@ -17,7 +17,7 @@ indicator_test()
     local value="\$X52_INDICATOR_STATE_${state}"
     TEST_ID="Test setting $indicator $state"
 
-    expect_pattern `eval echo $index $value`
+    expect_pattern $(eval echo $index $value)
 
     $X52CLI $indicator $state
 

@@ -16,7 +16,7 @@ brightness_test()
     local index="\$X52_${unit}_BRIGHTNESS_INDEX"
     TEST_ID="Test setting $unit brightness to $bri"
 
-    expect_pattern `eval echo $index` $bri
+    expect_pattern $(eval echo $index) $bri
 
     $X52CLI bri $unit $bri
 

@@ -72,7 +72,7 @@ X52_MFD_LINE_2_CLR_INDEX='00dc'
 find_programs()
 {
     # Tests and distcheck do not work on OSX, skip the tests
-    if [[ `uname -s` == [Dd]arwin* ]]
+    if [[ $(uname -s) == [Dd]arwin* ]]
     then
         echo "1..0 # skip Tests not supported on OSX"
         exit 0
