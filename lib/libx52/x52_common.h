@@ -105,5 +105,6 @@ static inline uint32_t tst_bit(uint32_t *value, uint32_t bit)
 }
 
 int _x52_translate_libusb_error(enum libusb_error errcode);
+uint16_t libx52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24);
 
 #endif /* !defined X52JOY_COMMON_H */

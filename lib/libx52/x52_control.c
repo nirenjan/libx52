@@ -209,7 +209,7 @@ static int _x52_write_date(libx52_device *x52, uint32_t bit)
     return rc;
 }
 
-int _x52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24)
+uint16_t libx52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24)
 {
     int offset;
     int negative;
@@ -231,7 +231,7 @@ int _x52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint1
      * greater issue is to take the two extreme timezones at -1200 and +1400
      * for a difference of +26 hours. The safe bet is to check if the offset
      * exceeds +/- 1023, and subtract 1440, which will convert the offset of
-     * +22 to -2 hours, or +26 to +4 hours.
+     * +22 to -2 hours, or +26 to +2 hours.
      */
     while (offset > 1023) {
         offset -= 1440; // Subtract 24 hours
@@ -272,7 +272,7 @@ static int _x52_write_time(libx52_device *x52, uint32_t bit)
     uint16_t h24 = !!(x52->time_format[clock]);
 
     if (clock != LIBX52_CLOCK_1) {
-        value = _x52_calculate_clock_offset(x52, clock, h24);
+        value = libx52_calculate_clock_offset(x52, clock, h24);
     } else {
         value = h24 << 15 |
                 (x52->time_hour & 0x7F) << 8 |
