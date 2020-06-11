@@ -66,17 +66,10 @@ int _x52_translate_libusb_error(enum libusb_error errcode)
     };
 }
 
-int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
+int _x52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 {
     int j;
     int rc = 0;
-
-    /* It is possible for the vendor command to be called when the joystick
-     * is not connected. Check for this and return an appropriate error.
-     */
-    if (!x52->hdl) {
-        return LIBX52_ERROR_NO_DEVICE;
-    }
 
     /* Allow retry in case of failure */
     for (j = 0; j < 3; j++) {
@@ -88,6 +81,21 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
             break;
         }
     }
+
+}
+
+int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
+{
+    int rc = 0;
+
+    /* It is possible for the vendor command to be called when the joystick
+     * is not connected. Check for this and return an appropriate error.
+     */
+    if (!x52->hdl || !x52->vendor_cmd_fn) {
+        return LIBX52_ERROR_NO_DEVICE;
+    }
+
+    rc = (*(x52->vendor_cmd_fn))(x52, index, value);
 
     /* Handle device removal */
     if (rc == LIBUSB_ERROR_NO_DEVICE) {

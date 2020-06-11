@@ -25,6 +25,8 @@
 #define X52_MFD_LINES       3
 #define X52_MFD_CLOCKS      3
 
+typedef int (*x52_vendor_command)(libx52_device *x52, uint16_t index, uint16_t value);
+
 struct x52_mfd_line {
     uint8_t     text[X52_MFD_LINE_SIZE];
     uint8_t     length;
@@ -51,6 +53,7 @@ struct libx52_device {
 
     int timezone[X52_MFD_CLOCKS];
     libx52_clock_format time_format[X52_MFD_CLOCKS];
+    x52_vendor_command vendor_cmd_fn;
 };
 
 /** Flag bits */
@@ -105,6 +108,7 @@ static inline uint32_t tst_bit(uint32_t *value, uint32_t bit)
 }
 
 int _x52_translate_libusb_error(enum libusb_error errcode);
+int _x52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
 uint16_t libx52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24);
 
 #endif /* !defined X52JOY_COMMON_H */
