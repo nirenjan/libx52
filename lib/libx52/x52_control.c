@@ -82,6 +82,7 @@ int _x52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
         }
     }
 
+    return rc;
 }
 
 int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
