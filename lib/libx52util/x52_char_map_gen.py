@@ -138,8 +138,6 @@ class LineFormatError(ValueError):
     """
     Error class for parser
     """
-    pass
-
 
 def parse_line(data):
     """
