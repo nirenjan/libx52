@@ -30,17 +30,21 @@ x52include_HEADERS = libx52.h
 # pkg-config files
 pkgconfig_DATA = libx52.pc
 
-check_PROGRAMS = test_offset
+check_PROGRAMS = test_offset test_led
 
 test_offset_SOURCES = test_offset.c
 test_offset_CFLAGS = @LIBUSB_CFLAGS@
 test_offset_LDADD = libx52.la
 
+test_led_SOURCES = test_led.c test_common.c
+test_led_CFLAGS = @LIBUSB_CFLAGS@
+test_led_LDADD = libx52.la
+
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
-TESTS = test_offset
+TESTS = test_offset test_led
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
+EXTRA_DIST = libx52.h x52_commands.h x52_common.h test_common.h README.md
 
 # Add documentation files to the distribution
 EXTRA_DIST += \
