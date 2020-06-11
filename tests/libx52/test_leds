@@ -16,7 +16,7 @@ mono_led_test()
     local state=$(echo "\$X52_LED_${led_ident}_${led_state}" | tr a-z A-Z)
     local TEST_ID="Test setting the $led_ident button $led_state"
 
-    expect_pattern $X52_LED_COMMAND_INDEX `eval echo $state`
+    expect_pattern $X52_LED_COMMAND_INDEX $(eval echo $state)
 
     $X52CLI led $led_ident $led_state
 
@@ -54,8 +54,8 @@ color_led_test()
     led_g_state=$(echo "\$X52_LED_${led_ident}_green_${led_g_state}" | tr a-z A-Z)
 
     expect_pattern \
-        $X52_LED_COMMAND_INDEX `eval echo $led_r_state` \
-        $X52_LED_COMMAND_INDEX `eval echo $led_g_state`
+        $X52_LED_COMMAND_INDEX $(eval echo $led_r_state) \
+        $X52_LED_COMMAND_INDEX $(eval echo $led_g_state)
 
     $X52CLI led $led_ident $led_color
 

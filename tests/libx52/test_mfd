@@ -12,8 +12,8 @@ TEST_SUITE_ID="libx52 MFD text tests"
 # Take in input as a string, and convert them to list of MFD set format
 format_text()
 {
-    local clear_index=`eval echo $1`
-    local set_index=`eval echo $2`
+    local clear_index=$(eval echo $1)
+    local set_index=$(eval echo $2)
     local input_string=$3
     local output_list="$clear_index 0"
     local count=0
