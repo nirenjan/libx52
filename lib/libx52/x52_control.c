@@ -262,6 +262,7 @@ static int _x52_write_time(libx52_device *x52, uint32_t bit)
     uint16_t value = 0;
     uint16_t index;
     libx52_clock_id clock;
+    uint16_t h24;
 
     switch (bit) {
     case X52_BIT_MFD_TIME:
@@ -276,9 +277,12 @@ static int _x52_write_time(libx52_device *x52, uint32_t bit)
         clock = LIBX52_CLOCK_3;
         index = X52_OFFS_CLOCK3;
         break;
+    default:
+        /* We should never get here, but put in a dummy case to satisfy the compiler */
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
-    uint16_t h24 = !!(x52->time_format[clock]);
+    h24 = !!(x52->time_format[clock]);
 
     if (clock != LIBX52_CLOCK_1) {
         value = libx52_calculate_clock_offset(x52, clock, h24);

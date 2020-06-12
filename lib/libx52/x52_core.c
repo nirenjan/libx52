@@ -32,6 +32,8 @@ static int libx52_check_product(uint16_t idVendor, uint16_t idProduct)
         case X52_PROD_X52_2:
         case X52_PROD_X52PRO:
             return 1;
+        default:
+            return 0;
         }
     }
 
@@ -190,6 +192,8 @@ int libx52_check_feature(libx52_device *dev, libx52_feature feature)
         return tst_bit(&(dev->flags), X52_FLAG_IS_PRO) ?
             LIBX52_SUCCESS :
             LIBX52_ERROR_NOT_SUPPORTED;
+    default:
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     return LIBX52_ERROR_INVALID_PARAM;

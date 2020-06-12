@@ -168,8 +168,11 @@ int libx52_set_clock_timezone(libx52_device *x52, libx52_clock_id clock, int off
         set_bit(&x52->update_mask, X52_BIT_MFD_OFFS2);
         break;
 
-    default:
+    case LIBX52_CLOCK_1:
         return LIBX52_ERROR_NOT_SUPPORTED;
+
+    default:
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     return LIBX52_SUCCESS;

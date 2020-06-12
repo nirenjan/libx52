@@ -58,7 +58,15 @@ static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_le
         }
         break;
 
-    default:
+    case LIBX52_LED_A:
+    case LIBX52_LED_B:
+    case LIBX52_LED_D:
+    case LIBX52_LED_E:
+    case LIBX52_LED_T1:
+    case LIBX52_LED_T2:
+    case LIBX52_LED_T3:
+    case LIBX52_LED_POV:
+    case LIBX52_LED_CLUTCH:
         /* All other LEDs support OFF, RED, AMBER and GREEN states
          * However, they are composed of individual RED and GREEN LEDs which
          * must be turned on or off individually.
@@ -84,15 +92,23 @@ static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_le
             set_bit(&x52->led_mask, led + 1); // Green
             break;
 
-        default:
+        case LIBX52_LED_STATE_ON:
             /* Cannot set the LED to "ON" */
             return LIBX52_ERROR_NOT_SUPPORTED;
+
+        default:
+            /* Any other state is not valid */
+            return LIBX52_ERROR_INVALID_PARAM;
         }
 
         /* Set the update mask bits */
         set_bit(&x52->update_mask, led + 0); // Red
         set_bit(&x52->update_mask, led + 1); // Green
         break;
+
+    default:
+        /* Any other LED is not valid */
+        return LIBX52_ERROR_INVALID_PARAM;
     }
 
     return LIBX52_SUCCESS;
