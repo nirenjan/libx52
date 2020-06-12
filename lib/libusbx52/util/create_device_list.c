@@ -17,7 +17,6 @@
 int main(int argc, char *argv[])
 {
     FILE *data;
-    char **id_pair;
     unsigned int vid;
     unsigned int pid;
     int i;

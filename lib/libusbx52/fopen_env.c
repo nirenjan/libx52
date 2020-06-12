@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "libusbx52.h"
 
 FILE * fopen_env(const char *env, const char *env_default, const char *mode)
 {

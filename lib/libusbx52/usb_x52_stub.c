@@ -21,7 +21,7 @@ int libusb_init(libusb_context **ctx)
     unsigned int vid;
     unsigned int pid;
     int parsed;
-    FILE *dev_list;
+    FILE *dev_list = NULL;
     int i;
 
     /*
@@ -236,10 +236,11 @@ int libusb_open(libusb_device *dev, libusb_device_handle **handle)
 
 void libusb_close(libusb_device_handle *dev_handle)
 {
+    libusb_device *dev;
     /* Decrement the refcount for the underlying device */
     dev_handle->dev->ref_count -= 1;
 
-    libusb_device *dev = dev_handle->dev;
+    dev = dev_handle->dev;
     LIBUSB_DUMP_LOG_FILE(dev_handle, LIBUSB_LOG_LEVEL_DEBUG,
         "VID: %04x PID: %04x idx: %d ref: %d\n",
         dev->desc.idVendor, dev->desc.idProduct, dev->index, dev->ref_count);

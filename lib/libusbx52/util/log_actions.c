@@ -82,6 +82,9 @@ int main(int argc, char *argv[])
     libusb_context *ctx;
 
     hdl = libusbx52_init();
+    if (hdl == NULL) {
+        return 1;
+    }
     ctx = hdl->ctx;
 
     /* Process arguments until there are fewer than 2 remaining */
