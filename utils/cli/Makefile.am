@@ -10,5 +10,6 @@ bin_PROGRAMS = x52cli
 
 # Command line utility that front ends the core library
 x52cli_SOURCES = x52_cli.c
-x52cli_CFLAGS = @X52_INCLUDE@
+x52cli_CFLAGS = @X52_INCLUDE@ $(WARN_CFLAGS)
+x52cli_LDFLAGS = $(WARN_LDFLAGS)
 x52cli_LDADD = ../../lib/libx52/libx52.la

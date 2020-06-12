@@ -12,8 +12,8 @@ lib_LTLIBRARIES = libx52util.la
 # This library provides extra utilities for ease of use
 nodist_libx52util_la_SOURCES = util_char_map.c
 libx52util_la_SOURCES = x52_char_map_lookup.c
-libx52util_la_CFLAGS = -I $(top_srcdir)/libx52
-libx52util_la_LDFLAGS = -version-info 1:0:0
+libx52util_la_CFLAGS = -I $(top_srcdir)/libx52 $(WARN_CFLAGS)
+libx52util_la_LDFLAGS = -version-info 1:0:0 $(WARN_LDFLAGS)
 libx52util_la_LIBADD = ../libx52/libx52.la
 
 # Header files that need to be copied

@@ -17,10 +17,11 @@ libx52_v_AGE=2
 libx52_v_REV=1
 libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c \
 					x52_strerror.c
-libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir)
+libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir) $(WARN_CFLAGS)
 libx52_la_LDFLAGS = \
 	-export-symbols-regex '^libx52_' \
-	-version-info $(libx52_v_CUR):$(libx52_v_REV):$(libx52_v_AGE) @LIBUSB_LIBS@
+	-version-info $(libx52_v_CUR):$(libx52_v_REV):$(libx52_v_AGE) @LIBUSB_LIBS@ \
+	$(WARN_LDFLAGS)
 libx52_la_LIBADD = @LTLIBINTL@
 
 # Header files that need to be copied

@@ -16,6 +16,7 @@ AM_PATH_PYTHON([2.6])
 LT_INIT
 PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
+AX_COMPILER_FLAGS(,,[yes])
 
 # Internationalization
 AM_GNU_GETTEXT([external])
