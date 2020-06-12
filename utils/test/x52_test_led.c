@@ -39,16 +39,17 @@
 
 int test_leds(void)
 {
-    int rc;
     print_banner(_("LEDs"));
 
-    /* Check if the connected device supports individual LED control */
-    rc = libx52_check_feature(dev, LIBX52_FEATURE_LED);
-    if (rc == LIBX52_ERROR_NOT_SUPPORTED) {
-        puts(_("Skipping LED tests since the device does not support LED control"));
-        return 0;
-    } else if (rc != LIBX52_SUCCESS) {
-        return rc;
+    { /* Check if the connected device supports individual LED control */
+        int rc;
+        rc = libx52_check_feature(dev, LIBX52_FEATURE_LED);
+        if (rc == LIBX52_ERROR_NOT_SUPPORTED) {
+            puts(_("Skipping LED tests since the device does not support LED control"));
+            return 0;
+        } else if (rc != LIBX52_SUCCESS) {
+            return rc;
+        }
     }
 
     puts(_("This cycles the LEDs through all possible states"));

@@ -162,7 +162,7 @@ static int run_tests(int test_set)
     return 0;
 }
 
-void underline(const char *msg) {
+static void underline(const char *msg) {
     size_t i;
     puts(msg);
     for (i = 0; i < strlen(msg); i++) {
@@ -171,7 +171,7 @@ void underline(const char *msg) {
     putchar('\n');
 }
 
-void usage(void)
+static void usage(void)
 {
     puts(_("These are the available tests with a description and\n"
            "approximate runtime. Not specifying any tests will run\n"
@@ -187,7 +187,7 @@ void usage(void)
 }
 
 struct test_map {
-    char *cmd;
+    const char *cmd;
     int  test_bitmap;
 };
 const struct test_map tests[] = {
