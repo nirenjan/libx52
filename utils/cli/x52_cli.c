@@ -155,7 +155,7 @@ possibly through \b sudo(8)
 #include "libx52.h"
 
 struct string_map {
-    char *key;
+    const char *key;
     union {
         libx52_clock_id     clock_id;
         libx52_clock_format clock_format;
