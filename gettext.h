@@ -18,6 +18,10 @@
 #ifndef _LIBGETTEXT_H
 #define _LIBGETTEXT_H 1
 
+#ifndef ENABLE_NLS
+#define ENABLE_NLS 0
+#endif
+
 /* NLS can be disabled through the configure --disable-nls option.  */
 #if ENABLE_NLS
 
@@ -66,29 +70,29 @@
 # undef gettext
 # define gettext(Msgid) ((const char *) (Msgid))
 # undef dgettext
-# define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+# define dgettext(Domainname, Msgid) (gettext (Msgid))
 # undef dcgettext
 # define dcgettext(Domainname, Msgid, Category) \
-    ((void) (Category), dgettext (Domainname, Msgid))
+    (dgettext (Domainname, Msgid))
 # undef ngettext
 # define ngettext(Msgid1, Msgid2, N) \
     ((N) == 1 \
-     ? ((void) (Msgid2), (const char *) (Msgid1)) \
-     : ((void) (Msgid1), (const char *) (Msgid2)))
+     ? ((const char *) (Msgid1)) \
+     : ((const char *) (Msgid2)))
 # undef dngettext
 # define dngettext(Domainname, Msgid1, Msgid2, N) \
-    ((void) (Domainname), ngettext (Msgid1, Msgid2, N))
+    (ngettext (Msgid1, Msgid2, N))
 # undef dcngettext
 # define dcngettext(Domainname, Msgid1, Msgid2, N, Category) \
-    ((void) (Category), dngettext (Domainname, Msgid1, Msgid2, N))
+    (dngettext (Domainname, Msgid1, Msgid2, N))
 # undef textdomain
 # define textdomain(Domainname) ((const char *) (Domainname))
 # undef bindtextdomain
 # define bindtextdomain(Domainname, Dirname) \
-    ((void) (Domainname), (const char *) (Dirname))
+    (void)((void) (Domainname), (const char *) (Dirname))
 # undef bind_textdomain_codeset
 # define bind_textdomain_codeset(Domainname, Codeset) \
-    ((void) (Domainname), (const char *) (Codeset))
+    (void)((void) (Domainname), (const char *) (Codeset))
 
 #endif
 
