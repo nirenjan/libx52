@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Character map generator
 #
 # Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)

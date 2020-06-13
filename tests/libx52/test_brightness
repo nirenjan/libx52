@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # MFD & LED brightness tests
 #
 # Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)

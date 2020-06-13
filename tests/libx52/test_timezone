@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Timezone tests
 #
 # Copyright (C) 2020 Nirenjan Krishnan (nirenjan@nirenjan.org)

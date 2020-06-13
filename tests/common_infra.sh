@@ -79,7 +79,7 @@ find_programs()
     fi
 
     # Find the X52cli script
-    X52CLI=$(find .. -path '*/cli/x52cli' -executable)
+    X52CLI=$(find .. -path '*/cli/x52cli' -perm -+x)
 
     if [[ -z "$X52CLI" ]]
     then
@@ -87,14 +87,14 @@ find_programs()
     fi
 
     # Find the x52test_log_actions program
-    X52LOGACT=$(find .. -path '*/libusbx52/x52test_log_actions' -executable)
+    X52LOGACT=$(find .. -path '*/libusbx52/x52test_log_actions' -perm -+x)
     if [[ -z "$X52LOGACT" ]]
     then
         exit 1
     fi
 
     # Find the x52test_create_device_list program
-    X52DEVLIST=$(find .. -path '*/libusbx52/x52test_create_device_list' -executable)
+    X52DEVLIST=$(find .. -path '*/libusbx52/x52test_create_device_list' -perm -+x)
     if [[ -z "$X52DEVLIST" ]]
     then
         exit 1
