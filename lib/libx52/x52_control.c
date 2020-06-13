@@ -218,7 +218,7 @@ static int _x52_write_date(libx52_device *x52, uint32_t bit)
     return rc;
 }
 
-uint16_t libx52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24)
+static uint16_t _x52_calculate_clock_offset(libx52_device *x52, libx52_clock_id clock, uint16_t h24)
 {
     int offset;
     int negative;
@@ -285,7 +285,7 @@ static int _x52_write_time(libx52_device *x52, uint32_t bit)
     h24 = !!(x52->time_format[clock]);
 
     if (clock != LIBX52_CLOCK_1) {
-        value = libx52_calculate_clock_offset(x52, clock, h24);
+        value = _x52_calculate_clock_offset(x52, clock, h24);
     } else {
         value = h24 << 15 |
                 (x52->time_hour & 0x7F) << 8 |

@@ -33,7 +33,7 @@ pkgconfig_DATA = libx52.pc
 
 check_PROGRAMS = test_offset test_led test_blink_shift
 
-test_offset_SOURCES = test_offset.c
+test_offset_SOURCES = test_offset.c test_common.c
 test_offset_CFLAGS = @LIBUSB_CFLAGS@
 test_offset_LDADD = libx52.la
 
