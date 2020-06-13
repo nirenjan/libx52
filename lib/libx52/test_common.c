@@ -48,24 +48,24 @@ bool x52_test_assert_expected(libx52_device *dev, struct ivpair *data)
     int written = 0;
     struct x52_vendor_data *vdata = (struct x52_vendor_data *)dev->hdl;
 
-    while(data->index != 0 && data->value != 0 && written < vdata->written) {
-        if ((data->index != vdata->data[written].index) ||
-            (data->value != vdata->data[written].value)) {
+    while((data[written].index != 0 || data[written].value != 0) && written < vdata->written) {
+        if ((data[written].index != vdata->data[written].index) ||
+            (data[written].value != vdata->data[written].value)) {
             ADD_DIAG("Mismatched data at position %d:", written);
-            ADD_DIAG("\tExpected: {%04x, %04x}", data->index, data->value);
+            ADD_DIAG("\tExpected: {%04x, %04x}", data[written].index, data[written].value);
             ADD_DIAG("\tObserved: {%04x, %04x}", vdata->data[written].index, vdata->data[written].value);
             return false;
         }
 
-        data++;
         written++;
     }
 
-    if (data->index != 0 || data->value != 0) {
+    if (data[written].index != 0 || data[written].value != 0) {
+        ADD_DIAG("data written %d", written);
         ADD_DIAG("Insufficient data written, got only %d, additional expected:", written);
-        while (data->index != 0 && data->value != 0) {
-            ADD_DIAG("\t%04x %04x", data->index, data->value);
-            data++;
+        while (data[written].index != 0 && data[written].value != 0) {
+            ADD_DIAG("\t%04x %04x", data[written].index, data[written].value);
+            written++;
         }
         return false;
     }
@@ -84,6 +84,28 @@ void x52_test_print_diagnostics(void)
     for (i = 0; i < diag_count; i++) {
         printf("# %s\n", diagnostic[i]);
     }
+}
+
+static void _x52_test_print_data(struct ivpair *data)
+{
+    while (data->index != 0 || data->value != 0) {
+        printf("%04x/%04x ", data->index, data->value);
+        data++;
+    }
+    puts("");
+}
+
+void x52_test_print_observed_data(libx52_device *dev)
+{
+    struct x52_vendor_data *vdata = (struct x52_vendor_data *)dev->hdl;
+    printf("Observed: ");
+    _x52_test_print_data(vdata->data);
+}
+
+void x52_test_print_expected_data(struct ivpair *data)
+{
+    printf("Expected: ");
+    _x52_test_print_data(data);
 }
 
 /*

@@ -45,4 +45,7 @@ void x52_test_print_diagnostics(void);
 /* Cleanup test data */
 void x52_test_cleanup(libx52_device *dev);
 
+void x52_test_print_observed_data(libx52_device *dev);
+void x52_test_print_expected_data(struct ivpair *data);
+
 #endif // !defined _TEST_COMMON_H
