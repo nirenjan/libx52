@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-06-06 07:38-0700\n"
+"POT-Creation-Date: 2020-06-12 23:15-0700\n"
 "PO-Revision-Date: 2020-05-22 13:25-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -275,7 +275,7 @@ msgstr ""
 "\n"
 "Estingtay EDLay %s\n"
 
-#: utils/test/x52_test_led.c:43
+#: utils/test/x52_test_led.c:42
 msgid "LEDs"
 msgstr "EDsLay"
 
@@ -285,11 +285,11 @@ msgstr ""
 "Ippingskay EDLay eststay incesay ethay eviceday oesday otnay\n"
 "upportsay EDLay ontrolcay"
 
-#: utils/test/x52_test_led.c:54
+#: utils/test/x52_test_led.c:55
 msgid "This cycles the LEDs through all possible states"
 msgstr "Isthay yclescay ethay EDsLay oughthray allay ossiblepay tatessay"
 
-#: utils/test/x52_test_led.c:72
+#: utils/test/x52_test_led.c:73
 #, c-format
 msgid ""
 "\n"
@@ -298,11 +298,11 @@ msgstr ""
 "\n"
 "Estingtay %s\n"
 
-#: utils/test/x52_test_led.c:83
+#: utils/test/x52_test_led.c:84
 msgid "Blink & Shift"
 msgstr "Inkblay & Iftshay"
 
-#: utils/test/x52_test_led.c:84
+#: utils/test/x52_test_led.c:85
 msgid "This tests the blink indicator and shift functionality"
 msgstr "Isthay eststay ethay inkblay indicatoray anday iftshay unctionalityfay"
 

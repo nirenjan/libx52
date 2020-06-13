@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-06-06 07:38-0700\n"
+"POT-Creation-Date: 2020-06-12 23:15-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,7 +246,7 @@ msgid ""
 "Testing LED %s\n"
 msgstr ""
 
-#: utils/test/x52_test_led.c:43
+#: utils/test/x52_test_led.c:42
 msgid "LEDs"
 msgstr ""
 
@@ -254,22 +254,22 @@ msgstr ""
 msgid "Skipping LED tests since the device does not support LED control"
 msgstr ""
 
-#: utils/test/x52_test_led.c:54
+#: utils/test/x52_test_led.c:55
 msgid "This cycles the LEDs through all possible states"
 msgstr ""
 
-#: utils/test/x52_test_led.c:72
+#: utils/test/x52_test_led.c:73
 #, c-format
 msgid ""
 "\n"
 "Testing %s\n"
 msgstr ""
 
-#: utils/test/x52_test_led.c:83
+#: utils/test/x52_test_led.c:84
 msgid "Blink & Shift"
 msgstr ""
 
-#: utils/test/x52_test_led.c:84
+#: utils/test/x52_test_led.c:85
 msgid "This tests the blink indicator and shift functionality"
 msgstr ""
 
