@@ -13,18 +13,17 @@
 #include "x52_common.h"
 #include "test_common.h"
 
-struct test_case {
-    const char *test_case_id;
+TEST_STRUCT (
     int offset_primary;
     int offset_secondary;
     libx52_clock_id clock_id;
     uint16_t x52_clock;
     uint16_t x52_offset;
-};
+)
 
 #define TEST(id, o1, o23, offs) {id, o1, o23, LIBX52_CLOCK_2, 0xc1, offs}, {id, o1, o23, LIBX52_CLOCK_3, 0xc2, offs}
 
-const struct test_case test_cases[] = {
+TEST_CASES = {
     TEST("Etc/UTC+24|Etc/UTC-24", -1440, +1440, 0),
     TEST("Etc/UTC-24|Etc/UTC+24", +1440, -1440, 0x0400), // Negative 0
     TEST("Honolulu|Auckland", -600, +720, 0x0478), // -2 hours
@@ -39,17 +38,11 @@ const struct test_case test_cases[] = {
     TEST("Etc/UTC-12|Etc/UTC+12", +720, -720, 0x0400),
 };
 
-#define TC_COUNT (sizeof(test_cases) / sizeof(test_cases[0]))
-
-void run_test(int tc_id)
+TEST_FUNC()
 {
-    struct libx52_device *dev = x52_test_init();
-    struct test_case test = test_cases[tc_id];
+    TEST_INIT();
     int rc;
     struct ivpair data[2] = { 0 };
-
-    #define PRINT_FAIL() printf("not ok %d %s/%d\n", tc_id+1, test.test_case_id, test.clock_id + 1)
-    #define PRINT_PASS() printf("ok %d %s/%d\n", tc_id+1, test.test_case_id, test.clock_id + 1)
 
     dev->timezone[LIBX52_CLOCK_1] = test.offset_primary;
     rc = libx52_set_clock_timezone(dev, test.clock_id, test.offset_secondary);
@@ -59,34 +52,9 @@ void run_test(int tc_id)
         return;
     }
 
-    rc = libx52_update(dev);
-    if (rc != LIBX52_SUCCESS) {
-        PRINT_FAIL();
-        printf("# libx52_update failed, rc = %d\n", rc);
-        return;
-    }
-
     data[0].index = test.x52_clock;
     data[0].value = test.x52_offset;
-
-    if (!x52_test_assert_expected(dev, data)) {
-        PRINT_FAIL();
-        x52_test_print_diagnostics();
-        x52_test_print_expected_data(data);
-        x52_test_print_observed_data(dev);
-        return;
-    }
-
-    PRINT_PASS();
-    x52_test_cleanup(dev);
+    TEST_VERIFY(data);
 }
 
-int main()
-{
-    int i;
-
-    printf("1..%ld\n", TC_COUNT);
-    for (i = 0; i < TC_COUNT; i++) {
-        run_test(i);
-    }
-}
+TEST_MAIN();

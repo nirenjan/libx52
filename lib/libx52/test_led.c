@@ -14,13 +14,12 @@
 #include "test_common.h"
 #include "x52_commands.h"
 
-struct test_case {
-    const char *test_case_id;
-    libx52_led_id led_id;
-    libx52_led_state state;
-    int retval;
-    struct ivpair data[3];
-};
+TEST_STRUCT (
+        libx52_led_id led_id;
+        libx52_led_state state;
+        int retval;
+        struct ivpair data[3];
+)
 
 #define X52_LED_CMD 0xb8
 #define UNSUPPORTED(led, state) { #led "/" #state " unsupported", LIBX52_LED_ ## led, LIBX52_LED_STATE_ ## state, LIBX52_ERROR_NOT_SUPPORTED}
@@ -31,7 +30,7 @@ struct test_case {
 #define AMBER(led) { #led "/Amber", LIBX52_LED_## led, LIBX52_LED_STATE_AMBER, LIBX52_SUCCESS, {{X52_LED_CMD, ((LIBX52_LED_ ## led + 0) << 8) | 1}, {X52_LED_CMD, ((LIBX52_LED_ ## led + 1) << 8) | 1}, {0, 0}}}
 #define GREEN(led) { #led "/Green", LIBX52_LED_## led, LIBX52_LED_STATE_GREEN, LIBX52_SUCCESS, {{X52_LED_CMD, ((LIBX52_LED_ ## led + 0) << 8) | 0}, {X52_LED_CMD, ((LIBX52_LED_ ## led + 1) << 8) | 1}, {0, 0}}}
 
-const struct test_case test_cases[] = {
+TEST_CASES = {
     OFF_MONO(FIRE),
     ON(FIRE),
     UNSUPPORTED(FIRE, RED),
@@ -99,21 +98,16 @@ const struct test_case test_cases[] = {
     UNSUPPORTED(THROTTLE, GREEN),
 };
 
-#define TC_COUNT (sizeof(test_cases) / sizeof(test_cases[0]))
 
-void run_test(int tc_id)
+TEST_FUNC()
 {
-    struct libx52_device *dev = x52_test_init();
-
-    struct test_case test = test_cases[tc_id];
+    TEST_INIT();
 
     /* Set the X52Pro flag in dev->flags, otherwise libx52_set_led_state will
      * always return not supported
      */
     dev->flags = 1;
 
-    #define PRINT_FAIL() printf("not ok %d %s\n", tc_id+1, test.test_case_id)
-    #define PRINT_PASS() printf("ok %d %s\n", tc_id+1, test.test_case_id)
     int rc = libx52_set_led_state(dev, test.led_id, test.state);
 
     if (rc != test.retval) {
@@ -122,29 +116,7 @@ void run_test(int tc_id)
         return;
     }
 
-    rc = libx52_update(dev);
-    if (rc != LIBX52_SUCCESS) {
-        PRINT_FAIL();
-        printf("# libx52_update failed, rc = %d\n", rc);
-        return;
-    }
-
-    if (!x52_test_assert_expected(dev, test.data)) {
-        PRINT_FAIL();
-        x52_test_print_diagnostics();
-        return;
-    }
-
-    PRINT_PASS();
-    x52_test_cleanup(dev);
+    TEST_VERIFY(test.data);
 }
 
-int main()
-{
-    int i;
-
-    printf("1..%ld\n", TC_COUNT);
-    for (i = 0; i < TC_COUNT; i++) {
-        run_test(i);
-    }
-}
+TEST_MAIN()
