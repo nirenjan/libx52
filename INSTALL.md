@@ -20,14 +20,14 @@ Build has been tested on the following operating systems (x86-64 only):
 * libtool
 * libusb-1.0 + headers
 * pkg-config
-* python (2.6 or greater)
+* python3 (3.6 or greater)
 
 ### Installation instructions
 
 | Platform | Install instructions |
 | -------- | -------------------- |
-| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libtool libusb-1.0-0-dev pkg-config python` |
-| MacOS + Homebrew  | `brew install automake autoconf gettext libtool libusb pkg-config python` |
+| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libtool libusb-1.0-0-dev pkg-config python3` |
+| MacOS + Homebrew  | `brew install automake autoconf gettext libtool libusb pkg-config python3` |
 
 ## Optional Packages
 
