@@ -1,6 +1,6 @@
 # Autoconf settings for x52pro-linux
 #
-# Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
+# Copyright (C) 2012-2020 Nirenjan Krishnan (nirenjan@nirenjan.org)
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
@@ -12,7 +12,7 @@ AC_PROG_CC
 AC_PROG_CC_STDC
 AC_PROG_AWK
 AM_PROG_AR
-AM_PATH_PYTHON([3.6])
+AM_PATH_PYTHON([3.5])
 LT_INIT
 PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
