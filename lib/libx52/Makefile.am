@@ -31,6 +31,7 @@ x52include_HEADERS = libx52.h
 # pkg-config files
 pkgconfig_DATA = libx52.pc
 
+if LINUX
 if HAVE_CMOCKA
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 TESTS = libx52test
@@ -46,6 +47,7 @@ libx52test_LDADD = libx52.la
 CLEANFILES = test_libx52.c
 test_libx52.c: $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json
 	$(AM_V_GEN) $(PYTHON) $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json > $@
+endif
 endif
 
 # Extra files that need to be in the distribution
