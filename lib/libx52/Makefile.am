@@ -33,10 +33,25 @@ pkgconfig_DATA = libx52.pc
 
 if HAVE_CMOCKA
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
+TESTS = libx52test
+check_PROGRAMS = libx52test
+
+libx52test_SOURCES = test_libx52.c $(libx52_la_SOURCES)
+libx52test_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir)
+libx52test_CFLAGS += -DGENERATED_TESTS='"test_libx52.c"'
+libx52test_LDFLAGS = -Wl,--wrap=libusb_control_transfer @CMOCKA_LIBS@ @LIBUSB_LIBS@
+libx52test_LDADD = libx52.la
+
+CLEANFILES = test_libx52.c
+test_libx52.c: $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json
+	$(AM_V_GEN) $(PYTHON) $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json > $@
 endif
 
 # Extra files that need to be in the distribution
 EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
+
+# Add test files to the distribution
+EXTRA_DIST += x52_test_gen.py x52_tests.json
 
 # Add documentation files to the distribution
 EXTRA_DIST += \
