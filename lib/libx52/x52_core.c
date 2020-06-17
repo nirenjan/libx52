@@ -61,7 +61,6 @@ int libx52_disconnect(libx52_device *dev)
         libusb_close(dev->hdl);
         dev->hdl = NULL;
         dev->flags = 0;
-        dev->vendor_cmd_fn = NULL;
     }
 
     return LIBX52_SUCCESS;
@@ -102,9 +101,6 @@ int libx52_connect(libx52_device *dev)
                 }
 
                 dev->hdl = hdl;
-
-                /* Use default vendor command function */
-                dev->vendor_cmd_fn = _x52_vendor_command;
 
                 if (libx52_device_is_x52pro(desc.idProduct)) {
                     set_bit(&(dev->flags), X52_FLAG_IS_PRO);

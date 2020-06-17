@@ -62,6 +62,12 @@ AM_COND_IF([HAVE_DOXYGEN],
     [AC_CONFIG_FILES([Doxyfile])],
     [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
+# cmocka unit tests
+AX_PKG_CHECK_MODULES([CMOCKA], [cmocka], [], [have_cmocka=yes], [have_cmocka=no])
+AM_CONDITIONAL([HAVE_CMOCKA], [test "x$have_cmocka" = xyes])
+AM_COND_IF([HAVE_CMOCKA], [],
+    [AC_MSG_WARN(["cmocka not found; disabling unit test build"])])
+
 # Check for the presence of tm_gmtoff in struct tm. If we have this, then we
 # can use it to determine the true GMT offset
 AC_CHECK_MEMBERS([struct tm.tm_gmtoff],,
