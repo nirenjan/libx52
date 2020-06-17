@@ -36,6 +36,7 @@ addons:
         - libudev-dev
         - autopoint
         - faketime
+        - libcmocka-dev
     homebrew:
         packages:
         - libusb
