@@ -36,7 +36,8 @@ LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 TESTS = libx52test
 check_PROGRAMS = libx52test
 
-libx52test_SOURCES = test_libx52.c $(libx52_la_SOURCES)
+nodist_libx52test_SOURCES = test_libx52.c
+libx52test_SOURCES = $(libx52_la_SOURCES)
 libx52test_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir)
 libx52test_CFLAGS += -DGENERATED_TESTS='"test_libx52.c"'
 libx52test_LDFLAGS = -Wl,--wrap=libusb_control_transfer @CMOCKA_LIBS@ @LIBUSB_LIBS@
