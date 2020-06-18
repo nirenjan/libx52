@@ -123,7 +123,7 @@ class Test():
         self.retval = obj.get("retval", "")
 
     def definition(self):
-        test_name = self.name + '_' + '_'.join(p.strip('"') for p in self.params)
+        test_name = self.name + '_' + '_'.join(p.strip('"').replace('-','_') for p in self.params)
         return test_name.lower()
 
     def print(self):
@@ -168,15 +168,8 @@ class TestGroup():
 
     def print(self):
         """Print the test group"""
-        # Print the test definitions first
         for test in self.tests:
             test.print()
-
-        # Print the list of test cases
-        # print(_TEST_GROUP_HEADER.format(self.definition()))
-        # for test in self.tests:
-        #     print("    cmocka_unit_test_setup({}, test_setup),".format(test.definition()))
-        # print(_TEST_GROUP_FOOTER)
 
 _MAIN_HEADER = """
 int main(void)
@@ -220,14 +213,7 @@ class TestSuite():
             for test in group.tests:
                 print("    cmocka_unit_test_setup({}, test_setup),".format(test.definition()))
         print(_TEST_GROUP_FOOTER)
-                
         print(_MAIN)
-        # print(_MAIN_HEADER)
-        # for group in self.groups:
-        #     print('    cmocka_run_group_tests_name("{}", {}, group_setup, group_teardown);'.format(
-        #         group.name, group.definition()))
-        # print(_MAIN_FOOTER)
-
 
 
 def main():

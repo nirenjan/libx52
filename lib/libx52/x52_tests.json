@@ -1890,6 +1890,61 @@
             {"params": ["0"], "output": [["00fd", "0050"]]},
             {"params": ["1"], "output": [["00fd", "0051"]]}
         ]
+    },
+    "Time": {
+        "function": "libx52_set_time",
+        "tests": [
+            {"params": ["0", "0"], "output": [["00c0", "0000"]]},
+            {"params": ["0", "1"], "output": [["00c0", "0001"]]},
+            {"params": ["0", "2"], "output": [["00c0", "0002"]]},
+            {"params": ["1", "0"], "output": [["00c0", "0100"]]},
+            {"params": ["1", "1"], "output": [["00c0", "0101"]]},
+            {"params": ["1", "2"], "output": [["00c0", "0102"]]},
+            {"params": ["2", "0"], "output": [["00c0", "0200"]]},
+            {"params": ["2", "1"], "output": [["00c0", "0201"]]},
+            {"params": ["2", "2"], "output": [["00c0", "0202"]]}
+        ]
+    },
+    "Time_Format": {
+        "function": "libx52_set_clock_format",
+        "params_prefix": ["LIBX52_CLOCK_", "LIBX52_CLOCK_FORMAT_"],
+        "tests": [
+            {"params": ["1", "12HR"], "output": [["00c0", "0000"]]},
+            {"params": ["1", "24HR"], "output": [["00c0", "8000"]]},
+            {"params": ["2", "12HR"], "output": [["00c1", "0000"]]},
+            {"params": ["2", "24HR"], "output": [["00c1", "8000"]]},
+            {"params": ["3", "12HR"], "output": [["00c2", "0000"]]},
+            {"params": ["3", "24HR"], "output": [["00c2", "8000"]]}
+        ]
+    },
+    "Offset": {
+        "function": "libx52_set_clock_timezone",
+        "params_prefix": ["LIBX52_CLOCK_"],
+        "tests": [
+            {"params": ["1", "0"], "retval": "NOT_SUPPORTED"},
+            {"params": ["2", "0"], "output": [["00c1", "0000"]]},
+            {"params": ["2", "30"], "output": [["00c1", "001e"]]},
+            {"params": ["2", "60"], "output": [["00c1", "003c"]]},
+            {"params": ["2", "1200"], "output": [["00c1", "04f0"]]},
+            {"params": ["2", "1440"], "output": [["00c1", "0000"]]},
+            {"params": ["2", "1441"], "retval": "OUT_OF_RANGE"},
+            {"params": ["2", "-30"], "output": [["00c1", "041e"]]},
+            {"params": ["2", "-60"], "output": [["00c1", "043c"]]},
+            {"params": ["2", "-1200"], "output": [["00c1", "00f0"]]},
+            {"params": ["2", "-1440"], "output": [["00c1", "0400"]]},
+            {"params": ["2", "-1441"], "retval": "OUT_OF_RANGE"},
+            {"params": ["3", "0"], "output": [["00c2", "0000"]]},
+            {"params": ["3", "30"], "output": [["00c2", "001e"]]},
+            {"params": ["3", "60"], "output": [["00c2", "003c"]]},
+            {"params": ["3", "1200"], "output": [["00c2", "04f0"]]},
+            {"params": ["3", "1440"], "output": [["00c2", "0000"]]},
+            {"params": ["3", "1441"], "retval": "OUT_OF_RANGE"},
+            {"params": ["3", "-30"], "output": [["00c2", "041e"]]},
+            {"params": ["3", "-60"], "output": [["00c2", "043c"]]},
+            {"params": ["3", "-1200"], "output": [["00c2", "00f0"]]},
+            {"params": ["3", "-1440"], "output": [["00c2", "0400"]]},
+            {"params": ["3", "-1441"], "retval": "OUT_OF_RANGE"}
+        ]
     }
 }
 
