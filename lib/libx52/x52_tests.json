@@ -225,6 +225,23 @@
             }
         ]
     },
+    "LED_nonPro": {
+        "_comment": [
+            "This suite checks if the LED state function returns not supported",
+            "when the device is an X52 (non-Pro) model"
+        ],
+        "function": "libx52_set_led_state",
+        "fields": {
+            "flags": "0"
+        },
+        "params_prefix": ["LIBX52_LED_", "LIBX52_LED_STATE_"],
+        "tests": [
+            {
+                "params": ["FIRE", "OFF"],
+                "retval": "NOT_SUPPORTED"
+            }
+        ]
+    },
     "MFD": {
         "function": "libx52_set_text",
         "tests": [

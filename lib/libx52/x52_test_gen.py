@@ -16,6 +16,7 @@ _TEST_FILE_HEADER = """/*
 #include <cmocka.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "x52_common.h"
 
@@ -116,6 +117,10 @@ class Test():
         self.name = group.name
         self.params_prefix = group.params_prefix
         self.params = obj["params"]
+        self.setup_hook = group.setup_hook + obj.get("setup_hook", [])
+        self.fields = group.fields.copy()
+        self.fields.update(obj.get("fields", {}))
+
         if len(self.params_prefix) < len(self.params):
             self.params_prefix.extend([''] * (len(self.params) - len(self.params_prefix)))
 
@@ -128,6 +133,16 @@ class Test():
 
     def print(self):
         print(_TEST_FUNCTION_HEADER.format(self.definition()))
+
+        if self.fields:
+            for arg, val in self.fields.items():
+                print("    dev->{} = {};".format(arg, val))
+
+        if self.setup_hook:
+            # Setup hook is an array of C commands that need to be executed
+            # prior to setting up the wrapper and running the tests
+            for hook in self.setup_hook:
+                print("    {}".format(hook))
 
         if self.output:
             print("    expect_function_calls(__wrap_libusb_control_transfer, {});".format(len(self.output)))
@@ -157,7 +172,8 @@ class TestGroup():
         """Load test cases from an object"""
         self.name = name
         self.function = obj["function"]
-        self.setup_hook = obj.get("setup_hook")
+        self.fields = obj.get("fields", {})
+        self.setup_hook = obj.get("setup_hook", [])
         self.params_prefix = obj.get("params_prefix", [])
         self.tests = []
         for test in obj["tests"]:
