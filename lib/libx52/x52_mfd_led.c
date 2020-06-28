@@ -116,19 +116,21 @@ static int x52pro_set_led_state(libx52_device *x52, libx52_led_id led, libx52_le
 
 int libx52_set_led_state(libx52_device *x52, libx52_led_id led, libx52_led_state state)
 {
+    int rc;
     if (!x52) {
         return LIBX52_ERROR_INVALID_PARAM;
     }
 
-    if (tst_bit(&x52->flags, X52_FLAG_IS_PRO)) {
+    rc = libx52_check_feature(x52, LIBX52_FEATURE_LED);
+    if (rc == LIBX52_SUCCESS) {
         return x52pro_set_led_state(x52, led, state);
     }
 
     /*
-     * For now, we only support setting the LEDs on the X52 Pro model.
+     * The non-Pro X52 does not support setting individual LED states.
      * Calling this API on a non-Pro model will return a not supported error.
      */
-    return LIBX52_ERROR_NOT_SUPPORTED;
+    return rc;
 }
 
 int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness)

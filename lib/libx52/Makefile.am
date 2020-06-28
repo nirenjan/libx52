@@ -31,25 +31,28 @@ x52include_HEADERS = libx52.h
 # pkg-config files
 pkgconfig_DATA = libx52.pc
 
-check_PROGRAMS = test_offset test_led test_blink_shift
-
-test_offset_SOURCES = test_offset.c test_common.c
-test_offset_CFLAGS = @LIBUSB_CFLAGS@
-test_offset_LDADD = libx52.la
-
-test_led_SOURCES = test_led.c test_common.c
-test_led_CFLAGS = @LIBUSB_CFLAGS@
-test_led_LDADD = libx52.la
-
-test_blink_shift_SOURCES = test_blink_shift.c test_common.c
-test_blink_shift_CFLAGS = @LIBUSB_CFLAGS@
-test_blink_shift_LDADD = libx52.la
-
+if HAVE_CMOCKA
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
-TESTS = test_offset test_led test_blink_shift
+TESTS = libx52test
+check_PROGRAMS = libx52test
+
+nodist_libx52test_SOURCES = test_libx52.c
+libx52test_SOURCES = $(libx52_la_SOURCES)
+libx52test_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir)
+libx52test_CFLAGS += -Dlibusb_control_transfer=__wrap_libusb_control_transfer
+libx52test_LDFLAGS = @CMOCKA_LIBS@ @LIBUSB_LIBS@
+libx52test_LDADD = libx52.la
+
+CLEANFILES = test_libx52.c
+test_libx52.c: $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json
+	$(AM_V_GEN) $(PYTHON) $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json > $@
+endif
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = libx52.h x52_commands.h x52_common.h test_common.h README.md
+EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
+
+# Add test files to the distribution
+EXTRA_DIST += x52_test_gen.py x52_tests.json
 
 # Add documentation files to the distribution
 EXTRA_DIST += \
