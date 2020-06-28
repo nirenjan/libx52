@@ -42,9 +42,9 @@ addons:
         - libusb
         - gettext
 
-# Ensure that gettext is available on OSX
+# Ensure that build dependencies are available on OSX
 before_script:
-    - if [ "$TRAVIS_OS_NAME" = osx ]; then brew install libusb gettext ; fi
+    - if [ "$TRAVIS_OS_NAME" = osx ]; then brew install libusb gettext cmocka ; fi
 
 # Enable parallel make
 env:
