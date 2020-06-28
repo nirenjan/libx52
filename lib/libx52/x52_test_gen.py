@@ -161,9 +161,7 @@ class Test():
             print(_TEST_FUNCTION_FOOTER_NORMAL);
 
 _TEST_GROUP_HEADER = "const struct CMUnitTest tests[] = {"
-_TEST_GROUP_FOOTER = """};
-
-"""
+_TEST_GROUP_FOOTER = "};"
 
 class TestGroup():
     """Test group class, contains multiple tests"""
@@ -186,17 +184,6 @@ class TestGroup():
         """Print the test group"""
         for test in self.tests:
             test.print()
-
-_MAIN_HEADER = """
-int main(void)
-{
-    cmocka_set_message_output(CM_OUTPUT_TAP);
-
-"""
-_MAIN_FOOTER = """
-    return 0;
-}
-"""
 
 _MAIN = """
 int main(void)
