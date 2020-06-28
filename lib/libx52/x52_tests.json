@@ -1962,6 +1962,18 @@
             {"params": ["3", "-1440"], "output": [["00c2", "0400"]]},
             {"params": ["3", "-1441"], "retval": "OUT_OF_RANGE"}
         ]
+    },
+    "Date_Format": {
+        "function": "libx52_set_date_format",
+        "params_prefix": ["LIBX52_DATE_FORMAT_"],
+        "setup_hook": [
+            "libx52_set_date(dev, 1, 2, 3);"
+        ],
+        "tests": [
+            {"params": ["DDMMYY"], "output": [["00c4", "0201"], ["00c8", "0003"]]},
+            {"params": ["MMDDYY"], "output": [["00c4", "0102"], ["00c8", "0003"]]},
+            {"params": ["YYMMDD"], "output": [["00c4", "0203"], ["00c8", "0001"]]}
+        ]
     }
 }
 
