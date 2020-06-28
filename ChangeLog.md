@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+
+## [0.2.1] - 2020-06-28
 ### Added
 - Connect/Disconnect methods in libx52. These allow for dynamically connecting
   or disconnecting from a supported joystick without having to reinitialize the
@@ -13,9 +15,12 @@ The format is based upon [Keep a Changelog].
     * libx52
     * x52test
 - Doxygen generation of HTML documentation for libx52 methods.
+- Tests for libx52 that run on all supported platforms.
 
 ### Changed
 - libx52_init no longer fails when a supported joystick is not connected.
+- Tests now use [TAP].
+- Python build scripts now use Python 3.
 
 ### Fixed
 - Error reporting in x52cli and x52test commands.
@@ -97,7 +102,9 @@ The format is based upon [Keep a Changelog].
 
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
-[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.0...HEAD
+[TAP]: https://testanything.org
+[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.0...v0.1.1
