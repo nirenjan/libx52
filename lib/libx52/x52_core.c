@@ -18,6 +18,11 @@
 #include "x52_common.h"
 #include "gettext.h"
 
+#define VENDOR_SAITEK 0x06a3
+#define X52_PROD_X52PRO 0x0762
+#define X52_PROD_X52_1  0x0255
+#define X52_PROD_X52_2  0x075C
+
 /* Check if the USB device is supported by this library */
 static int libx52_check_product(uint16_t idVendor, uint16_t idProduct)
 {
@@ -96,7 +101,6 @@ int libx52_connect(libx52_device *dev)
                 }
 
                 dev->hdl = hdl;
-                dev->pid = desc.idProduct;
 
                 if (libx52_device_is_x52pro(desc.idProduct)) {
                     set_bit(&(dev->flags), X52_FLAG_IS_PRO);
