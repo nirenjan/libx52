@@ -37,14 +37,17 @@ addons:
         - autopoint
         - faketime
         - libcmocka-dev
+        - libhidapi-dev
     homebrew:
         packages:
         - libusb
         - gettext
+        - cmocka
+        - hidapi
 
 # Ensure that build dependencies are available on OSX
 before_script:
-    - if [ "$TRAVIS_OS_NAME" = osx ]; then brew install libusb gettext cmocka ; fi
+    - if [ "$TRAVIS_OS_NAME" = osx ]; then brew install libusb gettext cmocka hidapi; fi
 
 # Enable parallel make
 env:
