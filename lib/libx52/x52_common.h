@@ -14,6 +14,11 @@
 #include <libusb.h>
 #include "libx52.h"
 
+#define VENDOR_SAITEK 0x06a3
+#define X52_PROD_X52PRO 0x0762
+#define X52_PROD_X52_1  0x0255
+#define X52_PROD_X52_2  0x075C
+
 /*
  * The X52 MFD supports the following:
  *  - 3 lines of 16 characters each
@@ -33,6 +38,7 @@ struct x52_mfd_line {
 struct libx52_device {
     libusb_context *ctx;
     libusb_device_handle *hdl;
+    uint16_t pid;
 
     uint32_t update_mask;
     uint32_t flags;
