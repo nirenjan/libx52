@@ -34,6 +34,7 @@ See the documentation for the following files for a complete list of all
 functions.
 
 - libx52.h
+- libx52io.h
 - libx52util.h
 
 */

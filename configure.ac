@@ -47,7 +47,10 @@ AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
 # Check for hidapi. This uses a different pkg-config file on Linux vs other
 # hosts, so check accordingly
 AM_COND_IF([LINUX], [hidapi_backend=hidapi-hidraw], [hidapi_backend=hidapi])
-AX_PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}], [], [have_hidapi=yes], [have_hidapi=no])
+AX_PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
+AC_SUBST([HIDAPI_CFLAGS])
+AC_SUBST([HIDAPI_LDFLAGS])
+AC_SUBST([HIDAPI_LIBS])
 
 # Check for pthreads
 ACX_PTHREAD
@@ -102,6 +105,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     lib/libx52/libx52.pc
     lib/libusbx52/Makefile
     lib/libx52util/Makefile
+    lib/libx52io/Makefile
     udev/Makefile
     utils/Makefile
     utils/cli/Makefile
