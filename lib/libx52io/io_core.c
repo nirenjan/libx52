@@ -84,7 +84,7 @@ int libx52io_open(libx52io_context *ctx)
             }
 
             ctx->pid = cur_dev->product_id;
-            /* _x52io_set_axis_range(ctx); */
+            _x52io_set_axis_range(ctx);
             /* _x52io_set_report_parser(ctx); */
 
             break;

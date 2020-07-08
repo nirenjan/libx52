@@ -19,7 +19,6 @@ typedef int (*x52_parse_report)(unsigned char *data, int length);
 struct libx52io_context {
     hid_device *handle;
 
-    int32_t axis_min[LIBX52IO_AXIS_MAX];
     int32_t axis_max[LIBX52IO_AXIS_MAX];
 
     int16_t pid;
