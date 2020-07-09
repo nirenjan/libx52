@@ -44,7 +44,7 @@ int libx52io_get_axis_range(libx52io_context *ctx,
         return LIBX52IO_ERROR_INVALID;
     }
 
-    if (axis < 0 || axis >= LIBX52IO_AXIS_MAX) {
+    if (!(axis >= LIBX52IO_AXIS_X && axis < LIBX52IO_AXIS_MAX)) {
         return LIBX52IO_ERROR_INVALID;
     }
 
