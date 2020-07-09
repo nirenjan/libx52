@@ -224,6 +224,15 @@ typedef enum {
     /** Select button, X52 Pro only */
     LIBX52IO_BTN_SELECT,
 
+    /** Mode 1 - reported as a button */
+    LIBX52IO_BTN_MODE_1,
+
+    /** Mode 2 - reported as a button */
+    LIBX52IO_BTN_MODE_2,
+
+    /** Mode 3 - reported as a button */
+    LIBX52IO_BTN_MODE_3,
+
     LIBX52IO_BUTTON_MAX
 } libx52io_button;
 
@@ -234,7 +243,7 @@ typedef enum {
  */
 struct libx52io_report {
     /** Axis values */
-    int32_t axis_value[LIBX52IO_AXIS_MAX];
+    int32_t axis[LIBX52IO_AXIS_MAX];
 
     /** Button values, true is pressed */
     bool button[LIBX52IO_BUTTON_MAX];

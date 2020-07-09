@@ -14,7 +14,7 @@
 #include "hidapi.h"
 
 // Function handler for parsing reports
-typedef int (*x52_parse_report)(unsigned char *data, int length);
+typedef int (*x52_parse_report)(unsigned char *data, int length, libx52io_report *report);
 
 struct libx52io_context {
     hid_device *handle;
