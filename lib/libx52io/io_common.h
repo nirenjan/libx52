@@ -27,5 +27,7 @@ struct libx52io_context {
 
 void _x52io_set_axis_range(libx52io_context *ctx);
 void _x52io_set_report_parser(libx52io_context *ctx);
+int _x52io_parse_report(libx52io_context *ctx, libx52io_report *report,
+                        unsigned char *data, int length);
 
 #endif // !defined IO_COMMON_H

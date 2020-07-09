@@ -74,8 +74,8 @@ typedef enum {
     /** Read error from device */
     LIBX52IO_ERROR_IO,
 
-    /** Other (unknown) error */
-    LIBX52_ERROR_UNKNOWN
+    /** Timeout during read from device */
+    LIBX52IO_ERROR_TIMEOUT,
 } libx52io_error_code;
 
 /**
@@ -336,7 +336,28 @@ int libx52io_close(libx52io_context *ctx);
  * @brief Read and parse a HID report
  *
  * This function reads and parses a HID report from a connected joystick. This
- * function will block until some data is available from the joystick.
+ * function will block until some data is available from the joystick, or the
+ * timeout is hit, whichever is first.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ * @param[out]  report  Pointer to save the decoded HID report
+ * @param[in]   timeout Timeout value in milliseconds
+ *
+ * @returns
+ * - \ref LIBX52IO_SUCCESS on read and parse success
+ * - \ref LIBX52IO_ERROR_INVALID if the context or report pointers are not valid
+ * - \ref LIBX52IO_ERROR_NO_DEVICE if the device is disconnected
+ * - \ref LIBX52IO_ERROR_IO if there was an error reading from the device,
+ *   including if the device was disconnected during the read.
+ * - \ref LIBX52IO_ERROR_TIMEOUT if no report was read before timeout.
+ */
+int libx52io_read_timeout(libx52io_context *ctx, libx52io_report *report, int timeout);
+
+/**
+ * @brief Read and parse a HID report
+ *
+ * This behaves the same as \ref libx52io_read_timeout with a timeout of \c -1.
+ * This function will block until some data is available from the joystick.
  *
  * @param[in]   ctx     Pointer to the device context
  * @param[out]  report  Pointer to save the decoded HID report
@@ -345,6 +366,8 @@ int libx52io_close(libx52io_context *ctx);
  * - \ref LIBX52IO_SUCCESS on read and parse success
  * - \ref LIBX52IO_ERROR_INVALID if the context or report pointers are not valid
  * - \ref LIBX52IO_ERROR_NO_DEVICE if the device is disconnected
+ * - \ref LIBX52IO_ERROR_IO if there was an error reading from the device,
+ *   including if the device was disconnected during the read.
  */
 int libx52io_read(libx52io_context *ctx, libx52io_report *report);
 

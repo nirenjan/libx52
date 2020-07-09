@@ -118,7 +118,7 @@ static int parse_x52(unsigned char *data, int length, libx52io_report *report)
     };
 
     if (length != 14) {
-        return 1;
+        return LIBX52IO_ERROR_IO;
     }
 
     axis = (data[3] << 24) |
@@ -133,7 +133,7 @@ static int parse_x52(unsigned char *data, int length, libx52io_report *report)
 
     map_buttons(data, button_map, report);
 
-    return 0;
+    return LIBX52IO_SUCCESS;
 }
 
 static int parse_x52pro(unsigned char *data, int length, libx52io_report *report)
@@ -196,7 +196,7 @@ static int parse_x52pro(unsigned char *data, int length, libx52io_report *report
     };
 
     if (length != 15) {
-        return 1;
+        return LIBX52IO_ERROR_IO;
     }
 
     axis = (data[3] << 24) |
@@ -211,7 +211,7 @@ static int parse_x52pro(unsigned char *data, int length, libx52io_report *report
 
     map_buttons(data, button_map, report);
 
-    return 0;
+    return LIBX52IO_SUCCESS;
 }
 
 void _x52io_set_report_parser(libx52io_context *ctx)
@@ -228,4 +228,42 @@ void _x52io_set_report_parser(libx52io_context *ctx)
     default:
         break;
     }
+}
+
+int _x52io_parse_report(libx52io_context *ctx, libx52io_report *report,
+                        unsigned char *data, int length)
+{
+    if (ctx->parser == NULL) {
+        return LIBX52IO_ERROR_NO_DEVICE;
+    }
+
+    return (ctx->parser)(data, length, report);
+}
+
+int libx52io_read(libx52io_context *ctx, libx52io_report *report)
+{
+    return libx52io_read_timeout(ctx, report, -1);
+}
+
+int libx52io_read_timeout(libx52io_context *ctx, libx52io_report *report, int timeout)
+{
+    int rc;
+    unsigned char data[16];
+
+    if (ctx == NULL || report == NULL) {
+        return LIBX52IO_ERROR_INVALID;
+    }
+
+    if (ctx->handle == NULL) {
+        return LIBX52IO_ERROR_NO_DEVICE;
+    }
+
+    rc = hid_read_timeout(ctx->handle, data, sizeof(data), timeout);
+    if (rc == 0) {
+        return LIBX52IO_ERROR_TIMEOUT;
+    } else if (rc < 0) {
+        return LIBX52IO_ERROR_IO;
+    }
+
+    return _x52io_parse_report(ctx, report, data, rc);
 }
