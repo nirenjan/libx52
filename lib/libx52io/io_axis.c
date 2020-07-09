@@ -8,6 +8,7 @@
 
 #include <string.h>
 #include "io_common.h"
+#include "usb-ids.h"
 
 static const int32_t x52_axis_max[] = {
     2047, 2047, 1023, 255, 255, 255, 255, 15, 15
@@ -20,12 +21,12 @@ static const int32_t x52pro_axis_max[] = {
 void _x52io_set_axis_range(libx52io_context *ctx)
 {
     switch (ctx->pid) {
-    case 0x0255:
-    case 0x075c:
+    case X52_PROD_X52_1:
+    case X52_PROD_X52_2:
         memcpy(ctx->axis_max, x52_axis_max, sizeof(ctx->axis_max));
         break;
 
-    case 0x0762:
+    case X52_PROD_X52PRO:
         memcpy(ctx->axis_max, x52pro_axis_max, sizeof(ctx->axis_max));
         break;
 

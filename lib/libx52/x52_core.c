@@ -13,15 +13,11 @@
 #include <errno.h>
 #include <string.h>
 
+#include "usb-ids.h"
 #include "libx52.h"
 #include "x52_commands.h"
 #include "x52_common.h"
 #include "gettext.h"
-
-#define VENDOR_SAITEK 0x06a3
-#define X52_PROD_X52PRO 0x0762
-#define X52_PROD_X52_1  0x0255
-#define X52_PROD_X52_2  0x075C
 
 /* Check if the USB device is supported by this library */
 static int libx52_check_product(uint16_t idVendor, uint16_t idProduct)

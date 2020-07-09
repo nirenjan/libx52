@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "io_common.h"
+#include "usb-ids.h"
 
 int libx52io_init(libx52io_context **ctx)
 {
@@ -70,13 +71,13 @@ int libx52io_open(libx52io_context *ctx)
     libx52io_close(ctx);
 
     /* Enumerate all Saitek HID devices */
-    devs = hid_enumerate(0x06a3, 0);
+    devs = hid_enumerate(VENDOR_SAITEK, 0);
     cur_dev = devs;
     while (cur_dev) {
         switch (cur_dev->product_id) {
-        case 0x0255:
-        case 0x075c:
-        case 0x0762:
+        case X52_PROD_X52_1:
+        case X52_PROD_X52_2:
+        case X52_PROD_X52PRO:
             ctx->handle = hid_open_path(cur_dev->path);
             if (ctx->handle == NULL) {
                 rc = LIBX52IO_ERROR_CONN;

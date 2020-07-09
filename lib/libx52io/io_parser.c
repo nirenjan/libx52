@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include "io_common.h"
+#include "usb-ids.h"
 
 static void map_axis(unsigned char *data, int thumb_pos, libx52io_report *report)
 {
@@ -216,13 +217,14 @@ static int parse_x52pro(unsigned char *data, int length, libx52io_report *report
 void _x52io_set_report_parser(libx52io_context *ctx)
 {
     switch (ctx->pid) {
-    case 0x0255:
-    case 0x075c:
+    case X52_PROD_X52_1:
+    case X52_PROD_X52_2:
         ctx->parser = parse_x52;
         break;
 
-    case 0x0762:
+    case X52_PROD_X52PRO:
         ctx->parser = parse_x52pro;
+
     default:
         break;
     }
