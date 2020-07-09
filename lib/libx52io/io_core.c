@@ -52,8 +52,8 @@ int libx52io_close(libx52io_context *ctx)
 
     if (ctx->handle != NULL) {
         hid_close(ctx->handle);
-        memset(ctx, 0, sizeof(*ctx));
     }
+    memset(ctx, 0, sizeof(*ctx));
 
     return LIBX52IO_SUCCESS;
 }

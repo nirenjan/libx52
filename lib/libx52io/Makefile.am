@@ -28,5 +28,15 @@ x52include_HEADERS = libx52io.h
 # pkg-config files
 # pkgconfig_DATA = libx52io.pc
 
+if HAVE_CMOCKA
+LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
+TESTS = test-axis
+check_PROGRAMS = $(TESTS)
+
+test_axis_SOURCES = test_axis.c $(libx52io_la_SOURCES)
+test_axis_CFLAGS = $(libx52io_la_CFLAGS)
+test_axis_LDFLAGS = @CMOCKA_LIBS@ @HIDAPI_LIBS@ $(WARN_LDFLAGS)
+endif
+
 # Extra files that need to be in the distribution
 EXTRA_DIST = libx52io.h io_common.h
