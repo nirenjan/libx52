@@ -21,8 +21,8 @@ static void map_axis(unsigned char *data, int thumb_pos, libx52io_report *report
     report->axis[LIBX52IO_AXIS_RX] = data[5];
     report->axis[LIBX52IO_AXIS_RY] = data[6];
     report->axis[LIBX52IO_AXIS_SLIDER] = data[7];
-    report->axis[LIBX52IO_AXIS_THUMBX] = data[thumb_pos] >> 4;
-    report->axis[LIBX52IO_AXIS_THUMBY] = data[thumb_pos] & 0xf;
+    report->axis[LIBX52IO_AXIS_THUMBX] = data[thumb_pos] & 0xf;
+    report->axis[LIBX52IO_AXIS_THUMBY] = data[thumb_pos] >> 4;
 }
 
 static void map_buttons(unsigned char *data, const int *button_map, libx52io_report *report)
@@ -74,7 +74,7 @@ static int parse_x52(unsigned char *data, int length, libx52io_report *report)
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * | Buttons 7-0   | Buttons 15-8  | Buttons 23-16 | Buttons 31-24 |
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     * |  Hat  |///|Btn| MouseX| MouseY|
+     * |  Hat  |///|Btn| MouseY| MouseX|
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      */
     uint32_t axis;
@@ -147,8 +147,8 @@ static int parse_x52pro(unsigned char *data, int length, libx52io_report *report
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      * | Buttons 7-0   | Buttons 15-8  | Buttons 23-16 | Buttons 31-24 |
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     * |/| Btns 38-32  |  Hat  |///////| MouseX| MouseY|
-     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     * |/| Btns 38-32  |  Hat  |///////| MouseY| MouseX|
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      */
     uint32_t axis;
 
@@ -195,7 +195,7 @@ static int parse_x52pro(unsigned char *data, int length, libx52io_report *report
         -1
     };
 
-    if (length != 14) {
+    if (length != 15) {
         return 1;
     }
 

@@ -106,5 +106,5 @@ A report would look like the following:
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     | Buttons 7-0   | Buttons 15-8  | Buttons 23-16 | Buttons 31-24 |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |  Hat  |///|Btn| MouseX| MouseY|
+    |  Hat  |///|Btn| MouseY| MouseX|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
