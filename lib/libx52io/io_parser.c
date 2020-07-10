@@ -265,5 +265,6 @@ int libx52io_read_timeout(libx52io_context *ctx, libx52io_report *report, int ti
         return LIBX52IO_ERROR_IO;
     }
 
+    // rc > 0
     return _x52io_parse_report(ctx, report, data, rc);
 }
