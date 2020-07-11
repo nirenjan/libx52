@@ -36,10 +36,12 @@ check_PROGRAMS = $(TESTS)
 test_axis_SOURCES = test_axis.c $(libx52io_la_SOURCES)
 test_axis_CFLAGS = $(libx52io_la_CFLAGS)
 test_axis_LDFLAGS = @CMOCKA_LIBS@ @HIDAPI_LIBS@ $(WARN_LDFLAGS)
+test_axis_LDADD = @LTLIBINTL@
 
 test_parser_SOURCES = test_parser.c $(libx52io_la_SOURCES)
 test_parser_CFLAGS = $(libx52io_la_CFLAGS)
 test_parser_LDFLAGS = @CMOCKA_LIBS@ @HIDAPI_LIBS@ $(WARN_LDFLAGS)
+test_parser_LDADD = @LTLIBINTL@
 endif
 
 # Extra files that need to be in the distribution
