@@ -58,29 +58,33 @@ static int group_teardown(void **state)
 
 /* List of test cases - list the axis and the corresponding maximum for that axis */
 #define TEST_CASES \
-    TEST_X52(X, 2047) \
-    TEST_X52(Y, 2047) \
-    TEST_X52(RZ, 1023) \
-    TEST_X52(Z, 255) \
-    TEST_X52(RX, 255) \
-    TEST_X52(RY, 255) \
-    TEST_X52(SLIDER, 255) \
-    TEST_X52(THUMBX, 15) \
-    TEST_X52(THUMBY, 15) \
-    TEST_PRO(X, 1023) \
-    TEST_PRO(Y, 1023) \
-    TEST_PRO(RZ, 1023) \
-    TEST_PRO(Z, 255) \
-    TEST_PRO(RX, 255) \
-    TEST_PRO(RY, 255) \
-    TEST_PRO(SLIDER, 255) \
-    TEST_PRO(THUMBX, 15) \
-    TEST_PRO(THUMBY, 15)
+    TEST_X52(X, 0, 2047) \
+    TEST_X52(Y, 0, 2047) \
+    TEST_X52(RZ, 0, 1023) \
+    TEST_X52(Z, 0, 255) \
+    TEST_X52(RX, 0, 255) \
+    TEST_X52(RY, 0, 255) \
+    TEST_X52(SLIDER, 0, 255) \
+    TEST_X52(THUMBX, 0, 15) \
+    TEST_X52(THUMBY, 0, 15) \
+    TEST_X52(HATX, -1, 1) \
+    TEST_X52(HATY, -1, 1) \
+    TEST_PRO(X, 0, 1023) \
+    TEST_PRO(Y, 0, 1023) \
+    TEST_PRO(RZ, 0, 1023) \
+    TEST_PRO(Z, 0, 255) \
+    TEST_PRO(RX, 0, 255) \
+    TEST_PRO(RY, 0, 255) \
+    TEST_PRO(SLIDER, 0, 255) \
+    TEST_PRO(THUMBX, 0, 15) \
+    TEST_PRO(THUMBY, 0, 15) \
+    TEST_PRO(HATX, -1, 1) \
+    TEST_PRO(HATY, -1, 1)
 
-#define TEST_X52(axis, max) TEST(_1, axis, max) TEST(_2, axis, max)
-#define TEST_PRO(axis, max) TEST(PRO, axis, max)
+#define TEST_X52(axis, min, max) TEST(_1, axis, min, max) TEST(_2, axis, min, max)
+#define TEST_PRO(axis, min, max) TEST(PRO, axis, min, max)
 
-#define TEST(prodid, axis, maxval) \
+#define TEST(prodid, axis, minval, maxval) \
     static void axis ## _ ## prodid (void **state) \
     { \
         libx52io_context *ctx = *state; \
@@ -90,7 +94,7 @@ static int group_teardown(void **state)
         _x52io_set_axis_range(ctx); \
         rc = libx52io_get_axis_range(ctx, LIBX52IO_AXIS_ ## axis, &min, &max); \
         assert_int_equal(rc, LIBX52IO_SUCCESS); \
-        assert_int_equal(min, 0); \
+        assert_int_equal(min, minval); \
         assert_int_equal(max, maxval); \
     }
 
@@ -123,7 +127,7 @@ static void test_error_case(void **state)
     assert_int_equal(rc, LIBX52IO_ERROR_NO_DEVICE);
 }
 
-#define TEST(prodid, axis, maxval) cmocka_unit_test_setup_teardown(axis ## _ ## prodid, test_setup, test_teardown),
+#define TEST(prodid, axis, minval, maxval) cmocka_unit_test_setup_teardown(axis ## _ ## prodid, test_setup, test_teardown),
 
 const struct CMUnitTest tests[] = {
     cmocka_unit_test_setup_teardown(test_error_case, test_setup, test_teardown),

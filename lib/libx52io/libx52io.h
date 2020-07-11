@@ -109,6 +109,12 @@ typedef enum {
     /** Thumbstick Y */
     LIBX52IO_AXIS_THUMBY,
 
+    /** Hat X */
+    LIBX52IO_AXIS_HATX,
+
+    /** Hat Y */
+    LIBX52IO_AXIS_HATY,
+
     LIBX52IO_AXIS_MAX
 } libx52io_axis;
 

@@ -10,12 +10,16 @@
 #include "io_common.h"
 #include "usb-ids.h"
 
+static const int32_t axis_min[] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
+};
+
 static const int32_t x52_axis_max[] = {
-    2047, 2047, 1023, 255, 255, 255, 255, 15, 15
+    2047, 2047, 1023, 255, 255, 255, 255, 15, 15, 1, 1
 };
 
 static const int32_t x52pro_axis_max[] = {
-    1023, 1023, 1023, 255, 255, 255, 255, 15, 15
+    1023, 1023, 1023, 255, 255, 255, 255, 15, 15, 1, 1
 };
 
 void _x52io_set_axis_range(libx52io_context *ctx)
@@ -23,10 +27,12 @@ void _x52io_set_axis_range(libx52io_context *ctx)
     switch (ctx->pid) {
     case X52_PROD_X52_1:
     case X52_PROD_X52_2:
+        memcpy(ctx->axis_min, axis_min, sizeof(ctx->axis_min));
         memcpy(ctx->axis_max, x52_axis_max, sizeof(ctx->axis_max));
         break;
 
     case X52_PROD_X52PRO:
+        memcpy(ctx->axis_min, axis_min, sizeof(ctx->axis_min));
         memcpy(ctx->axis_max, x52pro_axis_max, sizeof(ctx->axis_max));
         break;
 
@@ -52,11 +58,7 @@ int libx52io_get_axis_range(libx52io_context *ctx,
         return LIBX52IO_ERROR_NO_DEVICE;
     }
 
-    /*
-     * All axis ranges start at 0, only the max value changes between
-     * X52 and X52Pro
-     */
-    *min = 0;
+    *min = ctx->axis_min[axis];
     *max = ctx->axis_max[axis];
 
     return LIBX52IO_SUCCESS;
