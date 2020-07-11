@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-07-10 17:55-0700\n"
+"POT-Creation-Date: 2020-07-11 00:17-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,6 +108,15 @@ msgstr ""
 
 #: lib/libx52io/io_strings.c:122
 msgid "Read timeout"
+msgstr ""
+
+#: utils/evtest/ev_test.c:88
+msgid "Testing (interrupt to exit)\n"
+msgstr ""
+
+#: utils/evtest/ev_test.c:117 utils/evtest/ev_test.c:123
+#, c-format
+msgid "Event @ %ld.%09lu: %s, value %d\n"
 msgstr ""
 
 #: utils/test/x52_test.c:97

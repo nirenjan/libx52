@@ -3,6 +3,8 @@ lib/libx52/x52_strerror.c
 
 lib/libx52io/io_strings.c
 
+utils/evtest/ev_test.c
+
 utils/test/x52_test.c
 utils/test/x52_test_clock.c
 utils/test/x52_test_common.h
