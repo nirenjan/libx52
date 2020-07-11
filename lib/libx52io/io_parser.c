@@ -10,6 +10,35 @@
 #include "io_common.h"
 #include "usb-ids.h"
 
+static void map_hat(uint8_t hat, libx52io_report *report)
+{
+    /*
+     * Hat reports values from 0-8, but just to account for any spurious
+     * values, leave the remaining 7 entries blank.
+     *
+     * Pushing the hat North reports 1, and it increases to 2 for NE, 3 for
+     * East, 4 for SE and so on in a clockwise fashion until it hits 8 for NW.
+     *
+     * According to the USB spec, Y axis increases as it is pulled from front
+     * to back, i.e., further from the user to closer to the user, and X axis
+     * increases left to right. Therefore NE is X=+1, Y=-1.
+     */
+    static const int32_t hat_to_axis[16][2] = {
+        {0, 0},
+        {0, -1},
+        {1, -1},
+        {1, 0},
+        {1, 1},
+        {0, 1},
+        {-1, 1},
+        {-1, 0},
+        {-1, -1},
+    };
+
+    report->axis[LIBX52IO_AXIS_HATX] = hat_to_axis[hat][0];
+    report->axis[LIBX52IO_AXIS_HATY] = hat_to_axis[hat][1];
+}
+
 static void map_axis(unsigned char *data, int thumb_pos, libx52io_report *report)
 {
     /*
@@ -23,6 +52,13 @@ static void map_axis(unsigned char *data, int thumb_pos, libx52io_report *report
     report->axis[LIBX52IO_AXIS_SLIDER] = data[7];
     report->axis[LIBX52IO_AXIS_THUMBX] = data[thumb_pos] & 0xf;
     report->axis[LIBX52IO_AXIS_THUMBY] = data[thumb_pos] >> 4;
+
+    /*
+     * The hat report is in the upper 4 bits of the byte preceding the
+     * thumbstick report. Use that to map to the axis values
+     */
+    report->hat = data[thumb_pos-1] >> 4;
+    map_hat(report->hat, report);
 }
 
 static void map_buttons(unsigned char *data, const int *button_map, libx52io_report *report)
@@ -42,7 +78,7 @@ static void map_buttons(unsigned char *data, const int *button_map, libx52io_rep
 
     for (i = 0; button_map[i] != -1; i++) {
         int btn = button_map[i];
-        report->button[btn] = !!(buttons & (1 << i));
+        report->button[btn] = !!(buttons & ((uint64_t)1 << i));
     }
 
     if (report->button[LIBX52IO_BTN_MODE_1]) {

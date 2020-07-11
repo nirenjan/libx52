@@ -69,7 +69,7 @@ int libx52io_close(libx52io_context *ctx)
 int libx52io_open(libx52io_context *ctx)
 {
     struct hid_device_info *devs, *cur_dev;
-    int rc = LIBX52IO_SUCCESS;
+    int rc = LIBX52IO_ERROR_NO_DEVICE;
 
     if (ctx == NULL) {
         return LIBX52IO_ERROR_INVALID;
