@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-07-11 00:17-0700\n"
-"PO-Revision-Date: 2020-07-11 00:19-0700\n"
+"POT-Creation-Date: 2020-07-11 10:41-0700\n"
+"PO-Revision-Date: 2020-07-11 10:45-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -114,10 +114,10 @@ msgstr "Eadray imeouttay"
 msgid "Testing (interrupt to exit)\n"
 msgstr "Estingtay (interruptay otay exitay)\n"
 
-#: utils/evtest/ev_test.c:117 utils/evtest/ev_test.c:123
+#: utils/evtest/ev_test.c:117 utils/evtest/ev_test.c:124
 #, c-format
-msgid "Event @ %ld.%09lu: %s, value %d\n"
-msgstr "Eventay @ %ld.%09lu: %s, aluevay %d\n"
+msgid "Event @ %ld.%06ld: %s, value %d\n"
+msgstr "Eventay @ %ld.%06ld: %s, aluevay %d\n"
 
 #: utils/test/x52_test.c:97
 msgid "Test brightness scale (~ 1m)"

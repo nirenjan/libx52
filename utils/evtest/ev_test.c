@@ -114,13 +114,15 @@ int main(int argc, char **argv)
         puts("");
         for (int axis = 0; axis < LIBX52IO_AXIS_MAX; axis++) {
             if (last.axis[axis] != curr.axis[axis]) {
-                printf(_("Event @ %ld.%09lu: %s, value %d\n"), tv.tv_sec, tv.tv_usec,
+                printf(_("Event @ %ld.%06ld: %s, value %d\n"),
+                    (long int)tv.tv_sec, (long int)tv.tv_usec,
                     libx52io_axis_to_str(axis), curr.axis[axis]);
             }
         }
         for (int btn = 0; btn < LIBX52IO_BUTTON_MAX; btn++) {
             if (last.button[btn] != curr.button[btn]) {
-                printf(_("Event @ %ld.%09lu: %s, value %d\n"), tv.tv_sec, tv.tv_usec,
+                printf(_("Event @ %ld.%06ld: %s, value %d\n"),
+                    (long int)tv.tv_sec, (long int)tv.tv_usec,
                     libx52io_button_to_str(btn), curr.button[btn]);
             }
         }
