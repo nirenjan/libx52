@@ -395,6 +395,36 @@ int libx52io_read(libx52io_context *ctx, libx52io_report *report);
  * - \ref LIBX52IO_ERROR_NO_DEVICE if the device is disconnected
  */
 int libx52io_get_axis_range(libx52io_context *ctx, libx52io_axis axis, int32_t *min, int32_t *max);
+
+/**
+ * @brief Get the string representation of an error code
+ *
+ * @param[in]   code    Return code from one of the libx52io APIs
+ *
+ * @returns String representation of the error. This pointer must not be freed.
+ */
+const char * libx52io_strerror(libx52io_error_code code);
+
+/**
+ * @brief Get the string representation of an axis.
+ *
+ * @param[in]   axis    Axis ID - see \ref libx52io_axis
+ *
+ * @returns String representation of the axis. This pointer must not be freed.
+ * If axis is outside the defined range, then this returns NULL.
+ */
+const char * libx52io_axis_to_str(libx52io_axis axis);
+
+/**
+ * @brief Get the string representation of a button.
+ *
+ * @param[in]   button  Button ID - see \ref libx52io_button
+ *
+ * @returns String representation of the button. This pointer must not be freed.
+ * If button is outside the defined range, then this returns NULL.
+ */
+const char * libx52io_button_to_str(libx52io_button button);
+
 /** @} */
 
 #ifdef __cplusplus

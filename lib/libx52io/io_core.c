@@ -6,10 +6,12 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
+#include "config.h"
 #include <stdlib.h>
 #include <string.h>
 #include "io_common.h"
 #include "usb-ids.h"
+#include "gettext.h"
 
 int libx52io_init(libx52io_context **ctx)
 {
@@ -30,6 +32,12 @@ int libx52io_init(libx52io_context **ctx)
     }
 
     *ctx = tmp;
+
+    #if ENABLE_NLS
+    /* Setup the gettext utilities */
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    #endif
+
     return LIBX52IO_SUCCESS;
 }
 
