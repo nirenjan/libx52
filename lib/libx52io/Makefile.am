@@ -13,7 +13,7 @@ lib_LTLIBRARIES = libx52io.la
 libx52io_v_CUR=0
 libx52io_v_AGE=0
 libx52io_v_REV=0
-libx52io_la_SOURCES = io_core.c io_axis.c io_parser.c io_strings.c
+libx52io_la_SOURCES = io_core.c io_axis.c io_parser.c io_strings.c io_device.c
 libx52io_la_CFLAGS = @HIDAPI_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir) $(WARN_CFLAGS)
 libx52io_la_LDFLAGS = \
 	-export-symbols-regex '^libx52io_' \

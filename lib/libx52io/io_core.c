@@ -61,7 +61,7 @@ int libx52io_close(libx52io_context *ctx)
     if (ctx->handle != NULL) {
         hid_close(ctx->handle);
     }
-    memset(ctx, 0, sizeof(*ctx));
+    _x52io_release_device_info(ctx);
 
     return LIBX52IO_SUCCESS;
 }
@@ -92,9 +92,7 @@ int libx52io_open(libx52io_context *ctx)
                 goto finally;
             }
 
-            ctx->pid = cur_dev->product_id;
-            _x52io_set_axis_range(ctx);
-            _x52io_set_report_parser(ctx);
+            _x52io_save_device_info(ctx, cur_dev);
 
             rc = LIBX52IO_SUCCESS;
             goto finally;
