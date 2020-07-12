@@ -425,6 +425,72 @@ const char * libx52io_axis_to_str(libx52io_axis axis);
  */
 const char * libx52io_button_to_str(libx52io_button button);
 
+/**
+ * @brief Get the vendor ID of the connected X52 device.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ *
+ * @returns Vendor ID of the connected device. Returns 0 if no device is connected.
+ */
+uint16_t libx52io_get_vendor_id(libx52io_context *ctx);
+
+/**
+ * @brief Get the product ID of the connected X52 device.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ *
+ * @returns Product ID of the connected device. Returns 0 if no device is connected.
+ */
+uint16_t libx52io_get_product_id(libx52io_context *ctx);
+
+/**
+ * @brief Get the device version of the connected X52 device.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ *
+ * @returns Device version of the connected device. Returns 0 if no device is connected.
+ */
+uint16_t libx52io_get_device_version(libx52io_context *ctx);
+
+/**
+ * @brief Get the manufacturer string of the connected X52 device.
+ *
+ * Returns a pointer to a string which can be passed to \c printf or \c puts.
+ * This pointer must not be freed.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ *
+ * @returns Pointer to the manufacturer string, which may be NULL. Return value
+ * is always NULL if no device is connected.
+ */
+const char * libx52io_get_manufacturer_string(libx52io_context *ctx);
+
+/**
+ * @brief Get the product string of the connected X52 device.
+ *
+ * Returns a pointer to a string which can be passed to \c printf or \c puts.
+ * This pointer must not be freed.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ *
+ * @returns Pointer to the product string, which may be NULL. Return value
+ * is always NULL if no device is connected.
+ */
+const char * libx52io_get_product_string(libx52io_context *ctx);
+
+/**
+ * @brief Get the serial number of the connected X52 device.
+ *
+ * Returns a pointer to a string which can be passed to \c printf or \c puts.
+ * This pointer must not be freed.
+ *
+ * @param[in]   ctx     Pointer to the device context
+ *
+ * @returns Pointer to the serial number string, which may be NULL. Return value
+ * is always NULL if no device is connected.
+ */
+const char * libx52io_get_serial_number_string(libx52io_context *ctx);
+
 /** @} */
 
 #ifdef __cplusplus

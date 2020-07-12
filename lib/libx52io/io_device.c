@@ -85,3 +85,34 @@ void _x52io_release_device_info(libx52io_context *ctx)
     ctx->parser = NULL;
     ctx->handle = NULL;
 }
+
+uint16_t libx52io_get_vendor_id(libx52io_context *ctx)
+{
+    return (ctx ? ctx->vid : 0);
+}
+
+uint16_t libx52io_get_product_id(libx52io_context *ctx)
+{
+    return (ctx ? ctx->pid : 0);
+}
+
+uint16_t libx52io_get_device_version(libx52io_context *ctx)
+{
+    return (ctx ? ctx->version : 0);
+}
+
+const char * libx52io_get_manufacturer_string(libx52io_context *ctx)
+{
+    return (ctx ? ctx->manufacturer : NULL);
+}
+
+const char * libx52io_get_product_string(libx52io_context *ctx)
+{
+    return (ctx ? ctx->product : NULL);
+}
+
+const char * libx52io_get_serial_number_string(libx52io_context *ctx)
+{
+    return (ctx ? ctx->serial_number : NULL);
+}
+
