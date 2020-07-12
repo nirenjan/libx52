@@ -84,7 +84,15 @@ int main(int argc, char **argv)
     signal(SIGTERM, signal_handler);
     signal(SIGINT, signal_handler);
 
-    /* TODO: Print the driver version and the connected device */
+    /* Print the driver version and the connected device */
+    printf(_("Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"),
+           libx52io_get_vendor_id(ctx),
+           libx52io_get_product_id(ctx),
+           libx52io_get_device_version(ctx));
+    printf(_("Device name: \"%s %s\"\n"),
+           libx52io_get_manufacturer_string(ctx),
+           libx52io_get_product_string(ctx));
+    printf(_("Serial number: \"%s\"\n"), libx52io_get_serial_number_string(ctx));
     puts(_("Testing (interrupt to exit)\n"));
 
     /* Wait until we get an event */
