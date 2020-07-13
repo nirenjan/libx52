@@ -1,7 +1,7 @@
 Saitek X52Pro joystick driver for Linux
 =======================================
 
-[![Build Status](https://www.travis-ci.org/nirenjan/x52pro-linux.svg?branch=master)](https://www.travis-ci.org/nirenjan/x52pro-linux)
+[![Build Status](https://www.travis-ci.org/nirenjan/x52pro-linux.svg?branch=master)](https://www.travis-ci.org/nirenjan/x52pro-linux) [![Join the chat at https://gitter.im/x52pro-linux/community](https://badges.gitter.im/x52pro-linux/community.svg)](https://gitter.im/x52pro-linux/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This project adds a new driver for the Saitek/MadCatz X52 Pro flight
 control system. The X52 pro is a HOTAS (hand on throttle and stick)
