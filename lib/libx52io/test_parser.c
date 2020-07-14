@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include <setjmp.h>
 #include <cmocka.h>
+#include <string.h>
 
 #include "io_common.h"
 #include "usb-ids.h"
@@ -79,10 +80,14 @@ static void test_error_pro(void **state) {
     assert_int_equal(rc, LIBX52IO_ERROR_IO);
 }
 
+#include "test_parser_tests.c"
+
+#define TEST_LIST
 const struct CMUnitTest tests[] = {
     cmocka_unit_test_setup_teardown(test_error_x52, TEST_SETUP(_1), test_teardown),
     cmocka_unit_test_setup_teardown(test_error_x52, TEST_SETUP(_2), test_teardown),
     cmocka_unit_test_setup_teardown(test_error_pro, TEST_SETUP(PRO), test_teardown),
+    #include "test_parser_tests.c"
 };
 
 int main(void)

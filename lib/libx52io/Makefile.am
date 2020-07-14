@@ -42,7 +42,10 @@ test_parser_SOURCES = test_parser.c $(libx52io_la_SOURCES)
 test_parser_CFLAGS = $(libx52io_la_CFLAGS)
 test_parser_LDFLAGS = @CMOCKA_LIBS@ @HIDAPI_LIBS@ $(WARN_LDFLAGS)
 test_parser_LDADD = @LTLIBINTL@
+
+# Add a dependency on test_parser_tests.c
+test_parser.c: test_parser_tests.c
 endif
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = libx52io.h io_common.h
+EXTRA_DIST = libx52io.h io_common.h test_parser_tests.c
