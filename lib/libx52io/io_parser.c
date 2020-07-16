@@ -148,8 +148,8 @@ static int parse_x52(unsigned char *data, int length, libx52io_report *report)
         B(CLUTCH),
         B(MOUSE_PRIMARY),
         B(MOUSE_SECONDARY),
-        B(MOUSE_SCROLL_UP),
         B(MOUSE_SCROLL_DN),
+        B(MOUSE_SCROLL_UP),
         -1
     };
 
