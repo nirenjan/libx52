@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+### Added
+- IO library to read and parse events from a supported joystick.
+- Event test utility which displays the events similar to evtest.
 
 ## [0.2.1] - 2020-06-28
 ### Added
