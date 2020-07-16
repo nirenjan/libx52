@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-06-12 23:15-0700\n"
-"PO-Revision-Date: 2020-05-22 13:25-0700\n"
+"POT-Creation-Date: 2020-07-16 04:24-0700\n"
+"PO-Revision-Date: 2020-07-13 18:05-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: lib/libx52/x52_strerror.c:25
+#: lib/libx52/x52_strerror.c:25 lib/libx52io/io_strings.c:104
 msgid "Success"
 msgstr "Uccesssay"
 
-#: lib/libx52/x52_strerror.c:28
+#: lib/libx52/x52_strerror.c:28 lib/libx52io/io_strings.c:107
 msgid "Initialization failure"
 msgstr "Initializationay ailurefay"
 
@@ -85,10 +85,54 @@ msgstr "Ipepay erroray"
 msgid "System call interrupted"
 msgstr "Ystemsay allcay interrupteday"
 
-#: lib/libx52/x52_strerror.c:77
+#: lib/libx52/x52_strerror.c:77 lib/libx52io/io_strings.c:125
 #, c-format
 msgid "Unknown error %d"
 msgstr "Unknownay erroray %d"
+
+#: lib/libx52io/io_strings.c:110
+msgid "No device"
+msgstr "Onay eviceday"
+
+#: lib/libx52io/io_strings.c:113
+msgid "Invalid arguments"
+msgstr "Invaliday argumentsay"
+
+#: lib/libx52io/io_strings.c:116
+msgid "Connection failure"
+msgstr "Onnectioncay ailurefay"
+
+#: lib/libx52io/io_strings.c:119
+msgid "I/O error"
+msgstr "I/O erroray"
+
+#: lib/libx52io/io_strings.c:122
+msgid "Read timeout"
+msgstr "Eadray imeouttay"
+
+#: utils/evtest/ev_test.c:109
+#, c-format
+msgid "Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"
+msgstr "Eviceday IDay: endorvay 0x%04x oductpray 0x%04x ersionvay 0x%04x\n"
+
+#: utils/evtest/ev_test.c:113
+#, c-format
+msgid "Device name: \"%s %s\"\n"
+msgstr "Eviceday amenay: \"%s %s\"\n"
+
+#: utils/evtest/ev_test.c:116
+#, c-format
+msgid "Serial number: \"%s\"\n"
+msgstr "Erialsay umbernay: \"%s\"\n"
+
+#: utils/evtest/ev_test.c:117
+msgid "Testing (interrupt to exit)\n"
+msgstr "Estingtay (interruptay otay exitay)\n"
+
+#: utils/evtest/ev_test.c:157 utils/evtest/ev_test.c:165
+#, c-format
+msgid "Event @ %ld.%06ld: %s, value %d\n"
+msgstr "Eventay @ %ld.%06ld: %s, aluevay %d\n"
 
 #: utils/test/x52_test.c:97
 msgid "Test brightness scale (~ 1m)"

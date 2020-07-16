@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	README.md \
 	config.rpath \
 	gettext.h \
+	usb-ids.h \
 	po/README.md
 
 # Doxygen support

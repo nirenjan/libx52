@@ -17,6 +17,7 @@ Build has been tested on the following operating systems (x86-64 only):
 * autoconf
 * autopoint
 * gettext
+* hidapi
 * libtool
 * libusb-1.0 + headers
 * pkg-config
@@ -26,8 +27,8 @@ Build has been tested on the following operating systems (x86-64 only):
 
 | Platform | Install instructions |
 | -------- | -------------------- |
-| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libtool libusb-1.0-0-dev pkg-config python3` |
-| MacOS + Homebrew  | `brew install automake autoconf gettext libtool libusb pkg-config python3` |
+| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libtool libusb-1.0-0-dev pkg-config python3` |
+| MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3` |
 
 ## Optional Packages
 

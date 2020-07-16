@@ -858,6 +858,7 @@ INPUT_ENCODING         = UTF-8
 
 FILE_PATTERNS          = \
                          libx52.h \
+                         libx52io.h \
                          libx52util.h \
                          x52_cli.c \
                          *.dox

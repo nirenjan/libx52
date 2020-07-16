@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <string.h>
 
+#include "usb-ids.h"
 #include "libx52.h"
 #include "x52_commands.h"
 #include "x52_common.h"
@@ -96,7 +97,6 @@ int libx52_connect(libx52_device *dev)
                 }
 
                 dev->hdl = hdl;
-                dev->pid = desc.idProduct;
 
                 if (libx52_device_is_x52pro(desc.idProduct)) {
                     set_bit(&(dev->flags), X52_FLAG_IS_PRO);
