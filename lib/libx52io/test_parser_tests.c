@@ -41,6 +41,9 @@
  */
 # define TEST_HAT(hat) data[sizeof(data) - 2] |= (hat << 4)
 
+/* Set the thumbstick X and Y values. This is in the last byte of the report. */
+# define TEST_THUMB(x, y) data[sizeof(data) - 1] = (y << 4 | x)
+
 /* Parse the report */
 # define TEST_PARSE() do { \
     rc = _x52io_parse_report(ctx, &report, data, sizeof(data)); \
@@ -1401,6 +1404,106 @@ TEST_CASE(pro_hat_8, PRO)
 }
 #endif
 /* }}}*/
+
+/* X52 thumbstick test cases {{{ */
+TEST_CASE(x52_thumb_0_0, _1)
+#if TEST_DEF
+{
+    TEST_INIT_X52;
+    TEST_THUMB(0, 0);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0);
+}
+#endif
+
+TEST_CASE(x52_thumb_0_f, _1)
+#if TEST_DEF
+{
+    TEST_INIT_X52;
+    TEST_THUMB(0, 0xf);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0xf);
+}
+#endif
+
+TEST_CASE(x52_thumb_f_0, _1)
+#if TEST_DEF
+{
+    TEST_INIT_X52;
+    TEST_THUMB(0xf, 0);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0xf);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0);
+}
+#endif
+
+TEST_CASE(x52_thumb_f_f, _1)
+#if TEST_DEF
+{
+    TEST_INIT_X52;
+    TEST_THUMB(0xf, 0xf);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0xf);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0xf);
+}
+#endif
+/* }}} */
+
+/* X52Pro thumbstick test cases {{{ */
+TEST_CASE(pro_thumb_0_0, PRO)
+#if TEST_DEF
+{
+    TEST_INIT_PRO;
+    TEST_THUMB(0, 0);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0);
+}
+#endif
+
+TEST_CASE(pro_thumb_0_f, PRO)
+#if TEST_DEF
+{
+    TEST_INIT_PRO;
+    TEST_THUMB(0, 0xf);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0xf);
+}
+#endif
+
+TEST_CASE(pro_thumb_f_0, PRO)
+#if TEST_DEF
+{
+    TEST_INIT_PRO;
+    TEST_THUMB(0xf, 0);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0xf);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0);
+}
+#endif
+
+TEST_CASE(pro_thumb_f_f, PRO)
+#if TEST_DEF
+{
+    TEST_INIT_PRO;
+    TEST_THUMB(0xf, 0xf);
+    TEST_PARSE();
+
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBX], 0xf);
+    assert_int_equal(report.axis[LIBX52IO_AXIS_THUMBY], 0xf);
+}
+#endif
+/* }}} */
 
 #undef TEST_CASE
 #undef TEST_DEF
