@@ -47,12 +47,16 @@ static void signal_handler(int sig)
     exit_loop = true;
 }
 
+/* Denoising - reduce event noise due to adjacent values being reported */
+static bool denoise = true;
+
 /* For i18n */
 #define _(x) gettext(x)
 int main(int argc, char **argv)
 {
     libx52io_context *ctx;
     libx52io_report last, curr;
+    int32_t denoise_mask[LIBX52IO_AXIS_MAX] = { 0 };
     int rc;
     #define CHECK_RC() do { \
         if (rc != LIBX52IO_SUCCESS) { \
@@ -79,6 +83,23 @@ int main(int argc, char **argv)
     rc = libx52io_open(ctx);
     CHECK_RC();
 
+    /* Initialize denoising */
+    if (denoise) {
+        for (int i = LIBX52IO_AXIS_X; i < LIBX52IO_AXIS_MAX; i++) {
+            int32_t min, max;
+            rc = libx52io_get_axis_range(ctx, i, &min, &max);
+            CHECK_RC();
+
+            /*
+             * Denoising algorithm ignores the last few bits of the axis,
+             * and is based on the maximum value of the axis. The mask is
+             * ~(max >> 6) which will do nothing for the axis with a small
+             * range, but reduce the noise on those with a larger range.
+             */
+            denoise_mask[i] = ~(max >> 6);
+        }
+    }
+
     /* Set up the signal handler to terminate the loop on SIGTERM or SIGINT */
     exit_loop = false;
     signal(SIGTERM, signal_handler);
@@ -98,6 +119,7 @@ int main(int argc, char **argv)
     /* Wait until we get an event */
     while (!exit_loop) {
         struct timeval tv;
+        bool printed = false;
 
         /* Wait for 1 second before timing out */
         rc = libx52io_read_timeout(ctx, &curr, 1000);
@@ -119,12 +141,23 @@ int main(int argc, char **argv)
 
         /* Get the current timeval - we don't need a timezone */
         gettimeofday(&tv, NULL);
-        puts("");
         for (int axis = 0; axis < LIBX52IO_AXIS_MAX; axis++) {
             if (last.axis[axis] != curr.axis[axis]) {
+                /* Account for denoising */
+                if (denoise) {
+                    int32_t last_v = last.axis[axis] & denoise_mask[axis];
+                    int32_t curr_v = curr.axis[axis] & denoise_mask[axis];
+
+                    if (last_v == curr_v) {
+                        /* Within the noise threshold */
+                        continue;
+                    }
+                }
+
                 printf(_("Event @ %ld.%06ld: %s, value %d\n"),
                     (long int)tv.tv_sec, (long int)tv.tv_usec,
                     libx52io_axis_to_str(axis), curr.axis[axis]);
+                printed = true;
             }
         }
         for (int btn = 0; btn < LIBX52IO_BUTTON_MAX; btn++) {
@@ -132,7 +165,12 @@ int main(int argc, char **argv)
                 printf(_("Event @ %ld.%06ld: %s, value %d\n"),
                     (long int)tv.tv_sec, (long int)tv.tv_usec,
                     libx52io_button_to_str(btn), curr.button[btn]);
+                printed = true;
             }
+        }
+
+        if (printed) {
+            puts("");
         }
 
         memcpy(&last, &curr, sizeof(curr));

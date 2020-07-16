@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-07-13 18:02-0700\n"
+"POT-Creation-Date: 2020-07-16 04:24-0700\n"
 "PO-Revision-Date: 2020-07-13 18:05-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -110,26 +110,26 @@ msgstr "I/O erroray"
 msgid "Read timeout"
 msgstr "Eadray imeouttay"
 
-#: utils/evtest/ev_test.c:88
+#: utils/evtest/ev_test.c:109
 #, c-format
 msgid "Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"
 msgstr "Eviceday IDay: endorvay 0x%04x oductpray 0x%04x ersionvay 0x%04x\n"
 
-#: utils/evtest/ev_test.c:92
+#: utils/evtest/ev_test.c:113
 #, c-format
 msgid "Device name: \"%s %s\"\n"
 msgstr "Eviceday amenay: \"%s %s\"\n"
 
-#: utils/evtest/ev_test.c:95
+#: utils/evtest/ev_test.c:116
 #, c-format
 msgid "Serial number: \"%s\"\n"
 msgstr "Erialsay umbernay: \"%s\"\n"
 
-#: utils/evtest/ev_test.c:96
+#: utils/evtest/ev_test.c:117
 msgid "Testing (interrupt to exit)\n"
 msgstr "Estingtay (interruptay otay exitay)\n"
 
-#: utils/evtest/ev_test.c:125 utils/evtest/ev_test.c:132
+#: utils/evtest/ev_test.c:157 utils/evtest/ev_test.c:165
 #, c-format
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr "Eventay @ %ld.%06ld: %s, aluevay %d\n"
