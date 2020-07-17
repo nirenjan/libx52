@@ -17,7 +17,7 @@ libx52util_la_LDFLAGS = -version-info 1:0:0 $(WARN_LDFLAGS)
 libx52util_la_LIBADD = ../libx52/libx52.la
 
 # Header files that need to be copied
-x52includedir = $(includedir)/x52pro
+x52includedir = $(includedir)/libx52
 x52include_HEADERS = libx52util.h
 
 # Extra files that need to be in the distribution

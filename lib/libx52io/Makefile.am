@@ -22,7 +22,7 @@ libx52io_la_LDFLAGS = \
 libx52io_la_LIBADD = @LTLIBINTL@
 
 # Header files that need to be copied
-x52includedir = $(includedir)/x52pro
+x52includedir = $(includedir)/libx52
 x52include_HEADERS = libx52io.h
 
 # pkg-config files
