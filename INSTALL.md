@@ -29,6 +29,7 @@ Build has been tested on the following operating systems (x86-64 only):
 | -------- | -------------------- |
 | Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libtool libusb-1.0-0-dev pkg-config python3` |
 | MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3` |
+| Arch Linux | `pacman -S base-devel libusb hidapi python` |
 
 ## Optional Packages
 
@@ -41,6 +42,7 @@ the utilities, you will need the following packages:
 You will also need the following packages to run the unit tests:
 
 * faketime
+* cmocka
 
 # Installation Instructions
 
