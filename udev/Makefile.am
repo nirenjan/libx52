@@ -21,7 +21,7 @@ install-data-hook:
 		echo "Installing udev rules" && \
 		udevadm control --reload-rules && \
 		udevadm trigger --subsystem-match=usb --attr-match=idVendor=06a3 --action=add \
-	;fi
+	;fi ; true
 endif
 
 endif
