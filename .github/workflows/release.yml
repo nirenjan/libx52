@@ -1,0 +1,48 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: ./.github/scripts/install-dependencies-ubuntu.sh
+
+      - name: Build project
+        run: ./.github/scripts/build-and-test.sh
+
+      - name: Find release tarball
+        id: find_release
+        run: |
+          echo "::set-output name=path::$(find $PWD -name 'x52pro-linux*.tar*')"
+          echo "::set-output name=asset::$(find . -name 'x52pro-linux*.tar*' -exec basename {} \; | sed 's/x52pro-linux-\(.*\)\.tar/x52pro-linux_\1.orig.tar/')"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Tarball
+        id: upload-release-tarball
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_release.outputs.path }}
+          asset_name: ${{ steps.find_release.outputs.asset }}
+          asset_content_type: application/gzip

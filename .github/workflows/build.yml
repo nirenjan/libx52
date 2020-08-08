@@ -1,0 +1,37 @@
+name: Build/Test
+
+on:
+  push:
+    branches:
+    - '*'
+    - '!gh-pages'
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: ${{ join(matrix.*, '/') }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os == 'macos-latest' }}
+    env:
+      CC: ${{ matrix.cc }}
+
+    strategy:
+      matrix:
+        os: ['ubuntu-16.04', 'ubuntu-18.04', 'ubuntu-20.04', 'macos-latest']
+        cc: ['gcc', 'clang']
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies (Ubuntu)
+      run: ./.github/scripts/install-dependencies-ubuntu.sh
+      if: ${{ matrix.os != 'macos-latest' }}
+
+    - name: Install dependencies (MacOS)
+      run: ./.github/scripts/install-dependencies-macos.sh
+      if: ${{ matrix.os == 'macos-latest' }}
+
+    - name: Build and Test
+      run: ./.github/scripts/build-and-test.sh
