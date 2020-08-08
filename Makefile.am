@@ -43,10 +43,10 @@ clean-local:
 # Install Doxygen generated HTML documentation and manpages
 install-data-local:
 	$(INSTALL) -d $(DESTDIR)$(docdir)
-	rsync -a $(top_builddir)/docs/html $(DESTDIR)$(docdir)
+	rsync -rlp $(top_builddir)/docs/html $(DESTDIR)$(docdir)
 
 	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
-	$(INSTALL) -D docs/man/man1/x52cli.1 $(DESTDIR)$(mandir)/man1
+	$(INSTALL) docs/man/man1/x52cli.1 $(DESTDIR)$(mandir)/man1
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(docdir)
