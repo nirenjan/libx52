@@ -1,9 +1,29 @@
-Kernel driver for Saitek X52 Pro
-================================
+Kernel driver for Saitek X52 and X52 Pro
+========================================
 
-This folder contains a loadable kernel module for the Saitek X52Pro HOTAS.
-Note that the standard usbhid driver already supports this joystick as an
-input device, and the additional functionality of the LEDs and MFD can be
-handled by a userspace library.
+This folder contains a loadable kernel module for the Saitek X52 and X52 Pro
+HOTAS. This improves upon the standard `hid-generic` driver by reporting both
+the left-right and up-down motion of the thumb stick.
 
-**This module is only a proof-of-concept and not suitable for production**
+However, it changes the buttons that are reported by the joystick, and thus,
+may not be suitable for all applications.
+
+# Building
+
+This directory is deliberately not integrated with the top level Autotools
+based build framework.
+
+Install the Linux headers for the currently running kernel. On Ubuntu, this
+can be done by running `sudo apt-get install -y linux-headers-$(uname -r)`.
+
+Run `make`. This will build the module from source.
+
+# Installing the kernel module
+
+Once you have built the kernel module, run `sudo insmod saitek_x52.ko` from
+the current directory. With a recent enough kernel, the driver should switch
+automatically. Otherwise, simply disconnect and reconnect your X52.
+
+# Reporting issues
+
+Please report any issues seen as a [Github issue](https://github.com/nirenjan/x52pro-linux/issues).

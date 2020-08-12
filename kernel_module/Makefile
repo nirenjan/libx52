@@ -1,5 +1,5 @@
 obj-m := saitek_x52.o
-saitek_x52-objs := x52joy.o x52joy_commands.o x52joy_input.o
+saitek_x52-objs := hid-saitek-x52.o
 
 KDIR := /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)

@@ -1,7 +1,7 @@
 # Compiled object files
 *.ko
 *.o
-*.mod.*
+*.mod*
 
 # Generated objects (source, executables, tarballs, etc.)
 a.out
