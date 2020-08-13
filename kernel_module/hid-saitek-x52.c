@@ -187,31 +187,6 @@ static int x52_input_mapping(struct hid_device *dev,
     return -1;
 }
 
-static int x52_probe(struct hid_device *dev, const struct hid_device_id *id)
-{
-    int ret;
-
-    hid_set_drvdata(dev, NULL);
-    ret = hid_parse(dev);
-    if (ret != 0) {
-        hid_err(dev, "parse failed\n");
-        return ret;
-    }
-
-    ret = hid_hw_start(dev, HID_CONNECT_DEFAULT);
-    if (ret != 0) {
-        hid_err(dev, "hw start failed\n");
-        return ret;
-    }
-
-    return 0;
-}
-
-static void x52_remove(struct hid_device *dev)
-{
-    hid_hw_stop(dev);
-}
-
 static const struct hid_device_id x52_devices[] = {
     { HID_USB_DEVICE(VENDOR_SAITEK, DEV_X52_1) },
     { HID_USB_DEVICE(VENDOR_SAITEK, DEV_X52_2) },
@@ -224,8 +199,6 @@ MODULE_DEVICE_TABLE(hid, x52_devices);
 static struct hid_driver x52_driver = {
     .name = "saitek-x52",
     .id_table = x52_devices,
-    .probe = x52_probe,
-    .remove = x52_remove,
     .input_mapping = x52_input_mapping,
     .input_configured = x52_input_configured,
     .raw_event = x52_raw_event,
