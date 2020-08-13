@@ -5,6 +5,8 @@ on:
     branches:
     - '*'
     - '!gh-pages'
+    paths-ignore:
+    - 'kernel_module/**'
   pull_request:
     branches: [ master ]
 

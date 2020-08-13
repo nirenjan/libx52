@@ -2,6 +2,7 @@ Saitek X52Pro joystick driver for Linux
 =======================================
 
 ![Build/Test](https://github.com/nirenjan/x52pro-linux/workflows/Build/Test/badge.svg)
+![Kernel Module](https://github.com/nirenjan/x52pro-linux/workflows/Kernel%20Module/badge.svg)
 ![CodeQL](https://github.com/nirenjan/x52pro-linux/workflows/CodeQL/badge.svg)
 [![Join the chat at https://gitter.im/x52pro-linux/community](https://badges.gitter.im/x52pro-linux/community.svg)](https://gitter.im/x52pro-linux/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
