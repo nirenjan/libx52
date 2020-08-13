@@ -52,8 +52,8 @@ static void _parse_axis_report(struct input_dev *input_dev,
     input_report_abs(input_dev, ABS_RZ, ((axis >> 22) & 0x3ff));
     input_report_abs(input_dev, ABS_Z, data[4]);
     input_report_abs(input_dev, ABS_RX, data[5]);
-    input_report_abs(input_dev, ABS_RY, data[5]);
-    input_report_abs(input_dev, ABS_MISC, data[6]);
+    input_report_abs(input_dev, ABS_RY, data[6]);
+    input_report_abs(input_dev, ABS_MISC, data[7]);
 
     /* Mouse stick is always the last byte of the report */
     input_report_abs(input_dev, ABS_TILT_X, data[len-1] & 0xf);
