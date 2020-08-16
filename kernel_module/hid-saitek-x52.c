@@ -64,17 +64,152 @@ static void _parse_axis_report(struct input_dev *input_dev,
     input_report_abs(input_dev, ABS_HAT0Y, hat_to_axis[hat][1]);
 }
 
+/**********************************************************************
+ * Mapping buttons
+ * ===============
+ *
+ * The X52 and X52 Pro report the buttons in different orders. In order
+ * to let a userspace application handle them in a generic fashion, we
+ * define a map for buttons to BTN_* defines, so that one button (eg. clutch)
+ * will send the same ID on both X52 and X52 Pro
+ *
+ * The map is defined below.
+ **********************************************************************
+ */
+#define X52_TRIGGER_1       BTN_TRIGGER_HAPPY1
+#define X52_TRIGGER_2       BTN_TRIGGER_HAPPY2
+#define X52_BTN_FIRE        BTN_TRIGGER_HAPPY3
+#define X52_BTN_A           BTN_TRIGGER_HAPPY4
+#define X52_BTN_B           BTN_TRIGGER_HAPPY5
+#define X52_BTN_C           BTN_TRIGGER_HAPPY6
+#define X52_BTN_D           BTN_TRIGGER_HAPPY7
+#define X52_BTN_E           BTN_TRIGGER_HAPPY8
+#define X52_BTN_PINKIE      BTN_TRIGGER_HAPPY9
+#define X52_BTN_T1_UP       BTN_TRIGGER_HAPPY10
+#define X52_BTN_T1_DN       BTN_TRIGGER_HAPPY11
+#define X52_BTN_T2_UP       BTN_TRIGGER_HAPPY12
+#define X52_BTN_T2_DN       BTN_TRIGGER_HAPPY13
+#define X52_BTN_T3_UP       BTN_TRIGGER_HAPPY14
+#define X52_BTN_T3_DN       BTN_TRIGGER_HAPPY15
+#define X52_BTN_CLUTCH      BTN_TRIGGER_HAPPY16
+#define X52_MOUSE_LEFT      BTN_TRIGGER_HAPPY17
+#define X52_MOUSE_RIGHT     BTN_TRIGGER_HAPPY18
+#define X52_MOUSE_FORWARD   BTN_TRIGGER_HAPPY19
+#define X52_MOUSE_BACKWARD  BTN_TRIGGER_HAPPY20
+#define X52_STICK_POV_N     BTN_TRIGGER_HAPPY21
+#define X52_STICK_POV_E     BTN_TRIGGER_HAPPY22
+#define X52_STICK_POV_S     BTN_TRIGGER_HAPPY23
+#define X52_STICK_POV_W     BTN_TRIGGER_HAPPY24
+#define X52_THROT_POV_N     BTN_TRIGGER_HAPPY25
+#define X52_THROT_POV_E     BTN_TRIGGER_HAPPY26
+#define X52_THROT_POV_S     BTN_TRIGGER_HAPPY27
+#define X52_THROT_POV_W     BTN_TRIGGER_HAPPY28
+#define X52_MODE_1          BTN_TRIGGER_HAPPY29
+#define X52_MODE_2          BTN_TRIGGER_HAPPY30
+#define X52_MODE_3          BTN_TRIGGER_HAPPY31
+#define X52_BTN_FUNCTION    BTN_TRIGGER_HAPPY32
+#define X52_BTN_START_STOP  BTN_TRIGGER_HAPPY33
+#define X52_BTN_RESET       BTN_TRIGGER_HAPPY34
+#define X52_BTN_PG_UP       BTN_TRIGGER_HAPPY35
+#define X52_BTN_PG_DN       BTN_TRIGGER_HAPPY36
+#define X52_BTN_UP          BTN_TRIGGER_HAPPY37
+#define X52_BTN_DN          BTN_TRIGGER_HAPPY38
+#define X52_BTN_MFD_SELECT  BTN_TRIGGER_HAPPY39
+
 static void _parse_button_report(struct input_dev *input_dev,
-                                 u8 *data, int num_buttons)
+                                 int is_pro, u8 *data, int num_buttons)
 {
     int i;
     int idx;
     int btn;
 
+    // Map X52 buttons from report to fixed button ID
+    // This should be defined in the order provided in the report.
+    static const int x52_buttons[] = {
+        X52_TRIGGER_1,
+        X52_BTN_FIRE,
+        X52_BTN_A,
+        X52_BTN_B,
+        X52_BTN_C,
+        X52_BTN_PINKIE,
+        X52_BTN_D,
+        X52_BTN_E,
+        X52_BTN_T1_UP,
+        X52_BTN_T1_DN,
+        X52_BTN_T2_UP,
+        X52_BTN_T2_DN,
+        X52_BTN_T3_UP,
+        X52_BTN_T3_DN,
+        X52_TRIGGER_2,
+        X52_STICK_POV_N,
+        X52_STICK_POV_E,
+        X52_STICK_POV_S,
+        X52_STICK_POV_W,
+        X52_THROT_POV_N,
+        X52_THROT_POV_E,
+        X52_THROT_POV_S,
+        X52_THROT_POV_W,
+        X52_MODE_1,
+        X52_MODE_2,
+        X52_MODE_3,
+        X52_BTN_FUNCTION,
+        X52_BTN_START_STOP,
+        X52_BTN_RESET,
+        X52_BTN_CLUTCH,
+        X52_MOUSE_LEFT,
+        X52_MOUSE_RIGHT,
+        X52_MOUSE_FORWARD,
+        X52_MOUSE_BACKWARD,
+    };
+
+    static const int pro_buttons[] = {
+        X52_TRIGGER_1,
+        X52_BTN_FIRE,
+        X52_BTN_A,
+        X52_BTN_B,
+        X52_BTN_C,
+        X52_BTN_PINKIE,
+        X52_BTN_D,
+        X52_BTN_E,
+        X52_BTN_T1_UP,
+        X52_BTN_T1_DN,
+        X52_BTN_T2_UP,
+        X52_BTN_T2_DN,
+        X52_BTN_T3_UP,
+        X52_BTN_T3_DN,
+        X52_TRIGGER_2,
+        X52_MOUSE_LEFT,
+        X52_MOUSE_FORWARD,
+        X52_MOUSE_BACKWARD,
+        X52_MOUSE_RIGHT,
+        X52_STICK_POV_N,
+        X52_STICK_POV_E,
+        X52_STICK_POV_S,
+        X52_STICK_POV_W,
+        X52_THROT_POV_N,
+        X52_THROT_POV_E,
+        X52_THROT_POV_S,
+        X52_THROT_POV_W,
+        X52_MODE_1,
+        X52_MODE_2,
+        X52_MODE_3,
+        X52_BTN_CLUTCH,
+        X52_BTN_FUNCTION,
+        X52_BTN_START_STOP,
+        X52_BTN_RESET,
+        X52_BTN_PG_UP,
+        X52_BTN_PG_DN,
+        X52_BTN_UP,
+        X52_BTN_DN,
+        X52_BTN_MFD_SELECT,
+    };
+
+    const int *btn_map = is_pro ? pro_buttons : x52_buttons ;
+
     for (i = 0; i < num_buttons; i++) {
         idx = 8 + (i / BITS_PER_BYTE);
         btn = !!(data[idx] & (1 << (i % BITS_PER_BYTE)));
-        input_report_key(input_dev, BTN_TRIGGER_HAPPY + i, btn);
+        input_report_key(input_dev, btn_map[i], btn);
     }
 }
 
@@ -86,7 +221,7 @@ static int _parse_x52_report(struct input_dev *input_dev,
     }
 
     _parse_axis_report(input_dev, 0, data, len);
-    _parse_button_report(input_dev, data, 34);
+    _parse_button_report(input_dev, 0, data, 34);
     return 0;
 }
 
@@ -98,7 +233,7 @@ static int _parse_x52pro_report(struct input_dev *input_dev,
     }
 
     _parse_axis_report(input_dev, 1, data, len);
-    _parse_button_report(input_dev, data, 39);
+    _parse_button_report(input_dev, 1, data, 39);
     return 0;
 }
 
