@@ -52,7 +52,7 @@ You will also need the following packages to run the unit tests:
 ```
 ./configure \
     --prefix=/usr \
-    --with-udevrulesdir=$(pkg-config --variable=udevdir)/rules.d
+    --with-udevrulesdir=$(pkg-config --variable=udevdir udev)/rules.d
 make && sudo make install
 ```
 
