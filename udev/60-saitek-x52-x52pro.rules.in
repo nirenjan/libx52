@@ -1,0 +1,17 @@
+# udev rules to give members of "@input_group@" users permissions to:
+# - write to the X52/X52pro using libx52
+# - read from the hidraw interface
+ACTION!="add", GOTO="x52_rules_end"
+
+# X52Pro flight control system
+SUBSYSTEM=="usb", ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="0762", MODE="0664", GROUP="@input_group@"
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="0762", MODE="0640", GROUP="@input_group@"
+
+# X52 flight control system
+SUBSYSTEM=="usb", ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="0255", MODE="0664", GROUP="@input_group@"
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="0255", MODE="0640", GROUP="@input_group@"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="075c", MODE="0664", GROUP="@input_group@"
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="06a3", ATTRS{idProduct}=="075c", MODE="0640", GROUP="@input_group@"
+
+LABEL="x52_rules_end"
+

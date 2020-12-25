@@ -56,3 +56,23 @@ You will also need the following packages to run the unit tests:
 make && sudo make install
 ```
 
+## Configuration options
+
+### udev
+
+The configuration system should automatically detect the udev rules directory,
+but you can override it by using the following argument to `configure`:
+
+```
+--with-udevrulesdir=/path/to/udev/rules.d
+```
+
+### Input group
+
+The udev rules that are installed provide read/write access to members of the
+input devices group. This defaults to `plugdev`, but can be modified using
+the following argument to `configure`:
+
+```
+--with-input-group=group
+```

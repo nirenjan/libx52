@@ -74,6 +74,12 @@ AC_ARG_WITH([udevrulesdir],
     [udevrulesdir=$($PKG_CONFIG --variable=udevdir udev)"/rules.d"])
 AC_SUBST([udevrulesdir], [$udevrulesdir])
 
+AC_ARG_WITH([input-group],
+    AS_HELP_STRING([--with-input-group=GROUP], [Group allowed to access input devices]),
+    [input_group=$withval],
+    [input_group=plugdev])
+AC_SUBST([input_group], [$input_group])
+
 # Doxygen Support
 AC_CHECK_PROGS([DOXYGEN], [doxygen])
 AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
@@ -107,6 +113,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     lib/libx52util/Makefile
     lib/libx52io/Makefile
     udev/Makefile
+    udev/60-saitek-x52-x52pro.rules
     utils/Makefile
     utils/cli/Makefile
     utils/test/Makefile
