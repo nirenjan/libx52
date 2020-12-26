@@ -9,6 +9,18 @@ The format is based upon [Keep a Changelog].
 - IO library to read and parse events from a supported joystick.
 - Event test utility which displays the events similar to evtest.
 
+### Changed
+- Linux kernel driver to correctly handle the X52/X52 Pro. This is not required
+  for users running kernels with at least the following versions:
+  - 5.9+
+  - 5.8.10+
+  - 5.4.66+
+  - 4.19.146+
+- Make udev rules customizable at build time, so that the right input group can
+  be used in the actual rules file. This allows systems such as openSUSE which
+  use `input` as the group for input devices to behave the same as Ubuntu and
+  other similar systems.
+
 ## [0.2.1] - 2020-06-28
 ### Added
 - Connect/Disconnect methods in libx52. These allow for dynamically connecting
