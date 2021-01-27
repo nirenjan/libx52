@@ -20,7 +20,7 @@ the individual folders for README information.
 
 **Note:** This repository currently only provides commandline interfaces to
 control the MFD and LEDs. If you are not comfortable working in the commandline,
-then the [gx52](https://gitlab.com/999eagle/gx52) project might be a better fit
+then the [gx52](https://gitlab.com/leinardi/gx52) project might be a better fit
 for your needs as it provides a graphical interface to control the MFD and LEDs.
 
 # Building and installing
