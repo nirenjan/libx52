@@ -27,7 +27,7 @@ Build has been tested on the following operating systems (x86-64 only):
 
 | Platform | Install instructions |
 | -------- | -------------------- |
-| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libtool libusb-1.0-0-dev pkg-config python3` |
+| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libtool libusb-1.0-0-dev pkg-config python3 git` |
 | MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3` |
 | Arch Linux | `pacman -S base-devel libusb hidapi python` |
 
@@ -54,6 +54,13 @@ You will also need the following packages to run the unit tests:
     --prefix=/usr \
     --with-udevrulesdir=$(pkg-config --variable=udevdir udev)/rules.d
 make && sudo make install
+```
+
+
+## One lign installer
+
+```
+cd /opt/ ; sudo git clone https://github.com/nirenjan/x52pro-linux x52pro-linux ; cd ./x52pro-linux/ ; sudo bash autogen.sh ; sudo ./configure     --prefix=/usr     --with-udevrulesdir=$(pkg-config --variable=udevdir udev)/rules.d
 ```
 
 ## Configuration options
