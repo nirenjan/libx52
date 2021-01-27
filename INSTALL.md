@@ -50,9 +50,7 @@ You will also need the following packages to run the unit tests:
 2. Run autogen.sh
 3. Run the following commands:
 ```
-./configure \
-    --prefix=/usr \
-    --with-udevrulesdir=$(pkg-config --variable=udevdir udev)/rules.d
+./configure --prefix=/usr
 make && sudo make install
 ```
 
