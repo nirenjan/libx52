@@ -119,6 +119,10 @@ LEDs do not support the \b on state, but support all the other states.
 and configure them to be in 12 hour mode. To work around this, use the \b date
 and \b time commands instead to manually configure the date and time.
 
+\note The device does not have an internal clock; as a result, the MFD
+display will not advance automatically. You must call the \b clock or \b date
+and \b time commands periodically to update the time on the device.
+
 # PERMISSIONS
 
 You must have write permissions to the USB device in order to use the \b libx52
