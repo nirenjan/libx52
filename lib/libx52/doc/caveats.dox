@@ -12,11 +12,6 @@ to libusb also apply to libx52.
 libx52 is not designed to be thread-safe. The application must ensure that
 calls to libx52 from multiple threads are protected by a semaphore/mutex.
 
-@section hotplug Hotplugging
-
-libx52 does not support hotplugging. The joystick must be plugged in prior to
-the application initializing libx52.
-
 @section leds LED Support
 
 The Saitek X52 does not support controlling the color of individual LEDs. This
