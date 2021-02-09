@@ -5,6 +5,9 @@ libx52 performs all its operations with a device context pointer. The
 application must call \ref libx52_init before performing any operation, and
 must call \ref libx52_exit prior to terminating.
 
+Also, the application must call \ref libx52_connect to ensure that it connects
+to a supported joystick. This function must be called after \ref libx52_init
+
 <b>Example Initialization/Deinitialization Code</b>
 
 @code{.c}
@@ -20,6 +23,14 @@ libx52_device* init_libx52(void)
     if (rc != LIBX52_SUCCESS) {
         fputs(libx52_strerror(rc), stderr);
         return NULL;
+    }
+
+    // Connect to the supported joystick
+    rc = libx52_connect(dev);
+    if (rc != LIBX52_SUCCESS) {
+        fputs(libx52_strerror(rc), stderr);
+        // A failure usually just means that there is no joystick connected
+        // Look at the return codes for more information.
     }
 
     return dev;
