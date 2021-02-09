@@ -38,3 +38,14 @@ jobs:
 
     - name: Build and Test
       run: ./.github/scripts/build-and-test.sh
+
+    - name: Generate Doxygen documentation
+      uses: mattnotmitt/doxygen-action@v1
+      with:
+        working-directory: './build'
+
+    - name: Deploy generated documentation to Github pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build/docs
