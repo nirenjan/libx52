@@ -68,6 +68,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>libx52 performs all its operations with a device context pointer. The application must call <a class="el" href="group__libx52init.html#gaf9ae27c6e505bce8c4415a638033a4bd">libx52_init</a> before performing any operation, and must call <a class="el" href="group__libx52init.html#ga17fe14ab3f67706b2d35c6cce3cd670b">libx52_exit</a> prior to terminating.</p>
+<p>Also, the application must call <a class="el" href="group__libx52dev.html#ga65998f1155fb093f45babfd0c2c138d9">libx52_connect</a> to ensure that it connects to a supported joystick. This function must be called after <a class="el" href="group__libx52init.html#gaf9ae27c6e505bce8c4415a638033a4bd">libx52_init</a></p>
 <p><b>Example Initialization/Deinitialization Code</b></p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="libx52_8h.html">libx52.h</a>&gt;</span></div>
 <div class="line"> </div>
@@ -81,6 +82,14 @@ $(function() {
 <div class="line">    <span class="keywordflow">if</span> (rc != <a class="code" href="group__libx52misc.html#gga93b777d9cea6e733b63c222e6115ccb7a8c4729a9500f0b9032d874ca7942b708">LIBX52_SUCCESS</a>) {</div>
 <div class="line">        fputs(<a class="code" href="group__libx52misc.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">libx52_strerror</a>(rc), stderr);</div>
 <div class="line">        <span class="keywordflow">return</span> NULL;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Connect to the supported joystick</span></div>
+<div class="line">    rc = <a class="code" href="group__libx52dev.html#ga65998f1155fb093f45babfd0c2c138d9">libx52_connect</a>(dev);</div>
+<div class="line">    <span class="keywordflow">if</span> (rc != <a class="code" href="group__libx52misc.html#gga93b777d9cea6e733b63c222e6115ccb7a8c4729a9500f0b9032d874ca7942b708">LIBX52_SUCCESS</a>) {</div>
+<div class="line">        fputs(<a class="code" href="group__libx52misc.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">libx52_strerror</a>(rc), stderr);</div>
+<div class="line">        <span class="comment">// A failure usually just means that there is no joystick connected</span></div>
+<div class="line">        <span class="comment">// Look at the return codes for more information.</span></div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> dev;</div>
@@ -108,6 +117,7 @@ Internationalization of error strings</h2>
 <div class="ttc" id="agroup__libx52mfdled_html_ga4f2b73685a4eb307895e08a02903bb39"><div class="ttname"><a href="group__libx52mfdled.html#ga4f2b73685a4eb307895e08a02903bb39">libx52_set_text</a></div><div class="ttdeci">int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t length)</div><div class="ttdoc">Set the text on an MFD line.</div></div>
 <div class="ttc" id="agroup__libx52misc_html_gaa29a1022b0c3eb4894ddfd4934c3cf0e"><div class="ttname"><a href="group__libx52misc.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">libx52_strerror</a></div><div class="ttdeci">const char * libx52_strerror(libx52_error_code error)</div><div class="ttdoc">Return a string representation of the error code.</div></div>
 <div class="ttc" id="agroup__libx52init_html_ga17fe14ab3f67706b2d35c6cce3cd670b"><div class="ttname"><a href="group__libx52init.html#ga17fe14ab3f67706b2d35c6cce3cd670b">libx52_exit</a></div><div class="ttdeci">void libx52_exit(libx52_device *dev)</div><div class="ttdoc">Exit the library and free up any resources used.</div></div>
+<div class="ttc" id="agroup__libx52dev_html_ga65998f1155fb093f45babfd0c2c138d9"><div class="ttname"><a href="group__libx52dev.html#ga65998f1155fb093f45babfd0c2c138d9">libx52_connect</a></div><div class="ttdeci">int libx52_connect(libx52_device *dev)</div><div class="ttdoc">Connect to the X52 device.</div></div>
 <div class="ttc" id="alibx52_8h_html"><div class="ttname"><a href="libx52_8h.html">libx52.h</a></div><div class="ttdoc">Functions, structures and enumerations for the Saitek X52 MFD &amp; LED driver library.</div></div>
 <div class="ttc" id="agroup__libx52misc_html_ga5d1fdbcab1b1a6cf8a10c206f8e79f73"><div class="ttname"><a href="group__libx52misc.html#ga5d1fdbcab1b1a6cf8a10c206f8e79f73">libx52_update</a></div><div class="ttdeci">int libx52_update(libx52_device *x52)</div><div class="ttdoc">Update the X52.</div></div>
 <div class="ttc" id="agroup__libx52init_html_gaca59b8d8f249fed58a0ec3253328e131"><div class="ttname"><a href="group__libx52init.html#gaca59b8d8f249fed58a0ec3253328e131">libx52_device</a></div><div class="ttdeci">struct libx52_device libx52_device</div><div class="ttdoc">Device context structure used by libx52.</div><div class="ttdef"><b>Definition:</b> libx52.h:46</div></div>

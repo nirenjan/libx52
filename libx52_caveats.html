@@ -73,9 +73,6 @@ General Caveats</h1>
 <h1><a class="anchor" id="threads"></a>
 Thread Safety</h1>
 <p>libx52 is not designed to be thread-safe. The application must ensure that calls to libx52 from multiple threads are protected by a semaphore/mutex.</p>
-<h1><a class="anchor" id="hotplug"></a>
-Hotplugging</h1>
-<p>libx52 does not support hotplugging. The joystick must be plugged in prior to the application initializing libx52.</p>
 <h1><a class="anchor" id="leds"></a>
 LED Support</h1>
 <p>The Saitek X52 does not support controlling the color of individual LEDs. This is only supported on the X52 Pro. The application can use <a class="el" href="group__libx52misc.html#ga504ed71c3e543da1436ea99465289ceb">libx52_check_feature</a> to verify support. </p>

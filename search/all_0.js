@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['caveats_0',['Caveats',['../libx52_caveats.html',1,'']]],
-  ['clock_20control_1',['Clock control',['../group__libx52clock.html',1,'']]],
-  ['command_20line_20interface_20to_20libx52_2',['Command Line Interface to libx52',['../x52cli.html',1,'']]]
+  ['axis_0',['axis',['../structlibx52io__report.html#a2edb7beb26095e02b355d3d418c44880',1,'libx52io_report']]]
 ];

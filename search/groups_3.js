@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['mfd_20_26_20led_20control_160',['MFD &amp; LED control',['../group__libx52mfdled.html',1,'']]],
-  ['miscellaneous_161',['Miscellaneous',['../group__libx52misc.html',1,'']]]
+  ['library_20initialization_20and_20deinitialization_327',['Library Initialization and Deinitialization',['../group__libx52init.html',1,'']]]
 ];

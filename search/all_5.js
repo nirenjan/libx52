@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['saitek_20x52_2fx52pro_20drivers_20for_20linux_2funix_82',['Saitek X52/X52Pro drivers for Linux/Unix',['../index.html',1,'']]]
+  ['integration_8',['Integration',['../libx52_integration.html',1,'']]],
+  ['io_20library_20apis_9',['IO Library APIs',['../group__libx52io.html',1,'']]]
 ];
