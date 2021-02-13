@@ -1,0 +1,30 @@
+name: Doxygen
+
+on:
+  push:
+    branches:
+    - 'master'
+
+jobs:
+  doxygen:
+    if: "!(contains(github.event.head_commit.message, '[doxy skip]') || contains(github.event.head_commit.message, '[skip doxy]'))"
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: ./.github/scripts/install-dependencies-ubuntu.sh
+
+    - name: Generate Doxygen documentation
+      run: ./.github/scripts/build-doxygen.sh
+
+    - name: Dump generated files
+      run: find ./build -type f -print
+
+    - name: Deploy generated documentation to Github pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build/docs/html
