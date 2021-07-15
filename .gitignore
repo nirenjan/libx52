@@ -12,6 +12,7 @@ lib/libx52util/util_char_map.c
 util/x52charmapgen*
 lib/libusbx52/x52test*
 udev/*.rules
+daemon/x52d*
 x52pro-linux-*.tar.gz
 
 # Module files

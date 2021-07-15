@@ -33,7 +33,7 @@ AM_CONDITIONAL([LINUX], [test "x${build_linux}" = "xyes"])
 
 # Internationalization
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION(0.18)
+AM_GNU_GETTEXT_VERSION(0.19)
 AM_CONDITIONAL([USE_NLS], [test "x${USE_NLS}" == "xyes"])
 
 # Check for libusb-1.0
@@ -129,6 +129,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     utils/cli/Makefile
     utils/test/Makefile
     utils/evtest/Makefile
+    daemon/Makefile
     tests/Makefile
 ])
 AC_OUTPUT

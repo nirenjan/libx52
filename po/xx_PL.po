@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-07-16 04:24-0700\n"
-"PO-Revision-Date: 2020-07-13 18:05-0700\n"
+"POT-Creation-Date: 2021-07-15 15:08-0700\n"
+"PO-Revision-Date: 2021-07-15 15:09-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: lib/libx52/x52_strerror.c:25 lib/libx52io/io_strings.c:104
 msgid "Success"
@@ -412,3 +412,63 @@ msgstr "Estingtay aracterchay 0x%02x..."
 #: utils/test/x52_test_mfd.c:96
 msgid "OK"
 msgstr "OKay"
+
+#: daemon/x52d_main.c:32
+#, c-format
+msgid "Error %d setting log file: %s\n"
+msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
+
+#: daemon/x52d_main.c:40
+#, c-format
+msgid "Usage: %s [-f] [-v] [-q] [-l log-file] [-o override] [-c config-file]\n"
+msgstr ""
+"Usageay: %s [-f] [-v] [-q] [-l oglay-ilefay] [-o overrideay] [-c onfigcay-"
+"ilefay]\n"
+
+#: daemon/x52d_main.c:101
+#, c-format
+msgid "Unable to parse configuration override '%s'\n"
+msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
+
+#: daemon/x52d_config.c:26
+#, c-format
+msgid "Error %d setting configuration defaults: %s"
+msgstr "Erroray %d ettingsay onfigurationcay efaultsday: %s"
+
+#: daemon/x52d_config_parser.c:130
+#, c-format
+msgid "Ignoring unknown key '%s.%s'"
+msgstr "Ignoringay unknownay eykay '%s.%s'"
+
+#: daemon/x52d_config_parser.c:171
+#, c-format
+msgid "Failed processing configuration file %s - code %d"
+msgstr "Ailedfay ocessingpray onfigurationcay ilefay %s - odecay %d"
+
+#: daemon/x52d_config_parser.c:201
+msgid "Failed to allocate memory for override structure"
+msgstr "Ailedfay otay allocateay emorymay orfay overrideay ucturestray"
+
+#: daemon/x52d_config_parser.c:210
+msgid "Failed to allocate memory for override string"
+msgstr "Ailedfay otay allocateay emorymay orfay overrideay ingstray"
+
+#: daemon/x52d_config_parser.c:221
+#, c-format
+msgid "No section found in override string '%s'"
+msgstr "Onay ectionsay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/x52d_config_parser.c:235
+#, c-format
+msgid "No key found in override string '%s'"
+msgstr "Onay eykay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/x52d_config_parser.c:246
+#, c-format
+msgid "No value found in override string '%s'"
+msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/x52d_config_parser.c:297
+#, c-format
+msgid "Error processing override '%s.%s=%s'"
+msgstr "Erroray ocessingpray overriday '%s.%s=%s'"

@@ -10,7 +10,7 @@ if USE_NLS
 po_SUBDIRS = po
 endif
 
-SUBDIRS = $(po_SUBDIRS) lib utils tests udev
+SUBDIRS = $(po_SUBDIRS) lib utils daemon tests udev
 
 # Extra files that need to be in the distribution
 EXTRA_DIST = \

@@ -10,3 +10,7 @@ utils/test/x52_test_clock.c
 utils/test/x52_test_common.h
 utils/test/x52_test_led.c
 utils/test/x52_test_mfd.c
+
+daemon/x52d_main.c
+daemon/x52d_config.c
+daemon/x52d_config_parser.c
