@@ -18,6 +18,8 @@ PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
 AX_COMPILER_FLAGS
 AC_CANONICAL_HOST
+AX_GCC_FUNC_ATTRIBUTE([constructor])
+AX_GCC_FUNC_ATTRIBUTE([format])
 
 AC_MSG_NOTICE([Detected host OS is ${host_os}])
 build_linux=no
@@ -40,6 +42,9 @@ AX_PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
 AC_SUBST([LIBUSB_CFLAGS])
 AC_SUBST([LIBUSB_LDFLAGS])
 AC_SUBST([LIBUSB_LIBS])
+
+# Pinelog configuration
+AC_SUBST([PINELOG_CFLAGS], [-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1])
 
 AC_SUBST([X52_PKG_VERSION], [0.1])
 AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
@@ -112,6 +117,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     lib/libusbx52/Makefile
     lib/libx52util/Makefile
     lib/libx52io/Makefile
+    lib/pinelog/Makefile
     udev/Makefile
     udev/60-saitek-x52-x52pro.rules
     utils/Makefile
