@@ -11,6 +11,7 @@ sudo apt-get install -y \
     autopoint \
     libusb-1.0-0-dev \
     libhidapi-dev \
+    libinih-dev \
     libevdev-dev \
     doxygen \
     rsync \

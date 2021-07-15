@@ -9,6 +9,7 @@ brew install \
     gettext \
     libusb \
     hidapi \
+    inih \
     doxygen \
     rsync \
     cmocka
