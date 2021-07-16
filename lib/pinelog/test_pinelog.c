@@ -66,10 +66,8 @@ static void dump_data(const char *type, size_t len, char *data)
     printf("\n");
 }
 
-static void test_setup(int level, int filter, const char *file, int line, const char *fmt, ...)
+static int test_setup(int level, int filter, const char *file, int line)
 {
-    va_list ap;
-
     expected_len = 0;
     memset(expected_output, 0, sizeof(expected_output));
 
@@ -105,14 +103,10 @@ static void test_setup(int level, int filter, const char *file, int line, const 
                                      "%s:%d ", file, line);
         }
 
-        va_start(ap, fmt);
-        expected_len += vsnprintf(&expected_output[expected_len],
-                                  sizeof(expected_output) - expected_len,
-                                  fmt, ap);
-        va_end(ap);
-        expected_output[expected_len] = '\n';
-        expected_len++;
+        return 1;
     }
+
+    return 0;
 }
 
 static void test_teardown(const char *desc)
@@ -144,8 +138,11 @@ static void verify_defaults(void)
 #define PINELOG_WARNING PINELOG_WARN
 
 #define TEST_LOG(lvl, filter, fmt, ...) do { \
-    test_setup(PINELOG_LVL_ ## lvl, PINELOG_LVL_ ## filter, \
-               __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+    if (test_setup(PINELOG_LVL_ ## lvl, PINELOG_LVL_ ## filter, \
+               __FILE__, __LINE__)) \
+       expected_len += snprintf(&expected_output[expected_len], \
+                                sizeof(expected_output) - expected_len, \
+                                fmt "\n", ##__VA_ARGS__); \
     PINELOG_ ## lvl (fmt, ##__VA_ARGS__); \
     test_teardown("Log " #lvl " filter " #filter); \
 } while(0)
