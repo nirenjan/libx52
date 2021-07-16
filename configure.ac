@@ -77,7 +77,7 @@ AC_MSG_CHECKING([final decision IS_MAKE_DISTCHECK (running "make distcheck"?)])
 AM_COND_IF([IS_MAKE_DISTCHECK], [AC_MSG_RESULT([yes])], [AC_MSG_RESULT([no])])
 
 # udev support
-AX_PKG_CHECK_MODULES([UDEV], [udev], [], [have_udev=yes], [have_udev=no])
+PKG_CHECK_MODULES([UDEV], [udev], [], [have_udev=yes], [have_udev=no])
 AM_CONDITIONAL([HAVE_UDEV], [test "x$have_udev" = xyes])
 AC_ARG_WITH([udevrulesdir],
     AS_HELP_STRING([--with-udevrulesdir=DIR], [Directory for udev rules]),
@@ -99,7 +99,7 @@ AM_COND_IF([HAVE_DOXYGEN],
     [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
 # cmocka unit tests
-AX_PKG_CHECK_MODULES([CMOCKA], [cmocka >= 1.1], [], [have_cmocka=yes], [have_cmocka=no])
+PKG_CHECK_MODULES([CMOCKA], [cmocka >= 1.1], [], [have_cmocka=yes], [have_cmocka=no])
 AM_CONDITIONAL([HAVE_CMOCKA], [test "x$have_cmocka" = xyes])
 AM_COND_IF([HAVE_CMOCKA], [],
     [AC_MSG_WARN(["cmocka not found; disabling unit test build"])])
