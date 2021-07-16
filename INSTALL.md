@@ -18,7 +18,7 @@ Build has been tested on the following operating systems (x86-64 only):
 * autopoint
 * gettext
 * hidapi
-* inih
+* [inih](https://github.com/benhoyt/inih)
 * libtool
 * libusb-1.0 + headers
 * pkg-config
@@ -29,8 +29,15 @@ Build has been tested on the following operating systems (x86-64 only):
 | Platform | Install instructions |
 | -------- | -------------------- |
 | Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libinih-dev libtool libusb-1.0-0-dev pkg-config python3` |
-| MacOS + Homebrew  | `brew install automake autoconf gettext hidapi inih libtool libusb pkg-config python3` |
-| Arch Linux | `pacman -S base-devel libusb hidapi inih python` |
+| MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb meson pkg-config python3` |
+| Arch Linux | `pacman -S base-devel libusb hidapi libinih python` |
+
+On MacOS, `inih` is not available as a Homebrew formula. You need to build and
+install it manually using the following steps:
+
+* Download and extract inih from Github
+* From the inih source directory, run `meson build`, then run `meson install -C
+  build`.
 
 ## Optional Packages
 
