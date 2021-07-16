@@ -44,7 +44,7 @@ AC_SUBST([LIBUSB_LDFLAGS])
 AC_SUBST([LIBUSB_LIBS])
 
 # Check for libinih
-AX_PKG_CHECK_MODULES([INIH], [inih])
+PKG_CHECK_MODULES([INIH], [inih])
 AC_SUBST([INIH_CFLAGS])
 AC_SUBST([INIH_LDFLAGS])
 AC_SUBST([INIH_LIBS])
@@ -57,7 +57,7 @@ AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
 # Check for hidapi. This uses a different pkg-config file on Linux vs other
 # hosts, so check accordingly
 AM_COND_IF([LINUX], [hidapi_backend=hidapi-hidraw], [hidapi_backend=hidapi])
-AX_PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
+PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
 AC_SUBST([HIDAPI_CFLAGS])
 AC_SUBST([HIDAPI_LDFLAGS])
 AC_SUBST([HIDAPI_LIBS])
