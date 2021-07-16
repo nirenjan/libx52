@@ -34,6 +34,9 @@ static void set_log_file(bool foreground, const char *log_file)
     }
 }
 
+#if HAVE_FUNC_ATTRIBUTE_NORETURN
+__attribute__((noreturn))
+#endif
 static void usage(int exit_code)
 {
     fprintf(stderr,

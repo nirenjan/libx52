@@ -20,6 +20,7 @@ AX_COMPILER_FLAGS
 AC_CANONICAL_HOST
 AX_GCC_FUNC_ATTRIBUTE([constructor])
 AX_GCC_FUNC_ATTRIBUTE([format])
+AX_GCC_FUNC_ATTRIBUTE([noreturn])
 
 AC_MSG_NOTICE([Detected host OS is ${host_os}])
 build_linux=no
