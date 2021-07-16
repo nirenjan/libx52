@@ -181,7 +181,7 @@ int main(int argc, char **argv)
 
     printf("1..%u\n", test_id);
 
-    fclose(observed_stream_w);
+    pinelog_close_output_stream();
     fclose(observed_stream_r);
     close(fifo_fd_w);
     close(fifo_fd_r);
