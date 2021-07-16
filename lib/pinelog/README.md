@@ -129,6 +129,7 @@ a Git submodule or subtree.
 The default build of Pinelog uses an autotools generated `config.h` file, which
 includes checks for the following GCC attributes. If you don't care about these,
 then either create a dummy config.h which includes the macros
-`HAVE_FUNC_ATTRIBUTE_CONSTRUCTOR` and `HAVE_FUNC_ATTRIBUTE_FORMAT`, or use the
-`AX_GCC_FUNC_ATTRIBUTE` macro to check for the `constructor` and `format`
-attributes in your application's `configure.ac` file.
+`HAVE_FUNC_ATTRIBUTE_CONSTRUCTOR`, `HAVE_FUNC_ATTRIBUTE_DESTRUCTOR` and
+`HAVE_FUNC_ATTRIBUTE_FORMAT`, or use the `AX_GCC_FUNC_ATTRIBUTE` macro to check
+for the `constructor`, `destructor` and `format` attributes in your
+application's `configure.ac` file.
