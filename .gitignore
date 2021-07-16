@@ -13,6 +13,7 @@ util/x52charmapgen*
 lib/libusbx52/x52test*
 udev/*.rules
 daemon/x52d*
+!daemon/x52d_*.*
 x52pro-linux-*.tar.gz
 
 # Module files

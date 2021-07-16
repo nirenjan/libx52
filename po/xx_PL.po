@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-15 15:08-0700\n"
+"POT-Creation-Date: 2021-07-16 00:26-0700\n"
 "PO-Revision-Date: 2021-07-15 15:09-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -413,19 +413,19 @@ msgstr "Estingtay aracterchay 0x%02x..."
 msgid "OK"
 msgstr "OKay"
 
-#: daemon/x52d_main.c:32
+#: daemon/x52d_main.c:33
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
 
-#: daemon/x52d_main.c:40
+#: daemon/x52d_main.c:44
 #, c-format
 msgid "Usage: %s [-f] [-v] [-q] [-l log-file] [-o override] [-c config-file]\n"
 msgstr ""
 "Usageay: %s [-f] [-v] [-q] [-l oglay-ilefay] [-o overrideay] [-c onfigcay-"
 "ilefay]\n"
 
-#: daemon/x52d_main.c:101
+#: daemon/x52d_main.c:105
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
@@ -472,3 +472,23 @@ msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
 #, c-format
 msgid "Error processing override '%s.%s=%s'"
 msgstr "Erroray ocessingpray overriday '%s.%s=%s'"
+
+#: daemon/x52d_device.c:45
+#, c-format
+msgid "Error %d connecting to device: %s"
+msgstr "Erroray %d onnectingcay otay eviceday: %s"
+
+#: daemon/x52d_device.c:63
+#, c-format
+msgid "Failure %d initializing libx52: %s"
+msgstr "Ailurefay %d initializeay libx52: %s"
+
+#: daemon/x52d_device.c:83
+#, c-format
+msgid "Error %d when updating X52 parameter: %s"
+msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
+
+#: daemon/x52d_device.c:145
+#, c-format
+msgid "Error %d when updating X52 device: %s"
+msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"

@@ -10,7 +10,8 @@ bin_PROGRAMS = x52d
 
 # Service daemon that manages the X52 device
 x52d_SOURCES = \
-	x52d_main.c x52d_config_parser.c x52d_config.c
+	x52d_main.c x52d_config_parser.c x52d_config.c \
+	x52d_device.c
 
 x52d_CFLAGS = \
 	-I $(top_srcdir) \
@@ -22,13 +23,17 @@ x52d_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(localstatedir)/log\" \
 	-DRUNDIR=\"$(runstatedir)\" \
-	@INIH_CFLAGS@ $(WARN_CFLAGS)
+	@INIH_CFLAGS@ @X52_INCLUDE@ $(WARN_CFLAGS)
 
 x52d_LDFLAGS = @INIH_LIBS@ $(WARN_LDFLAGS)
-x52d_LDADD = ../lib/pinelog/libpinelog.la @LTLIBINTL@
+x52d_LDADD = \
+	../lib/pinelog/libpinelog.la \
+	../lib/libx52/libx52.la \
+	@LTLIBINTL@
 
 EXTRA_DIST = \
 	x52d_config.def \
 	x52d_config.h \
 	x52d_const.h \
+	x52d_device.h \
 	x52d.conf

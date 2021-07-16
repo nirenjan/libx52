@@ -1,6 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver - Service daemon
- * * Copyright (C) 2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ *
+ * Copyright (C) 2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
