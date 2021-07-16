@@ -25,7 +25,7 @@ x52d_CFLAGS = \
 	@INIH_CFLAGS@ $(WARN_CFLAGS)
 
 x52d_LDFLAGS = @INIH_LIBS@ $(WARN_LDFLAGS)
-x52d_LDADD = ../lib/pinelog/libpinelog.la
+x52d_LDADD = ../lib/pinelog/libpinelog.la @LTLIBINTL@
 
 EXTRA_DIST = \
 	x52d_config.def \
