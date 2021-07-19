@@ -87,16 +87,25 @@ void pinelog_set_defaults(void)
     log_level = PINELOG_DEFAULT_LEVEL;
 }
 
+#if HAVE_FUNC_ATTRIBUTE_DESTRUCTOR
+__attribute__((destructor))
+#endif
+void pinelog_close_output_stream(void)
+{
+    /* If current output stream is not stdout or stderr, then close it */
+    if (output_stream != NULL && output_stream != stdout && output_stream != stderr) {
+        fclose(output_stream);
+    }
+    output_stream = PINELOG_DEFAULT_STREAM;
+}
+
 int pinelog_set_output_stream(FILE *stream)
 {
     if (stream == NULL) {
         return EINVAL;
     }
 
-    /* If current output stream is not stdout or stderr, then close it */
-    if (output_stream != stdout && output_stream != stderr) {
-        fclose(output_stream);
-    }
+    pinelog_close_output_stream();
 
     setlinebuf(stream);
     output_stream = stream;

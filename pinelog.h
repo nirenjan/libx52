@@ -62,6 +62,11 @@ enum {
  */
 void pinelog_set_defaults(void);
 
+/**
+ * @brief Close the output stream and terminate the logs
+ */
+void pinelog_close_output_stream(void);
+
 #ifdef PINELOG_TEST
 /**
  * @brief Get the pointer to the output stream. Only used in test harness.
