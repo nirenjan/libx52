@@ -1,8 +1,6 @@
 Installation instructions for x52pro-linux
 ==========================================
 
-![Build Status](https://www.github.com/nirenjan/x52pro-linux/actions/workflows/build.yml/badge.svg)
-
 Build has been tested on the following operating systems (x86-64 only):
 
 * Ubuntu 18.04 LTS
