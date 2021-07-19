@@ -46,7 +46,12 @@ AC_SUBST([LIBUSB_LDFLAGS])
 AC_SUBST([LIBUSB_LIBS])
 
 # Check for libinih
-PKG_CHECK_MODULES([INIH], [inih])
+PKG_CHECK_MODULES([INIH], [inih], [],
+                  [
+                    # Older versions of Ubuntu don't provide a .pc file
+                    AC_CHECK_HEADERS([ini.h])
+                    AC_SEARCH_LIBS([ini_parse], [inih])
+                  ])
 AC_SUBST([INIH_CFLAGS])
 AC_SUBST([INIH_LDFLAGS])
 AC_SUBST([INIH_LIBS])

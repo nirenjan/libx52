@@ -1,12 +1,12 @@
 Installation instructions for x52pro-linux
 ==========================================
 
-[![Build Status](https://www.travis-ci.org/nirenjan/x52pro-linux.svg?branch=master)](https://www.travis-ci.org/nirenjan/x52pro-linux)
+![Build Status](https://www.github.com/nirenjan/x52pro-linux/actions/workflows/build.yml/badge.svg)
 
 Build has been tested on the following operating systems (x86-64 only):
 
-* Ubuntu 16.04 LTS
 * Ubuntu 18.04 LTS
+* Ubuntu 20.04 LTS
 * OS X 10.13.6
 
 # Prerequisites
