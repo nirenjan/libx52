@@ -20,6 +20,7 @@ libpinelog_la_CFLAGS = @PINELOG_CFLAGS@ $(WARN_CFLAGS) -I $(top_builddir)
 libpinelog_la_LDFLAGS = $(WARN_LDFLAGS)
 
 test_SRCFILES = test_pinelog.c $(libpinelog_la_SOURCES)
+bench_SRCFILES = bench_pinelog.c $(libpinelog_la_SOURCES)
 test_CFLAGS = \
 	-DPINELOG_FATAL_STR='"F"' \
 	-DPINELOG_ERROR_STR='"E"' \
@@ -40,7 +41,15 @@ TESTS = \
 	test_nots_lvl_tr \
 	test_nots_lvl_notr \
 	test_nots_nolvl_tr \
-	test_nots_nolvl_notr
+	test_nots_nolvl_notr \
+	bench_ts_lvl_tr \
+	bench_ts_lvl_notr \
+	bench_ts_nolvl_tr \
+	bench_ts_nolvl_notr \
+	bench_nots_lvl_tr \
+	bench_nots_lvl_notr \
+	bench_nots_nolvl_tr \
+	bench_nots_nolvl_notr
 
 check_PROGRAMS = $(TESTS)
 test_ts_lvl_tr_SOURCES = $(test_SRCFILES)
@@ -82,3 +91,44 @@ test_nots_nolvl_notr_SOURCES = $(test_SRCFILES)
 test_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
 test_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_ts_lvl_tr_SOURCES = $(bench_SRCFILES)
+bench_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
+bench_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_ts_lvl_notr_SOURCES = $(bench_SRCFILES)
+bench_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
+bench_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_ts_nolvl_tr_SOURCES = $(bench_SRCFILES)
+bench_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
+bench_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_ts_nolvl_notr_SOURCES = $(bench_SRCFILES)
+bench_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
+bench_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_nots_lvl_tr_SOURCES = $(bench_SRCFILES)
+bench_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
+bench_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_nots_lvl_notr_SOURCES = $(bench_SRCFILES)
+bench_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
+bench_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_nots_nolvl_tr_SOURCES = $(bench_SRCFILES)
+bench_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
+bench_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+bench_nots_nolvl_notr_SOURCES = $(bench_SRCFILES)
+bench_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
+bench_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
