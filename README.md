@@ -25,4 +25,4 @@ for your needs as it provides a graphical interface to control the MFD and LEDs.
 
 # Building and installing
 
-See [INSTALL.md](https://github.com/nirenjan/x52pro-linux/blob/master/INSTALL.md)
+See [INSTALL.md](INSTALL.md)
