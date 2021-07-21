@@ -14,8 +14,6 @@
 void x52d_dev_init(void);
 void x52d_dev_exit(void);
 
-void x52d_dev_start_thread(void);
-
 /* Wrapper methods for libx52 calls */
 int x52d_dev_set_text(uint8_t line, const char *text, uint8_t length);
 int x52d_dev_set_led_state(libx52_led_id led, libx52_led_state state);

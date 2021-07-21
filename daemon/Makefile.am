@@ -23,12 +23,13 @@ x52d_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(localstatedir)/log\" \
 	-DRUNDIR=\"$(runstatedir)\" \
-	@INIH_CFLAGS@ @X52_INCLUDE@ $(WARN_CFLAGS)
+	@INIH_CFLAGS@ @PTHREAD_CFLAGS@ $(WARN_CFLAGS)
 
-x52d_LDFLAGS = @INIH_LIBS@ $(WARN_LDFLAGS)
+x52d_LDFLAGS = @INIH_LIBS@ @PTHREAD_LIBS@ $(WARN_LDFLAGS)
 x52d_LDADD = \
 	../lib/pinelog/libpinelog.la \
 	../lib/libx52/libx52.la \
+	../lib/libx52io/libx52io.la \
 	@LTLIBINTL@
 
 EXTRA_DIST = \

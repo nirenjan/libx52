@@ -14,6 +14,7 @@
 
 #include "x52d_const.h"
 #include "x52d_config.h"
+#include "x52d_device.h"
 #include "pinelog.h"
 
 static void set_log_file(bool foreground, const char *log_file)
@@ -130,6 +131,15 @@ int main(int argc, char **argv)
 
     set_log_file(foreground, log_file);
     x52d_config_load(conf_file);
+
+    // Start device threads
+    x52d_dev_init();
+
+    for(;;) {
+        // TODO: Replace with main event loop
+        // Let all threads run in background forever
+        sleep(600);
+    }
 
     return 0;
 }
