@@ -40,3 +40,15 @@ void x52d_config_load(const char *cfg_file)
     }
 }
 
+#define CFG(section, key, name, parser, def) \
+static void x52d_cfg_set_ ## section ## _ ## key(typeof(x52d_config . name) param) \
+{ \
+    PINELOG_TRACE("Calling set " #section ":" #key); \
+}
+#include "x52d_config.def"
+
+void x52d_config_apply(void)
+{
+    #define CFG(section, key, name, parser, def) x52d_cfg_set_ ## section ## _ ## key(x52d_config . name);
+    #include "x52d_config.def"
+}

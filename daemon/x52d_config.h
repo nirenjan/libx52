@@ -48,5 +48,6 @@ int x52d_config_apply_overrides(struct x52d_config *cfg);
 void x52d_config_clear_overrides(void);
 
 void x52d_config_load(const char *cfg_file);
+void x52d_config_apply(void);
 
 #endif // !defined X52D_CONFIG_H

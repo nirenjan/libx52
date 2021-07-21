@@ -135,6 +135,9 @@ int main(int argc, char **argv)
     // Start device threads
     x52d_dev_init();
 
+    // Apply configuration
+    x52d_config_apply();
+
     for(;;) {
         // TODO: Replace with main event loop
         // Let all threads run in background forever
