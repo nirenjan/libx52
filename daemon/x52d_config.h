@@ -37,6 +37,29 @@ struct x52d_config {
     char profiles_dir[NAME_MAX];
 };
 
+/* Callback functions for configuration */
+// These functions are defined in the individual modules
+void x52d_cfg_set_Clock_Enabled(bool param);
+void x52d_cfg_set_Clock_PrimaryIsLocal(bool param);
+void x52d_cfg_set_Clock_Secondary(char* param);
+void x52d_cfg_set_Clock_Tertiary(char* param);
+void x52d_cfg_set_LED_Fire(libx52_led_state param);
+void x52d_cfg_set_LED_Throttle(libx52_led_state param);
+void x52d_cfg_set_LED_A(libx52_led_state param);
+void x52d_cfg_set_LED_B(libx52_led_state param);
+void x52d_cfg_set_LED_D(libx52_led_state param);
+void x52d_cfg_set_LED_E(libx52_led_state param);
+void x52d_cfg_set_LED_T1(libx52_led_state param);
+void x52d_cfg_set_LED_T2(libx52_led_state param);
+void x52d_cfg_set_LED_T3(libx52_led_state param);
+void x52d_cfg_set_LED_POV(libx52_led_state param);
+void x52d_cfg_set_LED_Clutch(libx52_led_state param);
+void x52d_cfg_set_Brightness_MFD(uint16_t param);
+void x52d_cfg_set_Brightness_LED(uint16_t param);
+void x52d_cfg_set_Profiles_Directory(char* param);
+void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
+void x52d_cfg_set_Profiles_ClutchLatched(bool param);
+
 int x52d_config_set_defaults(struct x52d_config *cfg);
 
 int x52d_config_load_file(struct x52d_config *cfg, const char *cfg_file);

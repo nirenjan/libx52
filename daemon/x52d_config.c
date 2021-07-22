@@ -40,15 +40,34 @@ void x52d_config_load(const char *cfg_file)
     }
 }
 
-#define CFG(section, key, name, parser, def) \
-static void x52d_cfg_set_ ## section ## _ ## key(typeof(x52d_config . name) param) \
-{ \
-    PINELOG_TRACE("Calling set " #section ":" #key); \
-}
-#include "x52d_config.def"
+/* Callback stubs
+ * TODO: Remove the ones below when their implementation is complete
+ */
+void x52d_cfg_set_Clock_Enabled(bool param) { (void)param; }
+void x52d_cfg_set_Clock_PrimaryIsLocal(bool param) { (void)param; }
+void x52d_cfg_set_Clock_Secondary(char* param) { (void)param; }
+void x52d_cfg_set_Clock_Tertiary(char* param) { (void)param; }
+void x52d_cfg_set_LED_Fire(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_Throttle(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_A(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_B(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_D(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_E(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_T1(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_T2(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_T3(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_POV(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_LED_Clutch(libx52_led_state param) { (void)param; }
+void x52d_cfg_set_Brightness_MFD(uint16_t param) { (void)param; }
+void x52d_cfg_set_Brightness_LED(uint16_t param) { (void)param; }
+void x52d_cfg_set_Profiles_Directory(char* param) { (void)param; }
+void x52d_cfg_set_Profiles_ClutchEnabled(bool param) { (void)param; }
+void x52d_cfg_set_Profiles_ClutchLatched(bool param) { (void)param; }
 
 void x52d_config_apply(void)
 {
-    #define CFG(section, key, name, parser, def) x52d_cfg_set_ ## section ## _ ## key(x52d_config . name);
+    #define CFG(section, key, name, parser, def) \
+        PINELOG_TRACE("Calling configuration callback for " #section "." #name); \
+        x52d_cfg_set_ ## section ## _ ## key(x52d_config . name);
     #include "x52d_config.def"
 }
