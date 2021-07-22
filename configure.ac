@@ -22,6 +22,7 @@ AX_GCC_FUNC_ATTRIBUTE([constructor])
 AX_GCC_FUNC_ATTRIBUTE([destructor])
 AX_GCC_FUNC_ATTRIBUTE([format])
 AX_GCC_FUNC_ATTRIBUTE([noreturn])
+AC_C_TYPEOF
 
 AC_MSG_NOTICE([Detected host OS is ${host_os}])
 build_linux=no
