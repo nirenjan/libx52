@@ -147,7 +147,14 @@ int x52d_dev_set_text(uint8_t line, const char *text, uint8_t length)
 }
 int x52d_dev_set_led_state(libx52_led_id led, libx52_led_state state)
 {
-    WRAP_LIBX52(libx52_set_led_state(x52_dev, led, state));
+    if (libx52_check_feature(x52_dev, LIBX52_FEATURE_LED) != LIBX52_ERROR_NOT_SUPPORTED) {
+        WRAP_LIBX52(libx52_set_led_state(x52_dev, led, state));
+    }
+
+    // If the target device does not support setting individual LEDs,
+    // then ignore the set and let the caller think it succeeded.
+    PINELOG_TRACE("Ignoring set LED state call as the device does not support it");
+    return LIBX52_SUCCESS;
 }
 int x52d_dev_set_clock(time_t time, int local)
 {
@@ -195,7 +202,7 @@ int x52d_dev_update(void)
 
     if (rc != LIBX52_SUCCESS) {
         if (rc == LIBX52_ERROR_NO_DEVICE) {
-            // TODO: Detach and spawn thread to reconnect
+            // Detach and spawn thread to reconnect
             PINELOG_TRACE("Disconnecting detached device");
             libx52_disconnect(x52_dev);
 
