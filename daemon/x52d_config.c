@@ -63,7 +63,7 @@ void x52d_cfg_set_Profiles_ClutchLatched(bool param) { (void)param; }
 void x52d_config_apply(void)
 {
     #define CFG(section, key, name, parser, def) \
-        PINELOG_TRACE("Calling configuration callback for " #section "." #name); \
+        PINELOG_TRACE("Calling configuration callback for " #section "." #key); \
         x52d_cfg_set_ ## section ## _ ## key(x52d_config . name);
     #include "x52d_config.def"
 }
