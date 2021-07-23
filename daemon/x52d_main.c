@@ -12,6 +12,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "x52d_clock.h"
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_device.h"
@@ -134,6 +135,7 @@ int main(int argc, char **argv)
 
     // Start device threads
     x52d_dev_init();
+    x52d_clock_init();
 
     // Apply configuration
     x52d_config_apply();

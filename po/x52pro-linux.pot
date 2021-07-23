@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-16 00:26-0700\n"
+"POT-Creation-Date: 2021-07-23 09:47-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -370,19 +370,47 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:33
+#: daemon/x52d_main.c:35
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:44
+#: daemon/x52d_main.c:46
 #, c-format
 msgid "Usage: %s [-f] [-v] [-q] [-l log-file] [-o override] [-c config-file]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:105
+#: daemon/x52d_main.c:107
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
+msgstr ""
+
+#: daemon/x52d_clock.c:27
+#, c-format
+msgid "Setting clock enable to %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:34
+#, c-format
+msgid "Setting primary clock timezone to %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:52
+msgid "Unable to allocate memory for timezone. Falling back to UTC"
+msgstr ""
+
+#: daemon/x52d_clock.c:62
+msgid "Unable to backup timezone environment. Falling back to UTC"
+msgstr ""
+
+#: daemon/x52d_clock.c:132
+#, c-format
+msgid "Error %d retrieving current time: %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:153
+#, c-format
+msgid "Error %d initializing clock thread: %s"
 msgstr ""
 
 #: daemon/x52d_config.c:26
@@ -428,22 +456,22 @@ msgstr ""
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""
 
-#: daemon/x52d_device.c:45
+#: daemon/x52d_device.c:49
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:63
+#: daemon/x52d_device.c:102
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:83
+#: daemon/x52d_device.c:136
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:145
+#: daemon/x52d_device.c:205
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr ""

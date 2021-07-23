@@ -43,10 +43,6 @@ void x52d_config_load(const char *cfg_file)
 /* Callback stubs
  * TODO: Remove the ones below when their implementation is complete
  */
-void x52d_cfg_set_Clock_Enabled(bool param) { (void)param; }
-void x52d_cfg_set_Clock_PrimaryIsLocal(bool param) { (void)param; }
-void x52d_cfg_set_Clock_Secondary(char* param) { (void)param; }
-void x52d_cfg_set_Clock_Tertiary(char* param) { (void)param; }
 void x52d_cfg_set_LED_Fire(libx52_led_state param) { (void)param; }
 void x52d_cfg_set_LED_Throttle(libx52_led_state param) { (void)param; }
 void x52d_cfg_set_LED_A(libx52_led_state param) { (void)param; }
