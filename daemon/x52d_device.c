@@ -81,7 +81,6 @@ static void *x52_dev_upd(void *param)
     for (;;) {
         #define UPDATE_CHECK_DELAY 50000
         if (!device_update_needed) {
-            PINELOG_TRACE("No update needed to the device. Checking again in %d ms", UPDATE_CHECK_DELAY/1000);
             usleep(UPDATE_CHECK_DELAY);
             continue;
         }
