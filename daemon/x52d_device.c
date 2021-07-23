@@ -132,8 +132,10 @@ void x52d_dev_exit(void)
     rc = func; \
     pthread_mutex_unlock(&device_mutex); \
     if (rc != LIBX52_SUCCESS) { \
-        PINELOG_ERROR(_("Error %d when updating X52 parameter: %s"), \
-                      rc, libx52_strerror(rc)); \
+        if (rc != LIBX52_ERROR_TRY_AGAIN) { \
+            PINELOG_ERROR(_("Error %d when updating X52 parameter: %s"), \
+                          rc, libx52_strerror(rc)); \
+        } \
     } else { \
         device_update_needed = true; \
     } \
