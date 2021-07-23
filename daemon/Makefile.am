@@ -11,7 +11,7 @@ bin_PROGRAMS = x52d
 # Service daemon that manages the X52 device
 x52d_SOURCES = \
 	x52d_main.c x52d_config_parser.c x52d_config.c \
-	x52d_device.c x52d_clock.c
+	x52d_device.c x52d_clock.c x52d_led.c
 
 x52d_CFLAGS = \
 	-I $(top_srcdir) \
