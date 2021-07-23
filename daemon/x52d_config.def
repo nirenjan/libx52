@@ -30,6 +30,18 @@ CFG(Clock, Secondary, clock_2_tz, string_parser, UTC)
 // timezone name as defined by the Olson time database.
 CFG(Clock, Tertiary, clock_3_tz, string_parser, UTC)
 
+// Clock format for the primary clock
+CFG(Clock, FormatPrimary, clock_format[LIBX52_CLOCK_1], clock_format_parser, 12hr)
+
+// Clock format for the secondary clock
+CFG(Clock, FormatSecondary, clock_format[LIBX52_CLOCK_2], clock_format_parser, 12hr)
+
+// Clock format for the tertiary clock
+CFG(Clock, FormatTertiary, clock_format[LIBX52_CLOCK_3], clock_format_parser, 12hr)
+
+// Date format for the date display
+CFG(Clock, DateFormat, date_format, date_format_parser, ddmmyy)
+
 /**********************************************************************
  * LED Settings - only applicable to X52Pro
  *********************************************************************/

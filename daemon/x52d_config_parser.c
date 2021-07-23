@@ -92,6 +92,40 @@ static int led_parser(struct x52d_config *cfg, size_t offset, const char *value)
     return 0;
 }
 
+static int clock_format_parser(struct x52d_config *cfg, size_t offset, const char *value)
+{
+    CONFIG_PTR(libx52_clock_format *, config);
+    CHECK_PARAMS();
+
+    if (!strcasecmp(value, "12hr") || !strcasecmp(value, "12")) {
+        *config = LIBX52_CLOCK_FORMAT_12HR;
+    } else if (!strcasecmp(value, "24hr") || !strcasecmp(value, "24")) {
+        *config = LIBX52_CLOCK_FORMAT_24HR;
+    } else {
+        return EINVAL;
+    }
+
+    return 0;
+}
+
+static int date_format_parser(struct x52d_config *cfg, size_t offset, const char *value)
+{
+    CONFIG_PTR(libx52_date_format *, config);
+    CHECK_PARAMS();
+
+    if (!strcasecmp(value, "ddmmyy") || !strcasecmp(value, "dd-mm-yy")) {
+        *config = LIBX52_DATE_FORMAT_DDMMYY;
+    } else if (!strcasecmp(value, "mmddyy") || !strcasecmp(value, "mm-dd-yy")) {
+        *config = LIBX52_DATE_FORMAT_MMDDYY;
+    } else if (!strcasecmp(value, "yymmdd") || !strcasecmp(value, "yy-mm-dd")) {
+        *config = LIBX52_DATE_FORMAT_YYMMDD;
+    } else {
+        return EINVAL;
+    }
+
+    return 0;
+}
+
 /* Map for config->param */
 #define CFG(section, key, name, parser, def) {#section, #key, parser, offsetof(struct x52d_config, name)},
 const struct config_map {
