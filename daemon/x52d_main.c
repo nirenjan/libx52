@@ -10,13 +10,28 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <signal.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "x52d_clock.h"
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_device.h"
 #include "pinelog.h"
+
+static volatile bool flag_quit;
+
+static void termination_handler(int signum)
+{
+    flag_quit = true;
+}
+
+static volatile bool flag_reload;
+static void reload_handler(int signum)
+{
+    flag_reload = true;
+}
 
 static void set_log_file(bool foreground, const char *log_file)
 {
@@ -34,6 +49,22 @@ static void set_log_file(bool foreground, const char *log_file)
     if (rc != 0) {
         fprintf(stderr, _("Error %d setting log file: %s\n"), rc, strerror(rc));
         exit(EXIT_FAILURE);
+    }
+}
+
+static void listen_signal(int signum, void (*handler)(int))
+{
+    struct sigaction action;
+    int rc;
+
+    action.sa_handler = handler;
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = 0;
+
+    rc = sigaction(signum, &action, NULL);
+    if (rc < 0) {
+        PINELOG_FATAL(_("Error %d installing signal handler for signal %d: %s"),
+                      errno, signum, strerror(errno));
     }
 }
 
@@ -133,6 +164,12 @@ int main(int argc, char **argv)
     set_log_file(foreground, log_file);
     x52d_config_load(conf_file);
 
+    // Initialize signal handlers
+    listen_signal(SIGINT, termination_handler);
+    listen_signal(SIGTERM, termination_handler);
+    listen_signal(SIGQUIT, termination_handler);
+    listen_signal(SIGHUP, reload_handler);
+
     // Start device threads
     x52d_dev_init();
     x52d_clock_init();
@@ -140,11 +177,22 @@ int main(int argc, char **argv)
     // Apply configuration
     x52d_config_apply();
 
-    for(;;) {
+    flag_quit = false;
+    while(!flag_quit) {
         // TODO: Replace with main event loop
         // Let all threads run in background forever
         sleep(600);
+
+        /* Check if we need to reload configuration */
+        if (flag_reload) {
+            PINELOG_TRACE("Reinitializing configuration");
+            x52d_config_load(conf_file);
+            x52d_config_apply();
+            flag_reload = false;
+        }
     }
+
+    PINELOG_INFO(_("Shutting down X52 daemon"));
 
     return 0;
 }
