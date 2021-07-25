@@ -26,6 +26,7 @@ static pthread_mutex_t device_mutex = PTHREAD_MUTEX_INITIALIZER;
  */
 static pthread_t device_acq_thr;
 static volatile bool device_acq_thr_enable;
+static volatile bool device_upd_thr_enable;
 
 static void *x52_dev_acq(void *param)
 {
@@ -54,12 +55,14 @@ static void *x52_dev_acq(void *param)
                 PINELOG_TRACE("Sleeping for %d seconds before trying to acquire device again", RECONNECT_DELAY);
                 sleep(RECONNECT_DELAY);
             } else {
-                PINELOG_TRACE("Found device, disabling acquisition thread");
+                PINELOG_TRACE("Found device, disabling acquisition thread, enable update thread");
                 device_acq_thr_enable = false;
+                device_upd_thr_enable = true;
             }
         } else {
-            PINELOG_TRACE("Device is connected, disable acquisition thread");
+            PINELOG_TRACE("Device is connected, disable acquisition thread, enable update thread");
             device_acq_thr_enable = false;
+            device_upd_thr_enable = true;
         }
         #undef RECONNECT_DELAY
     }
@@ -79,8 +82,8 @@ static void *x52_dev_upd(void *param)
     PINELOG_TRACE("Starting X52 device update thread");
     // Check if the device needs to be updated in a loop
     for (;;) {
-        #define UPDATE_CHECK_DELAY 50000
-        if (!device_update_needed) {
+        #define UPDATE_CHECK_DELAY 50000 // Wait for this many useconds
+        if (!device_update_needed || !device_upd_thr_enable) {
             usleep(UPDATE_CHECK_DELAY);
             continue;
         }
@@ -112,6 +115,7 @@ void x52d_dev_init(void)
 
     pthread_create(&device_upd_thr, NULL, x52_dev_upd, NULL);
     device_update_needed = false;
+    device_upd_thr_enable = libx52_is_connected(x52_dev);
 }
 
 void x52d_dev_exit(void)
@@ -192,6 +196,7 @@ int x52d_dev_set_blink(uint8_t state)
 {
     WRAP_LIBX52(libx52_set_blink(x52_dev, state));
 }
+
 int x52d_dev_update(void)
 {
     int rc;
@@ -205,6 +210,9 @@ int x52d_dev_update(void)
             // Detach and spawn thread to reconnect
             PINELOG_TRACE("Disconnecting detached device");
             libx52_disconnect(x52_dev);
+
+            PINELOG_TRACE("Disabling device update thread");
+            device_upd_thr_enable = false;
 
             PINELOG_TRACE("Signaling device search thread");
             device_acq_thr_enable = true;
