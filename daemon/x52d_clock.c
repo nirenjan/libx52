@@ -25,14 +25,14 @@ static int clock_primary_is_local = false;
 void x52d_cfg_set_Clock_Enabled(bool enabled)
 {
     PINELOG_DEBUG(_("Setting clock enable to %s"),
-                  enabled ? "on" : "off");
+                  enabled ? _("on") : _("off"));
     clock_enabled = enabled;
 }
 
 void x52d_cfg_set_Clock_PrimaryIsLocal(bool param)
 {
     PINELOG_DEBUG(_("Setting primary clock timezone to %s"),
-                  param ? "local" : "UTC");
+                  param ? _("local") : _("UTC"));
     clock_primary_is_local = !!param;
 }
 
@@ -102,26 +102,26 @@ cleanup:
     }
 
     tzset();
-    PINELOG_DEBUG("Offset for timezone '%s' is %d", tz, offset);
+    PINELOG_TRACE("Offset for timezone '%s' is %d", tz, offset);
     return offset;
 }
 
 void x52d_cfg_set_Clock_Secondary(char* param)
 {
-    PINELOG_TRACE("Setting secondary clock timezone to %s", param);
+    PINELOG_DEBUG(("Setting secondary clock timezone to %s"), param);
     x52d_dev_set_clock_timezone(LIBX52_CLOCK_2, get_tz_offset(param));
 }
 
 void x52d_cfg_set_Clock_Tertiary(char* param)
 {
-    PINELOG_TRACE("Setting tertiary clock timezone to %s", param);
+    PINELOG_DEBUG(_("Setting tertiary clock timezone to %s"), param);
     x52d_dev_set_clock_timezone(LIBX52_CLOCK_3, get_tz_offset(param));
 }
 
 static void set_clock_format(const char *name, libx52_clock_id id, libx52_clock_format fmt)
 {
-    PINELOG_TRACE("Setting %s clock format to %s", name,
-                  fmt == LIBX52_CLOCK_FORMAT_12HR ? "12 hour" : "24 hour");
+    PINELOG_DEBUG(_("Setting %s clock format to %s"), name,
+                  fmt == LIBX52_CLOCK_FORMAT_12HR ? _("12 hour") : _("24 hour"));
     x52d_dev_set_clock_format(id, fmt);
 }
 
@@ -147,7 +147,7 @@ void x52d_cfg_set_Clock_DateFormat(libx52_date_format fmt)
         "mm-dd-yy",
         "yy-mm-dd"
     };
-    PINELOG_TRACE("Setting date format to %s", formats[fmt]);
+    PINELOG_DEBUG(_("Setting date format to %s"), formats[fmt]);
     x52d_dev_set_date_format(fmt);
 }
 

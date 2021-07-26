@@ -155,11 +155,11 @@ int main(int argc, char **argv)
         }
     }
 
-    PINELOG_DEBUG("Foreground = %s", foreground ? "true" : "false");
-    PINELOG_DEBUG("Quiet = %s", quiet ? "true" : "false");
-    PINELOG_DEBUG("Verbosity = %d", verbosity);
-    PINELOG_DEBUG("Log file = %s", log_file);
-    PINELOG_DEBUG("Config file = %s", conf_file);
+    PINELOG_DEBUG(_("Foreground = %s"), foreground ? _("true") : _("false"));
+    PINELOG_DEBUG(_("Quiet = %s"), quiet ? _("true") : _("false"));
+    PINELOG_DEBUG(_("Verbosity = %d"), verbosity);
+    PINELOG_DEBUG(_("Log file = %s"), log_file);
+    PINELOG_DEBUG(_("Config file = %s"), conf_file);
 
     set_log_file(foreground, log_file);
     x52d_config_load(conf_file);

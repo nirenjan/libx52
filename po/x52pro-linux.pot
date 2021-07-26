@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-26 10:20-0700\n"
+"POT-Creation-Date: 2021-07-26 11:01-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,6 +390,39 @@ msgstr ""
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
+#: daemon/x52d_main.c:158
+#, c-format
+msgid "Foreground = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:158 daemon/x52d_main.c:159
+msgid "true"
+msgstr ""
+
+#: daemon/x52d_main.c:158 daemon/x52d_main.c:159
+msgid "false"
+msgstr ""
+
+#: daemon/x52d_main.c:159
+#, c-format
+msgid "Quiet = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:160
+#, c-format
+msgid "Verbosity = %d"
+msgstr ""
+
+#: daemon/x52d_main.c:161
+#, c-format
+msgid "Log file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:162
+#, c-format
+msgid "Config file = %s"
+msgstr ""
+
 #: daemon/x52d_main.c:188
 msgid "Reloading X52 configuration"
 msgstr ""
@@ -403,9 +436,25 @@ msgstr ""
 msgid "Setting clock enable to %s"
 msgstr ""
 
+#: daemon/x52d_clock.c:28
+msgid "on"
+msgstr ""
+
+#: daemon/x52d_clock.c:28
+msgid "off"
+msgstr ""
+
 #: daemon/x52d_clock.c:34
 #, c-format
 msgid "Setting primary clock timezone to %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:35
+msgid "local"
+msgstr ""
+
+#: daemon/x52d_clock.c:35
+msgid "UTC"
 msgstr ""
 
 #: daemon/x52d_clock.c:52
@@ -414,6 +463,29 @@ msgstr ""
 
 #: daemon/x52d_clock.c:62
 msgid "Unable to backup timezone environment. Falling back to UTC"
+msgstr ""
+
+#: daemon/x52d_clock.c:117
+#, c-format
+msgid "Setting tertiary clock timezone to %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:123
+#, c-format
+msgid "Setting %s clock format to %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:124
+msgid "12 hour"
+msgstr ""
+
+#: daemon/x52d_clock.c:124
+msgid "24 hour"
+msgstr ""
+
+#: daemon/x52d_clock.c:150
+#, c-format
+msgid "Setting date format to %s"
 msgstr ""
 
 #: daemon/x52d_clock.c:160
