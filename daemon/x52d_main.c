@@ -192,6 +192,9 @@ int main(int argc, char **argv)
         }
     }
 
+    // Stop device threads
+    x52d_clock_exit();
+    x52d_dev_exit();
     PINELOG_INFO(_("Shutting down X52 daemon"));
 
     return 0;
