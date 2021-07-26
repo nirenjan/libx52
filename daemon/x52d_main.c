@@ -20,11 +20,11 @@
 #include "x52d_device.h"
 #include "pinelog.h"
 
-static volatile bool flag_quit;
+static volatile int flag_quit;
 
 static void termination_handler(int signum)
 {
-    flag_quit = true;
+    flag_quit = signum;
 }
 
 static volatile bool flag_reload;
@@ -63,7 +63,7 @@ static void listen_signal(int signum, void (*handler)(int))
 
     rc = sigaction(signum, &action, NULL);
     if (rc < 0) {
-        PINELOG_FATAL(_("Error %d installing signal handler for signal %d: %s"),
+        PINELOG_FATAL(_("Error %d installing handler for signal %d: %s"),
                       errno, signum, strerror(errno));
     }
 }
@@ -177,7 +177,7 @@ int main(int argc, char **argv)
     // Apply configuration
     x52d_config_apply();
 
-    flag_quit = false;
+    flag_quit = 0;
     while(!flag_quit) {
         // TODO: Replace with main event loop
         // Let all threads run in background forever
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
 
         /* Check if we need to reload configuration */
         if (flag_reload) {
-            PINELOG_TRACE("Reinitializing configuration");
+            PINELOG_INFO(_("Reloading X52 configuration"));
             x52d_config_load(conf_file);
             x52d_config_apply();
             flag_reload = false;

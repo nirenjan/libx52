@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-23 09:47-0700\n"
+"POT-Creation-Date: 2021-07-26 10:20-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -370,19 +370,32 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:35
+#: daemon/x52d_main.c:50
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:46
+#: daemon/x52d_main.c:66
+#, c-format
+msgid "Error %d installing handler for signal %d: %s"
+msgstr ""
+
+#: daemon/x52d_main.c:77
 #, c-format
 msgid "Usage: %s [-f] [-v] [-q] [-l log-file] [-o override] [-c config-file]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:107
+#: daemon/x52d_main.c:138
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
+msgstr ""
+
+#: daemon/x52d_main.c:188
+msgid "Reloading X52 configuration"
+msgstr ""
+
+#: daemon/x52d_main.c:198
+msgid "Shutting down X52 daemon"
 msgstr ""
 
 #: daemon/x52d_clock.c:27
@@ -403,14 +416,22 @@ msgstr ""
 msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:132
+#: daemon/x52d_clock.c:160
+msgid "Starting X52 clock manager thread"
+msgstr ""
+
+#: daemon/x52d_clock.c:171
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:153
+#: daemon/x52d_clock.c:192
 #, c-format
 msgid "Error %d initializing clock thread: %s"
+msgstr ""
+
+#: daemon/x52d_clock.c:199
+msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
 #: daemon/x52d_config.c:26
@@ -418,60 +439,80 @@ msgstr ""
 msgid "Error %d setting configuration defaults: %s"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:130
+#: daemon/x52d_config_parser.c:164
 #, c-format
 msgid "Ignoring unknown key '%s.%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:171
+#: daemon/x52d_config_parser.c:205
 #, c-format
 msgid "Failed processing configuration file %s - code %d"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:201
+#: daemon/x52d_config_parser.c:235
 msgid "Failed to allocate memory for override structure"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:210
+#: daemon/x52d_config_parser.c:244
 msgid "Failed to allocate memory for override string"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:221
+#: daemon/x52d_config_parser.c:255
 #, c-format
 msgid "No section found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:235
+#: daemon/x52d_config_parser.c:269
 #, c-format
 msgid "No key found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:246
+#: daemon/x52d_config_parser.c:280
 #, c-format
 msgid "No value found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:297
+#: daemon/x52d_config_parser.c:331
 #, c-format
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""
 
-#: daemon/x52d_device.c:49
+#: daemon/x52d_device.c:35
+msgid "Starting X52 device acquisition thread"
+msgstr ""
+
+#: daemon/x52d_device.c:50
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:102
+#: daemon/x52d_device.c:82
+msgid "Starting X52 device update thread"
+msgstr ""
+
+#: daemon/x52d_device.c:101
+msgid "Initializing libx52"
+msgstr ""
+
+#: daemon/x52d_device.c:105
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:136
+#: daemon/x52d_device.c:124
+msgid "Shutting down X52 device acquisition thread"
+msgstr ""
+
+#: daemon/x52d_device.c:127
+msgid "Shutting down X52 device update thread"
+msgstr ""
+
+#: daemon/x52d_device.c:140
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:205
+#: daemon/x52d_device.c:220
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr ""

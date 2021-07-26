@@ -32,7 +32,7 @@ static void *x52_dev_acq(void *param)
 {
     int rc;
 
-    PINELOG_TRACE("Starting X52 device acquisition thread");
+    PINELOG_INFO(_("Starting X52 device acquisition thread"));
     // Check if the device is connected in a loop
     for (;;) {
         #define RECONNECT_DELAY 5
@@ -79,7 +79,7 @@ static volatile bool device_update_needed;
 
 static void *x52_dev_upd(void *param)
 {
-    PINELOG_TRACE("Starting X52 device update thread");
+    PINELOG_INFO(_("Starting X52 device update thread"));
     // Check if the device needs to be updated in a loop
     for (;;) {
         #define UPDATE_CHECK_DELAY 50000 // Wait for this many useconds
@@ -98,7 +98,7 @@ static void *x52_dev_upd(void *param)
 void x52d_dev_init(void)
 {
     int rc;
-    PINELOG_TRACE("Initializing libx52");
+    PINELOG_INFO(_("Initializing libx52"));
     rc = libx52_init(&x52_dev);
 
     if (rc != LIBX52_SUCCESS) {
@@ -121,10 +121,10 @@ void x52d_dev_init(void)
 void x52d_dev_exit(void)
 {
     // Shutdown any threads
-    PINELOG_TRACE("Shutting down device acquisition thread");
+    PINELOG_INFO(_("Shutting down X52 device acquisition thread"));
     pthread_cancel(device_acq_thr);
 
-    PINELOG_TRACE("Shutting down device update thread");
+    PINELOG_INFO(_("Shutting down X52 device update thread"));
     pthread_cancel(device_upd_thr);
 
     libx52_exit(x52_dev);

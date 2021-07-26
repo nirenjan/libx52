@@ -157,7 +157,7 @@ static void * x52_clock_thr(void *param)
 {
     int rc;
 
-    PINELOG_TRACE("Starting X52 clock thread");
+    PINELOG_INFO(_("Starting X52 clock manager thread"));
     for (;;) {
         time_t cur_time;
 
@@ -196,6 +196,6 @@ void x52d_clock_init(void)
 
 void x52d_clock_exit(void)
 {
-    PINELOG_TRACE("Shutting down clock thread");
+    PINELOG_INFO(_("Shutting down X52 clock manager thread"));
     pthread_cancel(clock_thr);
 }
