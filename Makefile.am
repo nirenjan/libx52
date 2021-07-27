@@ -19,6 +19,7 @@ EXTRA_DIST = \
 	ChangeLog.md \
 	CONTRIBUTING.md \
 	Doxyfile.in \
+	DoxygenLayout.xml \
 	INSTALL.md \
 	LICENSE \
 	README.md \
