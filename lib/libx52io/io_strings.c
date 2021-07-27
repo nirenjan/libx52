@@ -95,31 +95,31 @@ const char * libx52io_button_to_str(libx52io_button button)
 /* Error buffer used for building custom error strings */
 static char error_buffer[256];
 
+#define N_(str) gettext_noop(str)
+
+static const char *error_string[] = {
+    N_("Success"),
+    N_("Initialization failure"),
+    N_("No device"),
+    N_("Invalid arguments"),
+    N_("Connection failure"),
+    N_("I/O error"),
+    N_("Read timeout"),
+};
+
 #define _(str) dgettext(PACKAGE, str)
 
 const char * libx52io_strerror(libx52io_error_code code)
 {
     switch (code) {
     case LIBX52IO_SUCCESS:
-        return _("Success");
-
     case LIBX52IO_ERROR_INIT_FAILURE:
-        return _("Initialization failure");
-
     case LIBX52IO_ERROR_NO_DEVICE:
-        return _("No device");
-
     case LIBX52IO_ERROR_INVALID:
-        return _("Invalid arguments");
-
     case LIBX52IO_ERROR_CONN:
-        return _("Connection failure");
-
     case LIBX52IO_ERROR_IO:
-        return _("I/O error");
-
     case LIBX52IO_ERROR_TIMEOUT:
-        return _("Read timeout");
+        return _(error_string[code]);
 
     default:
         snprintf(error_buffer, sizeof(error_buffer), _("Unknown error %d"), code);

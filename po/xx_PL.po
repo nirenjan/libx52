@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-26 11:01-0700\n"
+"POT-Creation-Date: 2021-07-27 01:34-0700\n"
 "PO-Revision-Date: 2021-07-26 11:00-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -17,96 +17,96 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
 
-#: lib/libx52/x52_strerror.c:25 lib/libx52io/io_strings.c:104
+#: lib/libx52/x52_strerror.c:23 lib/libx52io/io_strings.c:101
 msgid "Success"
 msgstr "Uccesssay"
 
-#: lib/libx52/x52_strerror.c:28 lib/libx52io/io_strings.c:107
+#: lib/libx52/x52_strerror.c:24 lib/libx52io/io_strings.c:102
 msgid "Initialization failure"
 msgstr "Initializationay ailurefay"
 
-#: lib/libx52/x52_strerror.c:31
+#: lib/libx52/x52_strerror.c:25
 msgid "Insufficient memory"
 msgstr "Insufficientay emorymay"
 
-#: lib/libx52/x52_strerror.c:34
+#: lib/libx52/x52_strerror.c:26
 msgid "Invalid parameter"
 msgstr "Invaliday arameterpay"
 
-#: lib/libx52/x52_strerror.c:37
+#: lib/libx52/x52_strerror.c:27
 msgid "Operation not supported"
 msgstr "Operationay otnay upportedsay"
 
-#: lib/libx52/x52_strerror.c:40
+#: lib/libx52/x52_strerror.c:28
 msgid "Try again"
 msgstr "Ytray againay"
 
-#: lib/libx52/x52_strerror.c:43
+#: lib/libx52/x52_strerror.c:29
 msgid "Input parameter out of range"
 msgstr "Inputay arameterpay outay ofay angeray"
 
-#: lib/libx52/x52_strerror.c:46
+#: lib/libx52/x52_strerror.c:30
 msgid "USB transaction failure"
 msgstr "USBay ansactiontray ailurefay"
 
-#: lib/libx52/x52_strerror.c:49
+#: lib/libx52/x52_strerror.c:31
 msgid "USB input/output error"
 msgstr "USBay inputay/outputay erroray"
 
-#: lib/libx52/x52_strerror.c:52
+#: lib/libx52/x52_strerror.c:32
 msgid "Access denied"
 msgstr "Accessay eniedday"
 
-#: lib/libx52/x52_strerror.c:55
+#: lib/libx52/x52_strerror.c:33
 msgid "No such device"
 msgstr "Onay uchsay eviceday"
 
-#: lib/libx52/x52_strerror.c:58
+#: lib/libx52/x52_strerror.c:34
 msgid "Entity not found"
 msgstr "Entityay otnay oundfay"
 
-#: lib/libx52/x52_strerror.c:61
+#: lib/libx52/x52_strerror.c:35
 msgid "Resource busy"
 msgstr "Esourceray usybay"
 
-#: lib/libx52/x52_strerror.c:64
+#: lib/libx52/x52_strerror.c:36
 msgid "Operation timeout"
 msgstr "Operationay imeouttay"
 
-#: lib/libx52/x52_strerror.c:67
+#: lib/libx52/x52_strerror.c:37
 msgid "Overflow"
 msgstr "Overfloway"
 
-#: lib/libx52/x52_strerror.c:70
+#: lib/libx52/x52_strerror.c:38
 msgid "Pipe error"
 msgstr "Ipepay erroray"
 
-#: lib/libx52/x52_strerror.c:73
+#: lib/libx52/x52_strerror.c:39
 msgid "System call interrupted"
 msgstr "Ystemsay allcay interrupteday"
 
-#: lib/libx52/x52_strerror.c:77 lib/libx52io/io_strings.c:125
+#: lib/libx52/x52_strerror.c:66 lib/libx52io/io_strings.c:125
 #, c-format
 msgid "Unknown error %d"
 msgstr "Unknownay erroray %d"
 
-#: lib/libx52io/io_strings.c:110
+#: lib/libx52io/io_strings.c:103
 msgid "No device"
 msgstr "Onay eviceday"
 
-#: lib/libx52io/io_strings.c:113
+#: lib/libx52io/io_strings.c:104
 msgid "Invalid arguments"
 msgstr "Invaliday argumentsay"
 
-#: lib/libx52io/io_strings.c:116
+#: lib/libx52io/io_strings.c:105
 msgid "Connection failure"
 msgstr "Onnectioncay ailurefay"
 
-#: lib/libx52io/io_strings.c:119
+#: lib/libx52io/io_strings.c:106
 msgid "I/O error"
 msgstr "I/O erroray"
 
-#: lib/libx52io/io_strings.c:122
+#: lib/libx52io/io_strings.c:107
 msgid "Read timeout"
 msgstr "Eadray imeouttay"
 
