@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-27 01:56-0700\n"
+"POT-Creation-Date: 2021-07-27 02:07-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,11 +112,11 @@ msgstr ""
 msgid "Unknown clock format %d"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:36 daemon/x52d_clock.c:124
+#: lib/libx52/x52_stringify.c:36
 msgid "12 hour"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:37 daemon/x52d_clock.c:124
+#: lib/libx52/x52_stringify.c:37
 msgid "24 hour"
 msgstr ""
 
@@ -557,57 +557,52 @@ msgstr ""
 msgid "Setting clock enable to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:34
+#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:112
 #, c-format
-msgid "Setting primary clock timezone to %s"
+msgid "Setting %s clock timezone to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:35
+#: daemon/x52d_clock.c:36
 msgid "local"
 msgstr ""
 
-#: daemon/x52d_clock.c:35
+#: daemon/x52d_clock.c:36
 msgid "UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:52
+#: daemon/x52d_clock.c:53
 msgid "Unable to allocate memory for timezone. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:62
+#: daemon/x52d_clock.c:63
 msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:117
-#, c-format
-msgid "Setting tertiary clock timezone to %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:123
+#: daemon/x52d_clock.c:129
 #, c-format
 msgid "Setting %s clock format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:150
+#: daemon/x52d_clock.c:151
 #, c-format
 msgid "Setting date format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:160
+#: daemon/x52d_clock.c:161
 msgid "Starting X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_clock.c:171
+#: daemon/x52d_clock.c:172
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:192
+#: daemon/x52d_clock.c:193
 #, c-format
 msgid "Error %d initializing clock thread: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:199
+#: daemon/x52d_clock.c:200
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 

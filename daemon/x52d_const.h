@@ -16,6 +16,7 @@
 #define X52D_SYS_CFG_FILE   SYSCONFDIR "/" X52D_APP_NAME "/" X52D_APP_NAME ".conf"
 
 #include "gettext.h"
+#define N_(x) gettext_noop(x)
 #define _(x) gettext(x)
 
 #endif // !defined X52D_CONST_H

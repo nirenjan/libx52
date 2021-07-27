@@ -31,7 +31,8 @@ void x52d_cfg_set_Clock_Enabled(bool enabled)
 
 void x52d_cfg_set_Clock_PrimaryIsLocal(bool param)
 {
-    PINELOG_DEBUG(_("Setting primary clock timezone to %s"),
+    PINELOG_DEBUG(_("Setting %s clock timezone to %s"),
+                  libx52_str_clock_id(LIBX52_CLOCK_1),
                   param ? _("local") : _("UTC"));
     clock_primary_is_local = !!param;
 }
@@ -106,48 +107,48 @@ cleanup:
     return offset;
 }
 
+static void set_clock_offset(libx52_clock_id id, const char *param)
+{
+    PINELOG_DEBUG(_("Setting %s clock timezone to %s"),
+                  libx52_str_clock_id(id), param);
+    x52d_dev_set_clock_timezone(id, get_tz_offset(param));
+}
+
 void x52d_cfg_set_Clock_Secondary(char* param)
 {
-    PINELOG_DEBUG(("Setting secondary clock timezone to %s"), param);
-    x52d_dev_set_clock_timezone(LIBX52_CLOCK_2, get_tz_offset(param));
+    set_clock_offset(LIBX52_CLOCK_2, param);
 }
 
 void x52d_cfg_set_Clock_Tertiary(char* param)
 {
-    PINELOG_DEBUG(_("Setting tertiary clock timezone to %s"), param);
-    x52d_dev_set_clock_timezone(LIBX52_CLOCK_3, get_tz_offset(param));
+    set_clock_offset(LIBX52_CLOCK_3, param);
 }
 
-static void set_clock_format(const char *name, libx52_clock_id id, libx52_clock_format fmt)
+static void set_clock_format(libx52_clock_id id, libx52_clock_format fmt)
 {
-    PINELOG_DEBUG(_("Setting %s clock format to %s"), name,
-                  fmt == LIBX52_CLOCK_FORMAT_12HR ? _("12 hour") : _("24 hour"));
+    PINELOG_DEBUG(_("Setting %s clock format to %s"),
+                  libx52_str_clock_id(id), libx52_str_clock_format(fmt));
     x52d_dev_set_clock_format(id, fmt);
 }
 
 void x52d_cfg_set_Clock_FormatPrimary(libx52_clock_format fmt)
 {
-    set_clock_format("primary", LIBX52_CLOCK_1, fmt);
+    set_clock_format(LIBX52_CLOCK_1, fmt);
 }
 
 void x52d_cfg_set_Clock_FormatSecondary(libx52_clock_format fmt)
 {
-    set_clock_format("secondary", LIBX52_CLOCK_2, fmt);
+    set_clock_format(LIBX52_CLOCK_2, fmt);
 }
 
 void x52d_cfg_set_Clock_FormatTertiary(libx52_clock_format fmt)
 {
-    set_clock_format("tertiary", LIBX52_CLOCK_3, fmt);
+    set_clock_format(LIBX52_CLOCK_3, fmt);
 }
 
 void x52d_cfg_set_Clock_DateFormat(libx52_date_format fmt)
 {
-    static const char *formats[] = {
-        "dd-mm-yy",
-        "mm-dd-yy",
-        "yy-mm-dd"
-    };
-    PINELOG_DEBUG(_("Setting date format to %s"), formats[fmt]);
+    PINELOG_DEBUG(_("Setting date format to %s"), libx52_str_date_format(fmt));
     x52d_dev_set_date_format(fmt);
 }
 
