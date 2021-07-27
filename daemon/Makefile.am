@@ -29,13 +29,14 @@ x52d_LDFLAGS = @INIH_LIBS@ @PTHREAD_LIBS@ $(WARN_LDFLAGS)
 x52d_LDADD = \
 	../lib/pinelog/libpinelog.la \
 	../lib/libx52/libx52.la \
-	../lib/libx52io/libx52io.la \
 	@LTLIBINTL@
+
+x52dconfdir = @sysconfdir@/x52d
+x52dconf_DATA = x52d.conf
 
 EXTRA_DIST = \
 	x52d_clock.h \
 	x52d_config.def \
 	x52d_config.h \
 	x52d_const.h \
-	x52d_device.h \
-	x52d.conf
+	x52d_device.h
