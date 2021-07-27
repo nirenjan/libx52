@@ -39,4 +39,5 @@ EXTRA_DIST = \
 	x52d_config.def \
 	x52d_config.h \
 	x52d_const.h \
-	x52d_device.h
+	x52d_device.h \
+	x52d.conf
