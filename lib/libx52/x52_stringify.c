@@ -16,7 +16,7 @@
 #define _(str)  dgettext(PACKAGE, str)
 
 #define STRINGIFY(name, max_id, errstr, ...) \
-const char * libx52_str_ ## name (libx52_ ## name param) { \
+const char * libx52_ ## name ## _to_str (libx52_ ## name param) { \
     static char invalid[256]; \
     static const char *desc[] = { __VA_ARGS__ }; \
     if (param >= 0 && param <= max_id) { \
@@ -51,7 +51,7 @@ STRINGIFY(led_state, LIBX52_LED_STATE_GREEN, N_("Unknown LED state %d")
     N_("green"),
 )
 
-const char * libx52_str_led_id(libx52_led_id id)
+const char * libx52_led_id_to_str(libx52_led_id id)
 {
     static char invalid[256];
 

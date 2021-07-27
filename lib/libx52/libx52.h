@@ -701,7 +701,7 @@ const char * libx52_strerror(libx52_error_code error);
  * @returns Pointer to a NULL terminated string describing the clock ID.
  * Returned pointer must not be freed.
  */
-const char * libx52_str_clock_id(libx52_clock_id id);
+const char * libx52_clock_id_to_str(libx52_clock_id id);
 
 /**
  * @brief Returns a string representation of the clock format
@@ -711,7 +711,7 @@ const char * libx52_str_clock_id(libx52_clock_id id);
  * @returns Pointer to a NULL terminated string describing the clock format.
  * Returned pointer must not be freed.
  */
-const char * libx52_str_clock_format(libx52_clock_format format);
+const char * libx52_clock_format_to_str(libx52_clock_format format);
 
 /**
  * @brief Returns a string representation of the date format
@@ -721,7 +721,7 @@ const char * libx52_str_clock_format(libx52_clock_format format);
  * @returns Pointer to a NULL terminated string describing the date format.
  * Returned pointer must not be freed.
  */
-const char * libx52_str_date_format(libx52_date_format format);
+const char * libx52_date_format_to_str(libx52_date_format format);
 
 /**
  * @brief Returns a string representation of the LED
@@ -731,7 +731,7 @@ const char * libx52_str_date_format(libx52_date_format format);
  * @returns Pointer to a NULL terminated string describing the LED.
  * Returned pointer must not be freed.
  */
-const char * libx52_str_led_id(libx52_led_id id);
+const char * libx52_led_id_to_str(libx52_led_id id);
 
 /**
  * @brief Returns a string representation of the LED state
@@ -741,7 +741,7 @@ const char * libx52_str_led_id(libx52_led_id id);
  * @returns Pointer to a NULL terminated string describing the LED state.
  * Returned pointer must not be freed.
  */
-const char * libx52_str_led_state(libx52_led_state state);
+const char * libx52_led_state_to_str(libx52_led_state state);
 
 /** @} */
 
