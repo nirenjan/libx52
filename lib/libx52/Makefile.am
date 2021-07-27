@@ -12,11 +12,11 @@ lib_LTLIBRARIES = libx52.la
 # This library handles the USB communication between the host and the X52
 # Libtool Version Info
 # See: https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
-libx52_v_CUR=5
-libx52_v_AGE=3
+libx52_v_CUR=6
+libx52_v_AGE=4
 libx52_v_REV=0
 libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c \
-					x52_strerror.c
+					x52_strerror.c x52_stringify.c
 libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir) $(WARN_CFLAGS)
 libx52_la_LDFLAGS = \
 	-export-symbols-regex '^libx52_' \

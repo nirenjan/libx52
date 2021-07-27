@@ -673,6 +673,16 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
  */
 int libx52_check_feature(libx52_device *x52, libx52_feature feature);
 
+/** @} */
+
+/**
+ * @defgroup libx52str Stringification
+ *
+ * Translation APIs from enumerations to string, primarily for logging.
+ *
+ * @{
+ */
+
 /**
  * @brief Return a string representation of the error code
  *
@@ -682,6 +692,56 @@ int libx52_check_feature(libx52_device *x52, libx52_feature feature);
  * Returned pointer must not be freed.
  */
 const char * libx52_strerror(libx52_error_code error);
+
+/**
+ * @brief Returns a string representation of the clock ID
+ *
+ * @param[in]   id      Clock ID
+ *
+ * @returns Pointer to a NULL terminated string describing the clock ID.
+ * Returned pointer must not be freed.
+ */
+const char * libx52_str_clock_id(libx52_clock_id id);
+
+/**
+ * @brief Returns a string representation of the clock format
+ *
+ * @param[in]   format  Clock format
+ *
+ * @returns Pointer to a NULL terminated string describing the clock format.
+ * Returned pointer must not be freed.
+ */
+const char * libx52_str_clock_format(libx52_clock_format format);
+
+/**
+ * @brief Returns a string representation of the date format
+ *
+ * @param[in]   format  Date format
+ *
+ * @returns Pointer to a NULL terminated string describing the date format.
+ * Returned pointer must not be freed.
+ */
+const char * libx52_str_date_format(libx52_date_format format);
+
+/**
+ * @brief Returns a string representation of the LED
+ *
+ * @param[in]   id      LED ID
+ *
+ * @returns Pointer to a NULL terminated string describing the LED.
+ * Returned pointer must not be freed.
+ */
+const char * libx52_str_led_id(libx52_led_id id);
+
+/**
+ * @brief Returns a string representation of the LED state
+ *
+ * @param[in]   state   LED state
+ *
+ * @returns Pointer to a NULL terminated string describing the LED state.
+ * Returned pointer must not be freed.
+ */
+const char * libx52_str_led_state(libx52_led_state state);
 
 /** @} */
 
