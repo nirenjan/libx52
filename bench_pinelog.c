@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <time.h>
 
 #define BENCH_COUNT 100000
@@ -36,7 +37,7 @@ static void print_time_difference(const char *type, struct timespec *ts)
     tp_usec = timeper / 1000;
     tp_nsec = timeper % 1000;
 
-    printf("# %s %lu.%03lu\u03BCs/log (Total %lu.%09lds)\n",
+    printf("# %s %"PRIu64".%03"PRIu64"\u03BCs/log (Total %lu.%09lds)\n",
            type, tp_usec, tp_nsec, ret.tv_sec, ret.tv_nsec);
 }
 
