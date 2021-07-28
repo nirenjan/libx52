@@ -165,11 +165,16 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
     } \
 } while(0)
 
+/* PINELOG_DISABLE_TRACE allows all traces to be compiled out */
+#ifndef PINELOG_DISABLE_TRACE
 #define PINELOG_TRACE(fmt, ...) do { \
     if (PINELOG_LVL_TRACE <= pinelog_get_level()) { \
         pinelog_log_message(PINELOG_LVL_TRACE, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
+#else
+#define PINELOG_TRACE(fmt, ...) do { } while(0)
+#endif
 
 #ifdef __cplusplus
 }
