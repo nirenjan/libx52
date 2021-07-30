@@ -1,7 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver
  *
- * Copyright (C) 2015 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2015-2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
@@ -469,7 +469,11 @@ static void do_help(const struct command_handler *cmd)
     }
 }
 
+#ifdef X52_CLI_TESTING
+int run_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif
 {
     libx52_device *x52;
     struct string_map result;

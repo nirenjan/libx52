@@ -12,14 +12,14 @@ x52cli_CFLAGS = -I $(top_srcdir)/libx52 $(WARN_CFLAGS)
 x52cli_LDFLAGS = $(WARN_LDFLAGS)
 x52cli_LDADD = libx52.la
 
-# TODO: Automake doesn't recognize these tests as scripts, and looks for
-# C sources. We need to replace these tests with a CMocka test suite
-CLI_TESTS = \
-	cli/cli_test_leds \
-	cli/cli_test_brightness \
-	cli/cli_test_indicator \
-	cli/cli_test_mfd \
-	cli/cli_test_clock \
-	cli/cli_test_timezone
+if HAVE_CMOCKA
+TESTS += test-cli
+check_PROGRAMS += test-cli
 
-EXTRA_DIST += cli/common_infra.sh $(CLI_TESTS)
+test_cli_SOURCES = cli/x52_cli.c cli/test_x52_cli.c
+test_cli_CFLAGS = -DX52_CLI_TESTING -I $(top_srcdir)/libx52
+test_cli_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
+
+# Add a dependency on test_x52_cli_tests.c
+cli/test_x52_cli.c: cli/test_x52_cli_tests.c
+endif
