@@ -4,5 +4,5 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-SUBDIRS = libx52 libx52util libusbx52 libx52io pinelog
+SUBDIRS = libx52util libusbx52 libx52io pinelog
 

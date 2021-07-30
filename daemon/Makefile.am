@@ -16,7 +16,7 @@ x52d_SOURCES = \
 x52d_CFLAGS = \
 	-I $(top_srcdir) \
 	-I $(top_srcdir)/lib/libx52io \
-	-I $(top_srcdir)/lib/libx52 \
+	-I $(top_srcdir)/libx52 \
 	-I $(top_srcdir)/lib/libx52util \
 	-I $(top_srcdir)/lib/pinelog \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
@@ -28,7 +28,7 @@ x52d_CFLAGS = \
 x52d_LDFLAGS = @INIH_LIBS@ @PTHREAD_LIBS@ $(WARN_LDFLAGS)
 x52d_LDADD = \
 	../lib/pinelog/libpinelog.la \
-	../lib/libx52/libx52.la \
+	../libx52/libx52.la \
 	@LTLIBINTL@
 
 x52dconfdir = @sysconfdir@/x52d

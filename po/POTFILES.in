@@ -1,6 +1,6 @@
 # List of source files which contain translatable strings.
-lib/libx52/x52_strerror.c
-lib/libx52/x52_stringify.c
+libx52/x52_strerror.c
+libx52/x52_stringify.c
 
 lib/libx52io/io_strings.c
 

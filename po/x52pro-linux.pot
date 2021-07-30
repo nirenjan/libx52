@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-27 09:34-0700\n"
+"POT-Creation-Date: 2021-07-29 21:40-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,196 +17,196 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/libx52/x52_strerror.c:23 lib/libx52io/io_strings.c:101
+#: libx52/x52_strerror.c:23 lib/libx52io/io_strings.c:101
 msgid "Success"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:24 lib/libx52io/io_strings.c:102
+#: libx52/x52_strerror.c:24 lib/libx52io/io_strings.c:102
 msgid "Initialization failure"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:25
+#: libx52/x52_strerror.c:25
 msgid "Insufficient memory"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:26
+#: libx52/x52_strerror.c:26
 msgid "Invalid parameter"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:27
+#: libx52/x52_strerror.c:27
 msgid "Operation not supported"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:28
+#: libx52/x52_strerror.c:28
 msgid "Try again"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:29
+#: libx52/x52_strerror.c:29
 msgid "Input parameter out of range"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:30
+#: libx52/x52_strerror.c:30
 msgid "USB transaction failure"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:31
+#: libx52/x52_strerror.c:31
 msgid "USB input/output error"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:32
+#: libx52/x52_strerror.c:32
 msgid "Access denied"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:33
+#: libx52/x52_strerror.c:33
 msgid "No such device"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:34
+#: libx52/x52_strerror.c:34
 msgid "Entity not found"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:35
+#: libx52/x52_strerror.c:35
 msgid "Resource busy"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:36
+#: libx52/x52_strerror.c:36
 msgid "Operation timeout"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:37
+#: libx52/x52_strerror.c:37
 msgid "Overflow"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:38
+#: libx52/x52_strerror.c:38
 msgid "Pipe error"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:39
+#: libx52/x52_strerror.c:39
 msgid "System call interrupted"
 msgstr ""
 
-#: lib/libx52/x52_strerror.c:66 lib/libx52io/io_strings.c:125
+#: libx52/x52_strerror.c:66 lib/libx52io/io_strings.c:125
 #, c-format
 msgid "Unknown error %d"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:29
+#: libx52/x52_stringify.c:29
 #, c-format
 msgid "Unknown clock ID %d"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:30
+#: libx52/x52_stringify.c:30
 msgid "primary"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:31
+#: libx52/x52_stringify.c:31
 msgid "secondary"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:32
+#: libx52/x52_stringify.c:32
 msgid "tertiary"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:35
+#: libx52/x52_stringify.c:35
 #, c-format
 msgid "Unknown clock format %d"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:36
+#: libx52/x52_stringify.c:36
 msgid "12 hour"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:37
+#: libx52/x52_stringify.c:37
 msgid "24 hour"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:40
+#: libx52/x52_stringify.c:40
 #, c-format
 msgid "Unknown date format %d"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:41
+#: libx52/x52_stringify.c:41
 msgid "DD-MM-YY"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:42
+#: libx52/x52_stringify.c:42
 msgid "MM-DD-YY"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:43
+#: libx52/x52_stringify.c:43
 msgid "YY-MM-DD"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:46
+#: libx52/x52_stringify.c:46
 #, c-format
 msgid "Unknown LED state %d"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:47 daemon/x52d_clock.c:28
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28
 msgid "off"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:48 daemon/x52d_clock.c:28
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28
 msgid "on"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:49
+#: libx52/x52_stringify.c:49
 msgid "red"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:50
+#: libx52/x52_stringify.c:50
 msgid "amber"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:51
+#: libx52/x52_stringify.c:51
 msgid "green"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:60
+#: libx52/x52_stringify.c:60
 msgid "Fire"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:63
+#: libx52/x52_stringify.c:63
 msgid "A"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:66
+#: libx52/x52_stringify.c:66
 msgid "B"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:69
+#: libx52/x52_stringify.c:69
 msgid "D"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:72
+#: libx52/x52_stringify.c:72
 msgid "E"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:75
+#: libx52/x52_stringify.c:75
 msgid "T1"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:78
+#: libx52/x52_stringify.c:78
 msgid "T2"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:81
+#: libx52/x52_stringify.c:81
 msgid "T3"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:84
+#: libx52/x52_stringify.c:84
 msgid "POV"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:87
+#: libx52/x52_stringify.c:87
 msgid "Clutch"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:90
+#: libx52/x52_stringify.c:90
 msgid "Throttle"
 msgstr ""
 
-#: lib/libx52/x52_stringify.c:93
+#: libx52/x52_stringify.c:93
 #, c-format
 msgid "Unknown LED ID %d"
 msgstr ""

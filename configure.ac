@@ -60,7 +60,6 @@ AC_SUBST([INIH_LIBS])
 # Pinelog configuration
 AC_SUBST([PINELOG_CFLAGS], ["-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1"])
 
-AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
 
 # Check for hidapi. This uses a different pkg-config file on Linux vs other
 # hosts, so check accordingly
@@ -125,8 +124,8 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile
-    lib/libx52/Makefile
-    lib/libx52/libx52.pc
+    libx52/Makefile
+    libx52/libx52.pc
     lib/libusbx52/Makefile
     lib/libx52util/Makefile
     lib/libx52io/Makefile
