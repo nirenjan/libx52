@@ -1361,5 +1361,41 @@ TEST_CASE(raw_date_yymmdd)
 #endif
 /* }}} */
 
+/* Vendor command tests {{{ */
+TEST_CASE(vendor_command_hex)
+#if TEST_DEF
+{
+    SETUP("raw", "0x0123", "0x4567")
+    FUNC(vendor_command, 1)
+    EXPECT(vendor_command, index, 0x0123)
+    EXPECT(vendor_command, value, 0x4567)
+    FINISH()
+}
+#endif
+
+TEST_CASE(vendor_command_oct)
+#if TEST_DEF
+{
+    SETUP("raw", "0123", "0456")
+    FUNC(vendor_command, 1)
+    EXPECT(vendor_command, index, 0123)
+    EXPECT(vendor_command, value, 0456)
+    FINISH()
+}
+#endif
+
+TEST_CASE(vendor_command_dec)
+#if TEST_DEF
+{
+    SETUP("raw", "123", "456")
+    FUNC(vendor_command, 1)
+    EXPECT(vendor_command, index, 123)
+    EXPECT(vendor_command, value, 456)
+    FINISH()
+}
+#endif
+
+/* }}} */
+
 #undef TEST_CASE
 #undef TEST_DEF
