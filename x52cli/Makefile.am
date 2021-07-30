@@ -12,4 +12,4 @@ bin_PROGRAMS = x52cli
 x52cli_SOURCES = x52_cli.c
 x52cli_CFLAGS = -I $(top_srcdir)/libx52 $(WARN_CFLAGS)
 x52cli_LDFLAGS = $(WARN_LDFLAGS)
-x52cli_LDADD = ../../libx52/libx52.la
+x52cli_LDADD = ../libx52/libx52.la

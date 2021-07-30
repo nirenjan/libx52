@@ -79,7 +79,7 @@ find_programs()
     fi
 
     # Find the X52cli script
-    X52CLI=$(find .. -path '*/cli/x52cli' -perm -+x)
+    X52CLI=$(find .. -path '*/x52cli/x52cli' -perm -+x)
 
     if [[ -z "$X52CLI" ]]
     then

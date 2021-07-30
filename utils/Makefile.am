@@ -4,5 +4,5 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-SUBDIRS = cli test evtest
+SUBDIRS = test evtest
 
