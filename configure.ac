@@ -127,7 +127,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     libx52/Makefile
     libx52/libx52.pc
     lib/libusbx52/Makefile
-    lib/libx52util/Makefile
+    libx52util/Makefile
     lib/libx52io/Makefile
     lib/pinelog/Makefile
     udev/Makefile

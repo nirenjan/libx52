@@ -17,7 +17,7 @@ x52d_CFLAGS = \
 	-I $(top_srcdir) \
 	-I $(top_srcdir)/lib/libx52io \
 	-I $(top_srcdir)/libx52 \
-	-I $(top_srcdir)/lib/libx52util \
+	-I $(top_srcdir)/libx52util \
 	-I $(top_srcdir)/lib/pinelog \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
