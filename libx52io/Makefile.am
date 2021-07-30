@@ -34,7 +34,7 @@ x52include_HEADERS += libx52io/libx52io.h
 
 if HAVE_CMOCKA
 TESTS += test-axis test-parser
-check_PROGRAMS += $(TESTS)
+check_PROGRAMS += test-axis test-parser
 
 test_axis_SOURCES = libx52io/test_axis.c $(libx52io_la_SOURCES)
 test_axis_CFLAGS = $(libx52io_la_CFLAGS)
