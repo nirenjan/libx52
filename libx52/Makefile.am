@@ -4,9 +4,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-ACLOCAL_AMFLAGS = -I m4
-
-lib_LTLIBRARIES = libx52.la
+lib_LTLIBRARIES += libx52.la
 
 # Core libx52 library
 # This library handles the USB communication between the host and the X52
@@ -15,9 +13,18 @@ lib_LTLIBRARIES = libx52.la
 libx52_v_CUR=6
 libx52_v_AGE=4
 libx52_v_REV=0
-libx52_la_SOURCES = x52_control.c x52_core.c x52_date_time.c x52_mfd_led.c \
-					x52_strerror.c x52_stringify.c
-libx52_la_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -I $(top_srcdir) $(WARN_CFLAGS)
+libx52_la_SOURCES = \
+	libx52/x52_control.c \
+	libx52/x52_core.c \
+	libx52/x52_date_time.c \
+	libx52/x52_mfd_led.c \
+	libx52/x52_strerror.c \
+	libx52/x52_stringify.c
+libx52_la_CFLAGS = \
+	@LIBUSB_CFLAGS@ \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-I $(top_srcdir) \
+	$(WARN_CFLAGS)
 libx52_la_LDFLAGS = \
 	-export-symbols-regex '^libx52_' \
 	-version-info $(libx52_v_CUR):$(libx52_v_REV):$(libx52_v_AGE) @LIBUSB_LIBS@ \
@@ -25,37 +32,36 @@ libx52_la_LDFLAGS = \
 libx52_la_LIBADD = @LTLIBINTL@
 
 # Header files that need to be copied
-x52includedir = $(includedir)/libx52
-x52include_HEADERS = libx52.h
+x52include_HEADERS += libx52/libx52.h
 
 # pkg-config files
-pkgconfig_DATA = libx52.pc
+pkgconfig_DATA += libx52/libx52.pc
 
 if HAVE_CMOCKA
-LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
-TESTS = libx52test
-check_PROGRAMS = libx52test
+TESTS += libx52test
+check_PROGRAMS += libx52test
 
-nodist_libx52test_SOURCES = test_libx52.c
+nodist_libx52test_SOURCES = libx52/test_libx52.c
 libx52test_SOURCES = $(libx52_la_SOURCES)
-libx52test_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir)
+libx52test_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir) -I $(top_srcdir)/libx52
 libx52test_CFLAGS += -Dlibusb_control_transfer=__wrap_libusb_control_transfer
 libx52test_LDFLAGS = @CMOCKA_LIBS@ @LIBUSB_LIBS@
 libx52test_LDADD = libx52.la
 
-CLEANFILES = test_libx52.c
-test_libx52.c: $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json
-	$(AM_V_GEN) $(PYTHON) $(srcdir)/x52_test_gen.py $(srcdir)/x52_tests.json > $@
+CLEANFILES += libx52/test_libx52.c
+$(builddir)/libx52/test_libx52.c: $(srcdir)/libx52/x52_test_gen.py $(srcdir)/libx52/x52_tests.json
+	$(AM_V_GEN) $(PYTHON) $(srcdir)/libx52/x52_test_gen.py $(srcdir)/libx52/x52_tests.json > $@
 endif
 
 # Extra files that need to be in the distribution
-EXTRA_DIST = libx52.h x52_commands.h x52_common.h README.md
+EXTRA_DIST += \
+	libx52/libx52.h libx52/x52_commands.h libx52/x52_common.h libx52/README.md
 
 # Add test files to the distribution
-EXTRA_DIST += x52_test_gen.py x52_tests.json
+EXTRA_DIST += libx52/x52_test_gen.py libx52/x52_tests.json
 
 # Add documentation files to the distribution
 EXTRA_DIST += \
-	doc/main.dox \
-	doc/caveats.dox \
-	doc/integration.dox
+	libx52/doc/main.dox \
+	libx52/doc/caveats.dox \
+	libx52/doc/integration.dox

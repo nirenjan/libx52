@@ -6,29 +6,44 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
+# Build any support libraries first
+SUBDIRS = lib
+
 if USE_NLS
-po_SUBDIRS = po
+SUBDIRS += po
 endif
 
-SUBDIRS = $(po_SUBDIRS) libx52 libx52util libx52io libusbx52 lib x52cli x52test evtest daemon tests udev
+#######################################################################
+# Defaults
+#######################################################################
+bin_PROGRAMS =
+check_PROGRAMS =
+lib_LTLIBRARIES =
+check_LTLIBRARIES =
+pkgconfig_DATA =
+TESTS =
+EXTRA_DIST =
+CLEANFILES =
 
-# Extra files that need to be in the distribution
-EXTRA_DIST = \
-	ABOUT-NLS \
-	AUTHORS \
-	ChangeLog.md \
-	CONTRIBUTING.md \
-	Doxyfile.in \
-	DoxygenLayout.xml \
-	INSTALL.md \
-	LICENSE \
-	README.md \
-	config.rpath \
-	gettext.h \
-	usb-ids.h \
-	po/README.md
+x52includedir = $(includedir)/libx52
+x52include_HEADERS =
 
+LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
+
+include libx52/Makefile.am
+include libx52util/Makefile.am
+include libx52io/Makefile.am
+include libusbx52/Makefile.am
+
+include cli/Makefile.am
+include joytest/Makefile.am
+include evtest/Makefile.am
+include daemon/Makefile.am
+include udev/Makefile.am
+
+#######################################################################
 # Doxygen support
+#######################################################################
 if HAVE_DOXYGEN
 DXGEN = $(DXGEN_@AM_V@)
 DXGEN_ = $(DXGEN_@AM_DEFAULT_V@)
@@ -54,3 +69,20 @@ uninstall-local:
 	rm -rf $(DESTDIR)$(mandir)/man1/x52cli.1
 
 endif
+
+# Extra files that need to be in the distribution
+EXTRA_DIST += \
+	ABOUT-NLS \
+	AUTHORS \
+	ChangeLog.md \
+	CONTRIBUTING.md \
+	Doxyfile.in \
+	DoxygenLayout.xml \
+	INSTALL.md \
+	LICENSE \
+	README.md \
+	config.rpath \
+	gettext.h \
+	usb-ids.h \
+	po/README.md
+

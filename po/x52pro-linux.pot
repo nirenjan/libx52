@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-29 22:25-0700\n"
+"POT-Creation-Date: 2021-07-29 22:58-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,239 +255,239 @@ msgstr ""
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr ""
 
-#: x52test/x52_test.c:97
+#: joytest/x52_test.c:97
 msgid "Test brightness scale (~ 1m)"
 msgstr ""
 
-#: x52test/x52_test.c:98
+#: joytest/x52_test.c:98
 msgid "Test LED states (~ 45s)"
 msgstr ""
 
-#: x52test/x52_test.c:99
+#: joytest/x52_test.c:99
 msgid "Test MFD string display (~ 30s)"
 msgstr ""
 
-#: x52test/x52_test.c:100
+#: joytest/x52_test.c:100
 msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr ""
 
-#: x52test/x52_test.c:101
+#: joytest/x52_test.c:101
 msgid "Test the blink and shift commands (< 10s)"
 msgstr ""
 
-#: x52test/x52_test.c:102
+#: joytest/x52_test.c:102
 msgid "Test the clock commands (~1m)"
 msgstr ""
 
-#: x52test/x52_test.c:126
+#: joytest/x52_test.c:126
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
 msgstr ""
 
-#: x52test/x52_test.c:130
+#: joytest/x52_test.c:130
 msgid "These tests take roughly 6 minutes to run"
 msgstr ""
 
-#: x52test/x52_test.c:132
+#: joytest/x52_test.c:132
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
 
-#: x52test/x52_test.c:138
+#: joytest/x52_test.c:138
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
 msgstr ""
 
-#: x52test/x52_test.c:153
+#: joytest/x52_test.c:153
 msgid "All tests completed successfully"
 msgstr ""
 
-#: x52test/x52_test.c:155
+#: joytest/x52_test.c:155
 #, c-format
 msgid "Got error %s\n"
 msgstr ""
 
-#: x52test/x52_test.c:157
+#: joytest/x52_test.c:157
 #, c-format
 msgid "Received %s signal, quitting...\n"
 msgstr ""
 
-#: x52test/x52_test.c:176
+#: joytest/x52_test.c:176
 msgid ""
 "These are the available tests with a description and\n"
 "approximate runtime. Not specifying any tests will run\n"
 "all the tests\n"
 msgstr ""
 
-#: x52test/x52_test.c:180
+#: joytest/x52_test.c:180
 msgid "List of tests:"
 msgstr ""
 
-#: x52test/x52_test.c:230
+#: joytest/x52_test.c:230
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
 msgstr ""
 
-#: x52test/x52_test.c:244
+#: joytest/x52_test.c:244
 #, c-format
 msgid ""
 "Unrecognized test identifier: %s\n"
 "\n"
 msgstr ""
 
-#: x52test/x52_test.c:257
+#: joytest/x52_test.c:257
 msgid "Not running any tests"
 msgstr ""
 
-#: x52test/x52_test_clock.c:32
+#: joytest/x52_test_clock.c:32
 msgid "Clock"
 msgstr ""
 
-#: x52test/x52_test_clock.c:33
+#: joytest/x52_test_clock.c:33
 msgid "This tests the clock display"
 msgstr ""
 
-#: x52test/x52_test_clock.c:38
+#: joytest/x52_test_clock.c:38
 msgid ""
 "\n"
 "Testing clock time minute display for 90 minutes"
 msgstr ""
 
-#: x52test/x52_test_clock.c:44
+#: joytest/x52_test_clock.c:44
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 12 hour mode"
 msgstr ""
 
-#: x52test/x52_test_clock.c:47
+#: joytest/x52_test_clock.c:47
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 24 hour mode"
 msgstr ""
 
-#: x52test/x52_test_clock.c:52
+#: joytest/x52_test_clock.c:52
 msgid ""
 "\n"
 "Testing clock date display for 31 days, dd-mm-yy"
 msgstr ""
 
-#: x52test/x52_test_clock.c:56
+#: joytest/x52_test_clock.c:56
 msgid ""
 "\n"
 "Testing clock date display for 31 days, mm-dd-yy"
 msgstr ""
 
-#: x52test/x52_test_clock.c:60
+#: joytest/x52_test_clock.c:60
 msgid ""
 "\n"
 "Testing clock date display for 31 days, yy-mm-dd"
 msgstr ""
 
-#: x52test/x52_test_common.h:26
+#: joytest/x52_test_common.h:26
 #, c-format
 msgid ""
 "\n"
 "%s(%s) failed with %d(%s)\n"
 msgstr ""
 
-#: x52test/x52_test_common.h:32
+#: joytest/x52_test_common.h:32
 #, c-format
 msgid ""
 "\n"
 "update failed with %d(%s)\n"
 msgstr ""
 
-#: x52test/x52_test_led.c:19
+#: joytest/x52_test_led.c:19
 #, c-format
 msgid "LED %s - %s\n"
 msgstr ""
 
-#: x52test/x52_test_led.c:25 x52test/x52_test_led.c:32
+#: joytest/x52_test_led.c:25 joytest/x52_test_led.c:32
 #, c-format
 msgid ""
 "\n"
 "Testing LED %s\n"
 msgstr ""
 
-#: x52test/x52_test_led.c:42
+#: joytest/x52_test_led.c:42
 msgid "LEDs"
 msgstr ""
 
-#: x52test/x52_test_led.c:48
+#: joytest/x52_test_led.c:48
 msgid "Skipping LED tests since the device does not support LED control"
 msgstr ""
 
-#: x52test/x52_test_led.c:55
+#: joytest/x52_test_led.c:55
 msgid "This cycles the LEDs through all possible states"
 msgstr ""
 
-#: x52test/x52_test_led.c:73
+#: joytest/x52_test_led.c:73
 #, c-format
 msgid ""
 "\n"
 "Testing %s\n"
 msgstr ""
 
-#: x52test/x52_test_led.c:84
+#: joytest/x52_test_led.c:84
 msgid "Blink & Shift"
 msgstr ""
 
-#: x52test/x52_test_led.c:85
+#: joytest/x52_test_led.c:85
 msgid "This tests the blink indicator and shift functionality"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:24
+#: joytest/x52_test_mfd.c:24
 msgid "Brightness"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:26
+#: joytest/x52_test_mfd.c:26
 msgid "This test cycles through the MFD and LED brightness scales"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:29
+#: joytest/x52_test_mfd.c:29
 msgid ""
 "\n"
 "MFD: "
 msgstr ""
 
-#: x52test/x52_test_mfd.c:36
+#: joytest/x52_test_mfd.c:36
 msgid ""
 "\n"
 "LED: "
 msgstr ""
 
-#: x52test/x52_test_mfd.c:55
+#: joytest/x52_test_mfd.c:55
 msgid "MFD text"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:56
+#: joytest/x52_test_mfd.c:56
 msgid "This test tests the character displays of the MFD\n"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:60
+#: joytest/x52_test_mfd.c:60
 #, c-format
 msgid "Writing characters %s\n"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:82
+#: joytest/x52_test_mfd.c:82
 msgid "MFD display"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:83
+#: joytest/x52_test_mfd.c:83
 msgid ""
 "This test checks if the display elements can display all characters\n"
 "You should see the display cycling through each character, with every\n"
 "cell displaying the same character\n"
 msgstr ""
 
-#: x52test/x52_test_mfd.c:88
+#: joytest/x52_test_mfd.c:88
 #, c-format
 msgid "Testing character 0x%02x..."
 msgstr ""
 
-#: x52test/x52_test_mfd.c:96
+#: joytest/x52_test_mfd.c:96
 msgid "OK"
 msgstr ""
 

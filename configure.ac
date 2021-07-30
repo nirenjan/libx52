@@ -124,18 +124,8 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile
-    libx52/Makefile
     libx52/libx52.pc
-    libusbx52/Makefile
-    libx52util/Makefile
-    libx52io/Makefile
     lib/pinelog/Makefile
-    udev/Makefile
     udev/60-saitek-x52-x52pro.rules
-    x52cli/Makefile
-    x52test/Makefile
-    evtest/Makefile
-    daemon/Makefile
-    tests/Makefile
 ])
 AC_OUTPUT
