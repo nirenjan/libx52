@@ -6,11 +6,11 @@ libx52io/io_strings.c
 
 utils/evtest/ev_test.c
 
-utils/test/x52_test.c
-utils/test/x52_test_clock.c
-utils/test/x52_test_common.h
-utils/test/x52_test_led.c
-utils/test/x52_test_mfd.c
+x52test/x52_test.c
+x52test/x52_test_clock.c
+x52test/x52_test_common.h
+x52test/x52_test_led.c
+x52test/x52_test_mfd.c
 
 daemon/x52d_main.c
 daemon/x52d_clock.c

@@ -10,7 +10,7 @@ if USE_NLS
 po_SUBDIRS = po
 endif
 
-SUBDIRS = $(po_SUBDIRS) libx52 libx52util libx52io libusbx52 lib x52cli utils daemon tests udev
+SUBDIRS = $(po_SUBDIRS) libx52 libx52util libx52io libusbx52 lib x52cli x52test utils daemon tests udev
 
 # Extra files that need to be in the distribution
 EXTRA_DIST = \

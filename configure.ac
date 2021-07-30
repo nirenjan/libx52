@@ -134,7 +134,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     udev/60-saitek-x52-x52pro.rules
     utils/Makefile
     x52cli/Makefile
-    utils/test/Makefile
+    x52test/Makefile
     utils/evtest/Makefile
     daemon/Makefile
     tests/Makefile
