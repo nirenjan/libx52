@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-29 21:40-0700\n"
+"POT-Creation-Date: 2021-07-29 21:50-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libx52/x52_strerror.c:23 lib/libx52io/io_strings.c:101
+#: libx52/x52_strerror.c:23 libx52io/io_strings.c:101
 msgid "Success"
 msgstr ""
 
-#: libx52/x52_strerror.c:24 lib/libx52io/io_strings.c:102
+#: libx52/x52_strerror.c:24 libx52io/io_strings.c:102
 msgid "Initialization failure"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "System call interrupted"
 msgstr ""
 
-#: libx52/x52_strerror.c:66 lib/libx52io/io_strings.c:125
+#: libx52/x52_strerror.c:66 libx52io/io_strings.c:125
 #, c-format
 msgid "Unknown error %d"
 msgstr ""
@@ -211,23 +211,23 @@ msgstr ""
 msgid "Unknown LED ID %d"
 msgstr ""
 
-#: lib/libx52io/io_strings.c:103
+#: libx52io/io_strings.c:103
 msgid "No device"
 msgstr ""
 
-#: lib/libx52io/io_strings.c:104
+#: libx52io/io_strings.c:104
 msgid "Invalid arguments"
 msgstr ""
 
-#: lib/libx52io/io_strings.c:105
+#: libx52io/io_strings.c:105
 msgid "Connection failure"
 msgstr ""
 
-#: lib/libx52io/io_strings.c:106
+#: libx52io/io_strings.c:106
 msgid "I/O error"
 msgstr ""
 
-#: lib/libx52io/io_strings.c:107
+#: libx52io/io_strings.c:107
 msgid "Read timeout"
 msgstr ""
 
