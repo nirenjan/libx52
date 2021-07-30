@@ -132,10 +132,9 @@ AC_CONFIG_FILES([ po/Makefile.in
     lib/pinelog/Makefile
     udev/Makefile
     udev/60-saitek-x52-x52pro.rules
-    utils/Makefile
     x52cli/Makefile
     x52test/Makefile
-    utils/evtest/Makefile
+    evtest/Makefile
     daemon/Makefile
     tests/Makefile
 ])

@@ -12,4 +12,4 @@ bin_PROGRAMS = x52evtest
 x52evtest_SOURCES = ev_test.c
 x52evtest_CFLAGS = -I $(top_srcdir)/libx52io -I $(top_srcdir) -DLOCALEDIR=\"$(localedir)\" $(WARN_CFLAGS)
 x52evtest_LDFLAGS = $(WARN_LDFLAGS)
-x52evtest_LDADD = ../../libx52io/libx52io.la
+x52evtest_LDADD = ../libx52io/libx52io.la

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-29 22:12-0700\n"
+"POT-Creation-Date: 2021-07-29 22:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,26 +231,26 @@ msgstr ""
 msgid "Read timeout"
 msgstr ""
 
-#: utils/evtest/ev_test.c:109
+#: evtest/ev_test.c:109
 #, c-format
 msgid "Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"
 msgstr ""
 
-#: utils/evtest/ev_test.c:113
+#: evtest/ev_test.c:113
 #, c-format
 msgid "Device name: \"%s %s\"\n"
 msgstr ""
 
-#: utils/evtest/ev_test.c:116
+#: evtest/ev_test.c:116
 #, c-format
 msgid "Serial number: \"%s\"\n"
 msgstr ""
 
-#: utils/evtest/ev_test.c:117
+#: evtest/ev_test.c:117
 msgid "Testing (interrupt to exit)\n"
 msgstr ""
 
-#: utils/evtest/ev_test.c:157 utils/evtest/ev_test.c:165
+#: evtest/ev_test.c:157 evtest/ev_test.c:165
 #, c-format
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr ""
