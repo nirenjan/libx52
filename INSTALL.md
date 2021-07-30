@@ -45,10 +45,7 @@ the utilities, you will need the following packages:
 * doxygen
 * rsync
 
-You will also need the following packages to run the unit tests:
-
-* faketime
-* cmocka
+You will also need the `cmocka` package to run the unit tests.
 
 # Installation Instructions
 
