@@ -23,3 +23,5 @@ test_cli_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
 # Add a dependency on test_x52_cli_tests.c
 cli/test_x52_cli.c: cli/test_x52_cli_tests.c
 endif
+
+EXTRA_DIST += cli/test_x52_cli_tests.c
