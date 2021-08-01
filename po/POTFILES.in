@@ -1,12 +1,19 @@
 # List of source files which contain translatable strings.
-lib/libx52/x52_strerror.c
+libx52/x52_strerror.c
+libx52/x52_stringify.c
 
-lib/libx52io/io_strings.c
+libx52io/io_strings.c
 
-utils/evtest/ev_test.c
+evtest/ev_test.c
 
-utils/test/x52_test.c
-utils/test/x52_test_clock.c
-utils/test/x52_test_common.h
-utils/test/x52_test_led.c
-utils/test/x52_test_mfd.c
+joytest/x52_test.c
+joytest/x52_test_clock.c
+joytest/x52_test_common.h
+joytest/x52_test_led.c
+joytest/x52_test_mfd.c
+
+daemon/x52d_main.c
+daemon/x52d_clock.c
+daemon/x52d_config.c
+daemon/x52d_config_parser.c
+daemon/x52d_device.c

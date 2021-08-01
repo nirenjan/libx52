@@ -1,10 +1,10 @@
 # Autoconf settings for x52pro-linux
 #
-# Copyright (C) 2012-2020 Nirenjan Krishnan (nirenjan@nirenjan.org)
+# Copyright (C) 2012-2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-AC_INIT([x52pro-linux], [0.2.1], [nirenjan@gmail.com])
+AC_INIT([x52pro-linux], [0.2.2], [nirenjan@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
@@ -18,6 +18,11 @@ PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
 AX_COMPILER_FLAGS
 AC_CANONICAL_HOST
+AX_GCC_FUNC_ATTRIBUTE([constructor])
+AX_GCC_FUNC_ATTRIBUTE([destructor])
+AX_GCC_FUNC_ATTRIBUTE([format])
+AX_GCC_FUNC_ATTRIBUTE([noreturn])
+AC_C_TYPEOF
 
 AC_MSG_NOTICE([Detected host OS is ${host_os}])
 build_linux=no
@@ -31,7 +36,7 @@ AM_CONDITIONAL([LINUX], [test "x${build_linux}" = "xyes"])
 
 # Internationalization
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION(0.18)
+AM_GNU_GETTEXT_VERSION(0.19)
 AM_CONDITIONAL([USE_NLS], [test "x${USE_NLS}" == "xyes"])
 
 # Check for libusb-1.0
@@ -41,13 +46,25 @@ AC_SUBST([LIBUSB_CFLAGS])
 AC_SUBST([LIBUSB_LDFLAGS])
 AC_SUBST([LIBUSB_LIBS])
 
-AC_SUBST([X52_PKG_VERSION], [0.1])
-AC_SUBST([X52_INCLUDE], ["-I \$(top_srcdir)/lib/libx52"])
+# Check for libinih
+PKG_CHECK_MODULES([INIH], [inih], [],
+                  [
+                    # Older versions of Ubuntu don't provide a .pc file
+                    AC_CHECK_HEADERS([ini.h])
+                    AC_SEARCH_LIBS([ini_parse], [inih])
+                  ])
+AC_SUBST([INIH_CFLAGS])
+AC_SUBST([INIH_LDFLAGS])
+AC_SUBST([INIH_LIBS])
+
+# Pinelog configuration
+AC_SUBST([PINELOG_CFLAGS], ["-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1"])
+
 
 # Check for hidapi. This uses a different pkg-config file on Linux vs other
 # hosts, so check accordingly
 AM_COND_IF([LINUX], [hidapi_backend=hidapi-hidraw], [hidapi_backend=hidapi])
-AX_PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
+PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
 AC_SUBST([HIDAPI_CFLAGS])
 AC_SUBST([HIDAPI_LDFLAGS])
 AC_SUBST([HIDAPI_LIBS])
@@ -66,7 +83,7 @@ AC_MSG_CHECKING([final decision IS_MAKE_DISTCHECK (running "make distcheck"?)])
 AM_COND_IF([IS_MAKE_DISTCHECK], [AC_MSG_RESULT([yes])], [AC_MSG_RESULT([no])])
 
 # udev support
-AX_PKG_CHECK_MODULES([UDEV], [udev], [], [have_udev=yes], [have_udev=no])
+PKG_CHECK_MODULES([UDEV], [udev], [have_udev=yes], [have_udev=no])
 AM_CONDITIONAL([HAVE_UDEV], [test "x$have_udev" = xyes])
 AC_ARG_WITH([udevrulesdir],
     AS_HELP_STRING([--with-udevrulesdir=DIR], [Directory for udev rules]),
@@ -88,7 +105,7 @@ AM_COND_IF([HAVE_DOXYGEN],
     [AC_MSG_WARN(["Doxygen not found; continuing without doxygen support"])])
 
 # cmocka unit tests
-AX_PKG_CHECK_MODULES([CMOCKA], [cmocka >= 1.1], [], [have_cmocka=yes], [have_cmocka=no])
+PKG_CHECK_MODULES([CMOCKA], [cmocka >= 1.1], [have_cmocka=yes], [have_cmocka=no])
 AM_CONDITIONAL([HAVE_CMOCKA], [test "x$have_cmocka" = xyes])
 AM_COND_IF([HAVE_CMOCKA], [],
     [AC_MSG_WARN(["cmocka not found; disabling unit test build"])])
@@ -107,17 +124,8 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile
-    lib/libx52/Makefile
-    lib/libx52/libx52.pc
-    lib/libusbx52/Makefile
-    lib/libx52util/Makefile
-    lib/libx52io/Makefile
-    udev/Makefile
+    libx52/libx52.pc
+    lib/pinelog/Makefile
     udev/60-saitek-x52-x52pro.rules
-    utils/Makefile
-    utils/cli/Makefile
-    utils/test/Makefile
-    utils/evtest/Makefile
-    tests/Makefile
 ])
 AC_OUTPUT

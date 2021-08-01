@@ -7,9 +7,13 @@
 a.out
 utils/cli/x52cli*
 utils/test/x52test*
+utils/evtest/x52evtest*
 lib/libx52util/util_char_map.c
 util/x52charmapgen*
 lib/libusbx52/x52test*
+udev/*.rules
+daemon/x52d*
+!daemon/x52d_*.*
 x52pro-linux-*.tar.gz
 
 # Module files

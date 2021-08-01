@@ -8,6 +8,8 @@ The format is based upon [Keep a Changelog].
 ### Added
 - IO library to read and parse events from a supported joystick.
 - Event test utility which displays the events similar to evtest.
+- Import pinelog library for daemon logging.
+- Daemon to control and update the X52 joystick.
 
 ### Changed
 - Linux kernel driver to correctly handle the X52/X52 Pro. This is not required
@@ -20,6 +22,8 @@ The format is based upon [Keep a Changelog].
   be used in the actual rules file. This allows systems such as openSUSE which
   use `input` as the group for input devices to behave the same as Ubuntu and
   other similar systems.
+- Code layout changed to improve parallel builds.
+- x52cli tests modified to use cmocka tests.
 
 ## [0.2.1] - 2020-06-28
 ### Added

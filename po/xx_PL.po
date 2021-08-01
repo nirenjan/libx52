@@ -7,158 +7,279 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2020-07-16 04:24-0700\n"
-"PO-Revision-Date: 2020-07-13 18:05-0700\n"
+"POT-Creation-Date: 2021-07-29 22:58-0700\n"
+"PO-Revision-Date: 2021-07-27 02:08-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0\n"
 
-#: lib/libx52/x52_strerror.c:25 lib/libx52io/io_strings.c:104
+#: libx52/x52_strerror.c:23 libx52io/io_strings.c:101
 msgid "Success"
 msgstr "Uccesssay"
 
-#: lib/libx52/x52_strerror.c:28 lib/libx52io/io_strings.c:107
+#: libx52/x52_strerror.c:24 libx52io/io_strings.c:102
 msgid "Initialization failure"
 msgstr "Initializationay ailurefay"
 
-#: lib/libx52/x52_strerror.c:31
+#: libx52/x52_strerror.c:25
 msgid "Insufficient memory"
 msgstr "Insufficientay emorymay"
 
-#: lib/libx52/x52_strerror.c:34
+#: libx52/x52_strerror.c:26
 msgid "Invalid parameter"
 msgstr "Invaliday arameterpay"
 
-#: lib/libx52/x52_strerror.c:37
+#: libx52/x52_strerror.c:27
 msgid "Operation not supported"
 msgstr "Operationay otnay upportedsay"
 
-#: lib/libx52/x52_strerror.c:40
+#: libx52/x52_strerror.c:28
 msgid "Try again"
 msgstr "Ytray againay"
 
-#: lib/libx52/x52_strerror.c:43
+#: libx52/x52_strerror.c:29
 msgid "Input parameter out of range"
 msgstr "Inputay arameterpay outay ofay angeray"
 
-#: lib/libx52/x52_strerror.c:46
+#: libx52/x52_strerror.c:30
 msgid "USB transaction failure"
-msgstr "USBay ransactiontay ailurefay"
+msgstr "USBay ansactiontray ailurefay"
 
-#: lib/libx52/x52_strerror.c:49
+#: libx52/x52_strerror.c:31
 msgid "USB input/output error"
 msgstr "USBay inputay/outputay erroray"
 
-#: lib/libx52/x52_strerror.c:52
+#: libx52/x52_strerror.c:32
 msgid "Access denied"
 msgstr "Accessay eniedday"
 
-#: lib/libx52/x52_strerror.c:55
+#: libx52/x52_strerror.c:33
 msgid "No such device"
 msgstr "Onay uchsay eviceday"
 
-#: lib/libx52/x52_strerror.c:58
+#: libx52/x52_strerror.c:34
 msgid "Entity not found"
 msgstr "Entityay otnay oundfay"
 
-#: lib/libx52/x52_strerror.c:61
+#: libx52/x52_strerror.c:35
 msgid "Resource busy"
 msgstr "Esourceray usybay"
 
-#: lib/libx52/x52_strerror.c:64
+#: libx52/x52_strerror.c:36
 msgid "Operation timeout"
 msgstr "Operationay imeouttay"
 
-#: lib/libx52/x52_strerror.c:67
+#: libx52/x52_strerror.c:37
 msgid "Overflow"
 msgstr "Overfloway"
 
-#: lib/libx52/x52_strerror.c:70
+#: libx52/x52_strerror.c:38
 msgid "Pipe error"
 msgstr "Ipepay erroray"
 
-#: lib/libx52/x52_strerror.c:73
+#: libx52/x52_strerror.c:39
 msgid "System call interrupted"
 msgstr "Ystemsay allcay interrupteday"
 
-#: lib/libx52/x52_strerror.c:77 lib/libx52io/io_strings.c:125
+#: libx52/x52_strerror.c:66 libx52io/io_strings.c:125
 #, c-format
 msgid "Unknown error %d"
 msgstr "Unknownay erroray %d"
 
-#: lib/libx52io/io_strings.c:110
+#: libx52/x52_stringify.c:29
+#, c-format
+msgid "Unknown clock ID %d"
+msgstr "Unknownay ockclay IDay %d"
+
+#: libx52/x52_stringify.c:30
+msgid "primary"
+msgstr "imarypray"
+
+#: libx52/x52_stringify.c:31
+msgid "secondary"
+msgstr "econdarysay"
+
+#: libx52/x52_stringify.c:32
+msgid "tertiary"
+msgstr "ertiarytay"
+
+#: libx52/x52_stringify.c:35
+#, c-format
+msgid "Unknown clock format %d"
+msgstr "Unknownay ockclay ormatfay %d"
+
+#: libx52/x52_stringify.c:36
+msgid "12 hour"
+msgstr "12 ourhay"
+
+#: libx52/x52_stringify.c:37
+msgid "24 hour"
+msgstr "24 ourhay"
+
+#: libx52/x52_stringify.c:40
+#, c-format
+msgid "Unknown date format %d"
+msgstr "Unknownay ateday ormatfay %d"
+
+#: libx52/x52_stringify.c:41
+msgid "DD-MM-YY"
+msgstr "DDay-MMay-YYay"
+
+#: libx52/x52_stringify.c:42
+msgid "MM-DD-YY"
+msgstr "MMay-DDay-YYay"
+
+#: libx52/x52_stringify.c:43
+msgid "YY-MM-DD"
+msgstr "YYay-MMay-DDay"
+
+#: libx52/x52_stringify.c:46
+#, c-format
+msgid "Unknown LED state %d"
+msgstr "Unknownay EDLay atestay %d"
+
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28
+msgid "off"
+msgstr "offay"
+
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28
+msgid "on"
+msgstr "onay"
+
+#: libx52/x52_stringify.c:49
+msgid "red"
+msgstr "edray"
+
+#: libx52/x52_stringify.c:50
+msgid "amber"
+msgstr "amberay"
+
+#: libx52/x52_stringify.c:51
+msgid "green"
+msgstr "eengray"
+
+#: libx52/x52_stringify.c:60
+msgid "Fire"
+msgstr "Irefay"
+
+#: libx52/x52_stringify.c:63
+msgid "A"
+msgstr "Ay"
+
+#: libx52/x52_stringify.c:66
+msgid "B"
+msgstr "Bay"
+
+#: libx52/x52_stringify.c:69
+msgid "D"
+msgstr "Day"
+
+#: libx52/x52_stringify.c:72
+msgid "E"
+msgstr "Eay"
+
+#: libx52/x52_stringify.c:75
+msgid "T1"
+msgstr "Tay1"
+
+#: libx52/x52_stringify.c:78
+msgid "T2"
+msgstr "Tay2"
+
+#: libx52/x52_stringify.c:81
+msgid "T3"
+msgstr "Tay3"
+
+#: libx52/x52_stringify.c:84
+msgid "POV"
+msgstr "OVPay"
+
+#: libx52/x52_stringify.c:87
+msgid "Clutch"
+msgstr "Utchclay"
+
+#: libx52/x52_stringify.c:90
+msgid "Throttle"
+msgstr "Ottlethray"
+
+#: libx52/x52_stringify.c:93
+#, c-format
+msgid "Unknown LED ID %d"
+msgstr "Unknownay EDLay IDay %d"
+
+#: libx52io/io_strings.c:103
 msgid "No device"
 msgstr "Onay eviceday"
 
-#: lib/libx52io/io_strings.c:113
+#: libx52io/io_strings.c:104
 msgid "Invalid arguments"
 msgstr "Invaliday argumentsay"
 
-#: lib/libx52io/io_strings.c:116
+#: libx52io/io_strings.c:105
 msgid "Connection failure"
 msgstr "Onnectioncay ailurefay"
 
-#: lib/libx52io/io_strings.c:119
+#: libx52io/io_strings.c:106
 msgid "I/O error"
 msgstr "I/O erroray"
 
-#: lib/libx52io/io_strings.c:122
+#: libx52io/io_strings.c:107
 msgid "Read timeout"
 msgstr "Eadray imeouttay"
 
-#: utils/evtest/ev_test.c:109
+#: evtest/ev_test.c:109
 #, c-format
 msgid "Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"
 msgstr "Eviceday IDay: endorvay 0x%04x oductpray 0x%04x ersionvay 0x%04x\n"
 
-#: utils/evtest/ev_test.c:113
+#: evtest/ev_test.c:113
 #, c-format
 msgid "Device name: \"%s %s\"\n"
 msgstr "Eviceday amenay: \"%s %s\"\n"
 
-#: utils/evtest/ev_test.c:116
+#: evtest/ev_test.c:116
 #, c-format
 msgid "Serial number: \"%s\"\n"
 msgstr "Erialsay umbernay: \"%s\"\n"
 
-#: utils/evtest/ev_test.c:117
+#: evtest/ev_test.c:117
 msgid "Testing (interrupt to exit)\n"
 msgstr "Estingtay (interruptay otay exitay)\n"
 
-#: utils/evtest/ev_test.c:157 utils/evtest/ev_test.c:165
+#: evtest/ev_test.c:157 evtest/ev_test.c:165
 #, c-format
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr "Eventay @ %ld.%06ld: %s, aluevay %d\n"
 
-#: utils/test/x52_test.c:97
+#: joytest/x52_test.c:97
 msgid "Test brightness scale (~ 1m)"
 msgstr "Esttay ightnessbray alescay (~ 1m)"
 
-#: utils/test/x52_test.c:98
+#: joytest/x52_test.c:98
 msgid "Test LED states (~ 45s)"
 msgstr "Esstay EDLay atesstay (~ 45s)"
 
-#: utils/test/x52_test.c:99
+#: joytest/x52_test.c:99
 msgid "Test MFD string display (~ 30s)"
 msgstr "Esttay MFDay ingstray isplayday (~ 30s)"
 
-#: utils/test/x52_test.c:100
+#: joytest/x52_test.c:100
 msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr "Esttay MFDay isplaysday allay aracterschay (~ 2m 15s)"
 
-#: utils/test/x52_test.c:101
+#: joytest/x52_test.c:101
 msgid "Test the blink and shift commands (< 10s)"
 msgstr "Esttay ethay inkblay anday iftshay ommandscay (< 10s)"
 
-#: utils/test/x52_test.c:102
+#: joytest/x52_test.c:102
 msgid "Test the clock commands (~1m)"
 msgstr "Esttay ethay ockclay ommandscay (~1m)"
 
-#: utils/test/x52_test.c:126
+#: joytest/x52_test.c:126
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
@@ -167,36 +288,36 @@ msgstr ""
 "X52 Pro eviceday anday esttay ethay extray unctionalityfay\n"
 "availableay inay ethay EDsLay anday FDMay\n"
 
-#: utils/test/x52_test.c:130
+#: joytest/x52_test.c:130
 msgid "These tests take roughly 6 minutes to run"
 msgstr "Esethay eststay aketay oughlyray 6 inutesmay otay unray"
 
-#: utils/test/x52_test.c:132
+#: joytest/x52_test.c:132
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
 "Esspray Enteray otay eginbay ethay eststay, esspray Ctrl-C otay abortay "
 "anytimeay"
 
-#: utils/test/x52_test.c:138
+#: joytest/x52_test.c:138
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
 msgstr "Unableay otay initializeay X52 ibrarylay: %s\n"
 
-#: utils/test/x52_test.c:153
+#: joytest/x52_test.c:153
 msgid "All tests completed successfully"
 msgstr "Allay eststay ompletedcay uccessfullysay"
 
-#: utils/test/x52_test.c:155
+#: joytest/x52_test.c:155
 #, c-format
 msgid "Got error %s\n"
 msgstr "Otgay erroray %s\n"
 
-#: utils/test/x52_test.c:157
+#: joytest/x52_test.c:157
 #, c-format
 msgid "Received %s signal, quitting...\n"
 msgstr "Eceivedray %s ignalsay, uittingqay...\n"
 
-#: utils/test/x52_test.c:176
+#: joytest/x52_test.c:176
 msgid ""
 "These are the available tests with a description and\n"
 "approximate runtime. Not specifying any tests will run\n"
@@ -207,18 +328,18 @@ msgstr ""
 "ecifyingspay anyay eststay illway unray allay ethay\n"
 "eststay\n"
 
-#: utils/test/x52_test.c:180
+#: joytest/x52_test.c:180
 msgid "List of tests:"
 msgstr "Istlay ofay eststay:"
 
-#: utils/test/x52_test.c:230
+#: joytest/x52_test.c:230
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
 msgstr "Usageay: %s [istlay ofay eststay]\n"
 
-#: utils/test/x52_test.c:244
+#: joytest/x52_test.c:244
 #, c-format
 msgid ""
 "Unrecognized test identifier: %s\n"
@@ -227,19 +348,19 @@ msgstr ""
 "Unrecognizeday esttay identifieray: %s\n"
 "\n"
 
-#: utils/test/x52_test.c:257
+#: joytest/x52_test.c:257
 msgid "Not running any tests"
 msgstr "Otnay unningray anyay eststay"
 
-#: utils/test/x52_test_clock.c:32
+#: joytest/x52_test_clock.c:32
 msgid "Clock"
 msgstr "Ockclay"
 
-#: utils/test/x52_test_clock.c:33
+#: joytest/x52_test_clock.c:33
 msgid "This tests the clock display"
 msgstr "Isthay eststay ethay ockclay isplayday"
 
-#: utils/test/x52_test_clock.c:38
+#: joytest/x52_test_clock.c:38
 msgid ""
 "\n"
 "Testing clock time minute display for 90 minutes"
@@ -247,7 +368,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay imetay inutemay isplayday orfay 90 inutesmay"
 
-#: utils/test/x52_test_clock.c:44
+#: joytest/x52_test_clock.c:44
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 12 hour mode"
@@ -255,7 +376,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay imetay ourhay isplayday orfay 36 ourshay, 12 ourhay odemay"
 
-#: utils/test/x52_test_clock.c:47
+#: joytest/x52_test_clock.c:47
 msgid ""
 "\n"
 "Testing clock time hour display for 36 hours, 24 hour mode"
@@ -263,7 +384,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay imetay ourhay isplayday orfay 36 ourshay, 24 ourhay odemay"
 
-#: utils/test/x52_test_clock.c:52
+#: joytest/x52_test_clock.c:52
 msgid ""
 "\n"
 "Testing clock date display for 31 days, dd-mm-yy"
@@ -271,7 +392,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay ateday isplayday orfay 31 aysday, dd-mm-yy"
 
-#: utils/test/x52_test_clock.c:56
+#: joytest/x52_test_clock.c:56
 msgid ""
 "\n"
 "Testing clock date display for 31 days, mm-dd-yy"
@@ -279,7 +400,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay ateday isplayday orfay 31 aysday, mm-dd-yy"
 
-#: utils/test/x52_test_clock.c:60
+#: joytest/x52_test_clock.c:60
 msgid ""
 "\n"
 "Testing clock date display for 31 days, yy-mm-dd"
@@ -287,7 +408,7 @@ msgstr ""
 "\n"
 "Estingtay ockclay ateday isplayday orfay 31 aysday, yy-mm-dd"
 
-#: utils/test/x52_test_common.h:26
+#: joytest/x52_test_common.h:26
 #, c-format
 msgid ""
 "\n"
@@ -296,7 +417,7 @@ msgstr ""
 "\n"
 "%s(%s) ailedfay ithway %d(%s)\n"
 
-#: utils/test/x52_test_common.h:32
+#: joytest/x52_test_common.h:32
 #, c-format
 msgid ""
 "\n"
@@ -305,12 +426,12 @@ msgstr ""
 "\n"
 "updateay ailedfay ithway %d(%s)\n"
 
-#: utils/test/x52_test_led.c:19
+#: joytest/x52_test_led.c:19
 #, c-format
 msgid "LED %s - %s\n"
 msgstr "EDLay %s - %s\n"
 
-#: utils/test/x52_test_led.c:25 utils/test/x52_test_led.c:32
+#: joytest/x52_test_led.c:25 joytest/x52_test_led.c:32
 #, c-format
 msgid ""
 "\n"
@@ -319,21 +440,21 @@ msgstr ""
 "\n"
 "Estingtay EDLay %s\n"
 
-#: utils/test/x52_test_led.c:42
+#: joytest/x52_test_led.c:42
 msgid "LEDs"
 msgstr "EDsLay"
 
-#: utils/test/x52_test_led.c:48
+#: joytest/x52_test_led.c:48
 msgid "Skipping LED tests since the device does not support LED control"
 msgstr ""
 "Ippingskay EDLay eststay incesay ethay eviceday oesday otnay\n"
 "upportsay EDLay ontrolcay"
 
-#: utils/test/x52_test_led.c:55
+#: joytest/x52_test_led.c:55
 msgid "This cycles the LEDs through all possible states"
 msgstr "Isthay yclescay ethay EDsLay oughthray allay ossiblepay tatessay"
 
-#: utils/test/x52_test_led.c:73
+#: joytest/x52_test_led.c:73
 #, c-format
 msgid ""
 "\n"
@@ -342,25 +463,25 @@ msgstr ""
 "\n"
 "Estingtay %s\n"
 
-#: utils/test/x52_test_led.c:84
+#: joytest/x52_test_led.c:84
 msgid "Blink & Shift"
 msgstr "Inkblay & Iftshay"
 
-#: utils/test/x52_test_led.c:85
+#: joytest/x52_test_led.c:85
 msgid "This tests the blink indicator and shift functionality"
 msgstr "Isthay eststay ethay inkblay indicatoray anday iftshay unctionalityfay"
 
-#: utils/test/x52_test_mfd.c:24
+#: joytest/x52_test_mfd.c:24
 msgid "Brightness"
 msgstr "Ightnessbray"
 
-#: utils/test/x52_test_mfd.c:26
+#: joytest/x52_test_mfd.c:26
 msgid "This test cycles through the MFD and LED brightness scales"
 msgstr ""
 "Isthay esttay yclescay oughthray ethay FDMay anday EDLay ightnessbray "
 "alesscay"
 
-#: utils/test/x52_test_mfd.c:29
+#: joytest/x52_test_mfd.c:29
 msgid ""
 "\n"
 "MFD: "
@@ -368,7 +489,7 @@ msgstr ""
 "\n"
 "FDMay: "
 
-#: utils/test/x52_test_mfd.c:36
+#: joytest/x52_test_mfd.c:36
 msgid ""
 "\n"
 "LED: "
@@ -376,24 +497,24 @@ msgstr ""
 "\n"
 "EDLay: "
 
-#: utils/test/x52_test_mfd.c:55
+#: joytest/x52_test_mfd.c:55
 msgid "MFD text"
 msgstr "FDMay exttay"
 
-#: utils/test/x52_test_mfd.c:56
+#: joytest/x52_test_mfd.c:56
 msgid "This test tests the character displays of the MFD\n"
 msgstr "Isthay esttay eststay ethay aracterchay isplaysday ofay the FDMay\n"
 
-#: utils/test/x52_test_mfd.c:60
+#: joytest/x52_test_mfd.c:60
 #, c-format
 msgid "Writing characters %s\n"
 msgstr "Itingwray aracterschay %s\n"
 
-#: utils/test/x52_test_mfd.c:82
+#: joytest/x52_test_mfd.c:82
 msgid "MFD display"
 msgstr "FDMay isplayday"
 
-#: utils/test/x52_test_mfd.c:83
+#: joytest/x52_test_mfd.c:83
 msgid ""
 "This test checks if the display elements can display all characters\n"
 "You should see the display cycling through each character, with every\n"
@@ -404,11 +525,214 @@ msgstr ""
 "oughthray eachay aracterchay, ithway everyay ellcay isplayingday ethay\n"
 "amesay aracterchay\n"
 
-#: utils/test/x52_test_mfd.c:88
+#: joytest/x52_test_mfd.c:88
 #, c-format
 msgid "Testing character 0x%02x..."
 msgstr "Estingtay aracterchay 0x%02x..."
 
-#: utils/test/x52_test_mfd.c:96
+#: joytest/x52_test_mfd.c:96
 msgid "OK"
 msgstr "OKay"
+
+#: daemon/x52d_main.c:50
+#, c-format
+msgid "Error %d setting log file: %s\n"
+msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
+
+#: daemon/x52d_main.c:66
+#, c-format
+msgid "Error %d installing handler for signal %d: %s"
+msgstr "Erroray %d installingay andlerhay orfay ignalsay %d: %s"
+
+#: daemon/x52d_main.c:77
+#, c-format
+msgid "Usage: %s [-f] [-v] [-q] [-l log-file] [-o override] [-c config-file]\n"
+msgstr ""
+"Usageay: %s [-f] [-v] [-q] [-l oglay-ilefay] [-o overrideay] [-c onfigcay-"
+"ilefay]\n"
+
+#: daemon/x52d_main.c:138
+#, c-format
+msgid "Unable to parse configuration override '%s'\n"
+msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
+
+#: daemon/x52d_main.c:158
+#, c-format
+msgid "Foreground = %s"
+msgstr "Oregroundfay = %s"
+
+#: daemon/x52d_main.c:158 daemon/x52d_main.c:159
+msgid "true"
+msgstr "uetray"
+
+#: daemon/x52d_main.c:158 daemon/x52d_main.c:159
+msgid "false"
+msgstr "alsefay"
+
+#: daemon/x52d_main.c:159
+#, c-format
+msgid "Quiet = %s"
+msgstr "Uietqay = %s"
+
+#: daemon/x52d_main.c:160
+#, c-format
+msgid "Verbosity = %d"
+msgstr "Erbosityvay = %d"
+
+#: daemon/x52d_main.c:161
+#, c-format
+msgid "Log file = %s"
+msgstr "Oglay ilefay = %s"
+
+#: daemon/x52d_main.c:162
+#, c-format
+msgid "Config file = %s"
+msgstr "Onfigcay ilefay = %s"
+
+#: daemon/x52d_main.c:188
+msgid "Reloading X52 configuration"
+msgstr "Eloadingray X52 onfigurationcay"
+
+#: daemon/x52d_main.c:198
+msgid "Shutting down X52 daemon"
+msgstr "Uttingshay ownday X52 aemonday"
+
+#: daemon/x52d_clock.c:27
+#, c-format
+msgid "Setting clock enable to %s"
+msgstr "Ettingsay ockclay enableay otay %s"
+
+#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:112
+#, c-format
+msgid "Setting %s clock timezone to %s"
+msgstr "Ettingsay %s ockclay imezonetay otay %s"
+
+#: daemon/x52d_clock.c:36
+msgid "local"
+msgstr "ocallay"
+
+#: daemon/x52d_clock.c:36
+msgid "UTC"
+msgstr "UTCay"
+
+#: daemon/x52d_clock.c:53
+msgid "Unable to allocate memory for timezone. Falling back to UTC"
+msgstr ""
+"Unableay otay allocateay emorymay orfay imezonetay. Allingfay ackbay otay "
+"UTCay"
+
+#: daemon/x52d_clock.c:63
+msgid "Unable to backup timezone environment. Falling back to UTC"
+msgstr ""
+"Unableay otay ackupbay imezonetay environmentay. Allingfay ackbay otay UTCay"
+
+#: daemon/x52d_clock.c:129
+#, c-format
+msgid "Setting %s clock format to %s"
+msgstr "Ettingsay %s ockclay ormatfay otay %s"
+
+#: daemon/x52d_clock.c:151
+#, c-format
+msgid "Setting date format to %s"
+msgstr "Ettingsay ateday ormatfay otay %s"
+
+#: daemon/x52d_clock.c:161
+msgid "Starting X52 clock manager thread"
+msgstr "Artingstay X52 ockclay anagermay eadthray"
+
+#: daemon/x52d_clock.c:172
+#, c-format
+msgid "Error %d retrieving current time: %s"
+msgstr "Erroray %d etrievingray urrentcay imetay: %s"
+
+#: daemon/x52d_clock.c:193
+#, c-format
+msgid "Error %d initializing clock thread: %s"
+msgstr "Erroray %d initializingay ockclay eadthray: %s"
+
+#: daemon/x52d_clock.c:200
+msgid "Shutting down X52 clock manager thread"
+msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
+
+#: daemon/x52d_config.c:26
+#, c-format
+msgid "Error %d setting configuration defaults: %s"
+msgstr "Erroray %d ettingsay onfigurationcay efaultsday: %s"
+
+#: daemon/x52d_config_parser.c:164
+#, c-format
+msgid "Ignoring unknown key '%s.%s'"
+msgstr "Ignoringay unknownay eykay '%s.%s'"
+
+#: daemon/x52d_config_parser.c:205
+#, c-format
+msgid "Failed processing configuration file %s - code %d"
+msgstr "Ailedfay ocessingpray onfigurationcay ilefay %s - odecay %d"
+
+#: daemon/x52d_config_parser.c:235
+msgid "Failed to allocate memory for override structure"
+msgstr "Ailedfay otay allocateay emorymay orfay overrideay ucturestray"
+
+#: daemon/x52d_config_parser.c:244
+msgid "Failed to allocate memory for override string"
+msgstr "Ailedfay otay allocateay emorymay orfay overrideay ingstray"
+
+#: daemon/x52d_config_parser.c:255
+#, c-format
+msgid "No section found in override string '%s'"
+msgstr "Onay ectionsay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/x52d_config_parser.c:269
+#, c-format
+msgid "No key found in override string '%s'"
+msgstr "Onay eykay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/x52d_config_parser.c:280
+#, c-format
+msgid "No value found in override string '%s'"
+msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/x52d_config_parser.c:331
+#, c-format
+msgid "Error processing override '%s.%s=%s'"
+msgstr "Erroray ocessingpray overriday '%s.%s=%s'"
+
+#: daemon/x52d_device.c:35
+msgid "Starting X52 device acquisition thread"
+msgstr "Artingstay X52 eviceday acquisitionay eadthray"
+
+#: daemon/x52d_device.c:50
+#, c-format
+msgid "Error %d connecting to device: %s"
+msgstr "Erroray %d onnectingcay otay eviceday: %s"
+
+#: daemon/x52d_device.c:82
+msgid "Starting X52 device update thread"
+msgstr "Artingstay X52 eviceday updateay eadthray"
+
+#: daemon/x52d_device.c:101
+msgid "Initializing libx52"
+msgstr "Initializingay libx52"
+
+#: daemon/x52d_device.c:105
+#, c-format
+msgid "Failure %d initializing libx52: %s"
+msgstr "Ailurefay %d initializeay libx52: %s"
+
+#: daemon/x52d_device.c:124
+msgid "Shutting down X52 device acquisition thread"
+msgstr "Uttingshay ownday X52 eviceday acquisitionay eadthray"
+
+#: daemon/x52d_device.c:127
+msgid "Shutting down X52 device update thread"
+msgstr "Uttingshay ownday X52 eviceday updateay eadthray"
+
+#: daemon/x52d_device.c:140
+#, c-format
+msgid "Error %d when updating X52 parameter: %s"
+msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
+
+#: daemon/x52d_device.c:220
+#, c-format
+msgid "Error %d when updating X52 device: %s"
+msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"

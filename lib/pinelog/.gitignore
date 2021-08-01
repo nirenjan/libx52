@@ -1,0 +1,37 @@
+# Compiled object files
+*.o
+
+# Generated objects (source, executables, tarballs, etc.)
+
+# Vim swap files
+.*.swp
+
+# Autotools objects
+.deps
+.dirstamp
+.libs
+ar-lib
+autom4te.cache
+m4
+compile
+config.*
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+Makefile
+Makefile.in
+*.la
+*.lo
+*.m4
+stamp-h1
+tap-driver.sh
+test-driver
+*.log
+*.trs
+*.pc
+
+# Build directory
+/build/

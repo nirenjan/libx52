@@ -1,0 +1,82 @@
+/**********************************************************************
+ * X52 Daemon Configuration
+ *********************************************************************/
+
+// The settings below are the defaults. Note that the section and key
+// strings are case insensitive, but the values are not necessarily so,
+// especially for those referring to paths or timezone names.
+
+/* CFG(section, key, name, parser, default) */
+/**********************************************************************
+ * Clock Settings
+ *********************************************************************/
+
+// Enabled controls whether the clock is enabled or not. Set this to no to
+// disable the clock update. Keep in mind that if the clock was originally
+// enabled on the X52, then disabling it here won't make the clock disappear
+// on the MFD. You will need to unplug and reattach the X52 to make the
+// clock disappear
+CFG(Clock, Enabled, clock_enabled, bool_parser, true)
+
+// PrimaryIsLocal controls whether the primary clock displays local time or UTC.
+// Set this to yes to display local time, no for UTC.
+CFG(Clock, PrimaryIsLocal, primary_clock_local, bool_parser, true)
+
+// Secondary controls the timezone of the secondary clock. Use the standard
+// timezone name as defined by the Olson time database.
+CFG(Clock, Secondary, clock_2_tz, string_parser, UTC)
+
+// Tertiary controls the timezone of the tertiary clock. Use the standard
+// timezone name as defined by the Olson time database.
+CFG(Clock, Tertiary, clock_3_tz, string_parser, UTC)
+
+// Clock format for the primary clock
+CFG(Clock, FormatPrimary, clock_format[LIBX52_CLOCK_1], clock_format_parser, 12hr)
+
+// Clock format for the secondary clock
+CFG(Clock, FormatSecondary, clock_format[LIBX52_CLOCK_2], clock_format_parser, 12hr)
+
+// Clock format for the tertiary clock
+CFG(Clock, FormatTertiary, clock_format[LIBX52_CLOCK_3], clock_format_parser, 12hr)
+
+// Date format for the date display
+CFG(Clock, DateFormat, date_format, date_format_parser, ddmmyy)
+
+/**********************************************************************
+ * LED Settings - only applicable to X52Pro
+ *********************************************************************/
+// The LED settings map a color code or state to the corresponding LED.
+CFG(LED, Fire, leds[LIBX52_LED_FIRE], led_parser, on)
+CFG(LED, Throttle, leds[LIBX52_LED_THROTTLE], led_parser, on)
+CFG(LED, A, leds[LIBX52_LED_A], led_parser, green)
+CFG(LED, B, leds[LIBX52_LED_B], led_parser, green)
+CFG(LED, D, leds[LIBX52_LED_D], led_parser, green)
+CFG(LED, E, leds[LIBX52_LED_E], led_parser, green)
+CFG(LED, T1, leds[LIBX52_LED_T1], led_parser, green)
+CFG(LED, T2, leds[LIBX52_LED_T2], led_parser, green)
+CFG(LED, T3, leds[LIBX52_LED_T3], led_parser, green)
+CFG(LED, POV, leds[LIBX52_LED_POV], led_parser, green)
+CFG(LED, Clutch, leds[LIBX52_LED_CLUTCH], led_parser, green)
+
+/**********************************************************************
+ * Brightness Settings
+ *********************************************************************/
+// The brightness settings map the brightness value to the LEDs/MFD.
+CFG(Brightness, MFD, brightness[0], int_parser, 128)
+CFG(Brightness, LED, brightness[1], int_parser, 128)
+
+/**********************************************************************
+ * Profiles - only valid on Linux
+ *********************************************************************/
+// Directory is the location of the folder containing the individual profiles.
+CFG(Profiles, Directory, profiles_dir, string_parser, /etc/x52d/profiles.d)
+
+// ClutchEnabled determines if the clutch button is treated specially
+CFG(Profiles, ClutchEnabled, clutch_enabled, bool_parser, false)
+
+// ClutchLatched controls if the clutch button (if enabled) is a latched button
+// (press once to enter clutch mode, press again to exit clutch mode), or must
+// be held down to remain in clutch mode.
+CFG(Profiles, ClutchLatched, clutch_latched, bool_parser, false)
+
+#undef CFG
