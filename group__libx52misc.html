@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">x52pro-linux
-   &#160;<span id="projectnumber">0.2.1</span>
+   &#160;<span id="projectnumber">0.2.2</span>
    </div>
    <div id="projectbrief">Saitek X52/X52Pro drivers for Linux/Unix</div>
   </td>
@@ -118,9 +118,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga504ed71c3e543da1436ea99465289ceb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__libx52misc.html#ga504ed71c3e543da1436ea99465289ceb">libx52_check_feature</a> (<a class="el" href="group__libx52init.html#gaca59b8d8f249fed58a0ec3253328e131">libx52_device</a> *x52, <a class="el" href="group__libx52misc.html#gaa32c12111de45ed00c51fd689fdd6699">libx52_feature</a> feature)</td></tr>
 <tr class="memdesc:ga504ed71c3e543da1436ea99465289ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the device supports the given feature.  <a href="group__libx52misc.html#ga504ed71c3e543da1436ea99465289ceb">More...</a><br /></td></tr>
 <tr class="separator:ga504ed71c3e543da1436ea99465289ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa29a1022b0c3eb4894ddfd4934c3cf0e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__libx52misc.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">libx52_strerror</a> (<a class="el" href="group__libx52misc.html#ga93b777d9cea6e733b63c222e6115ccb7">libx52_error_code</a> error)</td></tr>
-<tr class="memdesc:gaa29a1022b0c3eb4894ddfd4934c3cf0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a string representation of the error code.  <a href="group__libx52misc.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">More...</a><br /></td></tr>
-<tr class="separator:gaa29a1022b0c3eb4894ddfd4934c3cf0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Miscellaneous functionality. </p>
@@ -236,33 +233,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__libx52misc.html#ga93b777d9cea6e733b63c222e6115ccb7">libx52_error_code</a> indicating status </dd></dl>
-
-</div>
-</div>
-<a id="gaa29a1022b0c3eb4894ddfd4934c3cf0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa29a1022b0c3eb4894ddfd4934c3cf0e">&#9670;&nbsp;</a></span>libx52_strerror()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* libx52_strerror </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__libx52misc.html#ga93b777d9cea6e733b63c222e6115ccb7">libx52_error_code</a>&#160;</td>
-          <td class="paramname"><em>error</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Return a string representation of the error code. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">error</td><td>Error code returned by libx52 function</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to a NULL terminated string describing the error. Returned pointer must not be freed. </dd></dl>
 
 </div>
 </div>

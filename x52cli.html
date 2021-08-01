@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">x52pro-linux
-   &#160;<span id="projectnumber">0.2.1</span>
+   &#160;<span id="projectnumber">0.2.2</span>
    </div>
    <div id="projectbrief">Saitek X52/X52Pro drivers for Linux/Unix</div>
   </td>
@@ -70,14 +70,14 @@ $(function() {
 <div class="textblock"><p> 
 <b>x52cli</b> - Command line interface to libx52
 </p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md0"></a>
 SYNOPSIS</h1>
 <p><code><b>x52cli</b> <em>commands</em> [<em>command-options</em>]</code></p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 DESCRIPTION</h1>
 <p><b>x52cli</b> is a command line interface to the X52 library that allows you to set the LEDs and different parameters on the multifunction display (MFD).</p>
 <p>Running <b>x52cli</b> without any arguments will display a brief help message.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 COMMANDS</h1>
 <p>Commands are not case sensitive.</p>
 <ul>
@@ -108,7 +108,7 @@ COMMANDS</h1>
 LEDs</h1>
 <p>This is the list of LED IDs and corresponding states supported by the X52 Pro. Note that the <b>on</b> state is only allowed for the <b>fire</b> and <b>throttle</b> LEDs, and they do not support the <b>red</b>, <b>amber</b> and <b>green</b> states. The remaining LEDs do not support the <b>on</b> state, but support all the other states.</p>
 <dl class="section note"><dt>Note</dt><dd>The <b>led</b> command is only supported on the X52 Pro, not on the X52.</dd></dl>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 LED IDs</h2>
 <ul>
 <li><b>fire</b> </li>
@@ -123,7 +123,7 @@ LED IDs</h2>
 <li><b>clutch</b> </li>
 <li><b>throttle</b> </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 States</h2>
 <ul>
 <li><b>off</b> </li>
@@ -132,11 +132,11 @@ States</h2>
 <li><b>amber</b> </li>
 <li><b>green</b> </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 LIMITATIONS</h1>
 <p><b>x52cli</b> does not maintain any state between invocations. As a result the <b>clock</b> command will reset the relative offsets for clocks 2 and 3 back to 0 and configure them to be in 12 hour mode. To work around this, use the <b>date</b> and <b>time</b> commands instead to manually configure the date and time.</p>
 <dl class="section note"><dt>Note</dt><dd>The device does not have an internal clock; as a result, the MFD display will not advance automatically. You must call the <b>clock</b> or <b>date</b> and <b>time</b> commands periodically to update the time on the device.</dd></dl>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 PERMISSIONS</h1>
 <p>You must have write permissions to the USB device in order to use the <b>libx52</b> library, and by extension, <b>x52cli</b>.</p>
 <p>The simplest method to obtain such permissions is to run <b>x52cli</b> as root, possibly through <b>sudo(8)</b> </p>
