@@ -121,7 +121,9 @@ and \b time commands instead to manually configure the date and time.
 
 \note The device does not have an internal clock; as a result, the MFD
 display will not advance automatically. You must call the \b clock or \b date
-and \b time commands periodically to update the time on the device.
+and \b time commands periodically to update the time on the device. However, if
+you are running \b x52d and the clock manager is enabled, then \b x52d will
+manage and automatically update the clock on the X52 MFD display.
 
 # PERMISSIONS
 

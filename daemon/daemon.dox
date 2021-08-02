@@ -1,0 +1,43 @@
+/**
+@page x52d X52 driver daemon
+
+\b x52d is a daemon program that manages the X52 device in a similar fashion to
+the Windows X52 driver. It currently manages the following:
+
+- LED state
+- LED brightness
+- MFD brightness
+- Clock display on MFD
+
+# Command line arguments
+
+- \c -f - Run daemon in foreground (default: no)
+- \c -v - Increase logging verbosity (default: log warnings)
+- \c -q - Reduce logging verbosity to minimum (default: no)
+- \c -l - Path to log file
+- \c -c - Path to configuration file
+- \c -o - Configuration override - only applied during startup
+
+# Configuration file
+
+\b x52d can be controlled by means of a configuration file. The configuration
+file is an INI style file, and the default configuration is as listed below:
+
+\include x52d.conf
+
+## Configuration overrides
+
+Configuration overrides are a means of testing a configuration parameter for a
+single instance of \b x52d, or to override the default configuration. The syntax
+for an override is \c section.key=value, where \c section, \c key and \c value
+correspond to the configuration \b section, \b key and \b value respectively.
+
+For example, to override the secondary clock timezone to US Eastern Time, use
+the following syntax. Note that while the section and key are case-insensitive,
+the value may be case-sensitive, depending on which parameter is being
+overridden.
+
+@code{.unparsed}
+-o clock.secondary=America/New_York
+@endcode
+*/
