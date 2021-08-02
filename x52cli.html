@@ -135,7 +135,7 @@ States</h2>
 <h1><a class="anchor" id="autotoc_md5"></a>
 LIMITATIONS</h1>
 <p><b>x52cli</b> does not maintain any state between invocations. As a result the <b>clock</b> command will reset the relative offsets for clocks 2 and 3 back to 0 and configure them to be in 12 hour mode. To work around this, use the <b>date</b> and <b>time</b> commands instead to manually configure the date and time.</p>
-<dl class="section note"><dt>Note</dt><dd>The device does not have an internal clock; as a result, the MFD display will not advance automatically. You must call the <b>clock</b> or <b>date</b> and <b>time</b> commands periodically to update the time on the device.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The device does not have an internal clock; as a result, the MFD display will not advance automatically. You must call the <b>clock</b> or <b>date</b> and <b>time</b> commands periodically to update the time on the device. However, if you are running <b>x52d</b> and the clock manager is enabled, then <b>x52d</b> will manage and automatically update the clock on the X52 MFD display.</dd></dl>
 <h1><a class="anchor" id="autotoc_md6"></a>
 PERMISSIONS</h1>
 <p>You must have write permissions to the USB device in order to use the <b>libx52</b> library, and by extension, <b>x52cli</b>.</p>
