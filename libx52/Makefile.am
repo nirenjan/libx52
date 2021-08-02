@@ -59,9 +59,3 @@ EXTRA_DIST += \
 
 # Add test files to the distribution
 EXTRA_DIST += libx52/x52_test_gen.py libx52/x52_tests.json
-
-# Add documentation files to the distribution
-EXTRA_DIST += \
-	libx52/doc/main.dox \
-	libx52/doc/caveats.dox \
-	libx52/doc/integration.dox

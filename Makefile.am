@@ -41,6 +41,8 @@ include evtest/Makefile.am
 include daemon/Makefile.am
 include udev/Makefile.am
 
+include docs/Makefile.am
+
 #######################################################################
 # Doxygen support
 #######################################################################

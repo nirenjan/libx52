@@ -36,6 +36,7 @@ x52dconfdir = @sysconfdir@/x52d
 x52dconf_DATA = daemon/x52d.conf
 
 EXTRA_DIST += \
+	daemon/daemon.dox \
 	daemon/x52d_clock.h \
 	daemon/x52d_config.def \
 	daemon/x52d_config.h \
