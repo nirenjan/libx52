@@ -40,11 +40,8 @@ AM_GNU_GETTEXT_VERSION(0.19)
 AM_CONDITIONAL([USE_NLS], [test "x${USE_NLS}" == "xyes"])
 
 # Check for libusb-1.0
-AX_PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
-
-AC_SUBST([LIBUSB_CFLAGS])
-AC_SUBST([LIBUSB_LDFLAGS])
-AC_SUBST([LIBUSB_LIBS])
+PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
+AC_SUBST([LIBUSB_PC], [libusb-1.0])
 
 # Check for libinih
 PKG_CHECK_MODULES([INIH], [inih], [],
@@ -53,9 +50,6 @@ PKG_CHECK_MODULES([INIH], [inih], [],
                     AC_CHECK_HEADERS([ini.h])
                     AC_SEARCH_LIBS([ini_parse], [inih])
                   ])
-AC_SUBST([INIH_CFLAGS])
-AC_SUBST([INIH_LDFLAGS])
-AC_SUBST([INIH_LIBS])
 
 # Pinelog configuration
 AC_SUBST([PINELOG_CFLAGS], ["-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1"])
@@ -65,9 +59,7 @@ AC_SUBST([PINELOG_CFLAGS], ["-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINE
 # hosts, so check accordingly
 AM_COND_IF([LINUX], [hidapi_backend=hidapi-hidraw], [hidapi_backend=hidapi])
 PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
-AC_SUBST([HIDAPI_CFLAGS])
-AC_SUBST([HIDAPI_LDFLAGS])
-AC_SUBST([HIDAPI_LIBS])
+AC_SUBST([HIDAPI_PC], [${hidapi_backend}])
 
 # Check for pthreads
 ACX_PTHREAD
