@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libx52util
+Description: Extra utility functions to manage X52 extended functionality
+Version: 1.0.0
+Libs: -L${libdir} -lx52util
+Cflags: -I${includedir}/libx52

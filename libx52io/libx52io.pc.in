@@ -7,5 +7,5 @@ Name: libx52io
 Description: Linux/Unix library to read and parse X52 input
 Version: 1.0.0
 Libs: -L${libdir} -lx52io
-Cflags: -I${includedir}/x52pro
+Cflags: -I${includedir}/libx52
 Requires.private: @HIDAPI_PC@

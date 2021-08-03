@@ -7,5 +7,5 @@ Name: libx52
 Description: Linux/Unix library to control Saitek X52/X52Pro joystick extended functionality.
 Version: 2.4.0
 Libs: -L${libdir} -lx52
-Cflags: -I${includedir}/x52pro
+Cflags: -I${includedir}/libx52
 Requires.private: @LIBUSB_PC@
