@@ -180,12 +180,15 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
     #if PINELOG_SHOW_DATE
     do {
         time_t t;
+        struct tm tm1;
         struct tm *tmp;
         char date_string[30];
         t = time(NULL);
-        tmp = localtime(&t);
-        strftime(date_string, sizeof(date_string), "%F %T ", tmp);
-        fputs(date_string, output_stream);
+        tmp = localtime_r(&t, &tm1);
+        if (tmp != NULL) {
+            strftime(date_string, sizeof(date_string), "%F %T ", tmp);
+            fputs(date_string, output_stream);
+        }
     } while (0);
     #endif
 
