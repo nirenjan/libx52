@@ -117,6 +117,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     Makefile
     lib/Makefile
     libx52/libx52.pc
+    libx52io/libx52io.pc
     lib/pinelog/Makefile
     udev/60-saitek-x52-x52pro.rules
 ])

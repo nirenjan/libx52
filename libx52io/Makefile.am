@@ -10,7 +10,7 @@ lib_LTLIBRARIES += libx52io.la
 # This library handles the HID parsing of the X52 USB reports
 # Libtool Version Info
 # See: https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
-libx52io_v_CUR=0
+libx52io_v_CUR=1
 libx52io_v_AGE=0
 libx52io_v_REV=0
 libx52io_la_SOURCES = \
@@ -30,7 +30,7 @@ libx52io_la_LIBADD = @LTLIBINTL@
 x52include_HEADERS += libx52io/libx52io.h
 
 # pkg-config files
-# pkgconfig_DATA = libx52io.pc
+pkgconfig_DATA += libx52io/libx52io.pc
 
 if HAVE_CMOCKA
 TESTS += test-axis test-parser
