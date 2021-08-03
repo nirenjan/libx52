@@ -42,6 +42,7 @@ static int get_tz_offset(const char *tz)
     char *orig_tz = NULL;
     char *orig_tz_copy = NULL;
     time_t t;
+    struct tm tmp;
     struct tm *timeval;
     char *new_tz = NULL;
     size_t new_tz_len;
@@ -67,7 +68,7 @@ static int get_tz_offset(const char *tz)
 
     setenv("TZ", new_tz, true);
     t = time(NULL);
-    timeval = localtime(&t);
+    timeval = localtime_r(&t, &tmp);
     if (timeval != NULL) {
         #if HAVE_STRUCT_TM_TM_GMTOFF
         /* If valid, then timeval.tm_gmtoff contains the offset in seconds east
