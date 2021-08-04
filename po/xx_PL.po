@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-07-29 22:58-0700\n"
-"PO-Revision-Date: 2021-07-27 02:08-0700\n"
+"POT-Creation-Date: 2021-08-04 13:11-0700\n"
+"PO-Revision-Date: 2021-08-04 13:12-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -534,66 +534,80 @@ msgstr "Estingtay aracterchay 0x%02x..."
 msgid "OK"
 msgstr "OKay"
 
-#: daemon/x52d_main.c:50
+#: daemon/x52d_main.c:52
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
 
-#: daemon/x52d_main.c:66
+#: daemon/x52d_main.c:68
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr "Erroray %d installingay andlerhay orfay ignalsay %d: %s"
 
-#: daemon/x52d_main.c:77
+#: daemon/x52d_main.c:79
 #, c-format
-msgid "Usage: %s [-f] [-v] [-q] [-l log-file] [-o override] [-c config-file]\n"
+msgid ""
+"Usage: %s [-f] [-v] [-q]\n"
+"\t[-l log-file] [-o override]\n"
+"\t[-c config-file] [-p pid-file]\n"
 msgstr ""
-"Usageay: %s [-f] [-v] [-q] [-l oglay-ilefay] [-o overrideay] [-c onfigcay-"
-"ilefay]\n"
+"Usageay: %s [-f] [-v] [-q]\n"
+"\t[-l oglay-ilefay] [-o overrideay]\n"
+"\t[-c onfigcay-ilefay] [-p idpay-ilefay]\n"
 
-#: daemon/x52d_main.c:138
+#: daemon/x52d_main.c:109
+#, c-format
+msgid "Daemon is already running as PID %u"
+msgstr "Aemonday isay alreadyay unningray asay IDPay %u"
+
+#: daemon/x52d_main.c:246
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
 
-#: daemon/x52d_main.c:158
+#: daemon/x52d_main.c:270
 #, c-format
 msgid "Foreground = %s"
 msgstr "Oregroundfay = %s"
 
-#: daemon/x52d_main.c:158 daemon/x52d_main.c:159
+#: daemon/x52d_main.c:270 daemon/x52d_main.c:271
 msgid "true"
 msgstr "uetray"
 
-#: daemon/x52d_main.c:158 daemon/x52d_main.c:159
+#: daemon/x52d_main.c:270 daemon/x52d_main.c:271
 msgid "false"
 msgstr "alsefay"
 
-#: daemon/x52d_main.c:159
+#: daemon/x52d_main.c:271
 #, c-format
 msgid "Quiet = %s"
 msgstr "Uietqay = %s"
 
-#: daemon/x52d_main.c:160
+#: daemon/x52d_main.c:272
 #, c-format
 msgid "Verbosity = %d"
 msgstr "Erbosityvay = %d"
 
-#: daemon/x52d_main.c:161
+#: daemon/x52d_main.c:273
 #, c-format
 msgid "Log file = %s"
 msgstr "Oglay ilefay = %s"
 
-#: daemon/x52d_main.c:162
+#: daemon/x52d_main.c:274
 #, c-format
 msgid "Config file = %s"
 msgstr "Onfigcay ilefay = %s"
 
-#: daemon/x52d_main.c:188
+#: daemon/x52d_main.c:301
 msgid "Reloading X52 configuration"
 msgstr "Eloadingray X52 onfigurationcay"
 
-#: daemon/x52d_main.c:198
+#: daemon/x52d_main.c:308
+#, c-format
+msgid "Received termination signal %s"
+msgstr "Eceivedray erminationtay ignalsay %s"
+
+#: daemon/x52d_main.c:318
 msgid "Shutting down X52 daemon"
 msgstr "Uttingshay ownday X52 aemonday"
 
@@ -602,7 +616,7 @@ msgstr "Uttingshay ownday X52 aemonday"
 msgid "Setting clock enable to %s"
 msgstr "Ettingsay ockclay enableay otay %s"
 
-#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:112
+#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:113
 #, c-format
 msgid "Setting %s clock timezone to %s"
 msgstr "Ettingsay %s ockclay imezonetay otay %s"
@@ -615,42 +629,42 @@ msgstr "ocallay"
 msgid "UTC"
 msgstr "UTCay"
 
-#: daemon/x52d_clock.c:53
+#: daemon/x52d_clock.c:54
 msgid "Unable to allocate memory for timezone. Falling back to UTC"
 msgstr ""
 "Unableay otay allocateay emorymay orfay imezonetay. Allingfay ackbay otay "
 "UTCay"
 
-#: daemon/x52d_clock.c:63
+#: daemon/x52d_clock.c:64
 msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 "Unableay otay ackupbay imezonetay environmentay. Allingfay ackbay otay UTCay"
 
-#: daemon/x52d_clock.c:129
+#: daemon/x52d_clock.c:130
 #, c-format
 msgid "Setting %s clock format to %s"
 msgstr "Ettingsay %s ockclay ormatfay otay %s"
 
-#: daemon/x52d_clock.c:151
+#: daemon/x52d_clock.c:152
 #, c-format
 msgid "Setting date format to %s"
 msgstr "Ettingsay ateday ormatfay otay %s"
 
-#: daemon/x52d_clock.c:161
+#: daemon/x52d_clock.c:162
 msgid "Starting X52 clock manager thread"
 msgstr "Artingstay X52 ockclay anagermay eadthray"
 
-#: daemon/x52d_clock.c:172
+#: daemon/x52d_clock.c:173
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr "Erroray %d etrievingray urrentcay imetay: %s"
 
-#: daemon/x52d_clock.c:193
+#: daemon/x52d_clock.c:194
 #, c-format
 msgid "Error %d initializing clock thread: %s"
 msgstr "Erroray %d initializingay ockclay eadthray: %s"
 
-#: daemon/x52d_clock.c:200
+#: daemon/x52d_clock.c:201
 msgid "Shutting down X52 clock manager thread"
 msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
 
