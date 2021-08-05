@@ -84,7 +84,7 @@ AC_DEFUN([AX_COMPILER_FLAGS_CXXFLAGS],[
             -Wstrict-aliasing dnl
             -Wshadow dnl
             -Winline dnl
-            -Wpacked dnl
+            dnl -Wpacked dnl
             -Wmissing-format-attribute dnl
             -Wmissing-noreturn dnl
             -Winit-self dnl
