@@ -58,17 +58,16 @@ all-local: docs/.stamp
 clean-local:
 	rm -rf $(top_builddir)/docs
 
+man1_MANS = docs/man/man1/x52cli.1
+$(man1_MANS): docs/.stamp
+
 # Install Doxygen generated HTML documentation and manpages
 install-data-local:
 	$(INSTALL) -d $(DESTDIR)$(docdir)
 	rsync -rlp $(top_builddir)/docs/html $(DESTDIR)$(docdir)
 
-	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
-	$(INSTALL) docs/man/man1/x52cli.1 $(DESTDIR)$(mandir)/man1
-
 uninstall-local:
 	rm -rf $(DESTDIR)$(docdir)
-	rm -rf $(DESTDIR)$(mandir)/man1/x52cli.1
 
 endif
 
