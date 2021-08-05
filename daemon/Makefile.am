@@ -35,6 +35,10 @@ x52d_LDADD = \
 x52dconfdir = @sysconfdir@/x52d
 x52dconf_DATA = daemon/x52d.conf
 
+install-exec-hook:
+	$(MKDIR_P) $(DESTDIR)$(localstatedir)/log
+	$(MKDIR_P) $(DESTDIR)$(runstatedir)
+
 EXTRA_DIST += \
 	daemon/daemon.dox \
 	daemon/x52d.service.in \
