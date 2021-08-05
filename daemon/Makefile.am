@@ -37,9 +37,19 @@ x52dconf_DATA = daemon/x52d.conf
 
 EXTRA_DIST += \
 	daemon/daemon.dox \
+	daemon/x52d.service.in \
 	daemon/x52d_clock.h \
 	daemon/x52d_config.def \
 	daemon/x52d_config.h \
 	daemon/x52d_const.h \
 	daemon/x52d_device.h \
 	daemon/x52d.conf
+
+if HAVE_SYSTEMD
+if !IS_MAKE_DISTCHECK
+SED_ARGS = s,%bindir%,$(bindir),g
+x52d.service: daemon/x52d.service.in
+	$(AM_V_GEN) $(SED) -e '$(SED_ARGS)' $< > $@
+systemdsystemunit_DATA = x52d.service
+endif
+endif

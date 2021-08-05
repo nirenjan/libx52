@@ -11,6 +11,7 @@ AC_REQUIRE_AUX_FILE([tap-driver.sh])
 AC_PROG_CC
 AC_PROG_CC_STDC
 AC_PROG_AWK
+AC_PROG_SED
 AM_PROG_AR
 AM_PATH_PYTHON([3.5])
 LT_INIT
@@ -51,9 +52,29 @@ PKG_CHECK_MODULES([INIH], [inih], [],
                     AC_SEARCH_LIBS([ini_parse], [inih])
                   ])
 
-# Pinelog configuration
-AC_SUBST([PINELOG_CFLAGS], ["-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1"])
+# systemd support
+PKG_CHECK_MODULES([SYSTEMD], [systemd], [have_systemd=yes], [have_systemd=no])
+AC_ARG_ENABLE([systemd],
+    [AS_HELP_STRING([--disable-systemd], [Disable systemd support])]
+)
+AC_ARG_WITH([systemdsystemunitdir],
+    [AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd unit files])],
+    [systemdsystemunitdir=$withval],
+    [systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)]
+)
+AC_SUBST([systemdsystemunitdir], [$systemdsystemunitdir])
+AM_CONDITIONAL([HAVE_SYSTEMD], [test "x$have_systemd" = "xyes" -a "x$enable_systemd" != "xno"])
+AM_COND_IF([HAVE_SYSTEMD],,
+        [
+         AC_MSG_NOTICE([systemd not found or disabled. Enabling timestamps in logs])
+         AX_APPEND_FLAG([-DPINELOG_SHOW_DATE=1], [PINELOG_CFLAGS])
+        ]
+)
 
+# Pinelog configuration
+AX_APPEND_FLAG([-DPINELOG_SHOW_LEVEL=1], [PINELOG_CFLAGS])
+AX_APPEND_FLAG([-DPINELOG_SHOW_BACKTRACE=1], [PINELOG_CFLAGS])
+AC_SUBST([PINELOG_CFLAGS])
 
 # Check for hidapi. This uses a different pkg-config file on Linux vs other
 # hosts, so check accordingly

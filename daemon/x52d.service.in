@@ -1,0 +1,7 @@
+[Unit]
+Description=X52 driver daemon
+
+[Service]
+Type=simple
+ExecStart=%bindir%/x52d -f
+ExecReload=kill -HUP $MAINPID

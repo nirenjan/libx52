@@ -77,3 +77,21 @@ the following argument to `configure`:
 ```
 --with-input-group=group
 ```
+
+### Systemd support
+
+The X52 daemon can run either as a foreground process, or it can daemonize
+itself to run in the background. Typical deployments with systemd will have it
+run in the foreground, and disable timestamps in the logs, since those are
+inserted automatically by journald.
+
+Systemd support is enabled by default, but can be disabled with the
+`--disable-systemd` argument to `configure`
+
+It is also possible to configure the directory in which the service file is
+installed with the following option. This is ignored if you have specified
+`--disable-systemd`.
+
+```
+--with-systemdsystemunitdir=/path/to/systemd/system
+```
