@@ -5,3 +5,6 @@ Description=X52 driver daemon
 Type=simple
 ExecStart=%bindir%/x52d -f -v
 ExecReload=kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
