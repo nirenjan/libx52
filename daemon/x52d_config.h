@@ -35,7 +35,7 @@ struct x52d_config {
     // the length in the following declaration.
     libx52_led_state    leds[21];
 
-    uint16_t brightness[2];
+    int brightness[2];
 
     bool clutch_enabled;
     bool clutch_latched;
@@ -82,5 +82,8 @@ void x52d_config_clear_overrides(void);
 
 void x52d_config_load(const char *cfg_file);
 void x52d_config_apply(void);
+
+int x52d_config_save_file(struct x52d_config *cfg, const char *cfg_file);
+void x52d_config_save(const char *cfg_file);
 
 #endif // !defined X52D_CONFIG_H

@@ -40,6 +40,21 @@ void x52d_config_load(const char *cfg_file)
     }
 }
 
+void x52d_config_save(const char *cfg_file)
+{
+    int rc;
+
+    if (cfg_file == NULL) {
+        cfg_file = X52D_SYS_CFG_FILE;
+    }
+
+    rc = x52d_config_save_file(&x52d_config, cfg_file);
+    if (rc != 0) {
+        PINELOG_ERROR(_("Error %d saving configuration file: %s"),
+                      rc, strerror(rc));
+    }
+}
+
 /* Callback stubs
  * TODO: Remove the ones below when their implementation is complete
  */

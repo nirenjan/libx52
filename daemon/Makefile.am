@@ -9,6 +9,7 @@ bin_PROGRAMS += x52d
 x52d_SOURCES = \
 	daemon/x52d_main.c \
 	daemon/x52d_config_parser.c \
+	daemon/x52d_config_dump.c \
 	daemon/x52d_config.c \
 	daemon/x52d_device.c \
 	daemon/x52d_clock.c \
