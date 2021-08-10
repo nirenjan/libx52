@@ -126,8 +126,11 @@ static int date_format_parser(struct x52d_config *cfg, size_t offset, const char
     return 0;
 }
 
+#undef CHECK_PARAMS
+#undef CONFIG_PTR
+
 /* Map for config->param */
-#define CFG(section, key, name, parser, def) {#section, #key, parser, offsetof(struct x52d_config, name)},
+#define CFG(section, key, name, type, def) {#section, #key, type ## _parser, offsetof(struct x52d_config, name)},
 const struct config_map {
     const char *section;
     const char *key;
