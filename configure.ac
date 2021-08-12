@@ -49,8 +49,8 @@ AC_SUBST([LIBUSB_PC], [libusb-1.0])
 PKG_CHECK_MODULES([INIH], [inih], [],
                   [
                     # Older versions of Ubuntu don't provide a .pc file
-                    AC_CHECK_HEADERS([ini.h])
-                    AC_SEARCH_LIBS([ini_parse], [inih])
+                    AC_SEARCH_LIBS([ini_parse], [inih],, [AC_MSG_ERROR([Unable to find libinih, is it installed?])])
+                    AC_CHECK_HEADERS([ini.h],, [AC_MSG_ERROR([Unable to find ini.h, do you have libinih headers installed?])])
                   ])
 
 # systemd support
