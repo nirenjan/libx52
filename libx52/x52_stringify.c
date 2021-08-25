@@ -43,7 +43,7 @@ STRINGIFY(date_format, LIBX52_DATE_FORMAT_YYMMDD, N_("Unknown date format %d"),
     N_("YY-MM-DD"),
 )
 
-STRINGIFY(led_state, LIBX52_LED_STATE_GREEN, N_("Unknown LED state %d")
+STRINGIFY(led_state, LIBX52_LED_STATE_GREEN, N_("Unknown LED state %d"),
     N_("off"),
     N_("on"),
     N_("red"),
