@@ -18,7 +18,6 @@
 #ifndef LOGGING_H
 #define LOGGING_H
 
-#include "config.h"
 #include <stdio.h>
 #ifndef PINELOG_TEST
 #include <stdlib.h>
@@ -123,10 +122,11 @@ int pinelog_get_level(void);
  *
  * @returns None
  */
-#if HAVE_FUNC_ATTRIBUTE_FORMAT
-__attribute__((format(printf, 4, 5)))
+#if defined __has_attribute
+#   if __has_attribute(format)
+        __attribute__((format(printf, 4, 5)))
+#   endif
 #endif
-
 void pinelog_log_message(int level, const char *file, int line, const char *fmt, ...);
 
 // Test harness will redefine pinelog_exit
@@ -134,34 +134,44 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
 #define pinelog_exit exit
 #endif
 
+// Base filename
+#if defined __has_builtin
+#   if __has_builtin(__builtin_strrchr)
+#       define PINELOG_FILE __builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__
+#   endif
+#endif
+#ifndef PINELOG_FILE
+#   define PINELOG_FILE __FILE__
+#endif
+
 #define PINELOG_FATAL(fmt, ...) do { \
     if (PINELOG_LVL_FATAL <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_FATAL, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        pinelog_log_message(PINELOG_LVL_FATAL, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
     pinelog_exit(1); \
 } while (0)
 
 #define PINELOG_ERROR(fmt, ...) do { \
     if (PINELOG_LVL_ERROR <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_ERROR, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        pinelog_log_message(PINELOG_LVL_ERROR, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while (0)
 
 #define PINELOG_WARN(fmt, ...) do { \
     if (PINELOG_LVL_WARNING <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_WARNING, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        pinelog_log_message(PINELOG_LVL_WARNING, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 
 #define PINELOG_INFO(fmt, ...) do { \
     if (PINELOG_LVL_INFO <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_INFO, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        pinelog_log_message(PINELOG_LVL_INFO, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 
 #define PINELOG_DEBUG(fmt, ...) do { \
     if (PINELOG_LVL_DEBUG <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_DEBUG, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        pinelog_log_message(PINELOG_LVL_DEBUG, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 
@@ -169,7 +179,7 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
 #ifndef PINELOG_DISABLE_TRACE
 #define PINELOG_TRACE(fmt, ...) do { \
     if (PINELOG_LVL_TRACE <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_TRACE, __FILE__, __LINE__, fmt, ##__VA_ARGS__); \
+        pinelog_log_message(PINELOG_LVL_TRACE, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 #else

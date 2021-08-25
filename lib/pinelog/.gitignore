@@ -35,3 +35,7 @@ test-driver
 
 # Build directory
 /build/
+
+# Test and benchmark programs
+test_*
+bench_*
