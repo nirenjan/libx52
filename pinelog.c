@@ -6,7 +6,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "config.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
@@ -78,8 +77,10 @@ static FILE *output_stream = NULL;
 static int log_level = PINELOG_DEFAULT_LEVEL;
 
 /* Initialize defaults */
-#if HAVE_FUNC_ATTRIBUTE_CONSTRUCTOR
-__attribute__((constructor))
+#if defined __has_attribute
+#   if __has_attribute(constructor)
+        __attribute__((constructor))
+#   endif
 #endif
 void pinelog_set_defaults(void)
 {
@@ -87,8 +88,10 @@ void pinelog_set_defaults(void)
     log_level = PINELOG_DEFAULT_LEVEL;
 }
 
-#if HAVE_FUNC_ATTRIBUTE_DESTRUCTOR
-__attribute__((destructor))
+#if defined __has_attribute
+#   if __has_attribute(destructor)
+        __attribute__((destructor))
+#   endif
 #endif
 void pinelog_close_output_stream(void)
 {
@@ -167,7 +170,8 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
         level = PINELOG_LVL_TRACE;
     }
 
-    #if !HAVE_FUNC_ATTRIBUTE_CONSTRUCTOR
+    #if defined __has_attribute
+    #if !__has_attribute(constructor)
     /*
      * Validate and set output stream. Only necessary if the compiler doesn't
      * support the constructor attribute
@@ -175,6 +179,7 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
     if (output_stream == NULL) {
         output_stream = PINELOG_DEFAULT_STREAM;
     }
+    #endif
     #endif
 
     #if PINELOG_SHOW_DATE
