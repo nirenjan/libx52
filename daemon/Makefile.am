@@ -21,15 +21,17 @@ x52d_CFLAGS = \
 	-I $(top_srcdir)/libx52 \
 	-I $(top_srcdir)/libx52util \
 	-I $(top_srcdir)/lib/pinelog \
+	-I $(top_srcdir)/lib/inih \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(localstatedir)/log\" \
 	-DRUNDIR=\"$(runstatedir)\" \
-	@INIH_CFLAGS@ @PTHREAD_CFLAGS@ $(WARN_CFLAGS)
+	@PTHREAD_CFLAGS@ $(WARN_CFLAGS)
 
-x52d_LDFLAGS = @INIH_LIBS@ @PTHREAD_LIBS@ $(WARN_LDFLAGS)
+x52d_LDFLAGS = @PTHREAD_LIBS@ $(WARN_LDFLAGS)
 x52d_LDADD = \
 	lib/pinelog/libpinelog.la \
+	lib/inih/libinih.la \
 	libx52.la \
 	@LTLIBINTL@
 

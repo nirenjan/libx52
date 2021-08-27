@@ -45,14 +45,6 @@ AM_CONDITIONAL([USE_NLS], [test "x${USE_NLS}" == "xyes"])
 PKG_CHECK_MODULES([LIBUSB], [libusb-1.0])
 AC_SUBST([LIBUSB_PC], [libusb-1.0])
 
-# Check for libinih
-PKG_CHECK_MODULES([INIH], [inih], [],
-                  [
-                    # Older versions of Ubuntu don't provide a .pc file
-                    AC_SEARCH_LIBS([ini_parse], [inih],, [AC_MSG_ERROR([Unable to find libinih, is it installed?])])
-                    AC_CHECK_HEADERS([ini.h],, [AC_MSG_ERROR([Unable to find ini.h, do you have libinih headers installed?])])
-                  ])
-
 # systemd support
 PKG_CHECK_MODULES([SYSTEMD], [systemd], [have_systemd=yes], [have_systemd=no])
 AC_ARG_ENABLE([systemd],
@@ -142,6 +134,7 @@ AC_CONFIG_FILES([ po/Makefile.in
     libx52io/libx52io.pc
     libx52util/libx52util.pc
     lib/pinelog/Makefile
+    lib/inih/Makefile
     udev/60-saitek-x52-x52pro.rules
 ])
 AC_OUTPUT

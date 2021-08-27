@@ -8,8 +8,10 @@ The format is based upon [Keep a Changelog].
 ### Added
 - IO library to read and parse events from a supported joystick.
 - Event test utility which displays the events similar to evtest.
-- Import pinelog library for daemon logging.
 - Daemon to control and update the X52 joystick.
+- Import pinelog library for daemon logging.
+- Import [inih](https://github.com/benhoyt/inih) library sources for daemon
+  configuration parsing.
 
 ### Changed
 - Linux kernel driver to correctly handle the X52/X52 Pro. This is not required
