@@ -35,6 +35,12 @@ static void reload_handler(int signum)
     flag_reload = true;
 }
 
+static volatile bool flag_save_cfg;
+static void save_config_handler(int signum)
+{
+    flag_save_cfg = true;
+}
+
 static void set_log_file(bool foreground, const char *log_file)
 {
     int rc = 0;
@@ -137,6 +143,7 @@ static void start_daemon(bool foreground, const char *pid_file)
     listen_signal(SIGTERM, termination_handler);
     listen_signal(SIGQUIT, termination_handler);
     listen_signal(SIGHUP, reload_handler);
+    listen_signal(SIGUSR1, save_config_handler);
 
     if (!foreground) {
         /* Fork off for the second time */
@@ -302,6 +309,12 @@ int main(int argc, char **argv)
             x52d_config_load(conf_file);
             x52d_config_apply();
             flag_reload = false;
+        }
+
+        if (flag_save_cfg) {
+            PINELOG_INFO(_("Saving X52 configuration to disk"));
+            x52d_config_save(conf_file);
+            flag_save_cfg = false;
         }
     }
 
