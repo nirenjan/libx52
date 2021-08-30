@@ -11,6 +11,7 @@
 #include <pthread.h>
 
 #include "x52d_const.h"
+#include "x52d_config.h"
 #include "x52d_device.h"
 #include "libx52.h"
 #include "libx52io.h"
@@ -55,6 +56,9 @@ static void *x52_dev_acq(void *param)
                 PINELOG_TRACE("Sleeping for %d seconds before trying to acquire device again", RECONNECT_DELAY);
                 sleep(RECONNECT_DELAY);
             } else {
+                PINELOG_INFO(_("Device connected, writing configuration"));
+                x52d_config_apply();
+
                 PINELOG_TRACE("Found device, disabling acquisition thread, enable update thread");
                 device_acq_thr_enable = false;
                 device_upd_thr_enable = true;
