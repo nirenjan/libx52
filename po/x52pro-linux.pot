@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-08-30 11:59-0700\n"
+"POT-Creation-Date: 2021-08-30 12:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -688,29 +688,29 @@ msgstr ""
 msgid "Starting X52 device update thread"
 msgstr ""
 
-#: daemon/x52d_device.c:105
+#: daemon/x52d_device.c:107
 msgid "Initializing libx52"
 msgstr ""
 
-#: daemon/x52d_device.c:109
+#: daemon/x52d_device.c:111
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:128
+#: daemon/x52d_device.c:130
 msgid "Shutting down X52 device acquisition thread"
 msgstr ""
 
-#: daemon/x52d_device.c:131
+#: daemon/x52d_device.c:133
 msgid "Shutting down X52 device update thread"
 msgstr ""
 
-#: daemon/x52d_device.c:144
+#: daemon/x52d_device.c:146
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:224
+#: daemon/x52d_device.c:226 daemon/x52d_device.c:261
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr ""

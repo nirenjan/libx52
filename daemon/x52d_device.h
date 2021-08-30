@@ -27,5 +27,6 @@ int x52d_dev_set_brightness(uint8_t mfd, uint16_t brightness);
 int x52d_dev_set_shift(uint8_t state);
 int x52d_dev_set_blink(uint8_t state);
 int x52d_dev_update(void);
+void x52d_dev_check(void);
 
 #endif // !defined X52D_DEVICE_H
