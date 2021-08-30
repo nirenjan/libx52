@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-08-30 10:40-0700\n"
+"POT-Creation-Date: 2021-08-30 11:52-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -574,7 +574,7 @@ msgstr ""
 msgid "Setting clock enable to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:113
+#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:114
 #, c-format
 msgid "Setting %s clock timezone to %s"
 msgstr ""
@@ -595,31 +595,31 @@ msgstr ""
 msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:130
+#: daemon/x52d_clock.c:131
 #, c-format
 msgid "Setting %s clock format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:152
+#: daemon/x52d_clock.c:153
 #, c-format
 msgid "Setting date format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:162
+#: daemon/x52d_clock.c:163
 msgid "Starting X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_clock.c:173
+#: daemon/x52d_clock.c:174
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:194
+#: daemon/x52d_clock.c:195
 #, c-format
 msgid "Error %d initializing clock thread: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:201
+#: daemon/x52d_clock.c:202
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 

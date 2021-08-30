@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-08-30 10:40-0700\n"
+"POT-Creation-Date: 2021-08-30 11:52-0700\n"
 "PO-Revision-Date: 2021-08-30 10:41-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -620,7 +620,7 @@ msgstr "Uttingshay ownday X52 aemonday"
 msgid "Setting clock enable to %s"
 msgstr "Ettingsay ockclay enableay otay %s"
 
-#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:113
+#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:114
 #, c-format
 msgid "Setting %s clock timezone to %s"
 msgstr "Ettingsay %s ockclay imezonetay otay %s"
@@ -644,31 +644,31 @@ msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 "Unableay otay ackupbay imezonetay environmentay. Allingfay ackbay otay UTCay"
 
-#: daemon/x52d_clock.c:130
+#: daemon/x52d_clock.c:131
 #, c-format
 msgid "Setting %s clock format to %s"
 msgstr "Ettingsay %s ockclay ormatfay otay %s"
 
-#: daemon/x52d_clock.c:152
+#: daemon/x52d_clock.c:153
 #, c-format
 msgid "Setting date format to %s"
 msgstr "Ettingsay ateday ormatfay otay %s"
 
-#: daemon/x52d_clock.c:162
+#: daemon/x52d_clock.c:163
 msgid "Starting X52 clock manager thread"
 msgstr "Artingstay X52 ockclay anagermay eadthray"
 
-#: daemon/x52d_clock.c:173
+#: daemon/x52d_clock.c:174
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr "Erroray %d etrievingray urrentcay imetay: %s"
 
-#: daemon/x52d_clock.c:194
+#: daemon/x52d_clock.c:195
 #, c-format
 msgid "Error %d initializing clock thread: %s"
 msgstr "Erroray %d initializingay ockclay eadthray: %s"
 
-#: daemon/x52d_clock.c:201
+#: daemon/x52d_clock.c:202
 msgid "Shutting down X52 clock manager thread"
 msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
 

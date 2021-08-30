@@ -68,6 +68,7 @@ static int get_tz_offset(const char *tz)
 
     setenv("TZ", new_tz, true);
     t = time(NULL);
+    tzset();
     timeval = localtime_r(&t, &tmp);
     if (timeval != NULL) {
         #if HAVE_STRUCT_TM_TM_GMTOFF
