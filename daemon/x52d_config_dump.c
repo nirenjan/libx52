@@ -152,11 +152,13 @@ int x52d_config_save_file(struct x52d_config *cfg, const char *cfg_file)
         if (rc) { \
             PINELOG_ERROR(_("Failed to dump %s.%s to config file %s - code %d: %s"), \
                           #section, #key, cfg_file, rc, strerror(rc)); \
-            return rc; \
+            goto exit_dump; \
         } \
     } while (0);
     #include "x52d_config.def"
 
-    return 0;
+exit_dump:
+    fclose(cfg_fp);
+    return rc;
 }
 
