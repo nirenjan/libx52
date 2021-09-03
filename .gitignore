@@ -5,15 +5,16 @@
 
 # Generated objects (source, executables, tarballs, etc.)
 a.out
-utils/cli/x52cli*
-utils/test/x52test*
-utils/evtest/x52evtest*
-lib/libx52util/util_char_map.c
-util/x52charmapgen*
-lib/libusbx52/x52test*
+x52cli*
+x52test*
+x52evtest*
+libx52/test_*
+libx52test*
+libx52util/util_char_map.c
 udev/*.rules
-daemon/x52d*
+x52d*
 !daemon/x52d_*.*
+test-*
 x52pro-linux-*.tar.gz
 
 # Module files
