@@ -64,6 +64,11 @@ AM_COND_IF([HAVE_SYSTEMD],,
         ]
 )
 
+# evdev support
+# This is only on Linux machines, so we need to set an automake conditional
+PKG_CHECK_MODULES([EVDEV], [libevdev], [have_evdev=yes], [have_evdev=no])
+AM_CONDITIONAL([HAVE_EVDEV], [test "x$have_evdev" = "xyes"])
+
 # Pinelog configuration
 AX_APPEND_FLAG([-DPINELOG_SHOW_LEVEL=1], [PINELOG_CFLAGS])
 AX_APPEND_FLAG([-DPINELOG_SHOW_BACKTRACE=1], [PINELOG_CFLAGS])
