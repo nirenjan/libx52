@@ -19,9 +19,9 @@
 #include "x52d_device.h"
 
 #define SET_LED_STATE(led, state) \
-    PINELOG_TRACE("Setting LED %s state to %s", \
+    PINELOG_TRACE("Setting LED %s state to %s (%d)", \
                   libx52_led_id_to_str(LIBX52_LED_ ## led), \
-                  libx52_led_state_to_str(state)); \
+                  libx52_led_state_to_str(state), state); \
     x52d_dev_set_led_state(LIBX52_LED_ ## led, state);
 
 void x52d_cfg_set_LED_Fire(libx52_led_state state)
