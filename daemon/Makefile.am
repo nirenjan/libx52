@@ -35,6 +35,15 @@ x52d_LDADD = \
 	libx52.la \
 	@LTLIBINTL@
 
+if HAVE_EVDEV
+x52d_SOURCES += \
+	daemon/x52d_mouse_evdev.c
+
+x52d_CFLAGS += -DHAVE_EVDEV @EVDEV_CFLAGS@
+x52d_LDFLAGS += @EVDEV_LIBS@
+x52d_LDADD += libx52io.la
+endif
+
 x52dconfdir = @sysconfdir@/x52d
 x52dconf_DATA = daemon/x52d.conf
 

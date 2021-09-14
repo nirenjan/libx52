@@ -66,6 +66,16 @@ CFG(Brightness, MFD, brightness[0], int, 128)
 CFG(Brightness, LED, brightness[1], int, 128)
 
 /**********************************************************************
+ * Mouse Settings
+ *********************************************************************/
+// Enabled controls whether the virtual mouse is enabled or not.
+CFG(Mouse, Enabled, mouse_enabled, bool, true)
+
+// Speed is a value that is proportional to the speed of updates to the
+// virtual mouse
+CFG(Mouse, Speed, mouse_speed, int, 0)
+
+/**********************************************************************
  * Profiles - only valid on Linux
  *********************************************************************/
 // Directory is the location of the folder containing the individual profiles.

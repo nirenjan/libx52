@@ -37,6 +37,9 @@ struct x52d_config {
 
     int brightness[2];
 
+    bool mouse_enabled;
+    int mouse_speed;
+
     bool clutch_enabled;
     bool clutch_latched;
 
@@ -66,6 +69,8 @@ void x52d_cfg_set_LED_POV(libx52_led_state param);
 void x52d_cfg_set_LED_Clutch(libx52_led_state param);
 void x52d_cfg_set_Brightness_MFD(uint16_t param);
 void x52d_cfg_set_Brightness_LED(uint16_t param);
+void x52d_cfg_set_Mouse_Enabled(bool param);
+void x52d_cfg_set_Mouse_Speed(int param);
 void x52d_cfg_set_Profiles_Directory(char* param);
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
 void x52d_cfg_set_Profiles_ClutchLatched(bool param);
