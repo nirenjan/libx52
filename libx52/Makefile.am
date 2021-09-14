@@ -12,7 +12,7 @@ lib_LTLIBRARIES += libx52.la
 # See: https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
 libx52_v_CUR=6
 libx52_v_AGE=4
-libx52_v_REV=0
+libx52_v_REV=1
 libx52_la_SOURCES = \
 	libx52/x52_control.c \
 	libx52/x52_core.c \

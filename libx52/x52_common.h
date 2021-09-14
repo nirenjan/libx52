@@ -51,6 +51,9 @@ struct libx52_device {
 
     int timezone[X52_MFD_CLOCKS];
     libx52_clock_format time_format[X52_MFD_CLOCKS];
+
+    libusb_hotplug_callback_handle hotplug_handle;
+    int handle_registered;
 };
 
 /** Flag bits */

@@ -277,3 +277,25 @@ int libusb_control_transfer(libusb_device_handle *dev_handle,
 
     return 0;
 }
+
+int libusb_kernel_driver_active(libusb_device_handle *hdl, int interface_number)
+{
+    return (hdl->dev->ref_count > 0);
+}
+
+/* Indicate that the stub library can support hotplug, even though it doesn't */
+int libusb_has_capability(uint32_t capability)
+{
+    return capability == LIBUSB_CAP_HAS_HOTPLUG;
+}
+
+/* Dummy function to simulate registering callbacks */
+int libusb_hotplug_register_callback(libusb_context *ctx,
+                                     libusb_hotplug_event events,
+                                     libusb_hotplug_flag flags,
+                                     int vendor_id, int product_id, int dev_class,
+                                     libusb_hotplug_callback_fn cb_fn, void *user_data,
+                                     libusb_hotplug_callback_handle *callback_handle)
+{
+    return LIBUSB_SUCCESS;
+}

@@ -42,9 +42,52 @@ static int libx52_device_is_x52pro(uint16_t idProduct)
     return (idProduct == X52_PROD_X52PRO);
 }
 
+static int _x52_hotplug_callback(libusb_context *ctx,
+                                 libusb_device *device,
+                                 libusb_hotplug_event event, void *user_data)
+{
+    libx52_device *dev = user_data;
+
+    if (dev == NULL) {
+        return 0;
+    }
+
+    /* Double check that the context matches the libx52 structure */
+    if (dev->ctx != ctx) {
+        return 0;
+    }
+
+    if (event == LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT) {
+        /*
+         * Return 1 if we successfully disconnected. This will automatically
+         * deregister the callback.
+         */
+        return (libx52_disconnect(dev) == LIBX52_SUCCESS);
+    }
+
+    return 0;
+}
+
 bool libx52_is_connected(libx52_device *dev)
 {
-    return (dev && dev->hdl);
+    int rc;
+
+    if (!dev) {
+        return false;
+    }
+
+
+    if (dev->hdl) {
+        if (dev->handle_registered) {
+            return true;
+        }
+
+        /* Check if interface 0 has a kernel driver attached */
+        rc = libusb_kernel_driver_active(dev->hdl, 0);
+        return (rc == 1);
+    }
+
+    return false;
 }
 
 int libx52_disconnect(libx52_device *dev)
@@ -57,6 +100,7 @@ int libx52_disconnect(libx52_device *dev)
         libusb_close(dev->hdl);
         dev->hdl = NULL;
         dev->flags = 0;
+        dev->handle_registered = 0;
     }
 
     return LIBX52_SUCCESS;
@@ -110,6 +154,23 @@ int libx52_connect(libx52_device *dev)
     /* Make sure we actually have an X52 device detected */
     if (!dev->hdl) {
         return LIBX52_ERROR_NO_DEVICE;
+    }
+
+
+    /* Setup hotplug callback when this device is disconnected */
+    if (libusb_has_capability(LIBUSB_CAP_HAS_HOTPLUG)) {
+        /*
+         * Mark if the hotplug callback registered successfully. If it did
+         * not register, we can use the kernel driver API to determine if
+         * the device is still connected.
+         */
+        dev->handle_registered = (LIBUSB_SUCCESS ==
+            libusb_hotplug_register_callback(dev->ctx,
+                                             LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT, 0,
+                                             desc.idVendor, desc.idProduct,
+                                             LIBUSB_HOTPLUG_MATCH_ANY,
+                                             _x52_hotplug_callback, dev,
+                                             &(dev->hotplug_handle)));
     }
 
     return LIBX52_SUCCESS;
