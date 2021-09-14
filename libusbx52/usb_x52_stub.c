@@ -289,10 +289,27 @@ int libusb_has_capability(uint32_t capability)
     return capability == LIBUSB_CAP_HAS_HOTPLUG;
 }
 
+/*
+ * libusb 1.0.24 (and newer) changed the signature of
+ * libusb_hotplug_register_callback. Older versions used the enum, but this
+ * was changed to int to address libusb/libusb#714.
+ *
+ * This causes issues when building on older systems, since it complains
+ * about conflicting types. In order to resolve this, we need to dynamically
+ * determine the parameters based on the libusb version.
+ */
+#if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000108)
+#define LIBUSB_HOTPLUG_EVENT int
+#define LIBUSB_HOTPLUG_FLAG int
+#else
+#define LIBUSB_HOTPLUG_EVENT libusb_hotplug_event
+#define LIBUSB_HOTPLUG_FLAG libusb_hotplug_flag
+#endif
+
 /* Dummy function to simulate registering callbacks */
 int libusb_hotplug_register_callback(libusb_context *ctx,
-                                     libusb_hotplug_event events,
-                                     libusb_hotplug_flag flags,
+                                     LIBUSB_HOTPLUG_EVENT events,
+                                     LIBUSB_HOTPLUG_FLAG flags,
                                      int vendor_id, int product_id, int dev_class,
                                      libusb_hotplug_callback_fn cb_fn, void *user_data,
                                      libusb_hotplug_callback_handle *callback_handle)
