@@ -90,7 +90,17 @@ static void *x52_dev_upd(void *param)
         if (!device_update_needed || !device_upd_thr_enable) {
             usleep(UPDATE_CHECK_DELAY);
             /* Check if the device is still connected */
-            x52d_dev_check();
+            if (device_upd_thr_enable && !libx52_is_connected(x52_dev)) {
+                // Detach and spawn thread to reconnect
+                PINELOG_TRACE("Disconnecting detached device");
+                libx52_disconnect(x52_dev);
+
+                PINELOG_TRACE("Disabling device update thread");
+                device_upd_thr_enable = false;
+
+                PINELOG_TRACE("Signaling device search thread");
+                device_acq_thr_enable = true;
+            }
             continue;
         }
 
@@ -231,35 +241,4 @@ int x52d_dev_update(void)
     }
 
     return rc;
-}
-
-void x52d_dev_check(void)
-{
-    int rc;
-
-    if (!libx52_is_connected(x52_dev)) {
-        return;
-    }
-
-    pthread_mutex_lock(&device_mutex);
-    /* Use a dummy vendor command to check if the device is connected */
-    rc = libx52_vendor_command(x52_dev, 0, 0);
-    pthread_mutex_unlock(&device_mutex);
-
-    if (rc != LIBX52_SUCCESS) {
-        if (rc == LIBX52_ERROR_NO_DEVICE) {
-            // Detach and spawn thread to reconnect
-            PINELOG_TRACE("Disconnecting detached device");
-            libx52_disconnect(x52_dev);
-
-            PINELOG_TRACE("Disabling device update thread");
-            device_upd_thr_enable = false;
-
-            PINELOG_TRACE("Signaling device search thread");
-            device_acq_thr_enable = true;
-        } else {
-            PINELOG_ERROR(_("Error %d when updating X52 device: %s"),
-                          rc, libx52_strerror(rc));
-        }
-    }
 }

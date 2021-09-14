@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-08-30 12:33-0700\n"
+"POT-Creation-Date: 2021-09-14 01:00-0700\n"
 "PO-Revision-Date: 2021-08-30 10:41-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -737,29 +737,29 @@ msgstr "Eviceday onnectedcay, itingwray onfigurationcay"
 msgid "Starting X52 device update thread"
 msgstr "Artingstay X52 eviceday updateay eadthray"
 
-#: daemon/x52d_device.c:107
+#: daemon/x52d_device.c:117
 msgid "Initializing libx52"
 msgstr "Initializingay libx52"
 
-#: daemon/x52d_device.c:111
+#: daemon/x52d_device.c:121
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr "Ailurefay %d initializeay libx52: %s"
 
-#: daemon/x52d_device.c:130
+#: daemon/x52d_device.c:140
 msgid "Shutting down X52 device acquisition thread"
 msgstr "Uttingshay ownday X52 eviceday acquisitionay eadthray"
 
-#: daemon/x52d_device.c:133
+#: daemon/x52d_device.c:143
 msgid "Shutting down X52 device update thread"
 msgstr "Uttingshay ownday X52 eviceday updateay eadthray"
 
-#: daemon/x52d_device.c:146
+#: daemon/x52d_device.c:156
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
 
-#: daemon/x52d_device.c:226 daemon/x52d_device.c:261
+#: daemon/x52d_device.c:236
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
