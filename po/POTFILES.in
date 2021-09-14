@@ -17,4 +17,5 @@ daemon/x52d_clock.c
 daemon/x52d_config.c
 daemon/x52d_config_parser.c
 daemon/x52d_device.c
+daemon/x52d_mouse.c
 daemon/x52d_mouse_evdev.c

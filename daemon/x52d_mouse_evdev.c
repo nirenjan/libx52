@@ -9,43 +9,65 @@
 #include "config.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <pthread.h>
+#include <unistd.h>
 
 #include "pinelog.h"
 #include "x52d_config.h"
 #include "x52d_const.h"
+#include "x52d_mouse.h"
 
-// Mouse speed is the delay between subsequent mouse reports
-#define DEFAULT_MOUSE_SPEED 250000
+static pthread_t mouse_thr;
+static bool mouse_thr_enabled = false;
 
-static bool mouse_enabled = false;
-static int mouse_speed = DEFAULT_MOUSE_SPEED;
-
-#define MAX_MOUSE_SPEED 5
-static const int mouse_speed_map[MAX_MOUSE_SPEED] = {
-    250000,
-    200000,
-    150000,
-    100000,
-     50000,
-};
-
-void x52d_cfg_set_Mouse_Enabled(bool enabled)
+static void * x52_mouse_thr(void *param)
 {
-    PINELOG_DEBUG(_("Setting mouse enable to %s"),
-                  enabled ? _("on") : _("off"));
-    mouse_enabled = enabled;
+    PINELOG_INFO(_("Starting X52 virtual mouse driver thread"));
+    for (;;) {
+        usleep(mouse_delay);
+        if (!mouse_enabled) {
+            /* Mouse thread is disabled, check again next time */
+            continue;
+        }
+    }
+
+    return NULL;
 }
 
-void x52d_cfg_set_Mouse_Speed(int speed)
+static void x52d_mouse_thr_init(void)
 {
-    int new_speed;
-    if (speed >= 0 && speed < MAX_MOUSE_SPEED) {
-        new_speed = mouse_speed_map[speed];
-        PINELOG_DEBUG(_("Setting mouse speed to %d (delay %d ms)"),
-                      speed, new_speed);
-        mouse_speed = new_speed;
-    } else {
-        PINELOG_INFO(_("Ignoring mouse speed %d outside supported range (0-%d)"),
-                     speed, MAX_MOUSE_SPEED);
+    int rc;
+
+    PINELOG_TRACE("Initializing virtual mouse driver");
+    rc = pthread_create(&mouse_thr, NULL, x52_mouse_thr, NULL);
+    if (rc != 0) {
+        PINELOG_FATAL(_("Error %d initializing mouse thread: %s"),
+                      rc, strerror(rc));
     }
+}
+
+static void x52d_mouse_thr_exit(void)
+{
+    PINELOG_INFO(_("Shutting down X52 virtual mouse driver thread"));
+    pthread_cancel(mouse_thr);
+}
+
+void x52d_mouse_evdev_thread_control(bool enabled)
+{
+    if (enabled) {
+        if (mouse_thr_enabled) {
+            PINELOG_TRACE("Ignoring re-enable mouse thread");
+            return;
+        } else {
+            x52d_mouse_thr_init();
+        }
+    } else {
+        if (!mouse_thr_enabled) {
+            PINELOG_TRACE("Ignoring re-disable mouse thread");
+            return;
+        } else {
+            x52d_mouse_thr_exit();
+        }
+    }
+    mouse_thr_enabled = enabled;
 }

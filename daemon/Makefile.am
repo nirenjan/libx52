@@ -13,6 +13,7 @@ x52d_SOURCES = \
 	daemon/x52d_config.c \
 	daemon/x52d_device.c \
 	daemon/x52d_clock.c \
+	daemon/x52d_mouse.c \
 	daemon/x52d_led.c
 
 x52d_CFLAGS = \
@@ -59,6 +60,7 @@ EXTRA_DIST += \
 	daemon/x52d_config.h \
 	daemon/x52d_const.h \
 	daemon/x52d_device.h \
+	daemon/x52d_mouse.h \
 	daemon/x52d.conf
 
 if HAVE_SYSTEMD
