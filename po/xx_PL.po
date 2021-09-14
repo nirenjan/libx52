@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-14 10:32-0700\n"
-"PO-Revision-Date: 2021-09-14 10:34-0700\n"
+"POT-Creation-Date: 2021-09-14 13:28-0700\n"
+"PO-Revision-Date: 2021-09-14 13:28-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -534,17 +534,17 @@ msgstr "Estingtay aracterchay 0x%02x..."
 msgid "OK"
 msgstr "OKay"
 
-#: daemon/x52d_main.c:58
+#: daemon/x52d_main.c:59
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
 
-#: daemon/x52d_main.c:74
+#: daemon/x52d_main.c:75
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr "Erroray %d installingay andlerhay orfay ignalsay %d: %s"
 
-#: daemon/x52d_main.c:85
+#: daemon/x52d_main.c:86
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -555,63 +555,63 @@ msgstr ""
 "\t[-l oglay-ilefay] [-o overrideay]\n"
 "\t[-c onfigcay-ilefay] [-p idpay-ilefay]\n"
 
-#: daemon/x52d_main.c:115
+#: daemon/x52d_main.c:116
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr "Aemonday isay alreadyay unningray asay IDPay %u"
 
-#: daemon/x52d_main.c:253
+#: daemon/x52d_main.c:254
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
 
-#: daemon/x52d_main.c:277
+#: daemon/x52d_main.c:278
 #, c-format
 msgid "Foreground = %s"
 msgstr "Oregroundfay = %s"
 
-#: daemon/x52d_main.c:277 daemon/x52d_main.c:278
+#: daemon/x52d_main.c:278 daemon/x52d_main.c:279
 msgid "true"
 msgstr "uetray"
 
-#: daemon/x52d_main.c:277 daemon/x52d_main.c:278
+#: daemon/x52d_main.c:278 daemon/x52d_main.c:279
 msgid "false"
 msgstr "alsefay"
 
-#: daemon/x52d_main.c:278
+#: daemon/x52d_main.c:279
 #, c-format
 msgid "Quiet = %s"
 msgstr "Uietqay = %s"
 
-#: daemon/x52d_main.c:279
+#: daemon/x52d_main.c:280
 #, c-format
 msgid "Verbosity = %d"
 msgstr "Erbosityvay = %d"
 
-#: daemon/x52d_main.c:280
+#: daemon/x52d_main.c:281
 #, c-format
 msgid "Log file = %s"
 msgstr "Oglay ilefay = %s"
 
-#: daemon/x52d_main.c:281
+#: daemon/x52d_main.c:282
 #, c-format
 msgid "Config file = %s"
 msgstr "Onfigcay ilefay = %s"
 
-#: daemon/x52d_main.c:308
+#: daemon/x52d_main.c:312
 msgid "Reloading X52 configuration"
 msgstr "Eloadingray X52 onfigurationcay"
 
-#: daemon/x52d_main.c:315
+#: daemon/x52d_main.c:319
 msgid "Saving X52 configuration to disk"
 msgstr "Avingsay X52 onfigurationcay otay iskday"
 
-#: daemon/x52d_main.c:321
+#: daemon/x52d_main.c:325
 #, c-format
 msgid "Received termination signal %s"
 msgstr "Eceivedray erminationtay ignalsay %s"
 
-#: daemon/x52d_main.c:331
+#: daemon/x52d_main.c:338
 msgid "Shutting down X52 daemon"
 msgstr "Uttingshay ownday X52 aemonday"
 
@@ -720,49 +720,77 @@ msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
 msgid "Error processing override '%s.%s=%s'"
 msgstr "Erroray ocessingpray overriday '%s.%s=%s'"
 
-#: daemon/x52d_device.c:36
+#: daemon/x52d_device.c:35
 msgid "Starting X52 device acquisition thread"
 msgstr "Artingstay X52 eviceday acquisitionay eadthray"
 
-#: daemon/x52d_device.c:51
+#: daemon/x52d_device.c:50
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr "Erroray %d onnectingcay otay eviceday: %s"
 
-#: daemon/x52d_device.c:59
+#: daemon/x52d_device.c:58
 msgid "Device connected, writing configuration"
 msgstr "Eviceday onnectedcay, itingwray onfigurationcay"
 
-#: daemon/x52d_device.c:86
+#: daemon/x52d_device.c:85
 msgid "Starting X52 device update thread"
 msgstr "Artingstay X52 eviceday updateay eadthray"
 
-#: daemon/x52d_device.c:117
+#: daemon/x52d_device.c:116
 msgid "Initializing libx52"
 msgstr "Initializingay libx52"
 
-#: daemon/x52d_device.c:121
+#: daemon/x52d_device.c:120
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr "Ailurefay %d initializeay libx52: %s"
 
-#: daemon/x52d_device.c:140
+#: daemon/x52d_device.c:139
 msgid "Shutting down X52 device acquisition thread"
 msgstr "Uttingshay ownday X52 eviceday acquisitionay eadthray"
 
-#: daemon/x52d_device.c:143
+#: daemon/x52d_device.c:142
 msgid "Shutting down X52 device update thread"
 msgstr "Uttingshay ownday X52 eviceday updateay eadthray"
 
-#: daemon/x52d_device.c:156
+#: daemon/x52d_device.c:155
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
 
-#: daemon/x52d_device.c:236
+#: daemon/x52d_device.c:235
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
+
+#: daemon/x52d_io.c:39
+msgid "Starting X52 I/O thread"
+msgstr "Artingstay X52 I/O eadthray"
+
+#: daemon/x52d_io.c:51
+#, c-format
+msgid "Error %d opening X52 I/O device: %s"
+msgstr "Erroray %d openingay X52 I/O eviceday: %s"
+
+#: daemon/x52d_io.c:76
+#, c-format
+msgid "Error %d reading from X52 I/O device: %s"
+msgstr "Erroray %d eadingray omfray X52 I/O eviceday: %s"
+
+#: daemon/x52d_io.c:95
+#, c-format
+msgid "Error %d initializing X52 I/O library: %s"
+msgstr "Erroray %d initializingay  X52 ibrarylay: %s"
+
+#: daemon/x52d_io.c:101
+#, c-format
+msgid "Error %d initializing I/O driver thread: %s"
+msgstr "Erroray %d initializingay  I/O iverdray eadthray: %s"
+
+#: daemon/x52d_io.c:108
+msgid "Shutting down X52 I/O driver thread"
+msgstr "Uttingshay ownday X52  I/O iverdray eadthray"
 
 #: daemon/x52d_mouse.c:35
 #, c-format

@@ -38,6 +38,7 @@ x52d_LDADD = \
 
 if HAVE_EVDEV
 x52d_SOURCES += \
+	daemon/x52d_io.c \
 	daemon/x52d_mouse_evdev.c
 
 x52d_CFLAGS += -DHAVE_EVDEV @EVDEV_CFLAGS@
@@ -60,6 +61,7 @@ EXTRA_DIST += \
 	daemon/x52d_config.h \
 	daemon/x52d_const.h \
 	daemon/x52d_device.h \
+	daemon/x52d_io.h \
 	daemon/x52d_mouse.h \
 	daemon/x52d.conf
 

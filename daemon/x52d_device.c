@@ -14,7 +14,6 @@
 #include "x52d_config.h"
 #include "x52d_device.h"
 #include "libx52.h"
-#include "libx52io.h"
 #include "pinelog.h"
 
 static libx52_device *x52_dev;

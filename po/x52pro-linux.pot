@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-14 10:32-0700\n"
+"POT-Creation-Date: 2021-09-14 13:28-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -491,17 +491,17 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:58
+#: daemon/x52d_main.c:59
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:74
+#: daemon/x52d_main.c:75
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:85
+#: daemon/x52d_main.c:86
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -509,63 +509,63 @@ msgid ""
 "\t[-c config-file] [-p pid-file]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:115
+#: daemon/x52d_main.c:116
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/x52d_main.c:253
+#: daemon/x52d_main.c:254
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:277
+#: daemon/x52d_main.c:278
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:277 daemon/x52d_main.c:278
+#: daemon/x52d_main.c:278 daemon/x52d_main.c:279
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:277 daemon/x52d_main.c:278
+#: daemon/x52d_main.c:278 daemon/x52d_main.c:279
 msgid "false"
-msgstr ""
-
-#: daemon/x52d_main.c:278
-#, c-format
-msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:279
 #, c-format
-msgid "Verbosity = %d"
+msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:280
 #, c-format
-msgid "Log file = %s"
+msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:281
 #, c-format
+msgid "Log file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:282
+#, c-format
 msgid "Config file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:308
+#: daemon/x52d_main.c:312
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:315
+#: daemon/x52d_main.c:319
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:321
+#: daemon/x52d_main.c:325
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:331
+#: daemon/x52d_main.c:338
 msgid "Shutting down X52 daemon"
 msgstr ""
 
@@ -671,48 +671,76 @@ msgstr ""
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""
 
-#: daemon/x52d_device.c:36
+#: daemon/x52d_device.c:35
 msgid "Starting X52 device acquisition thread"
 msgstr ""
 
-#: daemon/x52d_device.c:51
+#: daemon/x52d_device.c:50
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:59
+#: daemon/x52d_device.c:58
 msgid "Device connected, writing configuration"
 msgstr ""
 
-#: daemon/x52d_device.c:86
+#: daemon/x52d_device.c:85
 msgid "Starting X52 device update thread"
 msgstr ""
 
-#: daemon/x52d_device.c:117
+#: daemon/x52d_device.c:116
 msgid "Initializing libx52"
 msgstr ""
 
-#: daemon/x52d_device.c:121
+#: daemon/x52d_device.c:120
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:140
+#: daemon/x52d_device.c:139
 msgid "Shutting down X52 device acquisition thread"
 msgstr ""
 
-#: daemon/x52d_device.c:143
+#: daemon/x52d_device.c:142
 msgid "Shutting down X52 device update thread"
 msgstr ""
 
-#: daemon/x52d_device.c:156
+#: daemon/x52d_device.c:155
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:236
+#: daemon/x52d_device.c:235
 #, c-format
 msgid "Error %d when updating X52 device: %s"
+msgstr ""
+
+#: daemon/x52d_io.c:39
+msgid "Starting X52 I/O thread"
+msgstr ""
+
+#: daemon/x52d_io.c:51
+#, c-format
+msgid "Error %d opening X52 I/O device: %s"
+msgstr ""
+
+#: daemon/x52d_io.c:76
+#, c-format
+msgid "Error %d reading from X52 I/O device: %s"
+msgstr ""
+
+#: daemon/x52d_io.c:95
+#, c-format
+msgid "Error %d initializing X52 I/O library: %s"
+msgstr ""
+
+#: daemon/x52d_io.c:101
+#, c-format
+msgid "Error %d initializing I/O driver thread: %s"
+msgstr ""
+
+#: daemon/x52d_io.c:108
+msgid "Shutting down X52 I/O driver thread"
 msgstr ""
 
 #: daemon/x52d_mouse.c:35

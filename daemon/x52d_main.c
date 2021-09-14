@@ -20,6 +20,7 @@
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_device.h"
+#include "x52d_io.h"
 #include "pinelog.h"
 
 static volatile int flag_quit;
@@ -293,6 +294,9 @@ int main(int argc, char **argv)
     // Start device threads
     x52d_dev_init();
     x52d_clock_init();
+    #if defined(HAVE_EVDEV)
+    x52d_io_init();
+    #endif
 
     // Apply configuration
     x52d_config_apply();
@@ -323,6 +327,9 @@ int main(int argc, char **argv)
     // Stop device threads
     x52d_clock_exit();
     x52d_dev_exit();
+    #if defined(HAVE_EVDEV)
+    x52d_io_exit();
+    #endif
 
     // Remove the PID file
     PINELOG_TRACE("Removing PID file %s", pid_file);
