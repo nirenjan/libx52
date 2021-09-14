@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+### Added
+- CI for macOS 11 (Big Sur)
+
+### Fixed
+- Device erratic behavior when running daemon. See
+  [#33](https://github.com/nirenjan/x52pro-linux/issues/33).
 
 ## [0.2.2] - 2021-09-03
 ### Added
