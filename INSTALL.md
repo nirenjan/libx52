@@ -18,6 +18,7 @@ Build has been tested on the following operating systems (x86-64 only):
 * hidapi
 * libtool
 * libusb-1.0 + headers
+* libevdev (on Linux)
 * pkg-config
 * python3 (3.6 or greater)
 
@@ -25,9 +26,9 @@ Build has been tested on the following operating systems (x86-64 only):
 
 | Platform | Install instructions |
 | -------- | -------------------- |
-| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libtool libusb-1.0-0-dev pkg-config python3` |
+| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libevdev-dev libtool libusb-1.0-0-dev pkg-config python3` |
 | MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3` |
-| Arch Linux | `pacman -S base-devel libusb hidapi python` |
+| Arch Linux | `pacman -S base-devel libusb hidapi libevdev python` |
 
 ## Optional Packages
 

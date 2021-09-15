@@ -7,6 +7,7 @@ The format is based upon [Keep a Changelog].
 ## [Unreleased]
 ### Added
 - CI for macOS 11 (Big Sur)
+- Virtual mouse driver (on Linux only)
 
 ### Fixed
 - Device erratic behavior when running daemon. See
