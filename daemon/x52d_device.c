@@ -9,6 +9,7 @@
 #include "config.h"
 #include <unistd.h>
 #include <pthread.h>
+#include <stdbool.h>
 
 #include "x52d_const.h"
 #include "x52d_config.h"
@@ -20,28 +21,18 @@ static libx52_device *x52_dev;
 
 static pthread_mutex_t device_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-/*
- * Device acquisition thread
- * This is a thread that scans for and opens a supported X52 joystick.
- */
-static pthread_t device_acq_thr;
-static volatile bool device_acq_thr_enable;
-static volatile bool device_upd_thr_enable;
+static pthread_t device_thr;
+static volatile bool device_update_needed;
 
-static void *x52_dev_acq(void *param)
+static void *x52_dev_thr(void *param)
 {
     int rc;
 
-    PINELOG_INFO(_("Starting X52 device acquisition thread"));
-    // Check if the device is connected in a loop
-    for (;;) {
-        #define RECONNECT_DELAY 5
-        if (!device_acq_thr_enable) {
-            PINELOG_TRACE("Device acquisition thread disabled. Checking again in %d seconds", RECONNECT_DELAY);
-            sleep(RECONNECT_DELAY);
-            continue;
-        }
+    #define DEV_ACQ_DELAY 5 // seconds
+    #define DEV_UPD_DELAY 50000 // microseconds
 
+    PINELOG_INFO(_("Starting X52 device manager thread"));
+    for (;;) {
         if (!libx52_is_connected(x52_dev)) {
             PINELOG_TRACE("Attempting to connect to X52 device");
             rc = libx52_connect(x52_dev);
@@ -52,60 +43,25 @@ static void *x52_dev_acq(void *param)
                 } else {
                     PINELOG_TRACE("No compatible X52 device found");
                 }
-                PINELOG_TRACE("Sleeping for %d seconds before trying to acquire device again", RECONNECT_DELAY);
-                sleep(RECONNECT_DELAY);
+                PINELOG_TRACE("Sleeping for %d seconds before trying to acquire device again", DEV_ACQ_DELAY);
+                sleep(DEV_ACQ_DELAY);
             } else {
+                /* Successfully connected */
                 PINELOG_INFO(_("Device connected, writing configuration"));
                 x52d_config_apply();
-
-                PINELOG_TRACE("Found device, disabling acquisition thread, enable update thread");
-                device_acq_thr_enable = false;
-                device_upd_thr_enable = true;
             }
         } else {
-            PINELOG_TRACE("Device is connected, disable acquisition thread, enable update thread");
-            device_acq_thr_enable = false;
-            device_upd_thr_enable = true;
-        }
-        #undef RECONNECT_DELAY
-    }
-
-    return NULL;
-}
-
-/*
- * Device update thread
- * This is a thread that updates the joystick.
- */
-static pthread_t device_upd_thr;
-static volatile bool device_update_needed;
-
-static void *x52_dev_upd(void *param)
-{
-    PINELOG_INFO(_("Starting X52 device update thread"));
-    // Check if the device needs to be updated in a loop
-    for (;;) {
-        #define UPDATE_CHECK_DELAY 50000 // Wait for this many useconds
-        if (!device_update_needed || !device_upd_thr_enable) {
-            usleep(UPDATE_CHECK_DELAY);
-            /* Check if the device is still connected */
-            if (device_upd_thr_enable && !libx52_is_connected(x52_dev)) {
-                // Detach and spawn thread to reconnect
-                PINELOG_TRACE("Disconnecting detached device");
-                libx52_disconnect(x52_dev);
-
-                PINELOG_TRACE("Disabling device update thread");
-                device_upd_thr_enable = false;
-
-                PINELOG_TRACE("Signaling device search thread");
-                device_acq_thr_enable = true;
+            if (!device_update_needed) {
+                usleep(DEV_UPD_DELAY);
+                continue;
             }
-            continue;
-        }
 
-        (void)x52d_dev_update();
-        #undef UPDATE_CHECK_DELAY
+            (void)x52d_dev_update();
+        }
     }
+
+    #undef DEV_ACQ_DELAY
+    #undef DEV_UPD_DELAY
 
     return NULL;
 }
@@ -121,26 +77,15 @@ void x52d_dev_init(void)
                       rc, libx52_strerror(rc));
     }
 
-    // Create and initialize the threads
-    pthread_create(&device_acq_thr, NULL, x52_dev_acq, NULL);
-    // With libx52.so.2.3.0, libx52_init will also attempt to connect to a
-    // supported joystick. Check if a device is already connected before
-    // enabling the device acquisition thread.
-    device_acq_thr_enable = !libx52_is_connected(x52_dev);
-
-    pthread_create(&device_upd_thr, NULL, x52_dev_upd, NULL);
-    device_update_needed = false;
-    device_upd_thr_enable = libx52_is_connected(x52_dev);
+    // Create and initialize the thread
+    pthread_create(&device_thr, NULL, x52_dev_thr, NULL);
 }
 
 void x52d_dev_exit(void)
 {
     // Shutdown any threads
-    PINELOG_INFO(_("Shutting down X52 device acquisition thread"));
-    pthread_cancel(device_acq_thr);
-
-    PINELOG_INFO(_("Shutting down X52 device update thread"));
-    pthread_cancel(device_upd_thr);
+    PINELOG_INFO(_("Shutting down X52 device manager thread"));
+    pthread_cancel(device_thr);
 
     libx52_exit(x52_dev);
 }
@@ -222,15 +167,10 @@ int x52d_dev_update(void)
 
     if (rc != LIBX52_SUCCESS) {
         if (rc == LIBX52_ERROR_NO_DEVICE) {
-            // Detach and spawn thread to reconnect
+            // Detach from the existing device, the next thread run will
+            // pick it up.
             PINELOG_TRACE("Disconnecting detached device");
             libx52_disconnect(x52_dev);
-
-            PINELOG_TRACE("Disabling device update thread");
-            device_upd_thr_enable = false;
-
-            PINELOG_TRACE("Signaling device search thread");
-            device_acq_thr_enable = true;
         } else {
             PINELOG_ERROR(_("Error %d when updating X52 device: %s"),
                           rc, libx52_strerror(rc));

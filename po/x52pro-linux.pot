@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-15 00:04-0700\n"
+"POT-Creation-Date: 2021-09-15 00:09-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -671,46 +671,38 @@ msgstr ""
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""
 
-#: daemon/x52d_device.c:35
-msgid "Starting X52 device acquisition thread"
+#: daemon/x52d_device.c:34
+msgid "Starting X52 device manager thread"
 msgstr ""
 
-#: daemon/x52d_device.c:50
+#: daemon/x52d_device.c:41
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:58
+#: daemon/x52d_device.c:50
 msgid "Device connected, writing configuration"
 msgstr ""
 
-#: daemon/x52d_device.c:85
-msgid "Starting X52 device update thread"
-msgstr ""
-
-#: daemon/x52d_device.c:116
+#: daemon/x52d_device.c:72
 msgid "Initializing libx52"
 msgstr ""
 
-#: daemon/x52d_device.c:120
+#: daemon/x52d_device.c:76
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:139
-msgid "Shutting down X52 device acquisition thread"
+#: daemon/x52d_device.c:87
+msgid "Shutting down X52 device manager thread"
 msgstr ""
 
-#: daemon/x52d_device.c:142
-msgid "Shutting down X52 device update thread"
-msgstr ""
-
-#: daemon/x52d_device.c:155
+#: daemon/x52d_device.c:100
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:235
+#: daemon/x52d_device.c:175
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr ""
