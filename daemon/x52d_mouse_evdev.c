@@ -48,29 +48,23 @@ static int report_button_change(int button, int index)
     return rc;
 }
 
-#define btn_change(btn) new_report.button[btn] != old_report.button[btn]
-
 static int report_wheel(void)
 {
     int rc = 1;
     int wheel = 0;
-    bool scroll_up = (btn_change(LIBX52IO_BTN_MOUSE_SCROLL_UP));
-    bool scroll_dn = (btn_change(LIBX52IO_BTN_MOUSE_SCROLL_DN));
+    bool scroll_up = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
+    bool scroll_dn = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
 
     if (scroll_up) {
         // Scroll up event
-        if (new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP]) {
-            wheel = 1;
-        }
+        wheel = 1;
     } else if (scroll_dn) {
         // Scroll down event
-        if (new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN]) {
-            wheel = -1;
-        }
+        wheel = -1;
     }
 
     if (wheel != 0) {
-        rc = libevdev_uinput_write_event(mouse_uidev, EV_REL, REL_WHEEL, 1);
+        rc = libevdev_uinput_write_event(mouse_uidev, EV_REL, REL_WHEEL, wheel);
         if (rc != 0) {
             PINELOG_ERROR(_("Error writing mouse wheel event %d"), wheel);
         }
@@ -106,6 +100,17 @@ static int report_axis(int axis, int index)
     return rc;
 }
 
+static void report_sync(void)
+{
+    int rc;
+    rc = libevdev_uinput_write_event(mouse_uidev, EV_SYN, SYN_REPORT, 0);
+    if (rc != 0) {
+        PINELOG_ERROR(_("Error writing mouse sync event"));
+    } else {
+        memcpy((void *)&old_report, (void *)&new_report, sizeof(old_report));
+    }
+}
+
 static void reset_reports(void)
 {
     memset((void *)&old_report, 0, sizeof(old_report));
@@ -118,25 +123,15 @@ static void reset_reports(void)
 static void * x52_mouse_thr(void *param)
 {
     bool state_changed;
-    int rc;
 
     PINELOG_INFO(_("Starting X52 virtual mouse driver thread"));
     for (;;) {
-        /* Check if there are any changes in button state */
         state_changed = false;
-        state_changed |= (0 == report_button_change(BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
-        state_changed |= (0 == report_button_change(BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
-        state_changed |= (0 == report_wheel());
         state_changed |= (0 == report_axis(REL_X, LIBX52IO_AXIS_THUMBX));
         state_changed |= (0 == report_axis(REL_Y, LIBX52IO_AXIS_THUMBY));
 
         if (state_changed) {
-            rc = libevdev_uinput_write_event(mouse_uidev, EV_SYN, SYN_REPORT, 0);
-            if (rc != 0) {
-                PINELOG_ERROR(_("Error writing mouse sync event"));
-            } else {
-                memcpy((void *)&old_report, (void *)&new_report, sizeof(old_report));
-            }
+            report_sync();
         }
 
         usleep(mouse_delay);
@@ -191,8 +186,18 @@ void x52d_mouse_evdev_thread_control(bool enabled)
 
 void x52d_mouse_report_event(libx52io_report *report)
 {
+    bool state_changed;
     if (report) {
         memcpy((void *)&new_report, report, sizeof(new_report));
+
+        state_changed = false;
+        state_changed |= (0 == report_button_change(BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
+        state_changed |= (0 == report_button_change(BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
+        state_changed |= (0 == report_wheel());
+
+        if (state_changed) {
+            report_sync();
+        }
     } else {
         reset_reports();
     }

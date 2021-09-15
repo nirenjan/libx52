@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-14 17:33-0700\n"
+"POT-Creation-Date: 2021-09-14 23:34-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -763,38 +763,38 @@ msgstr ""
 msgid "Error writing mouse button event (button %d, state %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:75
+#: daemon/x52d_mouse_evdev.c:69
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:101
+#: daemon/x52d_mouse_evdev.c:95
 #, c-format
 msgid "Error writing mouse axis event (axis %d, value %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:123
-msgid "Starting X52 virtual mouse driver thread"
-msgstr ""
-
-#: daemon/x52d_mouse_evdev.c:136
+#: daemon/x52d_mouse_evdev.c:108
 msgid "Error writing mouse sync event"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:155
+#: daemon/x52d_mouse_evdev.c:127
+msgid "Starting X52 virtual mouse driver thread"
+msgstr ""
+
+#: daemon/x52d_mouse_evdev.c:150
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:162
+#: daemon/x52d_mouse_evdev.c:157
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:169
+#: daemon/x52d_mouse_evdev.c:164
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:220
+#: daemon/x52d_mouse_evdev.c:225
 #, c-format
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr ""
