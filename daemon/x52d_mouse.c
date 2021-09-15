@@ -41,14 +41,14 @@ void x52d_cfg_set_Mouse_Enabled(bool enabled)
 
 void x52d_cfg_set_Mouse_Speed(int speed)
 {
-    int new_speed;
+    int new_delay;
     if (speed >= 0 && speed < MAX_MOUSE_SPEED) {
-        new_speed = mouse_speed_map[speed];
+        new_delay = mouse_speed_map[speed];
         PINELOG_DEBUG(_("Setting mouse speed to %d (delay %d ms)"),
-                      speed, new_speed);
-        mouse_delay = new_speed;
+                      speed, new_delay);
+        mouse_delay = new_delay;
     } else {
         PINELOG_INFO(_("Ignoring mouse speed %d outside supported range (0-%d)"),
-                     speed, MAX_MOUSE_SPEED);
+                     speed, MAX_MOUSE_SPEED-1);
     }
 }
