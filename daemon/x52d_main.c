@@ -21,6 +21,7 @@
 #include "x52d_config.h"
 #include "x52d_device.h"
 #include "x52d_io.h"
+#include "x52d_mouse.h"
 #include "pinelog.h"
 
 static volatile int flag_quit;
@@ -296,6 +297,7 @@ int main(int argc, char **argv)
     x52d_clock_init();
     #if defined(HAVE_EVDEV)
     x52d_io_init();
+    x52d_mouse_evdev_init();
     #endif
 
     // Apply configuration
@@ -328,6 +330,7 @@ int main(int argc, char **argv)
     x52d_clock_exit();
     x52d_dev_exit();
     #if defined(HAVE_EVDEV)
+    x52d_mouse_evdev_exit();
     x52d_io_exit();
     #endif
 

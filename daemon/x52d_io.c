@@ -14,6 +14,7 @@
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_io.h"
+#include "x52d_mouse.h"
 #include "libx52io.h"
 #include "pinelog.h"
 
@@ -24,6 +25,7 @@ static pthread_t io_thr;
 static void process_report(libx52io_report *report, libx52io_report *prev)
 {
     // TODO: Process changes
+    x52d_mouse_report_event(report);
     memcpy(prev, report, sizeof(*prev));
 }
 

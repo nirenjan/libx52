@@ -10,10 +10,14 @@
 #define X52D_MOUSE_H
 
 #include <stdbool.h>
+#include "libx52io.h"
 
 extern volatile bool mouse_enabled;
 extern volatile int mouse_delay;
 
 void x52d_mouse_evdev_thread_control(bool enabled);
+void x52d_mouse_evdev_init(void);
+void x52d_mouse_evdev_exit(void);
+void x52d_mouse_report_event(libx52io_report *report);
 
 #endif // !defined X52D_MOUSE_H

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-14 13:28-0700\n"
-"PO-Revision-Date: 2021-09-14 13:28-0700\n"
+"POT-Creation-Date: 2021-09-14 17:04-0700\n"
+"PO-Revision-Date: 2021-09-14 17:07-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -534,17 +534,17 @@ msgstr "Estingtay aracterchay 0x%02x..."
 msgid "OK"
 msgstr "OKay"
 
-#: daemon/x52d_main.c:59
+#: daemon/x52d_main.c:60
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
 
-#: daemon/x52d_main.c:75
+#: daemon/x52d_main.c:76
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr "Erroray %d installingay andlerhay orfay ignalsay %d: %s"
 
-#: daemon/x52d_main.c:86
+#: daemon/x52d_main.c:87
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -555,63 +555,63 @@ msgstr ""
 "\t[-l oglay-ilefay] [-o overrideay]\n"
 "\t[-c onfigcay-ilefay] [-p idpay-ilefay]\n"
 
-#: daemon/x52d_main.c:116
+#: daemon/x52d_main.c:117
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr "Aemonday isay alreadyay unningray asay IDPay %u"
 
-#: daemon/x52d_main.c:254
+#: daemon/x52d_main.c:255
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
 
-#: daemon/x52d_main.c:278
+#: daemon/x52d_main.c:279
 #, c-format
 msgid "Foreground = %s"
 msgstr "Oregroundfay = %s"
 
-#: daemon/x52d_main.c:278 daemon/x52d_main.c:279
+#: daemon/x52d_main.c:279 daemon/x52d_main.c:280
 msgid "true"
 msgstr "uetray"
 
-#: daemon/x52d_main.c:278 daemon/x52d_main.c:279
+#: daemon/x52d_main.c:279 daemon/x52d_main.c:280
 msgid "false"
 msgstr "alsefay"
 
-#: daemon/x52d_main.c:279
+#: daemon/x52d_main.c:280
 #, c-format
 msgid "Quiet = %s"
 msgstr "Uietqay = %s"
 
-#: daemon/x52d_main.c:280
+#: daemon/x52d_main.c:281
 #, c-format
 msgid "Verbosity = %d"
 msgstr "Erbosityvay = %d"
 
-#: daemon/x52d_main.c:281
+#: daemon/x52d_main.c:282
 #, c-format
 msgid "Log file = %s"
 msgstr "Oglay ilefay = %s"
 
-#: daemon/x52d_main.c:282
+#: daemon/x52d_main.c:283
 #, c-format
 msgid "Config file = %s"
 msgstr "Onfigcay ilefay = %s"
 
-#: daemon/x52d_main.c:312
+#: daemon/x52d_main.c:314
 msgid "Reloading X52 configuration"
 msgstr "Eloadingray X52 onfigurationcay"
 
-#: daemon/x52d_main.c:319
+#: daemon/x52d_main.c:321
 msgid "Saving X52 configuration to disk"
 msgstr "Avingsay X52 onfigurationcay otay iskday"
 
-#: daemon/x52d_main.c:325
+#: daemon/x52d_main.c:327
 #, c-format
 msgid "Received termination signal %s"
 msgstr "Eceivedray erminationtay ignalsay %s"
 
-#: daemon/x52d_main.c:338
+#: daemon/x52d_main.c:341
 msgid "Shutting down X52 daemon"
 msgstr "Uttingshay ownday X52 aemonday"
 
@@ -764,33 +764,33 @@ msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
 msgid "Error %d when updating X52 device: %s"
 msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
 
-#: daemon/x52d_io.c:39
+#: daemon/x52d_io.c:41
 msgid "Starting X52 I/O thread"
 msgstr "Artingstay X52 I/O eadthray"
 
-#: daemon/x52d_io.c:51
+#: daemon/x52d_io.c:53
 #, c-format
 msgid "Error %d opening X52 I/O device: %s"
 msgstr "Erroray %d openingay X52 I/O eviceday: %s"
 
-#: daemon/x52d_io.c:76
+#: daemon/x52d_io.c:78
 #, c-format
 msgid "Error %d reading from X52 I/O device: %s"
 msgstr "Erroray %d eadingray omfray X52 I/O eviceday: %s"
 
-#: daemon/x52d_io.c:95
+#: daemon/x52d_io.c:97
 #, c-format
 msgid "Error %d initializing X52 I/O library: %s"
-msgstr "Erroray %d initializingay  X52 ibrarylay: %s"
+msgstr "Erroray %d initializingay X52 ibrarylay: %s"
 
-#: daemon/x52d_io.c:101
+#: daemon/x52d_io.c:103
 #, c-format
 msgid "Error %d initializing I/O driver thread: %s"
-msgstr "Erroray %d initializingay  I/O iverdray eadthray: %s"
+msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 
-#: daemon/x52d_io.c:108
+#: daemon/x52d_io.c:110
 msgid "Shutting down X52 I/O driver thread"
-msgstr "Uttingshay ownday X52  I/O iverdray eadthray"
+msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
 #: daemon/x52d_mouse.c:35
 #, c-format
@@ -807,18 +807,46 @@ msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms)"
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr "Ignoringay ousemay eedspay %d outsideay upportedsay angeray (0-%d)"
 
-#: daemon/x52d_mouse_evdev.c:25
+#: daemon/x52d_mouse_evdev.c:43
+#, c-format
+msgid "Error writing mouse button event (button %d, state %d)"
+msgstr "Erroray itingwray ousemay uttonbay eventay (uttonbay %d, atestay %d)"
+
+#: daemon/x52d_mouse_evdev.c:75
+#, c-format
+msgid "Error writing mouse wheel event %d"
+msgstr "Erroray itingwray ousemay eelwhay eventay %d"
+
+#: daemon/x52d_mouse_evdev.c:101
+#, c-format
+msgid "Error writing mouse axis event (axis %d, value %d)"
+msgstr "Erroray itingwray ousemay axisay eventay (axisay %d, aluevay %d)"
+
+#: daemon/x52d_mouse_evdev.c:114
 msgid "Starting X52 virtual mouse driver thread"
 msgstr "Artingstay X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_evdev.c:44
+#: daemon/x52d_mouse_evdev.c:127
+msgid "Error writing mouse sync event"
+msgstr "Erroray itingwray ousemay yncsay eventay"
+
+#: daemon/x52d_mouse_evdev.c:146
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
-msgstr "Erroray %d initializingay  ousemay eadthray: %s"
+msgstr "Erroray %d initializingay ousemay eadthray: %s"
 
-#: daemon/x52d_mouse_evdev.c:51
+#: daemon/x52d_mouse_evdev.c:153
 msgid "Shutting down X52 virtual mouse driver thread"
-msgstr "Uttingshay ownday X52  irtualvay ousemay iverdray eadthray"
+msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
+
+#: daemon/x52d_mouse_evdev.c:160
+msgid "Virtual mouse not created. Ignoring thread state change"
+msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
+
+#: daemon/x52d_mouse_evdev.c:211
+#, c-format
+msgid "Error %d creating X52 virtual mouse: %s"
+msgstr "Erroray %d eatingcray X52 irtualvay ousemay: %s"
 
 #, fuzzy
 #~ msgid "Starting X52 mouse manager thread"
