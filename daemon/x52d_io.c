@@ -34,7 +34,6 @@ static void *x52_io_thr(void *param)
     int rc;
     libx52io_report report;
     libx52io_report prev_report;
-    bool connected = false;
 
     #define IO_READ_TIMEOUT 50 /* milliseconds */
     #define IO_ACQ_TIMEOUT 5 /* seconds */
@@ -44,43 +43,45 @@ static void *x52_io_thr(void *param)
     memset(&prev_report, 0, sizeof(prev_report));
 
     for (;;) {
-        if (!connected) {
+        rc = libx52io_read_timeout(io_ctx, &report, IO_READ_TIMEOUT);
+        switch (rc) {
+        case LIBX52IO_SUCCESS:
+            // Found a report
+            process_report(&report, &prev_report);
+            break;
+
+        case LIBX52IO_ERROR_TIMEOUT:
+            // No report received within the timeout
+            break;
+
+        case LIBX52IO_ERROR_NO_DEVICE:
+            PINELOG_TRACE("Device disconnected, trying to connect");
             rc = libx52io_open(io_ctx);
-            if (rc == LIBX52IO_SUCCESS) {
-                connected = true;
-            } else {
+            if (rc != LIBX52IO_SUCCESS) {
                 if (rc != LIBX52IO_ERROR_NO_DEVICE) {
                     PINELOG_ERROR(_("Error %d opening X52 I/O device: %s"),
                                   rc, libx52io_strerror(rc));
                 } else {
-                    PINELOG_TRACE("No compatible X52 I/O device found. Waiting %d seconds before trying again.", IO_ACQ_TIMEOUT);
+                    PINELOG_TRACE("No compatible X52 I/O device found. Sleeping %d seconds before trying again.",
+                                  IO_ACQ_TIMEOUT);
                 }
                 sleep(IO_ACQ_TIMEOUT);
             }
-        } else {
-            rc = libx52io_read_timeout(io_ctx, &report, IO_READ_TIMEOUT);
-            switch (rc) {
-            case LIBX52IO_SUCCESS:
-                // Found a report
-                process_report(&report, &prev_report);
-                break;
+            break;
 
-            case LIBX52IO_ERROR_TIMEOUT:
-                // No report received within the timeout
-                break;
+        default:
+            PINELOG_ERROR(_("Error %d reading from X52 I/O device: %s"),
+                          rc, libx52io_strerror(rc));
 
-            case LIBX52IO_ERROR_NO_DEVICE:
-                PINELOG_TRACE("Device disconnected, signaling I/O connect thread");
-                /* Report a NULL report to reset the mouse to default state */
-                x52d_mouse_report_event(NULL);
-                connected = false;
-                break;
+            /*
+             * Possibly disconnected, better to force disconnect now, and try
+             * to reconnect later
+             */
+            libx52io_close(io_ctx);
 
-            default:
-                PINELOG_ERROR(_("Error %d reading from X52 I/O device: %s"),
-                              rc, libx52io_strerror(rc));
-                break;
-            }
+            /* Report a NULL report to reset the mouse to default state */
+            x52d_mouse_report_event(NULL);
+            break;
         }
     }
     #undef IO_READ_TIMEOUT

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-14 23:34-0700\n"
+"POT-Creation-Date: 2021-09-15 00:04-0700\n"
 "PO-Revision-Date: 2021-09-14 17:07-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -764,31 +764,31 @@ msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
 msgid "Error %d when updating X52 device: %s"
 msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
 
-#: daemon/x52d_io.c:41
+#: daemon/x52d_io.c:40
 msgid "Starting X52 I/O thread"
 msgstr "Artingstay X52 I/O eadthray"
 
-#: daemon/x52d_io.c:53
+#: daemon/x52d_io.c:62
 #, c-format
 msgid "Error %d opening X52 I/O device: %s"
 msgstr "Erroray %d openingay X52 I/O eviceday: %s"
 
-#: daemon/x52d_io.c:80
+#: daemon/x52d_io.c:73
 #, c-format
 msgid "Error %d reading from X52 I/O device: %s"
 msgstr "Erroray %d eadingray omfray X52 I/O eviceday: %s"
 
-#: daemon/x52d_io.c:99
+#: daemon/x52d_io.c:100
 #, c-format
 msgid "Error %d initializing X52 I/O library: %s"
 msgstr "Erroray %d initializingay X52 ibrarylay: %s"
 
-#: daemon/x52d_io.c:105
+#: daemon/x52d_io.c:106
 #, c-format
 msgid "Error %d initializing I/O driver thread: %s"
 msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 
-#: daemon/x52d_io.c:112
+#: daemon/x52d_io.c:113
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 

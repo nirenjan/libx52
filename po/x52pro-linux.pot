@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-14 23:34-0700\n"
+"POT-Creation-Date: 2021-09-15 00:04-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -715,31 +715,31 @@ msgstr ""
 msgid "Error %d when updating X52 device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:41
+#: daemon/x52d_io.c:40
 msgid "Starting X52 I/O thread"
 msgstr ""
 
-#: daemon/x52d_io.c:53
+#: daemon/x52d_io.c:62
 #, c-format
 msgid "Error %d opening X52 I/O device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:80
+#: daemon/x52d_io.c:73
 #, c-format
 msgid "Error %d reading from X52 I/O device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:99
+#: daemon/x52d_io.c:100
 #, c-format
 msgid "Error %d initializing X52 I/O library: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:105
+#: daemon/x52d_io.c:106
 #, c-format
 msgid "Error %d initializing I/O driver thread: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:112
+#: daemon/x52d_io.c:113
 msgid "Shutting down X52 I/O driver thread"
 msgstr ""
 
