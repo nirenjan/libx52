@@ -15,19 +15,20 @@
 #include "x52d_const.h"
 #include "x52d_mouse.h"
 
-// Mouse speed is the delay between subsequent mouse reports
-#define DEFAULT_MOUSE_SPEED 250000
+// Mouse speed is the delay in microseconds between subsequent mouse reports
+#define DEFAULT_MOUSE_DELAY 70000
+#define MOUSE_DELAY_DELTA   10000
 
 volatile bool mouse_enabled = false;
-volatile int mouse_delay = DEFAULT_MOUSE_SPEED;
+volatile int mouse_delay = DEFAULT_MOUSE_DELAY;
 
 #define MAX_MOUSE_SPEED 5
 static const int mouse_speed_map[MAX_MOUSE_SPEED] = {
-    250000,
-    200000,
-    150000,
-    100000,
-     50000,
+    DEFAULT_MOUSE_DELAY,
+    DEFAULT_MOUSE_DELAY - MOUSE_DELAY_DELTA*1,
+    DEFAULT_MOUSE_DELAY - MOUSE_DELAY_DELTA*2,
+    DEFAULT_MOUSE_DELAY - MOUSE_DELAY_DELTA*3,
+    DEFAULT_MOUSE_DELAY - MOUSE_DELAY_DELTA*4,
 };
 
 void x52d_cfg_set_Mouse_Enabled(bool enabled)

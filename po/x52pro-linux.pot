@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-15 00:09-0700\n"
+"POT-Creation-Date: 2021-09-15 09:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,11 +142,11 @@ msgstr ""
 msgid "Unknown LED state %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:36
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:37
 msgid "off"
 msgstr ""
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:36
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:37
 msgid "on"
 msgstr ""
 
@@ -735,17 +735,17 @@ msgstr ""
 msgid "Shutting down X52 I/O driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse.c:35
+#: daemon/x52d_mouse.c:36
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:47
+#: daemon/x52d_mouse.c:48
 #, c-format
 msgid "Setting mouse speed to %d (delay %d ms)"
 msgstr ""
 
-#: daemon/x52d_mouse.c:51
+#: daemon/x52d_mouse.c:52
 #, c-format
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr ""
