@@ -46,9 +46,12 @@ You will also need the `cmocka` package to run the unit tests.
 2. Run autogen.sh
 3. Run the following commands:
 ```
-./configure --prefix=/usr
+./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
 make && sudo make install
 ```
+
+You may want to remove or edit the `--prefix=/usr` option, most users prefer
+non-distro binaries in `/usr/local` (default without `--prefix`) or `/opt`.
 
 ## Configuration options
 

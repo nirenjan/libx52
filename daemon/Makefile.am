@@ -26,7 +26,7 @@ x52d_CFLAGS = \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(localstatedir)/log\" \
-	-DRUNDIR=\"$(runstatedir)\" \
+	-DRUNDIR=\"$(localstatedir)/run\" \
 	@PTHREAD_CFLAGS@ $(WARN_CFLAGS)
 
 x52d_LDFLAGS = @PTHREAD_LIBS@ $(WARN_LDFLAGS)
@@ -51,7 +51,7 @@ x52dconf_DATA = daemon/x52d.conf
 
 install-exec-hook:
 	$(MKDIR_P) $(DESTDIR)$(localstatedir)/log
-	$(MKDIR_P) $(DESTDIR)$(runstatedir)
+	$(MKDIR_P) $(DESTDIR)$(localstatedir)/run
 
 EXTRA_DIST += \
 	daemon/daemon.dox \
