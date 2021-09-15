@@ -106,6 +106,15 @@ static int report_axis(int axis, int index)
     return rc;
 }
 
+static void reset_reports(void)
+{
+    memset((void *)&old_report, 0, sizeof(old_report));
+    /* Set the default thumbstick values to the mid-point */
+    old_report.axis[LIBX52IO_AXIS_THUMBX] = 8;
+    old_report.axis[LIBX52IO_AXIS_THUMBY] = 8;
+    memcpy((void *)&new_report, (void *)&old_report, sizeof(new_report));
+}
+
 static void * x52_mouse_thr(void *param)
 {
     bool state_changed;
@@ -166,11 +175,7 @@ void x52d_mouse_evdev_thread_control(bool enabled)
             PINELOG_TRACE("Ignoring re-enable mouse thread");
             return;
         } else {
-            memset((void *)&old_report, 0, sizeof(old_report));
-            /* Set the default thumbstick values to the mid-point */
-            old_report.axis[LIBX52IO_AXIS_THUMBX] = 8;
-            old_report.axis[LIBX52IO_AXIS_THUMBY] = 8;
-            memcpy((void *)&new_report, (void *)&old_report, sizeof(new_report));
+            reset_reports();
             x52d_mouse_thr_init();
         }
     } else {
@@ -186,7 +191,11 @@ void x52d_mouse_evdev_thread_control(bool enabled)
 
 void x52d_mouse_report_event(libx52io_report *report)
 {
-    memcpy((void *)&new_report, report, sizeof(new_report));
+    if (report) {
+        memcpy((void *)&new_report, report, sizeof(new_report));
+    } else {
+        reset_reports();
+    }
 }
 
 void x52d_mouse_evdev_init(void)
@@ -217,6 +226,7 @@ void x52d_mouse_evdev_init(void)
 
 void x52d_mouse_evdev_exit(void)
 {
+    x52d_mouse_evdev_thread_control(false);
     mouse_uidev_created = false;
     libevdev_uinput_destroy(mouse_uidev);
 }

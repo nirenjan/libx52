@@ -71,6 +71,8 @@ static void *x52_io_thr(void *param)
 
             case LIBX52IO_ERROR_NO_DEVICE:
                 PINELOG_TRACE("Device disconnected, signaling I/O connect thread");
+                /* Report a NULL report to reset the mouse to default state */
+                x52d_mouse_report_event(NULL);
                 connected = false;
                 break;
 
