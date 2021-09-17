@@ -21,14 +21,15 @@ Build has been tested on the following operating systems (x86-64 only):
 * libevdev (on Linux)
 * pkg-config
 * python3 (3.6 or greater)
+* git (not required for builds, but necessary to clone the repository)
 
 ### Installation instructions
 
 | Platform | Install instructions |
 | -------- | -------------------- |
-| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libevdev-dev libtool libusb-1.0-0-dev pkg-config python3` |
-| MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3` |
-| Arch Linux | `pacman -S base-devel libusb hidapi libevdev python` |
+| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libevdev-dev libtool libusb-1.0-0-dev pkg-config python3 git` |
+| MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3 git` |
+| Arch Linux | `pacman -S base-devel libusb hidapi libevdev python git` |
 
 ## Optional Packages
 
@@ -43,7 +44,16 @@ You will also need the `cmocka` package to run the unit tests.
 # Installation Instructions
 
 1. Clone the repository
+```
+git clone https://github.com/nirenjan/x52pro-linux.git
+```
+
 2. Run autogen.sh
+```
+cd ./x52pro-linux
+./autogen.sh
+```
+
 3. Run the following commands:
 ```
 ./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
