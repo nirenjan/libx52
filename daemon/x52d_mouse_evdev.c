@@ -89,6 +89,13 @@ static int report_axis(int axis, int index)
      */
     axis_val = ((axis_val << 1) - 15) >> 1;
 
+    /*
+     * Factor in the multiplicative factor for the axis. This deliberately
+     * uses integer division, since the uinput event only accepts integers.
+     * For the speed purposes, this should be good enough.
+     */
+    axis_val = (axis_val * mouse_mult) / MOUSE_MULT_FACTOR;
+
     if (axis_val) {
         rc = libevdev_uinput_write_event(mouse_uidev, EV_REL, axis, axis_val);
         if (rc != 0) {

@@ -14,6 +14,9 @@
 
 extern volatile bool mouse_enabled;
 extern volatile int mouse_delay;
+extern volatile int mouse_mult;
+
+#define MOUSE_MULT_FACTOR  4
 
 void x52d_mouse_evdev_thread_control(bool enabled);
 void x52d_mouse_evdev_init(void);

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: x52pro-linux 0.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-15 09:25-0700\n"
-"PO-Revision-Date: 2021-09-15 00:12-0700\n"
+"POT-Creation-Date: 2021-09-16 23:03-0700\n"
+"PO-Revision-Date: 2021-09-16 23:04-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -142,11 +142,11 @@ msgstr "YYay-MMay-DDay"
 msgid "Unknown LED state %d"
 msgstr "Unknownay EDLay atestay %d"
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:37
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:31
 msgid "off"
 msgstr "offay"
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:37
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:31
 msgid "on"
 msgstr "onay"
 
@@ -784,20 +784,20 @@ msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
-#: daemon/x52d_mouse.c:36
+#: daemon/x52d_mouse.c:30
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr "Ettingsay ousemay enableay otay %s"
 
-#: daemon/x52d_mouse.c:48
-#, c-format
-msgid "Setting mouse speed to %d (delay %d ms)"
-msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms)"
-
-#: daemon/x52d_mouse.c:52
+#: daemon/x52d_mouse.c:46
 #, c-format
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr "Ignoringay ousemay eedspay %d outsideay upportedsay angeray (0-%d)"
+
+#: daemon/x52d_mouse.c:58
+#, c-format
+msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
+msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms, ultipliermay %f)"
 
 #: daemon/x52d_mouse_evdev.c:43
 #, c-format
@@ -809,33 +809,33 @@ msgstr "Erroray itingwray ousemay uttonbay eventay (uttonbay %d, atestay %d)"
 msgid "Error writing mouse wheel event %d"
 msgstr "Erroray itingwray ousemay eelwhay eventay %d"
 
-#: daemon/x52d_mouse_evdev.c:95
+#: daemon/x52d_mouse_evdev.c:102
 #, c-format
 msgid "Error writing mouse axis event (axis %d, value %d)"
 msgstr "Erroray itingwray ousemay axisay eventay (axisay %d, aluevay %d)"
 
-#: daemon/x52d_mouse_evdev.c:108
+#: daemon/x52d_mouse_evdev.c:115
 msgid "Error writing mouse sync event"
 msgstr "Erroray itingwray ousemay yncsay eventay"
 
-#: daemon/x52d_mouse_evdev.c:127
+#: daemon/x52d_mouse_evdev.c:134
 msgid "Starting X52 virtual mouse driver thread"
 msgstr "Artingstay X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_evdev.c:150
+#: daemon/x52d_mouse_evdev.c:157
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr "Erroray %d initializingay ousemay eadthray: %s"
 
-#: daemon/x52d_mouse_evdev.c:157
+#: daemon/x52d_mouse_evdev.c:164
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_evdev.c:164
+#: daemon/x52d_mouse_evdev.c:171
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 
-#: daemon/x52d_mouse_evdev.c:225
+#: daemon/x52d_mouse_evdev.c:232
 #, c-format
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay: %s"
