@@ -28,8 +28,8 @@ Templates exist for bug reports and feature requests.
   automatically append this to your message.
 * Any generated objects should be included in `.gitignore`.
 * A commit should be self-contained, i.e., if I check out any commit in a clean
-  workspace, I should be able to run `./.travis_build.sh` and not encounter any
-  failures.
+  workspace, I should be able to run `./.github/scripts/build-and-test.sh` and
+  not encounter any failures.
 * Any additional dependencies should be called out in `INSTALL.md`
 
 # Contribution License
