@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">x52pro-linux
-   &#160;<span id="projectnumber">0.2.2</span>
+   &#160;<span id="projectnumber">0.2.3</span>
    </div>
    <div id="projectbrief">Saitek X52/X52Pro drivers for Linux/Unix</div>
   </td>
@@ -165,9 +165,23 @@ Configuration file</h1>
 <div class="line">LED=128</div>
 <div class="line"> </div>
 <div class="line">######################################################################</div>
+<div class="line"># Mouse - only valid on Linux</div>
+<div class="line">######################################################################</div>
+<div class="line">[Mouse]</div>
+<div class="line"> </div>
+<div class="line"># Enabled controls whether the virtual mouse is enabled or not.</div>
+<div class="line">Enabled=yes</div>
+<div class="line"> </div>
+<div class="line"># Speed is proportional to the speed of updates to the virtual mouse</div>
+<div class="line">Speed=0</div>
+<div class="line"> </div>
+<div class="line">######################################################################</div>
 <div class="line"># Profiles - only valid on Linux</div>
 <div class="line">######################################################################</div>
 <div class="line">[Profiles]</div>
+<div class="line"># TODO: Profiles are used to map the buttons and axis to keyboard events, and</div>
+<div class="line"># can be used to write macros. This is a placeholder only for now, and is not</div>
+<div class="line"># supported yet.</div>
 <div class="line"> </div>
 <div class="line"># Directory is the location of the folder containing the individual profiles.</div>
 <div class="line">Directory=/etc/x52d/profiles.d</div>
