@@ -4,7 +4,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-AC_INIT([x52pro-linux], [0.2.2], [nirenjan@gmail.com])
+AC_INIT([x52pro-linux], [0.2.3], [nirenjan@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
