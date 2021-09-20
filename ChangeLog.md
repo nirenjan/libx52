@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+
+## [0.2.3] - 2021-09-20
 ### Added
 - CI for macOS 11 (Big Sur)
 - Virtual mouse driver (on Linux only)
@@ -12,6 +14,8 @@ The format is based upon [Keep a Changelog].
 ### Fixed
 - Device erratic behavior when running daemon. See
   [#33](https://github.com/nirenjan/x52pro-linux/issues/33).
+- `make install` on OpenSUSE Tumbleweed. See
+  [#35](https://github.com/nirenjan/x52pro-linux/issues/35).
 
 ## [0.2.2] - 2021-09-03
 ### Added
@@ -133,7 +137,8 @@ The format is based upon [Keep a Changelog].
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
 [TAP]: https://testanything.org
-[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.3...v0.2.2
 [0.2.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.2...v0.2.1
 [0.2.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.2...v0.2.0
