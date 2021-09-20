@@ -23,6 +23,20 @@ control the MFD and LEDs. If you are not comfortable working in the commandline,
 then the [gx52](https://gitlab.com/leinardi/gx52) project might be a better fit
 for your needs as it provides a graphical interface to control the MFD and LEDs.
 
-# Building and installing
+# Installing released versions
+
+This project has been released as a PPA on Ubuntu. To install the package, run
+the following commands in the terminal.
+
+```
+sudo apt-add-repository ppa:nirenjan/x52pro-linux
+sudo apt update
+sudo apt install libx52-1
+```
+
+You can configure the daemon by editing the configuration `/etc/x52d/x52d.conf`
+and reloading the daemon process `sudo systemctl reload x52d.service`.
+
+# Building and installing from source
 
 See [INSTALL.md](INSTALL.md)
