@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Nirenjan Krishnan
-# This file is distributed under the same license as the x52pro-linux package.
+# This file is distributed under the same license as the libx52 package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: x52pro-linux 0.2.3\n"
+"Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
-"POT-Creation-Date: 2021-09-19 16:45-0700\n"
+"POT-Creation-Date: 2021-09-22 02:44-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
