@@ -1,0 +1,34 @@
+#!/bin/sh
+# Use the Git version if Git is available, otherwise fallback to Version
+
+top_srcdir="${1-.}"
+test -d "${top_srcdir}" || { \
+    echo "FATAL: Could not change to top_srcdir '$1'" >&2 ; \
+    exit 1 ; \
+}
+
+version="${top_srcdir}/Version"
+
+# Use GIT_DIR if set
+if ! test -n "${GIT_DIR}"
+then
+    GIT_DIR="${top_srcdir}/.git"
+    export GIT_DIR
+fi
+
+if test -d "${GIT_DIR}"
+then
+    # Change tags like vX.Y.Z to X.Y.Z
+    DESCRIBE=$(git describe --dirty 2>/dev/null)
+fi
+
+if test ! -n "${DESCRIBE}"
+then
+    DESCRIBE="unknown-version"
+    if test -f "${version}"
+    then
+        DESCRIBE="v$(cat "${version}")"
+    fi
+fi
+
+printf "%s" "${DESCRIBE}"

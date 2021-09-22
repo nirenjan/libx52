@@ -4,7 +4,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
 
-AC_INIT([x52pro-linux], [0.2.3], [nirenjan@gmail.com])
+AC_INIT([x52pro-linux], [m4_esyscmd_s([cat ./Version])], [nirenjan@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
@@ -25,6 +25,8 @@ AX_GCC_FUNC_ATTRIBUTE([destructor])
 AX_GCC_FUNC_ATTRIBUTE([format])
 AX_GCC_FUNC_ATTRIBUTE([noreturn])
 AC_C_TYPEOF
+
+AC_DEFINE([BUILD_VERSION], ["m4_esyscmd([./configure.version])"], [Build version])
 
 AC_MSG_NOTICE([Detected host OS is ${host_os}])
 build_linux=no
