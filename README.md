@@ -25,6 +25,11 @@ for your needs as it provides a graphical interface to control the MFD and LEDs.
 
 # Installing released versions
 
+Beginning from version v0.2.3, prebuilt packages are available on Ubuntu PPA and
+the Arch User Repository.
+
+## Ubuntu
+
 This project has been released as a PPA on Ubuntu. To install the package, run
 the following commands in the terminal.
 
@@ -34,8 +39,9 @@ sudo apt update
 sudo apt install libx52-1
 ```
 
-You can configure the daemon by editing the configuration `/etc/x52d/x52d.conf`
-and reloading the daemon process `sudo systemctl reload x52d.service`.
+## Arch Linux
+
+This is available on the [AUR](https://aur.archlinux.org/packages/libx52.git)
 
 # Building and installing from source
 
