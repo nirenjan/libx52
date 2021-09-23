@@ -64,7 +64,7 @@ $(man1_MANS): docs/.stamp
 # Install Doxygen generated HTML documentation and manpages
 install-data-local:
 	$(INSTALL) -d $(DESTDIR)$(docdir)
-	rsync -rlp $(top_builddir)/docs/html $(DESTDIR)$(docdir)
+	cp -R -P $(top_builddir)/docs/html $(DESTDIR)$(docdir)
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(docdir)

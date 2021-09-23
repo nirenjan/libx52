@@ -13,7 +13,6 @@ sudo apt-get install -y \
     libhidapi-dev \
     libevdev-dev \
     doxygen \
-    rsync \
     libcmocka-dev \
     faketime
 

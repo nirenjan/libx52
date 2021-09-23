@@ -15,10 +15,10 @@ Build has been tested on the following operating systems (x86-64 only):
 * autoconf
 * autopoint
 * gettext
-* hidapi
+* hidapi + headers
 * libtool
 * libusb-1.0 + headers
-* libevdev (on Linux)
+* libevdev + headers (on Linux)
 * pkg-config
 * python3 (3.6 or greater)
 * git (not required for builds, but necessary to clone the repository)
@@ -30,16 +30,12 @@ Build has been tested on the following operating systems (x86-64 only):
 | Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libevdev-dev libtool libusb-1.0-0-dev pkg-config python3 git` |
 | MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3 git` |
 | Arch Linux | `pacman -S base-devel libusb hidapi libevdev python git` |
+| Fedora | `sudo dnf install autoconf automake gettext-devel findutils libtool hidapi-devel libusb-devel libevdev-devel pkg-config python3 git` |
 
 ## Optional Packages
 
-If you want to generate HTML documentation for the library, and manpages for
-the utilities, you will need the following packages:
-
-* doxygen
-* rsync
-
-You will also need the `cmocka` package to run the unit tests.
+* doxygen - to generate HTML documentation and man pages
+* libcmocka (1.1 or greater) + headers - to run unit tests
 
 # Installation Instructions
 

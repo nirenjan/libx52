@@ -10,7 +10,6 @@ brew install \
     libusb \
     hidapi \
     doxygen \
-    rsync \
     cmocka
 
 exit 0
