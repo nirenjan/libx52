@@ -35,3 +35,18 @@ automatically. Otherwise, simply disconnect and reconnect your X52.
 # Reporting issues
 
 Please report any issues seen as a [Github issue](https://github.com/nirenjan/libx52/issues).
+
+# Notes
+
+This folder also includes a driver for the X65F HOTAS, but it is untested as of
+this writing. The same build instructions apply, but you will need to run `sudo
+insmod saitek_x65.ko` instead.
+
+As with the X52 driver, the following kernel versions have a fix for the thumb
+stick, and do not require this custom driver.
+
+* 5.13+ (from -rc3 onwards)
+* 5.12.12+
+* 5.10.45+
+* 5.4.127+
+* 4.9.196+
