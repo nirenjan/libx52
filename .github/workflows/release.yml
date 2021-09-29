@@ -22,8 +22,8 @@ jobs:
       - name: Find release tarball
         id: find_release
         run: |
-          echo "::set-output name=path::$(find $PWD -name 'x52pro-linux*.tar*')"
-          echo "::set-output name=asset::$(find . -name 'x52pro-linux*.tar*' -exec basename {} \; | sed 's/x52pro-linux-\(.*\)\.tar/x52pro-linux_\1.orig.tar/')"
+          echo "::set-output name=path::$(find $PWD -name 'libx52*.tar*')"
+          echo "::set-output name=asset::$(find . -name 'libx52*.tar*' -exec basename {} \; | sed 's/libx52-\(.*\)\.tar/libx52_\1.orig.tar/')"
 
       - name: Create Release
         id: create_release

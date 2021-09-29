@@ -1,4 +1,4 @@
-# Autoconf settings for x52pro-linux
+# Autoconf settings for libx52
 #
 # Copyright (C) 2012-2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
 #

@@ -1,4 +1,4 @@
-# Top level Automake for x52pro-linux
+# Top level Automake for libx52
 #
 # Copyright (C) 2012-2018 Nirenjan Krishnan (nirenjan@nirenjan.org)
 #

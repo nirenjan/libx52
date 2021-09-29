@@ -15,7 +15,7 @@ udev/*.rules
 x52d*
 !daemon/x52d_*.*
 test-*
-x52pro-linux-*.tar.gz
+libx52-*.tar.gz
 
 # Module files
 modules.order

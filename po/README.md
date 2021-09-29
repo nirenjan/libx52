@@ -1,7 +1,7 @@
 Notes for translators
 =====================
 
-x52pro-linux is slowly being migrated to use the GNU gettext library to support
+libx52 is slowly being migrated to use the GNU gettext library to support
 internationalization (i18n). Contributions are welcome to both update the
 existing code to use `gettext`, and to add new translations.
 
@@ -22,14 +22,14 @@ Once you add new strings to be translated, update `po/POTFILES.in` to include
 any new files that have to be translated. The file path is relative to the root
 of the project.
 
-The next step is to rebuild the translation template `x52pro-linux.pot`. To do
+The next step is to rebuild the translation template `libx52.pot`. To do
 this, run `make -C po update-po` from your build directory (where you ran
 `configure`). This also updates any translation files (with `.po` extension) to
 include the new source strings.
 
 # Adding new languages (translators)
 
-Run `msginit -l <language-code> x52pro-linux.pot` to generate a new `.po` file
+Run `msginit -l <language-code> libx52.pot` to generate a new `.po` file
 for that language. Language code is a 2 letter
 [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code with an
 optional [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) region

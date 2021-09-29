@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+### Changed
+- Renamed project from `x52pro-linux` to `libx52`
 
 ## [0.2.3] - 2021-09-20
 ### Added
@@ -13,9 +15,9 @@ The format is based upon [Keep a Changelog].
 
 ### Fixed
 - Device erratic behavior when running daemon. See
-  [#33](https://github.com/nirenjan/x52pro-linux/issues/33).
+  [#33](https://github.com/nirenjan/libx52/issues/33).
 - `make install` on OpenSUSE Tumbleweed. See
-  [#35](https://github.com/nirenjan/x52pro-linux/issues/35).
+  [#35](https://github.com/nirenjan/libx52/issues/35).
 
 ## [0.2.2] - 2021-09-03
 ### Added
@@ -61,7 +63,7 @@ The format is based upon [Keep a Changelog].
 - Handling of very large time_t values in `libx52_set_clock`
 - Secondary and tertiary clock setting when primary clock is set to local time
   and local timezone is observing daylight savings time (summer time). See
-  [#20](https://github.com/nirenjan/x52pro-linux/issues/20).
+  [#20](https://github.com/nirenjan/libx52/issues/20).
 
 ## [0.2.0] - 2020-04-14
 ### Changed
@@ -137,13 +139,13 @@ The format is based upon [Keep a Changelog].
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
 [TAP]: https://testanything.org
-[Unreleased]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.3...HEAD
-[0.2.3]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.3...v0.2.2
-[0.2.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.2...v0.2.1
-[0.2.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.2.0...v0.2.1
-[0.2.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.2...v0.2.0
-[0.1.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/nirenjan/x52pro-linux/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/nirenjan/x52pro-linux/compare/v0.0.2...v0.1.0
-[0.0.2]: https://github.com/nirenjan/x52pro-linux/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/nirenjan/x52pro-linux/releases/tag/v0.0.1
+[Unreleased]: https://github.com/nirenjan/libx52/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/nirenjan/libx52/compare/v0.2.3...v0.2.2
+[0.2.2]: https://github.com/nirenjan/libx52/compare/v0.2.2...v0.2.1
+[0.2.1]: https://github.com/nirenjan/libx52/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/nirenjan/libx52/compare/v0.1.2...v0.2.0
+[0.1.2]: https://github.com/nirenjan/libx52/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/nirenjan/libx52/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/nirenjan/libx52/compare/v0.0.2...v0.1.0
+[0.0.2]: https://github.com/nirenjan/libx52/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/nirenjan/libx52/releases/tag/v0.0.1

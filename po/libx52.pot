@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
-"Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
 "POT-Creation-Date: 2021-09-22 02:44-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"

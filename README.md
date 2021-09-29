@@ -1,9 +1,9 @@
 Saitek X52Pro joystick driver for Linux
 =======================================
 
-![Build/Test](https://github.com/nirenjan/x52pro-linux/workflows/Build/Test/badge.svg)
-![Kernel Module](https://github.com/nirenjan/x52pro-linux/workflows/Kernel%20Module/badge.svg)
-![CodeQL](https://github.com/nirenjan/x52pro-linux/workflows/CodeQL/badge.svg)
+![Build/Test](https://github.com/nirenjan/libx52/workflows/Build/Test/badge.svg)
+![Kernel Module](https://github.com/nirenjan/libx52/workflows/Kernel%20Module/badge.svg)
+![CodeQL](https://github.com/nirenjan/libx52/workflows/CodeQL/badge.svg)
 
 This project adds a new driver for the Saitek/MadCatz X52 Pro flight
 control system. The X52 pro is a HOTAS (hand on throttle and stick)
@@ -34,7 +34,7 @@ This project has been released as a PPA on Ubuntu. To install the package, run
 the following commands in the terminal.
 
 ```
-sudo apt-add-repository ppa:nirenjan/x52pro-linux
+sudo apt-add-repository ppa:nirenjan/libx52
 sudo apt update
 sudo apt install libx52-1
 ```

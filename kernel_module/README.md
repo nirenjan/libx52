@@ -34,4 +34,4 @@ automatically. Otherwise, simply disconnect and reconnect your X52.
 
 # Reporting issues
 
-Please report any issues seen as a [Github issue](https://github.com/nirenjan/x52pro-linux/issues).
+Please report any issues seen as a [Github issue](https://github.com/nirenjan/libx52/issues).

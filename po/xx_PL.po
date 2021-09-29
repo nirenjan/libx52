@@ -1,12 +1,12 @@
-# Language xx translations for x52pro-linux package.
+# Language xx translations for libx52 package.
 # Copyright (C) 2020 Nirenjan Krishnan
-# This file is distributed under the same license as the x52pro-linux package.
+# This file is distributed under the same license as the libx52 package.
 # Nirenjan Krishnan <nirenjan@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
-"Report-Msgid-Bugs-To: https://github.com/nirenjan/x52pro-linux/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
 "POT-Creation-Date: 2021-09-22 02:44-0700\n"
 "PO-Revision-Date: 2021-09-16 23:04-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"

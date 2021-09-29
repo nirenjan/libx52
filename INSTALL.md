@@ -1,4 +1,4 @@
-Installation instructions for x52pro-linux
+Installation instructions for libx52
 ==========================================
 
 Build has been tested on the following operating systems (x86-64 only):
@@ -41,12 +41,12 @@ Build has been tested on the following operating systems (x86-64 only):
 
 1. Clone the repository
 ```
-git clone https://github.com/nirenjan/x52pro-linux.git
+git clone https://github.com/nirenjan/libx52.git
 ```
 
 2. Run autogen.sh
 ```
-cd ./x52pro-linux
+cd ./libx52
 ./autogen.sh
 ```
 

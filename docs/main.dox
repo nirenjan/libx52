@@ -17,14 +17,14 @@ libx52 is available on Ubuntu as a PPA. Follow the instructions below to
 install on Ubuntu:
 
 @code{.unparsed}
-sudo add-apt-repository nirenjan:x52pro-linux
+sudo add-apt-repository nirenjan:libx52
 sudo apt update
 sudo apt install -y libx52-1
 @endcode
 
 @subsection building Building from source
 
-Please follow the instructions in [INSTALL.md](https://github.com/nirenjan/x52pro-linux/blob/master/INSTALL.md) specific to your system to build from source.
+Please follow the instructions in [INSTALL.md](https://github.com/nirenjan/libx52/blob/master/INSTALL.md) specific to your system to build from source.
 
 @section features Features
 
