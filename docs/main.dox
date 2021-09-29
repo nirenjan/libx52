@@ -9,15 +9,24 @@ only provides Windows drivers for their joysticks, necessitating the need
 for this project for users to be able to control the LEDs and MFD text on
 a Linux or Unix device.
 
-This documentation is intended for application developers who wish to use
-the features of this library to communicate with supported devices.
-
 @section start Getting Started
 
-See the @ref libx52_integration page for details on how to integrate libx52
-with your application.
+@subsection install Installation
 
-@section features Library Features
+libx52 is available on Ubuntu as a PPA. Follow the instructions below to
+install on Ubuntu:
+
+@code{.unparsed}
+sudo add-apt-repository nirenjan:x52pro-linux
+sudo apt update
+sudo apt install -y libx52-1
+@endcode
+
+@subsection building Building from source
+
+Please follow the instructions in [INSTALL.md](https://github.com/nirenjan/x52pro-linux/blob/master/INSTALL.md) specific to your system to build from source.
+
+@section features Features
 
 libx52 supports setting the following parameters on the joystick
 
@@ -26,9 +35,12 @@ libx52 supports setting the following parameters on the joystick
 4. Date display on the MFD.
 5. Blinking of the POV hat and clutch LEDs (both blinking or not).
 6. Shift indicator on the MFD.
-7. Setting the color of the individual LEDs (*on the X52 Pro only*).
+7. Setting the color of the individual LEDs (*X52 Pro only*).
 
 @section api Application Programming Interface
+
+See the @ref libx52_integration page for details on how to integrate libx52
+with your application.
 
 See the documentation for the following files for a complete list of all
 functions.
