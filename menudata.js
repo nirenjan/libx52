@@ -41,4 +41,4 @@ var menudata={children:[
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html",children:[
 {text:"l",url:"globals_eval.html#index_l"}]}]}]},
-{text:"View on GitHub",url:"https://github.com/nirenjan/x52pro-linux"}]}
+{text:"View on GitHub",url:"https://github.com/nirenjan/libx52"}]}
