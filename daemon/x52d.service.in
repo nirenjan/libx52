@@ -3,7 +3,7 @@ Description=X52 driver daemon
 
 [Service]
 Type=simple
-ExecStart=%bindir%/x52d -f -vvvv
+ExecStart=%bindir%/x52d -f -v
 ExecReload=kill -HUP $MAINPID
 
 [Install]
