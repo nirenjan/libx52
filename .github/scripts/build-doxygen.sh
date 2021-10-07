@@ -5,5 +5,5 @@ set -e
 ./autogen.sh
 mkdir build
 cd build
-../configure
+../configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 make docs/.stamp
