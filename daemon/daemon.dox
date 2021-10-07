@@ -21,7 +21,8 @@ the Windows X52 driver. It currently manages the following:
 
 # Configuration file
 
-\b x52d can be controlled by means of a configuration file. The configuration
+\b x52d can be controlled by means of a configuration file. The default location
+of the configuration file is in `$(SYSCONFDIR)/x52d/x52d.conf`. The configuration
 file is an INI style file, and the default configuration is as listed below:
 
 \include x52d.conf

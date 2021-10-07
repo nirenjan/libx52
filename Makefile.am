@@ -50,6 +50,9 @@ if HAVE_DOXYGEN
 DXGEN = $(DXGEN_@AM_V@)
 DXGEN_ = $(DXGEN_@AM_DEFAULT_V@)
 DXGEN_0 = @printf "  DXGEN    $<\n";
+
+SYSCONFDIR=@sysconfdir@
+export SYSCONFDIR
 docs/.stamp: Doxyfile
 	$(DXGEN)$(DOXYGEN) $<
 	$(AM_V_at)touch $@
