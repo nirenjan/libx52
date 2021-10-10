@@ -41,7 +41,7 @@ sudo apt install libx52-1
 
 ## Arch Linux
 
-This is available on the [AUR](https://aur.archlinux.org/packages/libx52.git)
+This is available on the [AUR](https://aur.archlinux.org/packages/libx52)
 
 # Building and installing from source
 
