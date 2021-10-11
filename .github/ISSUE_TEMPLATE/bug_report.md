@@ -24,9 +24,7 @@ A clear and concise description of what you expected to happen.
 * Attach the detailed X52 daemon logs.
 
 **Environment (please complete the following information):**
- - OS: [e.g. Ubuntu, OSX]
- - libusb version
- - X52 type (preferably lsusb output)
+ - Output of `x52bugreport`
 
 **Additional context**
 Add any other context about the problem here.
