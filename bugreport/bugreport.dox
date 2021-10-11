@@ -1,0 +1,22 @@
+/**
+@page x52bugreport System information utility for bug reports
+
+\htmlonly
+<b>x52bugreport</b> - System information utility for bug reports
+\endhtmlonly
+
+# SYNOPSIS
+
+<tt>\b x52bugreport</tt>
+
+# DESCRIPTION
+
+\b x52bugreport is a utility that collects and reports information on the
+current system and build environment. The reported information can be provided
+when raising a bug report on https://github.com/nirenjan/libx52/issues.
+
+# USAGE
+
+\b x52bugreport
+
+*/

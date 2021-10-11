@@ -20,3 +20,5 @@ x52bugreport_LDFLAGS = \
 	$(WARN_LDFLAGS)
 
 x52bugreport_LDADD = libx52io.la
+
+EXTRA_DIST += bugreport/bugreport.dox

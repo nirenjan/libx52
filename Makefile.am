@@ -62,7 +62,7 @@ all-local: docs/.stamp
 clean-local:
 	rm -rf $(top_builddir)/docs
 
-man1_MANS = docs/man/man1/x52cli.1
+man1_MANS = docs/man/man1/x52cli.1 docs/man/man1/x52bugreport.1
 $(man1_MANS): docs/.stamp
 
 # Install Doxygen generated HTML documentation and manpages
