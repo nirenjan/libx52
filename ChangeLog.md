@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
+### Added
+- Bug report utility to make it easier to gather system and build information
+  when reporting issues.
+
 ### Changed
 - Renamed project from `x52pro-linux` to `libx52`
 

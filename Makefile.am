@@ -41,6 +41,7 @@ include evtest/Makefile.am
 include daemon/Makefile.am
 include udev/Makefile.am
 
+include bugreport/Makefile.am
 include docs/Makefile.am
 
 #######################################################################
