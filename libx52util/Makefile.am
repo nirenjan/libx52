@@ -25,7 +25,7 @@ util_char_map_c_DEPENDS = \
 	$(srcdir)/libx52util/x52_char_map_gen.py \
 	$(srcdir)/libx52util/x52_char_map.cfg
 
-$(builddir)/libx52util/util_char_map.c: $(util_char_map_c_DEPENDS)
+libx52util/util_char_map.c: $(util_char_map_c_DEPENDS)
 	$(AM_V_GEN) $(PYTHON) $(util_char_map_c_DEPENDS) $@
 
 # Extra files that need to be in the distribution

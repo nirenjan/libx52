@@ -49,8 +49,12 @@ libx52test_LDFLAGS = @CMOCKA_LIBS@ @LIBUSB_LIBS@
 libx52test_LDADD = libx52.la
 
 CLEANFILES += libx52/test_libx52.c
-$(builddir)/libx52/test_libx52.c: $(srcdir)/libx52/x52_test_gen.py $(srcdir)/libx52/x52_tests.json
-	$(AM_V_GEN) $(PYTHON) $(srcdir)/libx52/x52_test_gen.py $(srcdir)/libx52/x52_tests.json > $@
+test_libx52_c_DEPENDS = \
+	$(srcdir)/libx52/x52_test_gen.py \
+	$(srcdir)/libx52/x52_tests.json
+
+libx52/test_libx52.c: $(test_libx52_c_DEPENDS)
+	$(AM_V_GEN) $(PYTHON) $(test_libx52_c_DEPENDS) > $@
 endif
 
 # Extra files that need to be in the distribution
