@@ -13,11 +13,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <errno.h>
 #include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 /**********************************************************************
  * Global variables
@@ -28,9 +29,6 @@ static unsigned int test_id;
 // Observed output stream
 static FILE *observed_stream_w;
 static FILE *observed_stream_r;
-
-// Temporary pipe for observed data
-static char observed_fifo[NAME_MAX];
 
 // Buffer for expected output
 static char expected_output[1024];
@@ -170,16 +168,40 @@ static void verify_defaults(void)
     TEST_LOG(FATAL, filter, fmt, ##__VA_ARGS__); \
 } while (0)
 
+static void tap_bailout(const char *msg)
+{
+    printf("Bail out! Error %d %s:%s\n", errno, msg, strerror(errno));
+    exit(1);
+}
+
 int main(int argc, char **argv)
 {
-    int fifo_fd_r, fifo_fd_w;
-    snprintf(observed_fifo, sizeof(observed_fifo), "%s.fifo", argv[0]);
-    mkfifo(observed_fifo, 0777);
+    int fifo_fd[2];
+    int flags;
 
-    fifo_fd_r = open(observed_fifo, O_RDONLY | O_NONBLOCK);
-    fifo_fd_w = open(observed_fifo, O_WRONLY | O_NONBLOCK);
-    observed_stream_r = fdopen(fifo_fd_r, "r");
-    observed_stream_w = fdopen(fifo_fd_w, "w");
+    if (pipe(fifo_fd) != 0) {
+        tap_bailout("creating pipe");
+    }
+
+    /* Set the pipe to be non-blocking */
+    flags = fcntl(fifo_fd[0], F_GETFL);
+    if (flags < 0) {
+        tap_bailout("fetching read pipe flags");
+    }
+    if (fcntl(fifo_fd[0], F_SETFL, flags | O_NONBLOCK) < 0) {
+        tap_bailout("setting read pipe to nonblocking");
+    }
+
+    flags = fcntl(fifo_fd[1], F_GETFL);
+    if (flags < 0) {
+        tap_bailout("fetching write pipe flags");
+    }
+    if (fcntl(fifo_fd[1], F_SETFL, flags | O_NONBLOCK) < 0) {
+        tap_bailout("setting write pipe to nonblocking");
+    }
+
+    observed_stream_r = fdopen(fifo_fd[0], "r");
+    observed_stream_w = fdopen(fifo_fd[1], "w");
 
     verify_defaults();
 
@@ -196,9 +218,8 @@ int main(int argc, char **argv)
 
     pinelog_close_output_stream();
     fclose(observed_stream_r);
-    close(fifo_fd_w);
-    close(fifo_fd_r);
-    unlink(observed_fifo);
+    close(fifo_fd[0]);
+    close(fifo_fd[1]);
 
     return 0;
 }
