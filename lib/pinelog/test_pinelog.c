@@ -168,6 +168,11 @@ static void verify_defaults(void)
     TEST_LOG(FATAL, filter, fmt, ##__VA_ARGS__); \
 } while (0)
 
+#if defined __has_attribute
+#   if __has_attribute(noreturn)
+        __attribute__((noreturn))
+#   endif
+#endif
 static void tap_bailout(const char *msg)
 {
     printf("Bail out! Error %d %s:%s\n", errno, msg, strerror(errno));
