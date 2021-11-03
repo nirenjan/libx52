@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-02 23:01-0700\n"
+"POT-Creation-Date: 2021-11-03 11:43-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -552,20 +552,20 @@ msgstr ""
 msgid "Config file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:314
+#: daemon/x52d_main.c:309
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:321
+#: daemon/x52d_main.c:316
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:327
+#: daemon/x52d_main.c:322
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:341
+#: daemon/x52d_main.c:336
 msgid "Shutting down X52 daemon"
 msgstr ""
 

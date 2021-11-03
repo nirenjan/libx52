@@ -282,11 +282,6 @@ int main(int argc, char **argv)
     PINELOG_DEBUG(_("Log file = %s"), log_file);
     PINELOG_DEBUG(_("Config file = %s"), conf_file);
 
-    /* Set default PID file */
-    if (pid_file == NULL) {
-        pid_file = X52D_PID_FILE;
-    }
-
     start_daemon(foreground, pid_file);
 
     set_log_file(foreground, log_file);
