@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-03 11:43-0700\n"
-"PO-Revision-Date: 2021-11-02 23:09-0700\n"
+"POT-Creation-Date: 2021-11-04 10:50-0700\n"
+"PO-Revision-Date: 2021-11-04 10:52-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -849,3 +849,18 @@ msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 #, c-format
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay: %s"
+
+#: daemon/x52ctl.c:49
+#, c-format
+msgid "Usage: %s [-i] [-s socket-path] [command]\n"
+msgstr "Usageay: %s [-i] [-s ocketsay-athpay] [ommandcay]\n"
+
+#: daemon/x52ctl.c:123
+#, c-format
+msgid "Running in interactive mode, ignoring extra arguments\n"
+msgstr "Unningray inay interactiveay odemay, ignoringay extraay argumentsay\n"
+
+#: daemon/x52ctl.c:148
+#, c-format
+msgid "Argument length too long\n"
+msgstr "Argumentay engthlay ootay onglay\n"
