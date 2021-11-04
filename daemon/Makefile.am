@@ -14,7 +14,8 @@ x52d_SOURCES = \
 	daemon/x52d_device.c \
 	daemon/x52d_clock.c \
 	daemon/x52d_mouse.c \
-	daemon/x52d_led.c
+	daemon/x52d_led.c \
+	daemon/x52d_comm_internal.c
 
 x52d_CFLAGS = \
 	-I $(top_srcdir) \
@@ -50,7 +51,8 @@ lib_LTLIBRARIES += libx52dcomm.la
 
 # Client library to communicate with X52 daemon
 libx52dcomm_la_SOURCES = \
-	daemon/x52d_comm_client.c
+	daemon/x52d_comm_client.c \
+	daemon/x52d_comm_internal.c
 libx52dcomm_la_CFLAGS = \
 	-I $(top_srcdir) \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
@@ -87,6 +89,7 @@ EXTRA_DIST += \
 	daemon/x52d_io.h \
 	daemon/x52d_mouse.h \
 	daemon/x52dcomm.h \
+	daemon/x52dcomm-internal.h \
 	daemon/x52d.conf
 
 if HAVE_SYSTEMD

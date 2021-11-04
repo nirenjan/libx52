@@ -88,3 +88,4 @@ int x52d_send_command(int sock_fd, char *buffer, size_t buflen);
 #endif
 #endif // !defined X52DCOMM_H
 
+

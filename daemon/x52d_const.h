@@ -23,4 +23,6 @@
 #define N_(x) gettext_noop(x)
 #define _(x) gettext(x)
 
+#define X52D_MAX_CLIENTS    63
+
 #endif // !defined X52D_CONST_H

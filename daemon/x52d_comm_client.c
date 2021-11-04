@@ -16,23 +16,18 @@
 #include <unistd.h>
 
 #include "x52dcomm.h"
-#include "x52d_const.h"
+#include "x52dcomm-internal.h"
 
 int x52d_dial_command(const char *sock_path)
 {
     int sock;
-    socklen_t len;
+    int len;
     struct sockaddr_un remote;
     int saved_errno;
 
-    if (sock_path == NULL) {
-        sock_path = X52D_SOCK_COMMAND;
-    }
-
-    len = strlen(sock_path);
-    if (len >= sizeof(remote.sun_path)) {
-        /* Socket path will not fit inside sun_path */
-        errno = E2BIG;
+    len = x52d_setup_command_sock(sock_path, &remote);
+    if (len < 0) {
+        /* Error when setting up sockaddr */
         return -1;
     }
 
@@ -43,15 +38,8 @@ int x52d_dial_command(const char *sock_path)
         return -1;
     }
 
-    /* Setup the sockaddr structure */
-    memset(&remote, 0, sizeof(remote));
-    remote.sun_family = AF_UNIX;
-    /* We've already verified that sock_path will fit, so we don't need strncpy */
-    strcpy(remote.sun_path, sock_path);
-    len += sizeof(remote.sun_family);
-
     /* Connect to the socket */
-    if (connect(sock, (struct sockaddr *)&remote, len) == -1) {
+    if (connect(sock, (struct sockaddr *)&remote, (socklen_t)len) == -1) {
         /* Failure connecting to the socket. Cleanup */
         saved_errno = errno;
         /* close may modify errno, so we save it prior to the call */
