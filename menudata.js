@@ -34,9 +34,11 @@ var menudata={children:[
 {text:"File List",url:"files.html"},
 {text:"Globals",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
-{text:"l",url:"globals.html#index_l"}]},
+{text:"l",url:"globals.html#index_l"},
+{text:"x",url:"globals.html#index_x"}]},
 {text:"Functions",url:"globals_func.html",children:[
-{text:"l",url:"globals_func.html#index_l"}]},
+{text:"l",url:"globals_func.html#index_l"},
+{text:"x",url:"globals_func.html#index_x"}]},
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html",children:[
