@@ -17,6 +17,8 @@
 
 #define X52D_PID_FILE   RUNDIR "/" X52D_APP_NAME ".pid"
 
+#define X52D_SOCK_COMMAND   RUNDIR "/" X52D_APP_NAME ".cmd"
+
 #include "gettext.h"
 #define N_(x) gettext_noop(x)
 #define _(x) gettext(x)

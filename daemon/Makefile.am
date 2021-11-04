@@ -46,6 +46,20 @@ x52d_LDFLAGS += @EVDEV_LIBS@
 x52d_LDADD += libx52io.la
 endif
 
+lib_LTLIBRARIES += libx52dcomm.la
+
+# Client library to communicate with X52 daemon
+libx52dcomm_la_SOURCES = \
+	daemon/x52d_comm_client.c
+libx52dcomm_la_CFLAGS = \
+	-I $(top_srcdir) \
+	-DSYSCONFDIR=\"$(sysconfdir)\" \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DLOGDIR=\"$(localstatedir)/log\" \
+	-DRUNDIR=\"$(localstatedir)/run\" \
+	$(WARN_CFLAGS)
+libx52dcomm_la_LDFLAGS = $(WARN_LDFLAGS)
+
 x52dconfdir = @sysconfdir@/x52d
 x52dconf_DATA = daemon/x52d.conf
 
@@ -63,6 +77,7 @@ EXTRA_DIST += \
 	daemon/x52d_device.h \
 	daemon/x52d_io.h \
 	daemon/x52d_mouse.h \
+	daemon/x52dcomm.h \
 	daemon/x52d.conf
 
 if HAVE_SYSTEMD
