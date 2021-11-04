@@ -67,7 +67,7 @@ x52ctl_CFLAGS = \
 	-I $(top_srcdir) \
 	$(WARN_CFLAGS)
 x52ctl_LDFLAGS = $(WARN_LDFLAGS)
-x52ctl_LDADD = libx52dcomm.la
+x52ctl_LDADD = libx52dcomm.la @LTLIBINTL@
 
 x52dconfdir = @sysconfdir@/x52d
 x52dconf_DATA = daemon/x52d.conf
