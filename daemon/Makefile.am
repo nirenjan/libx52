@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
 #
 # SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
-bin_PROGRAMS += x52d
+bin_PROGRAMS += x52d x52ctl
 
 # Service daemon that manages the X52 device
 x52d_SOURCES = \
@@ -59,6 +59,15 @@ libx52dcomm_la_CFLAGS = \
 	-DRUNDIR=\"$(localstatedir)/run\" \
 	$(WARN_CFLAGS)
 libx52dcomm_la_LDFLAGS = $(WARN_LDFLAGS)
+
+x52include_HEADERS += daemon/x52dcomm.h
+
+x52ctl_SOURCES = daemon/x52ctl.c
+x52ctl_CFLAGS = \
+	-I $(top_srcdir) \
+	$(WARN_CFLAGS)
+x52ctl_LDFLAGS = $(WARN_LDFLAGS)
+x52ctl_LDADD = libx52dcomm.la
 
 x52dconfdir = @sysconfdir@/x52d
 x52dconf_DATA = daemon/x52d.conf
