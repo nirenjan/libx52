@@ -7,16 +7,21 @@
  */
 
 #include "config.h"
+#include <stdbool.h>
 #include <string.h>
+#include <stdarg.h>
 #include <errno.h>
 #include <poll.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 
 #include "pinelog.h"
 #include "x52d_const.h"
 #include "x52d_command.h"
+#include "x52d_config.h"
 
 #define MAX_CONN    (X52D_MAX_CLIENTS + 1)
 
@@ -119,6 +124,182 @@ static int poll_clients(int sock_fd, struct pollfd *pfd)
     return rc;
 }
 
+#if defined __has_attribute
+#   if __has_attribute(format)
+        __attribute((format(printf, 4, 5)))
+#   endif
+#endif
+static void response_formatted(char *buffer, int *buflen, const char *type,
+                               const char *fmt, ...)
+{
+    va_list ap;
+    char response[1024];
+    int resplen;
+    int typelen;
+
+    typelen = strlen(type) + 1;
+    strcpy(response + 2, type);
+    resplen = typelen + 2;
+
+    if (*fmt) {
+        va_start(ap, fmt);
+        resplen += vsnprintf(response + typelen, sizeof(response) - typelen, fmt, ap);
+        va_end(ap);
+    }
+
+    typelen = htons(resplen);
+    memcpy(response, &typelen, 2);
+    memcpy(buffer, response, resplen);
+    *buflen = resplen;
+}
+
+static void response_strings(char *buffer, int *buflen, const char *type, int count, ...)
+{
+    va_list ap;
+    char response[1024];
+    int resplen;
+    int arglen;
+    int i;
+    char *arg;
+
+    arglen = strlen(type) + 1;
+    strcpy(response + 2, type);
+    resplen = arglen + 2;
+
+    va_start(ap, count);
+    for (i = 0; i < count; i++) {
+        arg = va_arg(ap, char *);
+        arglen = strlen(arg) + 1;
+        if ((size_t)(arglen + resplen) >= sizeof(response)) {
+            PINELOG_ERROR("Too many arguments for response_strings %s", type);
+            break;
+        }
+
+        strcpy(response + resplen, arg);
+        resplen += arglen;
+    }
+    va_end(ap);
+
+    arglen = htons(resplen);
+    memcpy(response, &arglen, 2);
+    memcpy(buffer, response, resplen);
+    *buflen = resplen;
+}
+
+#define NUMARGS(...) (sizeof((const char *[]){__VA_ARGS__}) / sizeof(const char *))
+#define ERR(...) response_strings(buffer, buflen, "ERR", NUMARGS(__VA_ARGS__), ##__VA_ARGS__)
+#define ERR_fmt(fmt, ...) response_formatted(buffer, buflen, "ERR", fmt, ##__VA_ARGS__)
+
+#define OK(...) response_strings(buffer, buflen, "OK", NUMARGS(__VA_ARGS__), ##__VA_ARGS__)
+#define OK_fmt(fmt, ...) response_formatted(buffer, buflen, "OK", fmt, ##__VA_ARGS__)
+
+#define MATCH(idx, cmd) if (strcasecmp(argv[idx], cmd) == 0)
+
+static bool check_file(const char *file_path, int mode)
+{
+    if (*file_path == '\0') {
+        return false;
+    }
+
+    if (mode && access(file_path, mode)) {
+        return false;
+    }
+
+    return true;
+}
+
+static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc < 2) {
+        ERR("Insufficient arguments for 'config' command");
+        return;
+    }
+
+    MATCH(1, "load") {
+        if (argc == 3) {
+            if (!check_file(argv[2], R_OK)) {
+                ERR_fmt("Invalid file '%s' for 'config load' command", argv[2]);
+                return;
+            }
+
+            x52d_config_load(argv[2]);
+            x52d_config_apply();
+            OK("load", argv[2]);
+        } else {
+            // Invalid number of args
+            ERR_fmt("Unexpected arguments for 'config load' command; got %d, expected 3", argc);
+        }
+        return;
+    }
+
+    MATCH(1, "reload") {
+        if (argc == 2) {
+            raise(SIGHUP);
+            OK("reload");
+        } else {
+            ERR_fmt("Unexpected arguments for 'config reload' command; got %d, expected 2", argc);
+        }
+        return;
+    }
+
+    MATCH(1, "dump") {
+        if (argc == 3) {
+            if (!check_file(argv[2], 0)) {
+                ERR_fmt("Invalid file '%s' for 'config dump' command", argv[2]);
+                return;
+            }
+
+            x52d_config_save(argv[2]);
+            OK("dump", argv[2]);
+        } else {
+            ERR_fmt("Unexpected arguments for 'config dump' command; got %d, expected 3", argc);
+        }
+
+        return;
+    }
+
+    MATCH(1, "save") {
+        if (argc == 2) {
+            raise(SIGUSR1);
+            OK("save");
+        } else {
+            ERR_fmt("Unexpected arguments for 'config save' command; got %d, expected 2", argc);
+        }
+        return;
+    }
+
+    ERR_fmt("Unknown subcommand '%s' for 'config' command", argv[1]);
+}
+
+static void command_parser(char *buffer, int *buflen)
+{
+    int argc = 0;
+    char *argv[512] = { 0 };
+    int i = 0;
+
+    while (i < *buflen) {
+        if (buffer[i]) {
+            argv[argc] = buffer + i;
+            argc++;
+            for (; i < *buflen && buffer[i]; i++);
+            // At this point, buffer[i] = '\0'
+            // Skip to the next character.
+            i++;
+        } else {
+            // We should never reach here, unless we have two NULs in a row
+            argv[argc] = buffer + i;
+            argc++;
+            i++;
+        }
+    }
+
+    MATCH(0, "config") {
+        cmd_config(buffer, buflen, argc, argv);
+    } else {
+        ERR("Unknown command '%s'", argv[0]);
+    }
+}
+
 int x52d_command_loop(int sock_fd)
 {
     struct pollfd pfd[MAX_CONN];
@@ -141,7 +322,7 @@ int x52d_command_loop(int sock_fd)
             if (pfd[i].fd == sock_fd) {
                 register_client(sock_fd);
             } else {
-                char buffer[1024];
+                char buffer[1024] = { 0 };
                 int sent;
 
                 rc = recv(pfd[i].fd, buffer, sizeof(buffer), 0);
@@ -151,8 +332,10 @@ int x52d_command_loop(int sock_fd)
                     continue;
                 }
 
-                // TODO: Parse and handle command.
-                // Echo it back to the client for now.
+                // Parse and handle command.
+                command_parser(buffer, &rc);
+
+                PINELOG_TRACE("Sending %d bytes in response '%s'", rc, buffer);
                 sent = send(pfd[i].fd, buffer, rc, 0);
                 if (sent != rc) {
                     PINELOG_ERROR(_("Short write to client %d; expected %d bytes, wrote %d bytes"),
