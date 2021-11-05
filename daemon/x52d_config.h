@@ -75,6 +75,8 @@ void x52d_cfg_set_Profiles_Directory(char* param);
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
 void x52d_cfg_set_Profiles_ClutchLatched(bool param);
 
+int x52d_config_process_kv(void *user, const char *section, const char *key, const char *value);
+
 int x52d_config_set_defaults(struct x52d_config *cfg);
 
 int x52d_config_load_file(struct x52d_config *cfg, const char *cfg_file);
@@ -90,5 +92,7 @@ void x52d_config_apply(void);
 
 int x52d_config_save_file(struct x52d_config *cfg, const char *cfg_file);
 void x52d_config_save(const char *cfg_file);
+
+int x52d_config_set(const char *section, const char *key, const char *value);
 
 #endif // !defined X52D_CONFIG_H

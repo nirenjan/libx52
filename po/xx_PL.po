@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-05 15:09-0700\n"
+"POT-Creation-Date: 2021-11-05 15:27-0700\n"
 "PO-Revision-Date: 2021-11-04 15:35-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -729,23 +729,23 @@ msgstr "Erroray enwhay ollingpay orfay ommandcay: %s"
 msgid "Timed out when polling for command"
 msgstr "Imedtay outay enwhay ollingpay orfay ommandcay"
 
-#: daemon/x52d_command.c:330
+#: daemon/x52d_command.c:345
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr "Erroray eadingray omfray ientclay %d: %s"
 
-#: daemon/x52d_command.c:341
+#: daemon/x52d_command.c:356
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 "Ortshay itewray otay ientclay %d; expecteday %d ytesbay, otewray %d ytesbay"
 
-#: daemon/x52d_config.c:26
+#: daemon/x52d_config.c:28
 #, c-format
 msgid "Error %d setting configuration defaults: %s"
 msgstr "Erroray %d ettingsay onfigurationcay efaultsday: %s"
 
-#: daemon/x52d_config.c:53
+#: daemon/x52d_config.c:55
 #, c-format
 msgid "Error %d saving configuration file: %s"
 msgstr "Erroray %d avingsay onfigurationcay ilefay: %s"

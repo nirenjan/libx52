@@ -224,7 +224,7 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
 
             x52d_config_load(argv[2]);
             x52d_config_apply();
-            OK("load", argv[2]);
+            OK("config", "load", argv[2]);
         } else {
             // Invalid number of args
             ERR_fmt("Unexpected arguments for 'config load' command; got %d, expected 3", argc);
@@ -235,7 +235,7 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
     MATCH(1, "reload") {
         if (argc == 2) {
             raise(SIGHUP);
-            OK("reload");
+            OK("config", "reload");
         } else {
             ERR_fmt("Unexpected arguments for 'config reload' command; got %d, expected 2", argc);
         }
@@ -250,7 +250,7 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
             }
 
             x52d_config_save(argv[2]);
-            OK("dump", argv[2]);
+            OK("config", "dump", argv[2]);
         } else {
             ERR_fmt("Unexpected arguments for 'config dump' command; got %d, expected 3", argc);
         }
@@ -261,9 +261,24 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
     MATCH(1, "save") {
         if (argc == 2) {
             raise(SIGUSR1);
-            OK("save");
+            OK("config", "save");
         } else {
             ERR_fmt("Unexpected arguments for 'config save' command; got %d, expected 2", argc);
+        }
+        return;
+    }
+
+    MATCH(1, "set") {
+        if (argc == 5) {
+            int rc = x52d_config_set(argv[2], argv[3], argv[4]);
+            if (rc != 0) {
+                ERR_fmt("Error %d setting '%s.%s'='%s': %s", rc,
+                        argv[2], argv[3], argv[4], strerror(rc));
+            } else {
+                OK("config", "set", argv[2], argv[3], argv[4]);
+            }
+        } else {
+            ERR_fmt("Unexpected arguments for 'config set' command; got %d, expected 5", argc);
         }
         return;
     }

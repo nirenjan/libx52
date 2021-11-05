@@ -7,6 +7,8 @@
  */
 
 #include "config.h"
+#include <errno.h>
+
 #include "pinelog.h"
 #include "x52d_config.h"
 #include "x52d_const.h"
@@ -53,6 +55,17 @@ void x52d_config_save(const char *cfg_file)
         PINELOG_ERROR(_("Error %d saving configuration file: %s"),
                       rc, strerror(rc));
     }
+}
+
+int x52d_config_set(const char *section, const char *key, const char *value)
+{
+    if (section == NULL || key == NULL || value == NULL) {
+        return EINVAL;
+    }
+
+    PINELOG_TRACE("Processing config set '%s.%s'='%s'", section, key, value);
+
+    return x52d_config_process_kv(&x52d_config, section, key, value);
 }
 
 /* Callback stubs

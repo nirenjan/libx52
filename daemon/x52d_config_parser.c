@@ -131,7 +131,7 @@ static int date_format_parser(struct x52d_config *cfg, size_t offset, const char
 
 /* Map for config->param */
 #define CFG(section, key, name, type, def) {#section, #key, type ## _parser, offsetof(struct x52d_config, name)},
-const struct config_map {
+static const struct config_map {
     const char *section;
     const char *key;
     parser_fn parser;
@@ -143,7 +143,7 @@ const struct config_map {
     {NULL, NULL, NULL, 0}
 };
 
-static int process_config_kv(void *user, const char *section, const char *key, const char *value)
+int x52d_config_process_kv(void *user, const char *section, const char *key, const char *value)
 {
     int i;
     int rc = 0;
@@ -186,7 +186,7 @@ int x52d_config_set_defaults(struct x52d_config *cfg) {
 
     PINELOG_TRACE("Setting configuration defaults");
     #define CFG(section, key, name, parser, def) \
-        rc = process_config_kv(cfg, #section, #key, #def); \
+        rc = x52d_config_process_kv(cfg, #section, #key, #def); \
         if (rc != 0) { \
             return rc; \
         }
@@ -203,7 +203,7 @@ int x52d_config_load_file(struct x52d_config *cfg, const char *cfg_file)
     }
 
     PINELOG_TRACE("Loading configuration from file %s", cfg_file);
-    rc = ini_parse(cfg_file, process_config_kv, cfg);
+    rc = ini_parse(cfg_file, x52d_config_process_kv, cfg);
     if (rc < 0) {
         PINELOG_ERROR(_("Failed processing configuration file %s - code %d"),
                       cfg_file, rc);
@@ -326,7 +326,7 @@ int x52d_config_apply_overrides(struct x52d_config *cfg)
                       tmp->section,
                       tmp->key,
                       tmp->value);
-        rc = process_config_kv(cfg,
+        rc = x52d_config_process_kv(cfg,
                                tmp->section,
                                tmp->key,
                                tmp->value);
