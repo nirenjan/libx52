@@ -32,6 +32,7 @@ string "quit", or terminates input by using Ctrl+D.
 */
 
 #include "config.h"
+#include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -50,9 +51,26 @@ static void usage(int exit_code)
     exit(exit_code);
 }
 
-static int send_command(int sock_fd, char *buffer, size_t buflen)
+static int send_command(int sock_fd, int argc, char **argv)
 {
     int rc;
+    char buffer[1024];
+    int buflen;
+    int i;
+
+    memset(buffer, 0, sizeof(buffer));
+    buflen = 0;
+    for (i = 0; i < argc; i++) {
+        int arglen = strlen(argv[i]) + 1;
+        if ((size_t)(buflen + arglen) >= sizeof(buffer)) {
+            fprintf(stderr, _("Argument length too long\n"));
+            return -1;
+        }
+
+        memcpy(&buffer[buflen], argv[i], arglen);
+        buflen += arglen;
+    }
+
     rc = x52d_send_command(sock_fd, buffer, buflen);
     if (rc >= 0) {
         if (write(STDOUT_FILENO, buffer, rc) < 0) {
@@ -64,7 +82,6 @@ static int send_command(int sock_fd, char *buffer, size_t buflen)
         return -1;
     }
 
-    fputc('\n', stdout);
     return 0;
 }
 
@@ -73,12 +90,10 @@ int main(int argc, char **argv)
     bool interactive = false;
     char *socket_path = NULL;
     int opt;
-    int i;
     int sock_fd;
     int rc = EXIT_SUCCESS;
 
     char buffer[1024];
-    size_t buflen;
 
     /*
      * Parse command line arguments
@@ -125,39 +140,38 @@ int main(int argc, char **argv)
 
         fputs("> ", stdout);
         while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            int sargc;
+            char *sargv[512] = { 0 };
+            int pos;
+
             if (strcasecmp(buffer, "quit\n") == 0) {
                 break;
             }
 
-            if (send_command(sock_fd, buffer, strlen(buffer))) {
+            /* Break the buffer into argc/argv */
+            sargc = 0;
+            pos = 0;
+            while (buffer[pos]) {
+                if (isspace(buffer[pos])) {
+                    buffer[pos] = '\0';
+                    pos++;
+                } else {
+                    sargv[sargc] = &buffer[pos];
+                    sargc++;
+                    for (; buffer[pos] && !isspace(buffer[pos]); pos++);
+                }
+            }
+
+            if (send_command(sock_fd, sargc, sargv)) {
                 rc = EXIT_FAILURE;
                 goto cleanup;
             }
 
-            fputs("> ", stdout);
+            fputs("\n> ", stdout);
         }
 
     } else {
-        memset(buffer, 0, sizeof(buffer));
-        buflen = 0;
-        for (i = optind; i < argc; i++) {
-            buflen += snprintf(&buffer[buflen], sizeof(buffer) - buflen,
-                               "%s ", argv[i]);
-
-            if (buflen >= sizeof(buffer)) {
-                fprintf(stderr, _("Argument length too long\n"));
-                rc = EXIT_FAILURE;
-                goto cleanup;
-            }
-        }
-
-        if (buflen > sizeof(buffer)) {
-            buflen = sizeof(buffer);
-        }
-        buflen--;
-        buffer[buflen] = '\0';
-
-        if (send_command(sock_fd, buffer, buflen)) {
+        if (send_command(sock_fd, argc - optind, &argv[optind])) {
             rc = EXIT_FAILURE;
             goto cleanup;
         }
