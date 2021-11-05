@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-04 13:37-0700\n"
+"POT-Creation-Date: 2021-11-04 15:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -491,17 +491,17 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:63
+#: daemon/x52d_main.c:64
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:79
+#: daemon/x52d_main.c:80
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:90
+#: daemon/x52d_main.c:91
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -510,80 +510,80 @@ msgid ""
 "\t[-s command-socket-path]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:121
+#: daemon/x52d_main.c:122
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/x52d_main.c:217
+#: daemon/x52d_main.c:218
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:224
+#: daemon/x52d_main.c:225
 #, c-format
 msgid "Error getting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:228
+#: daemon/x52d_main.c:229
 #, c-format
 msgid "Error setting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:236
+#: daemon/x52d_main.c:237
 #, c-format
 msgid "Error binding to command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:241
+#: daemon/x52d_main.c:242
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:315
+#: daemon/x52d_main.c:316
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:343
+#: daemon/x52d_main.c:344
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:343 daemon/x52d_main.c:344
+#: daemon/x52d_main.c:344 daemon/x52d_main.c:345
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:343 daemon/x52d_main.c:344
+#: daemon/x52d_main.c:344 daemon/x52d_main.c:345
 msgid "false"
-msgstr ""
-
-#: daemon/x52d_main.c:344
-#, c-format
-msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:345
 #, c-format
-msgid "Verbosity = %d"
+msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:346
 #, c-format
-msgid "Log file = %s"
+msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:347
 #, c-format
-msgid "Config file = %s"
+msgid "Log file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:348
 #, c-format
-msgid "PID file = %s"
+msgid "Config file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:349
+#, c-format
+msgid "PID file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:350
 #, c-format
 msgid "Command socket = %s"
 msgstr ""
@@ -657,6 +657,35 @@ msgstr ""
 
 #: daemon/x52d_clock.c:208
 msgid "Shutting down X52 clock manager thread"
+msgstr ""
+
+#: daemon/x52d_command.c:48
+#, c-format
+msgid "Error accepting client connection on command socket: %s"
+msgstr ""
+
+#: daemon/x52d_command.c:85
+#, c-format
+msgid "Error when polling command socket: FD %d, error %d, len %lu"
+msgstr ""
+
+#: daemon/x52d_command.c:112
+#, c-format
+msgid "Error when polling for command: %s"
+msgstr ""
+
+#: daemon/x52d_command.c:116
+msgid "Timed out when polling for command"
+msgstr ""
+
+#: daemon/x52d_command.c:149
+#, c-format
+msgid "Error reading from client %d: %s"
+msgstr ""
+
+#: daemon/x52d_command.c:158
+#, c-format
+msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
 #: daemon/x52d_config.c:26

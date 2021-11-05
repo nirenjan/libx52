@@ -15,6 +15,7 @@ x52d_SOURCES = \
 	daemon/x52d_clock.c \
 	daemon/x52d_mouse.c \
 	daemon/x52d_led.c \
+	daemon/x52d_command.c \
 	daemon/x52d_comm_internal.c
 
 x52d_CFLAGS = \
@@ -88,6 +89,7 @@ EXTRA_DIST += \
 	daemon/x52d_device.h \
 	daemon/x52d_io.h \
 	daemon/x52d_mouse.h \
+	daemon/x52d_command.h \
 	daemon/x52dcomm.h \
 	daemon/x52dcomm-internal.h \
 	daemon/x52d.conf

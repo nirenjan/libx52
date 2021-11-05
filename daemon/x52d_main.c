@@ -23,6 +23,7 @@
 #include "x52d_device.h"
 #include "x52d_io.h"
 #include "x52d_mouse.h"
+#include "x52d_command.h"
 #include "x52dcomm-internal.h"
 #include "x52dcomm.h"
 #include "pinelog.h"
@@ -356,6 +357,7 @@ int main(int argc, char **argv)
     // Start device threads
     x52d_dev_init();
     x52d_clock_init();
+    x52d_command_init();
     #if defined(HAVE_EVDEV)
     x52d_io_init();
     x52d_mouse_evdev_init();
@@ -371,9 +373,7 @@ int main(int argc, char **argv)
 
     flag_quit = 0;
     while(!flag_quit) {
-        // TODO: Replace with main event loop
-        // Let all threads run in background forever
-        sleep(600);
+        x52d_command_loop(command_sock_fd);
 
         /* Check if we need to reload configuration */
         if (flag_reload) {
