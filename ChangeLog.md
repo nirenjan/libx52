@@ -8,6 +8,9 @@ The format is based upon [Keep a Changelog].
 ### Added
 - Bug report utility to make it easier to gather system and build information
   when reporting issues.
+- Communication infrastructure to communicate with the daemon. This includes the
+  `x52ctl` utility which can be used either interactively or non-interactively
+  from a separate program.
 
 ### Changed
 - Renamed project from `x52pro-linux` to `libx52`
