@@ -15,7 +15,6 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
 #include <unistd.h>
 
 #include "pinelog.h"
@@ -138,8 +137,8 @@ static void response_formatted(char *buffer, int *buflen, const char *type,
     int typelen;
 
     typelen = strlen(type) + 1;
-    strcpy(response + 2, type);
-    resplen = typelen + 2;
+    strcpy(response, type);
+    resplen = typelen;
 
     if (*fmt) {
         va_start(ap, fmt);
@@ -147,8 +146,6 @@ static void response_formatted(char *buffer, int *buflen, const char *type,
         va_end(ap);
     }
 
-    typelen = htons(resplen);
-    memcpy(response, &typelen, 2);
     memcpy(buffer, response, resplen);
     *buflen = resplen;
 }
@@ -163,8 +160,8 @@ static void response_strings(char *buffer, int *buflen, const char *type, int co
     char *arg;
 
     arglen = strlen(type) + 1;
-    strcpy(response + 2, type);
-    resplen = arglen + 2;
+    strcpy(response, type);
+    resplen = arglen;
 
     va_start(ap, count);
     for (i = 0; i < count; i++) {
@@ -180,8 +177,6 @@ static void response_strings(char *buffer, int *buflen, const char *type, int co
     }
     va_end(ap);
 
-    arglen = htons(resplen);
-    memcpy(response, &arglen, 2);
     memcpy(buffer, response, resplen);
     *buflen = resplen;
 }
@@ -311,7 +306,7 @@ static void command_parser(char *buffer, int *buflen)
     MATCH(0, "config") {
         cmd_config(buffer, buflen, argc, argv);
     } else {
-        ERR("Unknown command '%s'", argv[0]);
+        ERR_fmt("Unknown command '%s'", argv[0]);
     }
 }
 
