@@ -68,6 +68,19 @@ int x52d_config_set(const char *section, const char *key, const char *value)
     return x52d_config_process_kv(&x52d_config, section, key, value);
 }
 
+const char *x52d_config_get(const char *section, const char *key)
+{
+    const char *value;
+    if (section == NULL || key == NULL) {
+        return NULL;
+    }
+
+    value = x52d_config_get_param(&x52d_config, section, key);
+    PINELOG_TRACE("Processed config get '%s.%s'='%s'", section, key, value);
+
+    return value;
+}
+
 /* Callback stubs
  * TODO: Remove the ones below when their implementation is complete
  */

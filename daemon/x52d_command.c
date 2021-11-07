@@ -278,6 +278,20 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
         return;
     }
 
+    MATCH(1, "get") {
+        if (argc == 4) {
+            const char *rv = x52d_config_get(argv[2], argv[3]);
+            if (rv == NULL) {
+                ERR_fmt("Error getting '%s.%s'", argv[2], argv[3]);
+            } else {
+                response_strings(buffer, buflen, "DATA", 3, argv[2], argv[3], rv);
+            }
+        } else {
+            ERR_fmt("Unexpected arguments for 'config get' command; got %d, expected 4", argc);
+        }
+        return;
+    }
+
     ERR_fmt("Unknown subcommand '%s' for 'config' command", argv[1]);
 }
 

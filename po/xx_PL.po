@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-05 15:27-0700\n"
+"POT-Creation-Date: 2021-11-07 06:24-0800\n"
 "PO-Revision-Date: 2021-11-04 15:35-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -709,32 +709,32 @@ msgstr "Erroray %d initializingay ockclay eadthray: %s"
 msgid "Shutting down X52 clock manager thread"
 msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
 
-#: daemon/x52d_command.c:53
+#: daemon/x52d_command.c:52
 #, c-format
 msgid "Error accepting client connection on command socket: %s"
 msgstr "Erroray acceptingay ientclay onnectioncay onay ommandcay ocketsay: %s"
 
-#: daemon/x52d_command.c:90
+#: daemon/x52d_command.c:89
 #, c-format
 msgid "Error when polling command socket: FD %d, error %d, len %lu"
 msgstr ""
 "Erroray enwhay ollingpay ommandcay ocketsay: FDay %d, erroray %d, enlay %lu"
 
-#: daemon/x52d_command.c:117
+#: daemon/x52d_command.c:116
 #, c-format
 msgid "Error when polling for command: %s"
 msgstr "Erroray enwhay ollingpay orfay ommandcay: %s"
 
-#: daemon/x52d_command.c:121
+#: daemon/x52d_command.c:120
 msgid "Timed out when polling for command"
 msgstr "Imedtay outay enwhay ollingpay orfay ommandcay"
 
-#: daemon/x52d_command.c:345
+#: daemon/x52d_command.c:354
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr "Erroray eadingray omfray ientclay %d: %s"
 
-#: daemon/x52d_command.c:356
+#: daemon/x52d_command.c:365
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""

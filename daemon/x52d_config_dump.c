@@ -142,3 +142,18 @@ exit_dump:
     return (value == NULL);
 }
 
+const char *x52d_config_get_param(struct x52d_config *cfg, const char *section, const char *key)
+{
+    const char *value = NULL;
+
+    #define CFG(section_c, key_c, name, type, def) do { \
+        if (strcasecmp(section, #section_c) == 0 && strcasecmp(key, #key_c) == 0) { \
+            value = type ## _dumper(section, key, cfg, offsetof(struct x52d_config, name)); \
+            goto return_value; \
+        } \
+    } while (0);
+    #include "x52d_config.def"
+
+return_value:
+    return value;
+}
