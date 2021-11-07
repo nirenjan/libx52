@@ -298,7 +298,7 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
 static void command_parser(char *buffer, int *buflen)
 {
     int argc = 0;
-    char *argv[512] = { 0 };
+    char *argv[1024] = { 0 };
     int i = 0;
 
     while (i < *buflen) {
