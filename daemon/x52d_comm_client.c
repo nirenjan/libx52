@@ -51,7 +51,7 @@ int x52d_dial_command(const char *sock_path)
     return sock;
 }
 
-int x52d_send_command(int sock_fd, char *buffer, size_t buflen)
+int x52d_send_command(int sock_fd, char *buffer, size_t bufin, size_t bufout)
 {
     int rc;
 
@@ -60,7 +60,7 @@ int x52d_send_command(int sock_fd, char *buffer, size_t buflen)
          * Unix sockets should have sufficient capacity to send the full
          * datagram in a single message. Assume that is the case.
          */
-        rc = send(sock_fd, buffer, buflen, 0);
+        rc = send(sock_fd, buffer, bufin, 0);
         if (rc < 0) {
             // Error
             if (errno == EINTR) {
@@ -77,7 +77,7 @@ int x52d_send_command(int sock_fd, char *buffer, size_t buflen)
 
     /* Wait till we get a response */
     for (;;) {
-        rc = recv(sock_fd, buffer, buflen, 0);
+        rc = recv(sock_fd, buffer, bufout, 0);
         if (rc < 0) {
             // Error
             if (errno == EINTR) {

@@ -75,12 +75,13 @@ int x52d_dial_command(const char *sock_path);
  *                          parameters. This is also used to save the returned
  *                          response.
  *
- * @param[in]       buflen  Length of the buffer to hold the returned response.
+ * @param[in]       bufin   Length of the command in the input buffer
+ * @param[in]       bufout  Maximum length of the response
  *
  * @returns number of bytes returned from the server
  * @returns -1 on an error condition, and \c errno is set accordingly.
  */
-int x52d_send_command(int sock_fd, char *buffer, size_t buflen);
+int x52d_send_command(int sock_fd, char *buffer, size_t bufin, size_t bufout);
 
 /** @} */
 #ifdef __cplusplus

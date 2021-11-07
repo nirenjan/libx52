@@ -71,7 +71,7 @@ static int send_command(int sock_fd, int argc, char **argv)
         buflen += arglen;
     }
 
-    rc = x52d_send_command(sock_fd, buffer, buflen);
+    rc = x52d_send_command(sock_fd, buffer, buflen, sizeof(buffer));
     if (rc >= 0) {
         if (write(STDOUT_FILENO, buffer, rc) < 0) {
             perror("write");
