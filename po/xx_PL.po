@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-07 06:24-0800\n"
+"POT-Creation-Date: 2021-11-07 16:01-0800\n"
 "PO-Revision-Date: 2021-11-04 15:35-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -729,12 +729,12 @@ msgstr "Erroray enwhay ollingpay orfay ommandcay: %s"
 msgid "Timed out when polling for command"
 msgstr "Imedtay outay enwhay ollingpay orfay ommandcay"
 
-#: daemon/x52d_command.c:354
+#: daemon/x52d_command.c:364
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr "Erroray eadingray omfray ientclay %d: %s"
 
-#: daemon/x52d_command.c:365
+#: daemon/x52d_command.c:375
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""

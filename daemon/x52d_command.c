@@ -292,6 +292,16 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
         return;
     }
 
+    MATCH(1, "apply") {
+        if (argc == 2) {
+            x52d_config_apply();
+            OK("config", "apply");
+        } else {
+            ERR_fmt("Unexpected arguments for 'config apply' command; got %d, expected 2", argc);
+        }
+        return;
+    }
+
     ERR_fmt("Unknown subcommand '%s' for 'config' command", argv[1]);
 }
 
