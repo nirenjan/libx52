@@ -81,6 +81,7 @@ install-exec-hook:
 
 EXTRA_DIST += \
 	daemon/daemon.dox \
+	daemon/protocol.dox \
 	daemon/x52d.service.in \
 	daemon/x52d_clock.h \
 	daemon/x52d_config.def \

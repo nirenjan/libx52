@@ -1,0 +1,238 @@
+/**
+@page x52d_protocol X52 daemon socket communication protocol
+
+The X52 daemon creates a Unix domain stream socket, by default at
+`$(LOCALSTATEDIR)/run/x52d.cmd` and listens for connection requests from
+clients at this location. This can be overridden by passing the -s flag when
+starting the daemon.
+
+# Protocol Overview
+
+\b x52d requires that clients send it commands as a series of NUL terminated
+strings, without any interleaving space. The command should be sent in a
+single `send` call, and the client may expect a response in a single `recv`
+call.
+
+The `send` call must send exactly the number of bytes in the command text.
+Extra bytes will be treated as additional arguments, which would cause the
+command to fail. It is recommended that the `recv` call uses a 1024 byte buffer
+to read the data. Responses will never exceed this length.
+
+# Responses
+
+The daemon sends the response as a series of NUL terminated strings, without
+any interleaving space. The first string is always one of the following:
+
+- \c OK
+- \c ERR
+- \c DATA
+
+This determines whether the request was successful or not, and subsequent
+strings describe the action, error or requested data.
+
+# Examples
+
+## Reloading configuration
+
+- \b send <tt>config\0reload\0</tt>
+- \b recv <tt>OK\0config\0reload\0</tt>
+
+## Reading mouse speed
+
+- \b send <tt>config\0get\0mouse\0speed\0</tt>
+- \b recv <tt>DATA\0mouse\0speed\010\0</tt>
+
+## Sending an invalid command
+
+- \b send <tt>config reload</tt>
+- \b recv <tt>ERR\0Unknown command 'config reload'\0</tt>
+
+# Commands
+
+\b x52d commands are arranged in a hierarchical fashion as follows:
+
+```
+<command-group> [<sub-command-group> [<sub-command-group> [...]]] <command> [<arguments>]
+```
+
+The list of supported commands are shown below:
+
+- @subpage proto_config
+*/
+
+/**
+@page proto_config Configuration management
+
+The \c config commands deal with \b x52d configuration subsystem, and have the
+following subcommands.
+
+@tableofcontents
+
+# Load configuration
+
+The `config load` subgroup allows you to load a configuration from a given file
+(discarding anything that was already in memory), or reload the configuration
+from the command-line specified configuration file (or default configuration
+file if no option was given on the command line.)
+
+## Load from file
+
+\b Arguments
+
+- `config`
+- `load`
+- \a path-to-file
+
+\b Returns
+
+- `OK`
+- `config`
+- `load`
+- \a path-to-file
+
+\b Error
+
+- `ERR`
+- <tt>Invalid file '/none' for 'config load' command</tt>
+
+## Reload system configuration
+
+\b Arguments
+
+- `config`
+- `reload`
+
+\b Returns
+
+- `OK`
+- `config`
+- `reload`
+
+# Save configuration
+
+The `config save` subgroup requests the \b x52d daemon to save the current state
+of the configuration to disk. This is either the system configuration file, or
+may be a user specified configuration file. Note that this will be created with
+the permissions of the running daemon, which may be running as root.
+
+## Dump configuration to file
+
+\b Arguments
+
+- `config`
+- `dump`
+- \a path-to-file
+
+\b Returns
+
+- `OK`
+- `config`
+- `dump`
+- \a path-to-file
+
+\b Error
+
+- `ERR`
+- <tt>Invalid file '/none' for 'config dump' command</tt>
+
+## Save system configuration
+
+\b Arguments
+
+- `config`
+- `save`
+
+\b Returns
+
+- `OK`
+- `config`
+- `save`
+
+# Retrieve configuration parameter
+
+The `config get` command requests a specific configuration value, given the
+section and the key. Refer to \ref x52d for the section and key names, as these
+are derived from the base configuration.
+
+\b Arguments
+
+- `config`
+- `get`
+- \a section
+- \a key
+
+\b Returns
+
+- `DATA`
+- \a section
+- \a key
+- \a value
+
+\b Example
+
+```
+DATA\0mouse\0enabled\0true\0
+```
+
+<b>Error example</b>
+
+```
+ERR\0Error getting 'foo.bar'\0
+```
+
+# Set configuration parameter
+
+The `config set` command requests the \b x52d daemon to set the given (section,
+key) parameter to the given value. The daemon will treat it the same way as if
+it was being read from the configuration file, i.e., it will follow identical
+parsing logic, including ignoring unknown keys and not reporting errors for them.
+
+A side effect of this is that the client could request a set for any arbitrary
+section and key pair, and if that pair was not recognized, it would be ignored,
+but the daemon would still send an `OK` response.
+
+Finally, this will only set the value within the configuration memory
+structures, and will not invoke any callback to update the rest of the threads
+or device state. The client will need to call the `apply` subcommand to actually
+invoke the necessary callbacks.
+
+\b Arguments
+
+- `config`
+- `set`
+- \a section
+- \a key
+- \a value
+
+\b Returns
+
+- `OK`
+- `config`
+- `set`
+- \a section
+- \a key
+- \a value
+
+<b>Error example</b>
+
+```
+ERR\0Error 22 setting 'led.fire'='none': Invalid argument\0
+```
+
+# Apply configuration
+
+The `config apply` command will invoke all the callbacks and ensure that the
+configuration is applied to the running state.
+
+\b Arguments
+
+- `config`
+- `apply`
+
+\b Returns
+
+- `OK`
+- `config`
+- `apply`
+
+*/

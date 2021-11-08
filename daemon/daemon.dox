@@ -18,6 +18,7 @@ the Windows X52 driver. It currently manages the following:
 - \c -c - Path to configuration file
 - \c -p - Path to PID file
 - \c -o - Configuration override - only applied during startup
+- \c -s - Path to command socket (see \ref x52d_protocol)
 
 # Configuration file
 

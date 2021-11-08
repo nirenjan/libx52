@@ -57,8 +57,8 @@ int x52d_dial_command(const char *sock_path);
 /**
  * @brief Send a command to the daemon and retrieve the response.
  *
- * The client sends the command and parameters as a single NULL terminated
- * string, and retrieves the response in the same manner. Depending on the
+ * The client sends the command and parameters as a series of NUL terminated
+ * strings, and retrieves the response in the same manner. Depending on the
  * result, the return status is either a positive integer or -1, and \c errno
  * is set accordingly.
  *

@@ -29,6 +29,15 @@ If not running interactively, then you must specify a command, or the program
 will exit with a failure exit code. If running interactively, the program will
 request input and send that to the daemon, until the user either enters the
 string "quit", or terminates input by using Ctrl+D.
+
+# OPTIONS
+
+- <tt>\b -i</tt>
+  Run in interactive mode. Any additional non-option arguments are ignored.
+
+- <tt>\b -s < \a socket-path ></tt>
+  Use the socket at the given path. If this is not specified, then it uses a
+  default socket.
 */
 
 #include "config.h"

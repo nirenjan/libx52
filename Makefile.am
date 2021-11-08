@@ -53,7 +53,9 @@ DXGEN_ = $(DXGEN_@AM_DEFAULT_V@)
 DXGEN_0 = @printf "  DXGEN    $<\n";
 
 SYSCONFDIR=@sysconfdir@
+LOCALSTATEDIR=@localstatedir@
 export SYSCONFDIR
+export LOCALSTATEDIR
 docs/.stamp: Doxyfile
 	$(DXGEN)$(DOXYGEN) $<
 	$(AM_V_at)touch $@
