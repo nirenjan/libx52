@@ -161,7 +161,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Send a command to the daemon and retrieve the response. </p>
-<p>The client sends the command and parameters as a single NULL terminated string, and retrieves the response in the same manner. Depending on the result, the return status is either a positive integer or -1, and <code>errno</code> is set accordingly.</p>
+<p>The client sends the command and parameters as a series of NUL terminated strings, and retrieves the response in the same manner. Depending on the result, the return status is either a positive integer or -1, and <code>errno</code> is set accordingly.</p>
 <p><code>buffer</code> should contain sufficient space to accomodate the returned response string.</p>
 <p>This is a blocking function and will not return until either a response is received from the server, or an exception condition occurs.</p>
 <dl class="params"><dt>Parameters</dt><dd>

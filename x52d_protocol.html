@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libx52: Command Line controller to X52 daemon</title>
+<title>libx52: X52 daemon socket communication protocol</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,25 +64,50 @@ $(function() {
 </div><!-- top -->
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Command Line controller to X52 daemon </div>  </div>
+<div class="title">X52 daemon socket communication protocol </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p> 
-<b>x52ctl</b> - Command line controller to X52 daemon
-</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
-SYNOPSIS</h1>
-<p><code><b>x52ctl</b> [<em>-i</em>] [<em>-s</em> socket-path] [command] </code></p>
-<h1><a class="anchor" id="autotoc_md30"></a>
-DESCRIPTION</h1>
-<p>x52ctl is a program that can be used to communicate with the X52 daemon. It can be used either as a one-shot program that can be run from another program or script, or it can be run interactively.</p>
-<p>Commands are sent to the running daemon, and responses are written to standard output.</p>
-<p>If not running interactively, then you must specify a command, or the program will exit with a failure exit code. If running interactively, the program will request input and send that to the daemon, until the user either enters the string "quit", or terminates input by using Ctrl+D.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
-OPTIONS</h1>
+<div class="textblock"><p>The X52 daemon creates a Unix domain stream socket, by default at <code>/var/run/x52d.cmd</code> and listens for connection requests from clients at this location. This can be overridden by passing the -s flag when starting the daemon.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
+Protocol Overview</h1>
+<p><b>x52d</b> requires that clients send it commands as a series of NUL terminated strings, without any interleaving space. The command should be sent in a single <code>send</code> call, and the client may expect a response in a single <code>recv</code> call.</p>
+<p>The <code>send</code> call must send exactly the number of bytes in the command text. Extra bytes will be treated as additional arguments, which would cause the command to fail. It is recommended that the <code>recv</code> call uses a 1024 byte buffer to read the data. Responses will never exceed this length.</p>
+<h1><a class="anchor" id="autotoc_md14"></a>
+Responses</h1>
+<p>The daemon sends the response as a series of NUL terminated strings, without any interleaving space. The first string is always one of the following:</p>
 <ul>
-<li><code><b>-i</code></b> Run in interactive mode. Any additional non-option arguments are ignored.</li>
-<li><code><b>-s</b> &lt; <em>socket-path</em> &gt;</code> Use the socket at the given path. If this is not specified, then it uses a default socket. </li>
+<li><code>OK</code> </li>
+<li><code>ERR</code> </li>
+<li><code>DATA</code> </li>
+</ul>
+<p>This determines whether the request was successful or not, and subsequent strings describe the action, error or requested data.</p>
+<h1><a class="anchor" id="autotoc_md15"></a>
+Examples</h1>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Reloading configuration</h2>
+<ul>
+<li><b>send</b> <code>config\0reload\0</code></li>
+<li><b>recv</b> <code>OK\0config\0reload\0</code></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Reading mouse speed</h2>
+<ul>
+<li><b>send</b> <code>config\0get\0mouse\0speed\0</code></li>
+<li><b>recv</b> <code>DATA\0mouse\0speed\010\0</code></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Sending an invalid command</h2>
+<ul>
+<li><b>send</b> <code>config reload</code></li>
+<li><b>recv</b> <code>ERR\0Unknown command 'config reload'\0</code></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md19"></a>
+Commands</h1>
+<p><b>x52d</b> commands are arranged in a hierarchical fashion as follows:</p>
+<div class="fragment"><div class="line">&lt;command-group&gt; [&lt;sub-command-group&gt; [&lt;sub-command-group&gt; [...]]] &lt;command&gt; [&lt;arguments&gt;]</div>
+</div><!-- fragment --><p>The list of supported commands are shown below:</p>
+<ul>
+<li><a class="el" href="proto_config.html">Configuration management</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
