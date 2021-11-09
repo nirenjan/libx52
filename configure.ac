@@ -74,6 +74,7 @@ AM_CONDITIONAL([HAVE_EVDEV], [test "x$have_evdev" = "xyes"])
 # Pinelog configuration
 AX_APPEND_FLAG([-DPINELOG_SHOW_LEVEL=1], [PINELOG_CFLAGS])
 AX_APPEND_FLAG([-DPINELOG_SHOW_BACKTRACE=1], [PINELOG_CFLAGS])
+AX_APPEND_FLAG([-DPINELOG_BUFFER_SZ=1024], [PINELOG_CFLAGS])
 AC_SUBST([PINELOG_CFLAGS])
 
 # Check for hidapi. This uses a different pkg-config file on Linux vs other
