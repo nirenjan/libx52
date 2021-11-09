@@ -34,6 +34,12 @@ extern "C" {
  * logged to the logging framework.
  */
 enum {
+    /**
+     * In modules, it will defer to the global level.
+     * Equivalent to \ref PINELOG_LVL_NONE for the global level
+     */
+    PINELOG_LVL_NOTSET = -2,
+
     /** No messages will be logged */
     PINELOG_LVL_NONE = -1,
 
@@ -60,6 +66,25 @@ enum {
  * @brief Set the default log level and output stream
  */
 void pinelog_set_defaults(void);
+
+/**
+ * @brief Initialize pinelog to have these many modules
+ *
+ * @param[in]   num_modules     Maximum number of modules
+ *
+ * @returns 0 on success, errno on failure.
+ */
+int pinelog_init(int num_modules);
+
+/**
+ * @brief Save the current module name
+ *
+ * @param[in]   module  Module identifier
+ * @param[in]   name    Module name - displayed in logs
+ *
+ * @returns 0 on success, errno on failure.
+ */
+int pinelog_setup_module(int module, const char *name);
 
 /**
  * @brief Close the output stream and terminate the logs
@@ -95,7 +120,7 @@ int pinelog_set_output_stream(FILE *stream);
 int pinelog_set_output_file(const char *file);
 
 /**
- * @brief Set the logging level
+ * @brief Set the global logging level
  *
  * @param[in]   level   Level to filter
  *
@@ -104,11 +129,31 @@ int pinelog_set_output_file(const char *file);
 int pinelog_set_level(int level);
 
 /**
- * @brief Get the logging level
+ * @brief Get the global logging level
  *
- * @returns the configured logging level
+ * @returns the configured global logging level
  */
 int pinelog_get_level(void);
+
+/**
+ * @brief Set the per-module logging level
+ *
+ * @param[in]   module  Module identifier
+ * @param[in]   level   Level to filter
+ *
+ * @returns 0 on success, EINVAL if the level or module identifier is not valid
+ */
+int pinelog_set_module_level(int module, int level);
+
+/**
+ * @brief Get the per-module logging level
+ *
+ * @param[in]   module  Module identifier
+ *
+ * @returns the configured per-module logging level, or the global logging level
+ * if the module identifier is outside the configured range.
+ */
+int pinelog_get_module_level(int module);
 
 /**
  * @brief Log a message to the logger
@@ -117,6 +162,7 @@ int pinelog_get_level(void);
  * never need to call this directly, but instead, should always use the
  * \code PINELOG_* macros.
  *
+ * @param[in]   module  Module identifier
  * @param[in]   level   Level to log the message at
  * @param[in]   fmt     Format string
  *
@@ -124,10 +170,10 @@ int pinelog_get_level(void);
  */
 #if defined __has_attribute
 #   if __has_attribute(format)
-        __attribute__((format(printf, 4, 5)))
+        __attribute__((format(printf, 5, 6)))
 #   endif
 #endif
-void pinelog_log_message(int level, const char *file, int line, const char *fmt, ...);
+void pinelog_log_message(int module, int level, const char *file, int line, const char *fmt, ...);
 
 // Test harness will redefine pinelog_exit
 #ifndef PINELOG_TEST
@@ -144,42 +190,49 @@ void pinelog_log_message(int level, const char *file, int line, const char *fmt,
 #   define PINELOG_FILE __FILE__
 #endif
 
+// Global module - used for generic logging
+#define PINELOG_MODULE_GLOBAL   -1
+
+#ifndef PINELOG_MODULE
+#define PINELOG_MODULE  PINELOG_MODULE_GLOBAL
+#endif
+
 #define PINELOG_FATAL(fmt, ...) do { \
-    if (PINELOG_LVL_FATAL <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_FATAL, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
+    if (PINELOG_LVL_FATAL <= pinelog_get_module_level(PINELOG_MODULE)) { \
+        pinelog_log_message(PINELOG_MODULE, PINELOG_LVL_FATAL, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
     pinelog_exit(1); \
 } while (0)
 
 #define PINELOG_ERROR(fmt, ...) do { \
-    if (PINELOG_LVL_ERROR <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_ERROR, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
+    if (PINELOG_LVL_ERROR <= pinelog_get_module_level(PINELOG_MODULE)) { \
+        pinelog_log_message(PINELOG_MODULE, PINELOG_LVL_ERROR, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while (0)
 
 #define PINELOG_WARN(fmt, ...) do { \
-    if (PINELOG_LVL_WARNING <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_WARNING, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
+    if (PINELOG_LVL_WARNING <= pinelog_get_module_level(PINELOG_MODULE)) { \
+        pinelog_log_message(PINELOG_MODULE, PINELOG_LVL_WARNING, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 
 #define PINELOG_INFO(fmt, ...) do { \
-    if (PINELOG_LVL_INFO <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_INFO, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
+    if (PINELOG_LVL_INFO <= pinelog_get_module_level(PINELOG_MODULE)) { \
+        pinelog_log_message(PINELOG_MODULE, PINELOG_LVL_INFO, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 
 #define PINELOG_DEBUG(fmt, ...) do { \
-    if (PINELOG_LVL_DEBUG <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_DEBUG, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
+    if (PINELOG_LVL_DEBUG <= pinelog_get_module_level(PINELOG_MODULE)) { \
+        pinelog_log_message(PINELOG_MODULE, PINELOG_LVL_DEBUG, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 
 /* PINELOG_DISABLE_TRACE allows all traces to be compiled out */
 #ifndef PINELOG_DISABLE_TRACE
 #define PINELOG_TRACE(fmt, ...) do { \
-    if (PINELOG_LVL_TRACE <= pinelog_get_level()) { \
-        pinelog_log_message(PINELOG_LVL_TRACE, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
+    if (PINELOG_LVL_TRACE <= pinelog_get_module_level(PINELOG_MODULE)) { \
+        pinelog_log_message(PINELOG_MODULE, PINELOG_LVL_TRACE, PINELOG_FILE, __LINE__, fmt, ##__VA_ARGS__); \
     } \
 } while(0)
 #else

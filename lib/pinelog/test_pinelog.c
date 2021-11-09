@@ -64,7 +64,7 @@ static void dump_data(const char *type, size_t len, char *data)
     printf("\n");
 }
 
-static int test_setup(int level, int filter, const char *file, int line)
+static int test_setup(int module, int level, int filter, const char *file, int line)
 {
     expected_len = 0;
     memset(expected_output, 0, sizeof(expected_output));
@@ -114,6 +114,12 @@ static int test_setup(int level, int filter, const char *file, int line)
                                      "%s:%d ", basename, line);
         }
 
+        if (module >= 0) {
+            static const char * modules[] = {"foo", "bar"};
+            expected_len += snprintf(&expected_output[expected_len],
+                                     sizeof(expected_output) - expected_len,
+                                     "%s: ", modules[module]);
+        }
         return 1;
     }
 
@@ -148,24 +154,29 @@ static void verify_defaults(void)
 
 #define PINELOG_WARNING PINELOG_WARN
 
-#define TEST_LOG(lvl, filter, fmt, ...) do { \
-    if (test_setup(PINELOG_LVL_ ## lvl, PINELOG_LVL_ ## filter, \
+#define TEST_LOG(module, lvl, filter, fmt, ...) do { \
+    if (test_setup(module, PINELOG_LVL_ ## lvl, PINELOG_LVL_ ## filter, \
                __FILE__, __LINE__)) \
        expected_len += snprintf(&expected_output[expected_len], \
                                 sizeof(expected_output) - expected_len, \
                                 fmt "\n", ##__VA_ARGS__); \
     PINELOG_ ## lvl (fmt, ##__VA_ARGS__); \
-    test_teardown("Log " #lvl " filter " #filter); \
+    switch (module) { \
+        case -1: test_teardown("Global Log " #lvl " filter " #filter); break; \
+        case 0: test_teardown("Module foo Log " #lvl " filter " #filter); break; \
+        case 1: test_teardown("Module bar Log " #lvl " filter " #filter); break; \
+        default: test_teardown("Module ??? Log " #lvl " filter " #filter); break; \
+    } \
 } while(0)
 
-#define TEST(filter, fmt, ...) do { \
+#define TEST(module, filter, fmt, ...) do { \
     pinelog_set_level(PINELOG_LVL_ ## filter); \
-    TEST_LOG(TRACE, filter, fmt, ##__VA_ARGS__); \
-    TEST_LOG(DEBUG, filter, fmt, ##__VA_ARGS__); \
-    TEST_LOG(INFO, filter, fmt, ##__VA_ARGS__); \
-    TEST_LOG(WARNING, filter, fmt, ##__VA_ARGS__); \
-    TEST_LOG(ERROR, filter, fmt, ##__VA_ARGS__); \
-    TEST_LOG(FATAL, filter, fmt, ##__VA_ARGS__); \
+    TEST_LOG(module, TRACE, filter, fmt, ##__VA_ARGS__); \
+    TEST_LOG(module, DEBUG, filter, fmt, ##__VA_ARGS__); \
+    TEST_LOG(module, INFO, filter, fmt, ##__VA_ARGS__); \
+    TEST_LOG(module, WARNING, filter, fmt, ##__VA_ARGS__); \
+    TEST_LOG(module, ERROR, filter, fmt, ##__VA_ARGS__); \
+    TEST_LOG(module, FATAL, filter, fmt, ##__VA_ARGS__); \
 } while (0)
 
 #if defined __has_attribute
@@ -210,14 +221,24 @@ int main(int argc, char **argv)
 
     verify_defaults();
 
+    pinelog_init(2);
+    pinelog_setup_module(0, "foo");
+    pinelog_setup_module(1, "bar");
+
     pinelog_set_output_stream(observed_stream_w);
-    TEST(TRACE, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
-    TEST(DEBUG, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
-    TEST(INFO, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
-    TEST(WARNING, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
-    TEST(ERROR, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
-    TEST(FATAL, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
-    TEST(NONE, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+    for (int i = -1; i < 2; i++) {
+        #ifdef PINELOG_MODULE
+        #undef PINELOG_MODULE
+        #define PINELOG_MODULE i
+        #endif
+        TEST(i, TRACE, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+        TEST(i, DEBUG, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+        TEST(i, INFO, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+        TEST(i, WARNING, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+        TEST(i, ERROR, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+        TEST(i, FATAL, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+        TEST(i, NONE, "testing %s... %d, %f, %u", "testing", -1, 0.0, 1);
+    }
 
     printf("1..%u\n", test_id);
 

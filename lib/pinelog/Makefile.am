@@ -34,101 +34,198 @@ test_CFLAGS = \
 
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 TESTS = \
-	test_ts_lvl_tr \
-	test_ts_lvl_notr \
-	test_ts_nolvl_tr \
-	test_ts_nolvl_notr \
-	test_nots_lvl_tr \
-	test_nots_lvl_notr \
-	test_nots_nolvl_tr \
-	test_nots_nolvl_notr \
-	bench_ts_lvl_tr \
-	bench_ts_lvl_notr \
-	bench_ts_nolvl_tr \
-	bench_ts_nolvl_notr \
-	bench_nots_lvl_tr \
-	bench_nots_lvl_notr \
-	bench_nots_nolvl_tr \
-	bench_nots_nolvl_notr
+	fp_test_ts_lvl_tr \
+	fp_test_ts_lvl_notr \
+	fp_test_ts_nolvl_tr \
+	fp_test_ts_nolvl_notr \
+	fp_test_nots_lvl_tr \
+	fp_test_nots_lvl_notr \
+	fp_test_nots_nolvl_tr \
+	fp_test_nots_nolvl_notr \
+	fp_bench_ts_lvl_tr \
+	fp_bench_ts_lvl_notr \
+	fp_bench_ts_nolvl_tr \
+	fp_bench_ts_nolvl_notr \
+	fp_bench_nots_lvl_tr \
+	fp_bench_nots_lvl_notr \
+	fp_bench_nots_nolvl_tr \
+	fp_bench_nots_nolvl_notr \
+	str_test_ts_lvl_tr \
+	str_test_ts_lvl_notr \
+	str_test_ts_nolvl_tr \
+	str_test_ts_nolvl_notr \
+	str_test_nots_lvl_tr \
+	str_test_nots_lvl_notr \
+	str_test_nots_nolvl_tr \
+	str_test_nots_nolvl_notr \
+	str_bench_ts_lvl_tr \
+	str_bench_ts_lvl_notr \
+	str_bench_ts_nolvl_tr \
+	str_bench_ts_nolvl_notr \
+	str_bench_nots_lvl_tr \
+	str_bench_nots_lvl_notr \
+	str_bench_nots_nolvl_tr \
+	str_bench_nots_nolvl_notr
 
 check_PROGRAMS = $(TESTS)
-test_ts_lvl_tr_SOURCES = $(test_SRCFILES)
-test_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_ts_lvl_tr_SOURCES = $(test_SRCFILES)
+fp_test_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
-test_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_ts_lvl_notr_SOURCES = $(test_SRCFILES)
-test_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_ts_lvl_notr_SOURCES = $(test_SRCFILES)
+fp_test_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
-test_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_ts_nolvl_tr_SOURCES = $(test_SRCFILES)
-test_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_ts_nolvl_tr_SOURCES = $(test_SRCFILES)
+fp_test_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
-test_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_ts_nolvl_notr_SOURCES = $(test_SRCFILES)
-test_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_ts_nolvl_notr_SOURCES = $(test_SRCFILES)
+fp_test_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
-test_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_nots_lvl_tr_SOURCES = $(test_SRCFILES)
-test_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_nots_lvl_tr_SOURCES = $(test_SRCFILES)
+fp_test_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
-test_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_nots_lvl_notr_SOURCES = $(test_SRCFILES)
-test_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_nots_lvl_notr_SOURCES = $(test_SRCFILES)
+fp_test_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
-test_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_nots_nolvl_tr_SOURCES = $(test_SRCFILES)
-test_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_nots_nolvl_tr_SOURCES = $(test_SRCFILES)
+fp_test_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
-test_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-test_nots_nolvl_notr_SOURCES = $(test_SRCFILES)
-test_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_test_nots_nolvl_notr_SOURCES = $(test_SRCFILES)
+fp_test_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
-test_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_test_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_ts_lvl_tr_SOURCES = $(bench_SRCFILES)
-bench_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_ts_lvl_tr_SOURCES = $(bench_SRCFILES)
+fp_bench_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
-bench_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_ts_lvl_notr_SOURCES = $(bench_SRCFILES)
-bench_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_ts_lvl_notr_SOURCES = $(bench_SRCFILES)
+fp_bench_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
-bench_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_ts_nolvl_tr_SOURCES = $(bench_SRCFILES)
-bench_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_ts_nolvl_tr_SOURCES = $(bench_SRCFILES)
+fp_bench_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
-bench_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_ts_nolvl_notr_SOURCES = $(bench_SRCFILES)
-bench_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_ts_nolvl_notr_SOURCES = $(bench_SRCFILES)
+fp_bench_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
-bench_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_nots_lvl_tr_SOURCES = $(bench_SRCFILES)
-bench_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_nots_lvl_tr_SOURCES = $(bench_SRCFILES)
+fp_bench_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
-bench_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_nots_lvl_notr_SOURCES = $(bench_SRCFILES)
-bench_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_nots_lvl_notr_SOURCES = $(bench_SRCFILES)
+fp_bench_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
-bench_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_nots_nolvl_tr_SOURCES = $(bench_SRCFILES)
-bench_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_nots_nolvl_tr_SOURCES = $(bench_SRCFILES)
+fp_bench_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
-bench_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
 
-bench_nots_nolvl_notr_SOURCES = $(bench_SRCFILES)
-bench_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+fp_bench_nots_nolvl_notr_SOURCES = $(bench_SRCFILES)
+fp_bench_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
 	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
-bench_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+fp_bench_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+test_CFLAGS += -DPINELOG_BUFFER_SZ=4096
+str_test_ts_lvl_tr_SOURCES = $(test_SRCFILES)
+str_test_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
+str_test_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_ts_lvl_notr_SOURCES = $(test_SRCFILES)
+str_test_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
+str_test_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_ts_nolvl_tr_SOURCES = $(test_SRCFILES)
+str_test_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
+str_test_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_ts_nolvl_notr_SOURCES = $(test_SRCFILES)
+str_test_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
+str_test_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_nots_lvl_tr_SOURCES = $(test_SRCFILES)
+str_test_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
+str_test_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_nots_lvl_notr_SOURCES = $(test_SRCFILES)
+str_test_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
+str_test_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_nots_nolvl_tr_SOURCES = $(test_SRCFILES)
+str_test_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
+str_test_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_test_nots_nolvl_notr_SOURCES = $(test_SRCFILES)
+str_test_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
+str_test_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_ts_lvl_tr_SOURCES = $(bench_SRCFILES)
+str_bench_ts_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
+str_bench_ts_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_ts_lvl_notr_SOURCES = $(bench_SRCFILES)
+str_bench_ts_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
+str_bench_ts_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_ts_nolvl_tr_SOURCES = $(bench_SRCFILES)
+str_bench_ts_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
+str_bench_ts_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_ts_nolvl_notr_SOURCES = $(bench_SRCFILES)
+str_bench_ts_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=1 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
+str_bench_ts_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_nots_lvl_tr_SOURCES = $(bench_SRCFILES)
+str_bench_nots_lvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=1
+str_bench_nots_lvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_nots_lvl_notr_SOURCES = $(bench_SRCFILES)
+str_bench_nots_lvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_BACKTRACE=0
+str_bench_nots_lvl_notr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_nots_nolvl_tr_SOURCES = $(bench_SRCFILES)
+str_bench_nots_nolvl_tr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=1
+str_bench_nots_nolvl_tr_LDFLAGS = $(WARN_LDFLAGS)
+
+str_bench_nots_nolvl_notr_SOURCES = $(bench_SRCFILES)
+str_bench_nots_nolvl_notr_CFLAGS = $(WARN_CFLAGS) $(test_CFLAGS) \
+	-DPINELOG_SHOW_DATE=0 -DPINELOG_SHOW_LEVEL=0 -DPINELOG_SHOW_BACKTRACE=0
+str_bench_nots_nolvl_notr_LDFLAGS = $(WARN_LDFLAGS)
 
