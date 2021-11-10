@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <string.h>
 
+#define PINELOG_MODULE X52D_MOD_CLOCK
 #include "pinelog.h"
 #include "x52d_config.h"
 #include "x52d_clock.h"

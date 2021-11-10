@@ -16,6 +16,8 @@
 #include "x52d_io.h"
 #include "x52d_mouse.h"
 #include "libx52io.h"
+
+#define PINELOG_MODULE X52D_MOD_IO
 #include "pinelog.h"
 
 static libx52io_context *io_ctx;

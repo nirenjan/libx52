@@ -17,6 +17,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#define PINELOG_MODULE X52D_MOD_COMMAND
 #include "pinelog.h"
 #include "x52d_const.h"
 #include "x52d_command.h"

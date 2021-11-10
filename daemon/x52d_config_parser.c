@@ -14,6 +14,7 @@
 #include <errno.h>
 #include <stdbool.h>
 
+#define PINELOG_MODULE X52D_MOD_CONFIG
 #include "ini.h"
 #include "pinelog.h"
 #include "x52d_config.h"

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#define PINELOG_MODULE X52D_MOD_MOUSE
 #include "pinelog.h"
 #include "x52d_config.h"
 #include "x52d_const.h"

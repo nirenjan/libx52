@@ -9,6 +9,7 @@
 #include "config.h"
 #include <errno.h>
 
+#define PINELOG_MODULE X52D_MOD_CONFIG
 #include "pinelog.h"
 #include "x52d_config.h"
 #include "x52d_const.h"

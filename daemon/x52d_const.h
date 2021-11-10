@@ -25,4 +25,16 @@
 
 #define X52D_MAX_CLIENTS    63
 
+enum {
+    X52D_MOD_CONFIG,
+    X52D_MOD_CLOCK,
+    X52D_MOD_DEVICE,
+    X52D_MOD_IO,
+    X52D_MOD_LED,
+    X52D_MOD_MOUSE,
+    X52D_MOD_COMMAND,
+
+    X52D_MOD_MAX
+};
+
 #endif // !defined X52D_CONST_H

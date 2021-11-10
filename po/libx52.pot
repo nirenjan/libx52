@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-07 16:07-0800\n"
+"POT-Creation-Date: 2021-11-10 09:29-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,11 +142,11 @@ msgstr ""
 msgid "Unknown LED state %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:31
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
 msgid "off"
 msgstr ""
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:28 daemon/x52d_mouse.c:31
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
 msgid "on"
 msgstr ""
 
@@ -540,287 +540,287 @@ msgstr ""
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:316
+#: daemon/x52d_main.c:317
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:344
+#: daemon/x52d_main.c:345
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:344 daemon/x52d_main.c:345
+#: daemon/x52d_main.c:345 daemon/x52d_main.c:346
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:344 daemon/x52d_main.c:345
+#: daemon/x52d_main.c:345 daemon/x52d_main.c:346
 msgid "false"
-msgstr ""
-
-#: daemon/x52d_main.c:345
-#, c-format
-msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:346
 #, c-format
-msgid "Verbosity = %d"
+msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:347
 #, c-format
-msgid "Log file = %s"
+msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:348
 #, c-format
-msgid "Config file = %s"
+msgid "Log file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:349
 #, c-format
-msgid "PID file = %s"
+msgid "Config file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:350
 #, c-format
+msgid "PID file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:351
+#, c-format
 msgid "Command socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:380
+#: daemon/x52d_main.c:381
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:387
+#: daemon/x52d_main.c:388
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:393
+#: daemon/x52d_main.c:394
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:416
+#: daemon/x52d_main.c:417
 msgid "Shutting down X52 daemon"
 msgstr ""
 
-#: daemon/x52d_clock.c:27
+#: daemon/x52d_clock.c:28
 #, c-format
 msgid "Setting clock enable to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:34 daemon/x52d_clock.c:115
+#: daemon/x52d_clock.c:35 daemon/x52d_clock.c:116
 #, c-format
 msgid "Setting %s clock timezone to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:36
+#: daemon/x52d_clock.c:37
 msgid "local"
 msgstr ""
 
-#: daemon/x52d_clock.c:36
+#: daemon/x52d_clock.c:37
 msgid "UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:54
+#: daemon/x52d_clock.c:55
 msgid "Unable to allocate memory for timezone. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:64
+#: daemon/x52d_clock.c:65
 msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:134
+#: daemon/x52d_clock.c:135
 #, c-format
 msgid "Setting %s clock format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:158
+#: daemon/x52d_clock.c:159
 #, c-format
 msgid "Setting date format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:169
+#: daemon/x52d_clock.c:170
 msgid "Starting X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_clock.c:180
+#: daemon/x52d_clock.c:181
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:201
+#: daemon/x52d_clock.c:202
 #, c-format
 msgid "Error %d initializing clock thread: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:208
+#: daemon/x52d_clock.c:209
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_command.c:52
+#: daemon/x52d_command.c:53
 #, c-format
 msgid "Error accepting client connection on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:89
+#: daemon/x52d_command.c:90
 #, c-format
 msgid "Error when polling command socket: FD %d, error %d, len %lu"
 msgstr ""
 
-#: daemon/x52d_command.c:116
+#: daemon/x52d_command.c:117
 #, c-format
 msgid "Error when polling for command: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:120
+#: daemon/x52d_command.c:121
 msgid "Timed out when polling for command"
 msgstr ""
 
-#: daemon/x52d_command.c:364
+#: daemon/x52d_command.c:365
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:375
+#: daemon/x52d_command.c:376
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_config.c:28
+#: daemon/x52d_config.c:29
 #, c-format
 msgid "Error %d setting configuration defaults: %s"
 msgstr ""
 
-#: daemon/x52d_config.c:55
+#: daemon/x52d_config.c:56
 #, c-format
 msgid "Error %d saving configuration file: %s"
 msgstr ""
 
-#: daemon/x52d_config_dump.c:112
+#: daemon/x52d_config_dump.c:113
 #, c-format
 msgid "Unable to save config file %s - code %d: %s"
 msgstr ""
 
-#: daemon/x52d_config_dump.c:130
+#: daemon/x52d_config_dump.c:131
 #, c-format
 msgid "Failed to dump %s.%s to config file %s"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:167
+#: daemon/x52d_config_parser.c:168
 #, c-format
 msgid "Ignoring unknown key '%s.%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:208
+#: daemon/x52d_config_parser.c:209
 #, c-format
 msgid "Failed processing configuration file %s - code %d"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:238
+#: daemon/x52d_config_parser.c:239
 msgid "Failed to allocate memory for override structure"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:247
+#: daemon/x52d_config_parser.c:248
 msgid "Failed to allocate memory for override string"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:258
+#: daemon/x52d_config_parser.c:259
 #, c-format
 msgid "No section found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:272
+#: daemon/x52d_config_parser.c:273
 #, c-format
 msgid "No key found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:283
+#: daemon/x52d_config_parser.c:284
 #, c-format
 msgid "No value found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:334
+#: daemon/x52d_config_parser.c:335
 #, c-format
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""
 
-#: daemon/x52d_device.c:34
+#: daemon/x52d_device.c:35
 msgid "Starting X52 device manager thread"
 msgstr ""
 
-#: daemon/x52d_device.c:41
+#: daemon/x52d_device.c:42
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:50
+#: daemon/x52d_device.c:51
 msgid "Device connected, writing configuration"
 msgstr ""
 
-#: daemon/x52d_device.c:72
+#: daemon/x52d_device.c:73
 msgid "Initializing libx52"
 msgstr ""
 
-#: daemon/x52d_device.c:76
+#: daemon/x52d_device.c:77
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:87
+#: daemon/x52d_device.c:88
 msgid "Shutting down X52 device manager thread"
 msgstr ""
 
-#: daemon/x52d_device.c:100
+#: daemon/x52d_device.c:101
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:175
+#: daemon/x52d_device.c:176
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:40
+#: daemon/x52d_io.c:42
 msgid "Starting X52 I/O thread"
 msgstr ""
 
-#: daemon/x52d_io.c:62
+#: daemon/x52d_io.c:64
 #, c-format
 msgid "Error %d opening X52 I/O device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:73
+#: daemon/x52d_io.c:75
 #, c-format
 msgid "Error %d reading from X52 I/O device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:100
+#: daemon/x52d_io.c:102
 #, c-format
 msgid "Error %d initializing X52 I/O library: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:106
+#: daemon/x52d_io.c:108
 #, c-format
 msgid "Error %d initializing I/O driver thread: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:113
+#: daemon/x52d_io.c:115
 msgid "Shutting down X52 I/O driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse.c:30
+#: daemon/x52d_mouse.c:31
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:46
+#: daemon/x52d_mouse.c:47
 #, c-format
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr ""
 
-#: daemon/x52d_mouse.c:58
+#: daemon/x52d_mouse.c:59
 #, c-format
 msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
 msgstr ""

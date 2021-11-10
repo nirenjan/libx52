@@ -11,6 +11,7 @@
 #include <pthread.h>
 #include <stdbool.h>
 
+#define PINELOG_MODULE X52D_MOD_DEVICE
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_device.h"

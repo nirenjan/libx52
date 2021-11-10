@@ -272,6 +272,7 @@ int main(int argc, char **argv)
     #endif
 
     /* Set system defaults */
+    pinelog_init(X52D_MOD_MAX);
     pinelog_set_level(PINELOG_LVL_WARNING);
 
     /*
