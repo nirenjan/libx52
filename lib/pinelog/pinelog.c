@@ -347,7 +347,7 @@ void pinelog_log_message(int module, int level, const char *file, int line, cons
     #endif
 
     /* Set the module name if it is not the root */
-    if (module != PINELOG_MODULE_GLOBAL) {
+    if (module != PINELOG_MODULE_GLOBAL && module_name[module] != NULL) {
         #if PINELOG_BUFFER_SZ
         buf_pos += snprintf(output_buffer + buf_pos, sizeof(output_buffer) - buf_pos,
                             "%s: ", module_name[module]);
