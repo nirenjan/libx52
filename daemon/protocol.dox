@@ -58,6 +58,8 @@ strings describe the action, error or requested data.
 The list of supported commands are shown below:
 
 - @subpage proto_config
+- @subpage proto_logging
+
 */
 
 /**
@@ -235,4 +237,87 @@ configuration is applied to the running state.
 - `config`
 - `apply`
 
+*/
+
+/**
+@page proto_logging Logging management
+
+The \c logging commands allow the user to fine tune the logging configuration
+of \c x52d as well as adjust the log levels for either all the modules, or for
+each of the modules individually.
+
+While the `-v` and `-q` command line options allow you to either increase the
+logging verbosity or suppress it entirely, they are required to be specified at
+program startup. On the other hand, having the `logging` commands allows the
+user to fine tune the logging while the daemon is running.
+
+@tableofcontents
+
+# Modules
+
+\c x52d is split into several modules as far as logging is concerned. The list
+of modules is below:
+
+- \c Config
+- \c Clock
+- \c Command
+- \c Device
+- \c IO
+- \c LED
+- \c Mouse
+
+# Logging levels
+
+The following is a list of supported logging levels. Each level logs the ones
+above it as well as the current level
+
+- \c none - Disable logging entirely
+- \c fatal - Log fatal messages
+- \c error - Log error messages
+- \c warning - Log warning messages
+- \c info - Log informational messages
+- \c debug - Log debug messages
+- \c trace - Log trace messages - useful for tracing program flow.
+- \c default - Not a level, but used when configuring module log levels, makes
+  the module log level fallback to the global log level.
+
+# Show logging configuration
+
+The `logging show` command takes in an optional module name, as listed in the
+Modules section above. It returns the module name, if specified, and the log
+level for that module. If the module is configured to fallback to the global
+level, then it will return the global level.
+
+\b Arguments
+
+- `logging`
+- `show`
+- \a module-name (Optional)
+
+\b Returns
+
+- `DATA`
+- <tt>\a module-name</tt> (if specified)
+- \a log-level
+
+# Set logging configuration
+
+The `logging set` command takes in the optional module name and the log level
+and sets the log level for that module, if specified, or the global level
+otherwise.
+
+\b Arguments
+
+- `logging`
+- `set`
+- \a module-name (Optional)
+- \a log-level
+
+\b Returns
+
+- `OK`
+- `logging`
+- `set`
+- <tt>\a module-name</tt> (if specified)
+- \a log-level
 */
