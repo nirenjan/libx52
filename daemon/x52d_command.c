@@ -189,6 +189,8 @@ static void response_strings(char *buffer, int *buflen, const char *type, int co
 #define OK(...) response_strings(buffer, buflen, "OK", NUMARGS(__VA_ARGS__), ##__VA_ARGS__)
 #define OK_fmt(fmt, ...) response_formatted(buffer, buflen, "OK", fmt, ##__VA_ARGS__)
 
+#define DATA(...) response_strings(buffer, buflen, "DATA", NUMARGS(__VA_ARGS__), ##__VA_ARGS__)
+
 #define MATCH(idx, cmd) if (strcasecmp(argv[idx], cmd) == 0)
 
 static bool check_file(const char *file_path, int mode)
@@ -285,7 +287,7 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
             if (rv == NULL) {
                 ERR_fmt("Error getting '%s.%s'", argv[2], argv[3]);
             } else {
-                response_strings(buffer, buflen, "DATA", 3, argv[2], argv[3], rv);
+                DATA(argv[2], argv[3], rv);
             }
         } else {
             ERR_fmt("Unexpected arguments for 'config get' command; got %d, expected 4", argc);
@@ -304,6 +306,136 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
     }
 
     ERR_fmt("Unknown subcommand '%s' for 'config' command", argv[1]);
+}
+
+struct level_map {
+    int level;
+    const char *string;
+};
+
+static int lmap_get_level(const struct level_map *map, const char *string, int notfound)
+{
+    int i;
+
+    for (i = 0; map[i].string != NULL; i++) {
+        if (strcasecmp(map[i].string, string) == 0) {
+            return map[i].level;
+        }
+    }
+
+    return notfound;
+}
+
+static const char *lmap_get_string(const struct level_map *map, int level)
+{
+    int i;
+
+    for (i = 0; map[i].string != NULL; i++) {
+        if (map[i].level == level) {
+            return map[i].string;
+        }
+    }
+
+    return NULL;
+}
+
+static int array_find_index(const char **array, int nmemb, const char *string)
+{
+    int i;
+
+    for (i = 0; i < nmemb; i++) {
+        if (strcasecmp(array[i], string) == 0) {
+            return i;
+        }
+    }
+
+    return nmemb;
+}
+
+static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
+{
+    static const char *modules[X52D_MOD_MAX] = {
+        [X52D_MOD_CONFIG] = "config",
+        [X52D_MOD_CLOCK] = "clock",
+        [X52D_MOD_DEVICE] = "device",
+        [X52D_MOD_IO] = "io",
+        [X52D_MOD_LED] = "led",
+        [X52D_MOD_MOUSE] = "mouse",
+        [X52D_MOD_COMMAND] = "command",
+    };
+
+    // This corresponds to the levels in pinelog
+    static const struct level_map loglevels[] = {
+        {PINELOG_LVL_NOTSET, "default"},
+        {PINELOG_LVL_NONE, "none"},
+        {PINELOG_LVL_FATAL, "fatal"},
+        {PINELOG_LVL_ERROR, "error"},
+        {PINELOG_LVL_WARNING, "warning"},
+        {PINELOG_LVL_INFO, "info"},
+        {PINELOG_LVL_DEBUG, "debug"},
+        {PINELOG_LVL_TRACE, "trace"},
+        {0, NULL},
+    };
+
+    if (argc < 2) {
+        ERR("Insufficient arguments for 'config' command");
+        return;
+    }
+
+    // logging show [module]
+    MATCH(1, "show") {
+        if (argc == 2) {
+            // Show default logging level
+            DATA(lmap_get_string(loglevels, pinelog_get_level()));
+        } else if (argc == 3) {
+            int module = array_find_index(modules, X52D_MOD_MAX, argv[2]);
+            if (module == X52D_MOD_MAX) {
+                ERR_fmt("Invalid module '%s'", argv[2]);
+            } else {
+                DATA(lmap_get_string(loglevels, pinelog_get_module_level(module)));
+            }
+        } else {
+            ERR_fmt("Unexpected arguments for 'logging show' command; got %d, expected 2 or 3", argc);
+        }
+
+        return;
+    }
+
+    // logging set [module] <level>
+    MATCH(1, "set") {
+        if (argc == 3) {
+            int level = lmap_get_level(loglevels, argv[2], INT_MAX);
+            if (level == INT_MAX) {
+                ERR_fmt("Unknown level '%s' for 'logging set' command", argv[2]);
+            } else if (level == PINELOG_LVL_NOTSET) {
+                ERR("'default' level is not valid without a module");
+            } else {
+                pinelog_set_level(level);
+                OK("logging", "set", argv[2]);
+            }
+        } else if (argc == 4) {
+            int level = lmap_get_level(loglevels, argv[3], INT_MAX);
+            int module = array_find_index(modules, X52D_MOD_MAX, argv[2]);
+
+            if (module == X52D_MOD_MAX) {
+                ERR_fmt("Invalid module '%s'", argv[2]);
+                return;
+            }
+
+            if (level == INT_MAX) {
+                ERR_fmt("Unknown level '%s' for 'logging set' command", argv[3]);
+            } else {
+                pinelog_set_module_level(module, level);
+                OK("logging", "set", argv[2], argv[3]);
+            }
+        } else {
+            ERR_fmt("Unexpected arguments for 'logging set' command; got %d, expected 3 or 4", argc);
+        }
+
+        return;
+    }
+
+    ERR_fmt("Unknown subcommand '%s' for 'logging' command", argv[1]);
 }
 
 static void command_parser(char *buffer, int *buflen)
@@ -330,6 +462,8 @@ static void command_parser(char *buffer, int *buflen)
 
     MATCH(0, "config") {
         cmd_config(buffer, buflen, argc, argv);
+    } else MATCH(0, "logging") {
+        cmd_logging(buffer, buflen, argc, argv);
     } else {
         ERR_fmt("Unknown command '%s'", argv[0]);
     }
