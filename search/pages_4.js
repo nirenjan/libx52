@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['x52_20driver_20daemon_364',['X52 driver daemon',['../x52d.html',1,'']]],
-  ['x52_20daemon_20socket_20communication_20protocol_365',['X52 daemon socket communication protocol',['../x52d_protocol.html',1,'']]]
+  ['saitek_20x52_2fx52pro_20drivers_20for_20linux_2funix_364',['Saitek X52/X52Pro drivers for Linux/Unix',['../index.html',1,'']]],
+  ['system_20information_20utility_20for_20bug_20reports_365',['System information utility for bug reports',['../x52bugreport.html',1,'']]]
 ];

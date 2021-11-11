@@ -97,7 +97,7 @@ $(function() {
 <div class="line"> </div>
 <div class="line"><span class="comment">// Close the library and any associated devices</span></div>
 <div class="line"><a class="code" href="group__libx52init.html#ga17fe14ab3f67706b2d35c6cce3cd670b">libx52_exit</a>(dev);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md32"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md36"></a>
 Joystick Updates</h1>
 <p>Most libx52 functions to update the joystick state do not directly write to the connected joystick, but only update internal data structures within the device context. In order to actually update the joystick, the application must call <a class="el" href="group__libx52misc.html#ga5d1fdbcab1b1a6cf8a10c206f8e79f73">libx52_update</a>. This function writes the updates to the joystick and resets any internal state.</p>
 <p><b>Example</b> </p>
@@ -105,11 +105,11 @@ Joystick Updates</h1>
 <div class="line"><a class="code" href="group__libx52mfdled.html#ga4f2b73685a4eb307895e08a02903bb39">libx52_set_text</a>(dev, 1, <span class="stringliteral">&quot;   X52 Flight   &quot;</span>, 16);</div>
 <div class="line"><a class="code" href="group__libx52mfdled.html#ga4f2b73685a4eb307895e08a02903bb39">libx52_set_text</a>(dev, 2, <span class="stringliteral">&quot; Control System &quot;</span>, 16);</div>
 <div class="line"><a class="code" href="group__libx52misc.html#ga5d1fdbcab1b1a6cf8a10c206f8e79f73">libx52_update</a>(dev);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md33"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md37"></a>
 Error handling</h1>
 <p>Most libx52 functions return a standard <a class="el" href="group__libx52misc.html#ga93b777d9cea6e733b63c222e6115ccb7">libx52_error_code</a> integer value that indicates the status of the operation. As long as the operation succeeded, the function will return <a class="el" href="group__libx52misc.html#gga93b777d9cea6e733b63c222e6115ccb7a8c4729a9500f0b9032d874ca7942b708">LIBX52_SUCCESS</a>. Other values returned indicate a failure of some sort.</p>
 <p><a class="el" href="group__libx52str.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">libx52_strerror</a> can convert the return code into a descriptive string that may be displayed to users.</p>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md38"></a>
 Internationalization of error strings</h2>
 <p><a class="el" href="group__libx52str.html#gaa29a1022b0c3eb4894ddfd4934c3cf0e">libx52_strerror</a> automatically handles internationalization. As long as your application sets up the locale correctly, and the error strings have been translated to that locale, the returned strings will correspond to the translated values for your locale. </p>
 </div></div><!-- contents -->

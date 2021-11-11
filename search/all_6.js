@@ -157,5 +157,6 @@ var searchData=
   ['libx52io_5fstrerror_167',['libx52io_strerror',['../group__libx52io.html#ga5d067ef607c6b1cf4e7899d4c28c9f9d',1,'libx52io.h']]],
   ['libx52io_5fsuccess_168',['LIBX52IO_SUCCESS',['../group__libx52io.html#gga97c754361b4ac2fff7afb12598c8b344aa0e7bdbfd58024e6e9c3abdd19f62dc3',1,'libx52io.h']]],
   ['libx52util_2eh_169',['libx52util.h',['../libx52util_8h.html',1,'']]],
-  ['libx52util_5fconvert_5futf8_5fstring_170',['libx52util_convert_utf8_string',['../group__libx52util.html#gac5a9279cba660740580e18029e827817',1,'libx52util.h']]]
+  ['libx52util_5fconvert_5futf8_5fstring_170',['libx52util_convert_utf8_string',['../group__libx52util.html#gac5a9279cba660740580e18029e827817',1,'libx52util.h']]],
+  ['logging_20management_171',['Logging management',['../proto_logging.html',1,'x52d_protocol']]]
 ];
