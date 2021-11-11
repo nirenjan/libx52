@@ -32,7 +32,7 @@ test_CFLAGS = \
 	-DPINELOG_DEFAULT_STREAM=stderr \
 	-DPINELOG_TEST -I $(top_builddir)
 
-LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
+LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh --comments
 TESTS = \
 	fp_test_ts_lvl_tr \
 	fp_test_ts_lvl_notr \
