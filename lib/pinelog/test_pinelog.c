@@ -34,6 +34,12 @@ static FILE *observed_stream_r;
 static char expected_output[1024];
 static size_t expected_len;
 
+time_t time(time_t *p)
+{
+    // Override the time function from libc
+    return 1636671600;
+}
+
 static void test_case(const char *desc, bool test)
 {
     test_id++;
