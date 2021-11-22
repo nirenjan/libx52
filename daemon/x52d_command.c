@@ -378,7 +378,7 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
     };
 
     if (argc < 2) {
-        ERR("Insufficient arguments for 'config' command");
+        ERR("Insufficient arguments for 'logging' command");
         return;
     }
 
