@@ -103,11 +103,6 @@ int x52d_config_save_file(struct x52d_config *cfg, const char *cfg_file)
         return EINVAL;
     }
 
-    if (current_section) {
-        free(current_section);
-    }
-    current_section = NULL;
-
     cfg_fp = fopen(cfg_file, "w");
     if (cfg_fp == NULL) {
         PINELOG_ERROR(_("Unable to save config file %s - code %d: %s"),

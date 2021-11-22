@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-10 10:23-0800\n"
+"POT-Creation-Date: 2021-11-22 10:08-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -698,12 +698,12 @@ msgstr ""
 msgid "Error %d saving configuration file: %s"
 msgstr ""
 
-#: daemon/x52d_config_dump.c:113
+#: daemon/x52d_config_dump.c:108
 #, c-format
 msgid "Unable to save config file %s - code %d: %s"
 msgstr ""
 
-#: daemon/x52d_config_dump.c:131
+#: daemon/x52d_config_dump.c:126
 #, c-format
 msgid "Failed to dump %s.%s to config file %s"
 msgstr ""
