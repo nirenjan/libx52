@@ -24,103 +24,14 @@
 #include "x52d_const.h"
 #include "x52d_command.h"
 #include "x52d_config.h"
+#include "x52d_client.h"
 #include "x52dcomm-internal.h"
 
-#define MAX_CONN    (X52D_MAX_CLIENTS + 1)
-
-#define INVALID_CLIENT -1
-
 static int client_fd[X52D_MAX_CLIENTS];
-static int active_clients;
 
 static pthread_t command_thr;
 static int command_sock_fd;
 static const char *command_sock;
-
-static void register_client(int sock_fd)
-{
-    int fd;
-
-    if (active_clients >= X52D_MAX_CLIENTS) {
-        /* Ignore the incoming connection */
-        return;
-    }
-
-    fd = accept(sock_fd, NULL, NULL);
-    if (fd < 0) {
-        PINELOG_ERROR(_("Error accepting client connection on command socket: %s"),
-                      strerror(errno));
-        return;
-    }
-
-    PINELOG_TRACE("Accepted client %d on command socket", fd);
-
-    for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
-        if (client_fd[i] == INVALID_CLIENT) {
-            client_fd[i] = fd;
-            active_clients++;
-            break;
-        }
-    }
-}
-
-static void deregister_client(int fd)
-{
-    for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
-        if (client_fd[i] == fd) {
-            client_fd[i] = INVALID_CLIENT;
-            active_clients--;
-            close(fd);
-
-            PINELOG_TRACE("Disconnected client %d from command socket", fd);
-            break;
-        }
-    }
-
-}
-
-static void client_error(int fd)
-{
-    int error;
-    socklen_t errlen = sizeof(error);
-
-    getsockopt(fd, SOL_SOCKET, SO_ERROR, (void *)&error, &errlen);
-    PINELOG_ERROR(_("Error when polling command socket: FD %d, error %d, len %lu"),
-                  fd, error, (unsigned long int)errlen);
-    deregister_client(fd);
-}
-
-static int poll_clients(int sock_fd, struct pollfd *pfd)
-{
-    int pfd_count;
-    int rc;
-
-    memset(pfd, 0, sizeof(*pfd) * MAX_CONN);
-
-    pfd_count = 1;
-    pfd[0].fd = sock_fd;
-    pfd[0].events = POLLIN | POLLERR;
-    for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
-        if (client_fd[i] != INVALID_CLIENT) {
-            pfd[pfd_count].fd = client_fd[i];
-            pfd[pfd_count].events = POLLIN | POLLERR | POLLHUP;
-            pfd_count++;
-        }
-    }
-
-    PINELOG_TRACE("Polling %d file descriptors", pfd_count);
-    rc = poll(pfd, pfd_count, -1);
-    if (rc < 0) {
-        if (errno != EINTR) {
-            PINELOG_ERROR(_("Error when polling for command: %s"), strerror(errno));
-            return -1;
-        }
-    } else if (rc == 0) {
-        PINELOG_INFO(_("Timed out when polling for command"));
-    }
-
-    return rc;
-}
 
 #if defined __has_attribute
 #   if __has_attribute(format)
@@ -131,7 +42,7 @@ static void response_formatted(char *buffer, int *buflen, const char *type,
                                const char *fmt, ...)
 {
     va_list ap;
-    char response[1024];
+    char response[X52D_BUFSZ];
     int resplen;
     int typelen;
 
@@ -152,7 +63,7 @@ static void response_formatted(char *buffer, int *buflen, const char *type,
 static void response_strings(char *buffer, int *buflen, const char *type, int count, ...)
 {
     va_list ap;
-    char response[1024];
+    char response[X52D_BUFSZ];
     int resplen;
     int arglen;
     int i;
@@ -351,6 +262,7 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
         [X52D_MOD_LED] = "led",
         [X52D_MOD_MOUSE] = "mouse",
         [X52D_MOD_COMMAND] = "command",
+        [X52D_MOD_CLIENT] = "client",
     };
 
     // This corresponds to the levels in pinelog
@@ -430,24 +342,9 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
 static void command_parser(char *buffer, int *buflen)
 {
     int argc = 0;
-    char *argv[1024] = { 0 };
-    int i = 0;
+    char *argv[X52D_BUFSZ] = { 0 };
 
-    while (i < *buflen) {
-        if (buffer[i]) {
-            argv[argc] = buffer + i;
-            argc++;
-            for (; i < *buflen && buffer[i]; i++);
-            // At this point, buffer[i] = '\0'
-            // Skip to the next character.
-            i++;
-        } else {
-            // We should never reach here, unless we have two NULs in a row
-            argv[argc] = buffer + i;
-            argc++;
-            i++;
-        }
-    }
+    x52d_split_args(&argc, argv, buffer, *buflen);
 
     MATCH(0, "config") {
         cmd_config(buffer, buflen, argc, argv);
@@ -458,50 +355,41 @@ static void command_parser(char *buffer, int *buflen)
     }
 }
 
+static void client_handler(int fd)
+{
+    char buffer[X52D_BUFSZ] = { 0 };
+    int sent;
+    int rc;
+
+    rc = recv(fd, buffer, sizeof(buffer), 0);
+    if (rc < 0) {
+        PINELOG_ERROR(_("Error reading from client %d: %s"),
+                      fd, strerror(errno));
+        return;
+    }
+
+    // Parse and handle command.
+    command_parser(buffer, &rc);
+
+    PINELOG_TRACE("Sending %d bytes in response '%s'", rc, buffer);
+    sent = send(fd, buffer, rc, 0);
+    if (sent != rc) {
+        PINELOG_ERROR(_("Short write to client %d; expected %d bytes, wrote %d bytes"),
+                      fd, rc, sent);
+    }
+}
+
 int x52d_command_loop(int sock_fd)
 {
     struct pollfd pfd[MAX_CONN];
     int rc;
-    int i;
 
-    rc = poll_clients(sock_fd, pfd);
+    rc = x52d_client_poll(client_fd, pfd, sock_fd);
     if (rc <= 0) {
         return -1;
     }
 
-    for (i = 0; i < MAX_CONN; i++) {
-        if (pfd[i].revents & POLLHUP) {
-            /* Remote hungup */
-            deregister_client(pfd[i].fd);
-        } else if (pfd[i].revents & POLLERR) {
-            /* Error reading from the socket */
-            client_error(pfd[i].fd);
-        } else if (pfd[i].revents & POLLIN) {
-            if (pfd[i].fd == sock_fd) {
-                register_client(sock_fd);
-            } else {
-                char buffer[1024] = { 0 };
-                int sent;
-
-                rc = recv(pfd[i].fd, buffer, sizeof(buffer), 0);
-                if (rc < 0) {
-                    PINELOG_ERROR(_("Error reading from client %d: %s"),
-                                  pfd[i].fd, strerror(errno));
-                    continue;
-                }
-
-                // Parse and handle command.
-                command_parser(buffer, &rc);
-
-                PINELOG_TRACE("Sending %d bytes in response '%s'", rc, buffer);
-                sent = send(pfd[i].fd, buffer, rc, 0);
-                if (sent != rc) {
-                    PINELOG_ERROR(_("Short write to client %d; expected %d bytes, wrote %d bytes"),
-                                  pfd[i].fd, rc, sent);
-                }
-            }
-        }
-    }
+    x52d_client_handle(client_fd, pfd, sock_fd, client_handler);
 
     return 0;
 }
@@ -525,11 +413,7 @@ int x52d_command_init(const char *sock_path)
     struct sockaddr_un local;
     int flags;
 
-    for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
-        client_fd[i] = INVALID_CLIENT;
-    }
-
-    active_clients = 0;
+    x52d_client_init(client_fd);
 
     command_sock = sock_path;
     command_sock_fd = -1;

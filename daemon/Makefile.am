@@ -12,11 +12,14 @@ x52d_SOURCES = \
 	daemon/x52d_config_dump.c \
 	daemon/x52d_config.c \
 	daemon/x52d_device.c \
+	daemon/x52d_client.c \
 	daemon/x52d_clock.c \
 	daemon/x52d_mouse.c \
+	daemon/x52d_notify.c \
 	daemon/x52d_led.c \
 	daemon/x52d_command.c \
-	daemon/x52d_comm_internal.c
+	daemon/x52d_comm_internal.c \
+	daemon/x52d_comm_client.c
 
 x52d_CFLAGS = \
 	-I $(top_srcdir) \
@@ -83,6 +86,7 @@ EXTRA_DIST += \
 	daemon/daemon.dox \
 	daemon/protocol.dox \
 	daemon/x52d.service.in \
+	daemon/x52d_client.h \
 	daemon/x52d_clock.h \
 	daemon/x52d_config.def \
 	daemon/x52d_config.h \
@@ -90,6 +94,7 @@ EXTRA_DIST += \
 	daemon/x52d_device.h \
 	daemon/x52d_io.h \
 	daemon/x52d_mouse.h \
+	daemon/x52d_notify.h \
 	daemon/x52d_command.h \
 	daemon/x52dcomm.h \
 	daemon/x52dcomm-internal.h \

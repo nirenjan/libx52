@@ -18,6 +18,7 @@
 #define X52D_PID_FILE   RUNDIR "/" X52D_APP_NAME ".pid"
 
 #define X52D_SOCK_COMMAND   RUNDIR "/" X52D_APP_NAME ".cmd"
+#define X52D_SOCK_NOTIFY    RUNDIR "/" X52D_APP_NAME ".notify"
 
 #include "gettext.h"
 #define N_(x) gettext_noop(x)
@@ -33,6 +34,8 @@ enum {
     X52D_MOD_LED,
     X52D_MOD_MOUSE,
     X52D_MOD_COMMAND,
+    X52D_MOD_CLIENT,
+    X52D_MOD_NOTIFY,
 
     X52D_MOD_MAX
 };

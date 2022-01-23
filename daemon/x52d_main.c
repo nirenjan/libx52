@@ -23,6 +23,7 @@
 #include "x52d_io.h"
 #include "x52d_mouse.h"
 #include "x52d_command.h"
+#include "x52d_notify.h"
 #include "x52dcomm-internal.h"
 #include "x52dcomm.h"
 #include "pinelog.h"
@@ -90,7 +91,8 @@ static void usage(int exit_code)
             _("Usage: %s [-f] [-v] [-q]\n"
               "\t[-l log-file] [-o override]\n"
               "\t[-c config-file] [-p pid-file]\n"
-              "\t[-s command-socket-path]\n"),
+              "\t[-s command-socket-path]\n"
+              "\t[-b notify-socket-path]\n"),
             X52D_APP_NAME);
     exit(exit_code);
 }
@@ -205,6 +207,7 @@ int main(int argc, char **argv)
     char *conf_file = NULL;
     const char *pid_file = NULL;
     const char *command_sock = NULL;
+    const char *notify_sock = NULL;
     int opt;
     int rc;
     sigset_t sigblockset;
@@ -231,8 +234,9 @@ int main(int argc, char **argv)
      * -l   path to log file
      * -p   path to PID file (only used if running in background)
      * -s   path to command socket
+     * -b   path to notify socket
      */
-    while ((opt = getopt(argc, argv, "fvql:o:c:p:s:h")) != -1) {
+    while ((opt = getopt(argc, argv, "fvql:o:c:p:s:b:h")) != -1) {
         switch (opt) {
         case 'f':
             foreground = true;
@@ -277,6 +281,10 @@ int main(int argc, char **argv)
             command_sock = optarg;
             break;
 
+        case 'b':
+            notify_sock = optarg;
+            break;
+
         case 'h':
             usage(EXIT_SUCCESS);
             break;
@@ -314,6 +322,7 @@ int main(int argc, char **argv)
     if (x52d_command_init(command_sock) < 0) {
         goto cleanup;
     }
+    x52d_notify_init(notify_sock);
     #if defined(HAVE_EVDEV)
     x52d_io_init();
     x52d_mouse_evdev_init();
@@ -355,6 +364,7 @@ cleanup:
     x52d_clock_exit();
     x52d_dev_exit();
     x52d_command_exit();
+    x52d_notify_exit();
     #if defined(HAVE_EVDEV)
     x52d_mouse_evdev_exit();
     x52d_io_exit();

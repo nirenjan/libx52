@@ -46,6 +46,7 @@ string "quit", or terminates input by using Ctrl+D.
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "x52d_const.h"
 #include "x52dcomm.h"
@@ -65,19 +66,13 @@ static int send_command(int sock_fd, int argc, char **argv)
     int rc;
     char buffer[1024];
     int buflen;
-    int i;
 
-    memset(buffer, 0, sizeof(buffer));
-    buflen = 0;
-    for (i = 0; i < argc; i++) {
-        int arglen = strlen(argv[i]) + 1;
-        if ((size_t)(buflen + arglen) >= sizeof(buffer)) {
+    buflen = x52d_format_command(argc, (const char **)argv, buffer, sizeof(buffer));
+    if (buflen < 0) {
+        if (errno == E2BIG) {
             fprintf(stderr, _("Argument length too long\n"));
-            return -1;
         }
-
-        memcpy(&buffer[buflen], argv[i], arglen);
-        buflen += arglen;
+        return -1;
     }
 
     rc = x52d_send_command(sock_fd, buffer, buflen, sizeof(buffer));

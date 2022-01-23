@@ -665,51 +665,51 @@ msgstr ""
 msgid "Timed out when polling for command"
 msgstr ""
 
-#: daemon/x52d_command.c:488
+#: daemon/x52d_command.c:473
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:499
+#: daemon/x52d_command.c:484
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_command.c:513
+#: daemon/x52d_command.c:498
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:545
+#: daemon/x52d_command.c:530
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:552
+#: daemon/x52d_command.c:537
 #, c-format
 msgid "Error getting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:556
+#: daemon/x52d_command.c:541
 #, c-format
 msgid "Error setting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:564
+#: daemon/x52d_command.c:549
 #, c-format
 msgid "Error binding to command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:569
+#: daemon/x52d_command.c:554
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:579
+#: daemon/x52d_command.c:564
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/x52d_command.c:597
+#: daemon/x52d_command.c:582
 msgid "Shutting down command processing thread"
 msgstr ""
 
