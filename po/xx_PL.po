@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-22 10:08-0800\n"
+"POT-Creation-Date: 2022-02-03 11:11-0800\n"
 "PO-Revision-Date: 2021-11-04 15:35-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -913,7 +913,7 @@ msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 
-#: daemon/x52d_mouse_evdev.c:232
+#: daemon/x52d_mouse_evdev.c:236
 #, c-format
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay: %s"

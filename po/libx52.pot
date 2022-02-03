@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2021-11-22 10:08-0800\n"
+"POT-Creation-Date: 2022-02-03 11:11-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -861,7 +861,7 @@ msgstr ""
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:232
+#: daemon/x52d_mouse_evdev.c:236
 #, c-format
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr ""

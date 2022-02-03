@@ -197,6 +197,10 @@ void x52d_mouse_report_event(libx52io_report *report)
     if (report) {
         memcpy((void *)&new_report, report, sizeof(new_report));
 
+        if (!mouse_uidev_created || !mouse_thr_enabled) {
+            return;
+        }
+
         state_changed = false;
         state_changed |= (0 == report_button_change(BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
         state_changed |= (0 == report_button_change(BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
