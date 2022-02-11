@@ -273,6 +273,7 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
                 ERR_fmt("Error %d setting '%s.%s'='%s': %s", rc,
                         argv[2], argv[3], argv[4], strerror(rc));
             } else {
+                x52d_config_apply_immediate(argv[2], argv[3]);
                 OK("config", "set", argv[2], argv[3], argv[4]);
             }
         } else {
@@ -291,16 +292,6 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
             }
         } else {
             ERR_fmt("Unexpected arguments for 'config get' command; got %d, expected 4", argc);
-        }
-        return;
-    }
-
-    MATCH(1, "apply") {
-        if (argc == 2) {
-            x52d_config_apply();
-            OK("config", "apply");
-        } else {
-            ERR_fmt("Unexpected arguments for 'config apply' command; got %d, expected 2", argc);
         }
         return;
     }

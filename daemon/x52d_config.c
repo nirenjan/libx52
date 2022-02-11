@@ -89,6 +89,20 @@ void x52d_cfg_set_Profiles_Directory(char* param) { (void)param; }
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param) { (void)param; }
 void x52d_cfg_set_Profiles_ClutchLatched(bool param) { (void)param; }
 
+void x52d_config_apply_immediate(const char *section, const char *key)
+{
+#define CFG(c_sec, c_key, name, parser, def) \
+    if (!strcasecmp(section, #c_sec) && !strcasecmp(key, #c_key)) { \
+        PINELOG_TRACE("Invoking " #c_sec "." #c_key " callback"); \
+        x52d_cfg_set_ ## c_sec ## _ ## c_key(x52d_config . name); \
+    } else
+
+#include "x52d_config.def"
+    // Dummy to capture the trailing else
+    // Wrap it in braces in case tracing has been disabled
+    { PINELOG_TRACE("Ignoring apply_immediate(%s.%s)", section, key); }
+}
+
 void x52d_config_apply(void)
 {
     #define CFG(section, key, name, parser, def) \
