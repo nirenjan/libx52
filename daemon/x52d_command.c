@@ -143,7 +143,7 @@ static void response_formatted(char *buffer, int *buflen, const char *type,
 
     if (*fmt) {
         va_start(ap, fmt);
-        resplen += vsnprintf(response + typelen, sizeof(response) - typelen, fmt, ap);
+        resplen += vsnprintf(response + typelen, sizeof(response) - typelen, fmt, ap) + 1;
         va_end(ap);
     }
 
