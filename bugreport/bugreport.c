@@ -38,18 +38,18 @@ static void print_devinfo(void)
     puts("");
     puts("Device info:");
     puts("============");
-    #define CHECK_RC() do { \
-        if (rc != LIBX52IO_SUCCESS) { \
-            puts(libx52io_strerror(rc)); \
-            return; \
-        } \
-    } while (0)
 
     rc = libx52io_init(&ctx);
-    CHECK_RC();
+    if (rc != LIBX52IO_SUCCESS) {
+        puts(libx52io_strerror(rc));
+        return;
+    }
 
     rc = libx52io_open(ctx);
-    CHECK_RC();
+    if (rc != LIBX52IO_SUCCESS) {
+        puts(libx52io_strerror(rc));
+        goto devinfo_cleanup;
+    }
 
     printf("Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n",
            libx52io_get_vendor_id(ctx),
@@ -60,6 +60,10 @@ static void print_devinfo(void)
            libx52io_get_product_string(ctx));
     printf("Serial number: '%s'\n",
            libx52io_get_serial_number_string(ctx));
+
+    libx52io_close(ctx);
+devinfo_cleanup:
+    libx52io_exit(ctx);
 }
 
 int main(int argc, char **argv)
