@@ -1,0 +1,183 @@
+Set clock enabled to false
+config set clock enabled false
+OK config set clock enabled false
+
+Verify clock enabled was set to false
+config get clock enabled
+DATA clock enabled false
+
+Set clock enabled to true
+config set clock enabled true
+OK config set clock enabled true
+
+Verify clock enabled was set to true
+config get clock enabled
+DATA clock enabled true
+
+Set clock PrimaryIsLocal to no
+config set clock PrimaryIsLocal no
+OK config set clock PrimaryIsLocal no
+
+Verify clock PrimaryIsLocal was set to false (no)
+config get clock PrimaryIsLocal
+DATA clock PrimaryIsLocal false
+
+Set clock PrimaryIsLocal to yes
+config set clock PrimaryIsLocal yes
+OK config set clock PrimaryIsLocal yes
+
+Verify clock PrimaryIsLocal was set to true (yes)
+config get clock PrimaryIsLocal
+DATA clock PrimaryIsLocal true
+
+Set clock PrimaryIsLocal to invalid value
+config set clock PrimaryIsLocal foo
+ERR "Error 22 setting 'clock.PrimaryIsLocal'='foo': Invalid argument"
+
+Verify clock PrimaryIsLocal was not changed
+config get clock PrimaryIsLocal
+DATA clock PrimaryIsLocal true
+
+Set clock secondary to America/Los_Angeles
+config set clock secondary America/Los_Angeles
+OK config set clock secondary America/Los_Angeles
+
+Verify clock secondary was set to America/Los_Angeles
+config get clock secondary
+DATA clock secondary America/Los_Angeles
+
+Set clock secondary to UTC
+config set clock secondary UTC
+OK config set clock secondary UTC
+
+Verify clock secondary was set to UTC
+config get clock secondary
+DATA clock secondary UTC
+
+Set clock tertiary to America/Los_Angeles
+config set clock tertiary America/Los_Angeles
+OK config set clock tertiary America/Los_Angeles
+
+Verify clock tertiary was set to America/Los_Angeles
+config get clock tertiary
+DATA clock tertiary America/Los_Angeles
+
+Set clock tertiary to UTC
+config set clock tertiary UTC
+OK config set clock tertiary UTC
+
+Verify clock tertiary was set to UTC
+config get clock tertiary
+DATA clock tertiary UTC
+
+Set clock formatprimary to 24hr
+config set clock formatprimary 24hr
+OK config set clock formatprimary 24hr
+
+Verify clock formatprimary was set to 24hr
+config get clock formatprimary
+DATA clock formatprimary '24 hour'
+
+Set clock formatprimary to 12hr
+config set clock formatprimary 12hr
+OK config set clock formatprimary 12hr
+
+Verify clock formatprimary was set to 12hr
+config get clock formatprimary
+DATA clock formatprimary '12 hour'
+
+Set clock formatsecondary to 24hr
+config set clock formatsecondary 24hr
+OK config set clock formatsecondary 24hr
+
+Verify clock formatsecondary was set to 24hr
+config get clock formatsecondary
+DATA clock formatsecondary '24 hour'
+
+Set clock formatsecondary to 12hr
+config set clock formatsecondary 12hr
+OK config set clock formatsecondary 12hr
+
+Verify clock formatsecondary was set to 12hr
+config get clock formatsecondary
+DATA clock formatsecondary '12 hour'
+
+Set clock formattertiary to 24
+config set clock formattertiary 24
+OK config set clock formattertiary 24
+
+Verify clock formattertiary was set to 24
+config get clock formattertiary
+DATA clock formattertiary '24 hour'
+
+Set clock formattertiary to 12
+config set clock formattertiary 12
+OK config set clock formattertiary 12
+
+Verify clock formattertiary was set to 12
+config get clock formattertiary
+DATA clock formattertiary '12 hour'
+
+Set clock formattertiary to invalid value
+config set clock formattertiary '12 hour'
+ERR "Error 22 setting 'clock.formattertiary'='12 hour': Invalid argument"
+
+Verify clock formattertiary was not changed
+config get clock formattertiary
+DATA clock formattertiary '12 hour'
+
+Set clock dateformat to yymmdd
+config set clock dateformat yymmdd
+OK config set clock dateformat yymmdd
+
+Verify clock dateformat was set to yymmdd
+config get clock dateformat
+DATA clock dateformat YY-MM-DD
+
+Set clock dateformat to mmddyy
+config set clock dateformat mmddyy
+OK config set clock dateformat mmddyy
+
+Verify clock dateformat was set to mmddyy
+config get clock dateformat
+DATA clock dateformat MM-DD-YY
+
+Set clock dateformat to ddmmyy
+config set clock dateformat ddmmyy
+OK config set clock dateformat ddmmyy
+
+Verify clock dateformat was set to ddmmyy
+config get clock dateformat
+DATA clock dateformat DD-MM-YY
+
+Set clock dateformat to yy-mm-dd
+config set clock dateformat yy-mm-dd
+OK config set clock dateformat yy-mm-dd
+
+Verify clock dateformat was set to yy-mm-dd
+config get clock dateformat
+DATA clock dateformat YY-MM-DD
+
+Set clock dateformat to mm-dd-yy
+config set clock dateformat mm-dd-yy
+OK config set clock dateformat mm-dd-yy
+
+Verify clock dateformat was set to mm-dd-yy
+config get clock dateformat
+DATA clock dateformat MM-DD-YY
+
+Set clock dateformat to dd-mm-yy
+config set clock dateformat dd-mm-yy
+OK config set clock dateformat dd-mm-yy
+
+Verify clock dateformat was set to dd-mm-yy
+config get clock dateformat
+DATA clock dateformat DD-MM-YY
+
+Set clock dateformat to invalid value
+config set clock dateformat foo-bar-baz
+ERR "Error 22 setting 'clock.dateformat'='foo-bar-baz': Invalid argument"
+
+Verify clock dateformat was not changed
+config get clock dateformat
+DATA clock dateformat DD-MM-YY
