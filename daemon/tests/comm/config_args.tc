@@ -61,3 +61,19 @@ ERR "Unknown subcommand '' for 'config' command"
 Config command with unknown subcommand
 config foo
 ERR "Unknown subcommand 'foo' for 'config' command"
+
+Get configuration with fewer arguments
+config get
+ERR "Unexpected arguments for 'config get' command; got 2, expected 4"
+
+Get configuration with extra arguments
+config get foo bar baz
+ERR "Unexpected arguments for 'config get' command; got 5, expected 4"
+
+Set configuration with fewer arguments
+config set
+ERR "Unexpected arguments for 'config set' command; got 2, expected 5"
+
+Set configuration with extra arguments
+config set foo bar baz quux
+ERR "Unexpected arguments for 'config set' command; got 6, expected 5"
