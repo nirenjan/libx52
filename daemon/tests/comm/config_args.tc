@@ -1,0 +1,63 @@
+Configuration with insufficient arguments
+config
+ERR "Insufficient arguments for 'config' command"
+
+Load with invalid file argument
+config load ''
+ERR "Invalid file '' for 'config load' command"
+
+Load with nonexistent file argument
+config load /nonexistent
+ERR "Invalid file '/nonexistent' for 'config load' command"
+
+Load with empty file argument
+config load /dev/null
+OK config load /dev/null
+
+Load with extra arguments
+config load /dev/null ''
+ERR "Unexpected arguments for 'config load' command; got 4, expected 3"
+
+Load with missing argument
+config load
+ERR "Unexpected arguments for 'config load' command; got 2, expected 3"
+
+Reload configuration
+config reload
+OK config reload
+
+Reload configuration with extra arguments
+config reload ''
+ERR "Unexpected arguments for 'config reload' command; got 3, expected 2"
+
+Dump configuration with insufficient arguments
+config dump
+ERR "Unexpected arguments for 'config dump' command; got 2, expected 3"
+
+Dump configuration with invalid file
+config dump ''
+ERR "Invalid file '' for 'config dump' command"
+
+Dump configuration with extra arguments
+config dump /dev/null ''
+ERR "Unexpected arguments for 'config dump' command; got 4, expected 3"
+
+Dump configuration to /dev/null
+config dump /dev/null
+OK config dump /dev/null
+
+Save configuration
+config save
+OK config save
+
+Save configuration with extra arguments
+config save ''
+ERR "Unexpected arguments for 'config save' command; got 3, expected 2"
+
+Config command with empty subcommand
+config ''
+ERR "Unknown subcommand '' for 'config' command"
+
+Config command with unknown subcommand
+config foo
+ERR "Unknown subcommand 'foo' for 'config' command"

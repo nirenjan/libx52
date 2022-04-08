@@ -95,6 +95,13 @@ EXTRA_DIST += \
 	daemon/x52dcomm-internal.h \
 	daemon/x52d.conf
 
+# Test cases
+EXTRA_DIST += \
+	daemon/test_daemon_comm.py \
+	daemon/tests/comm/config_args.tc
+
+TESTS += daemon/test_daemon_comm.py
+
 if HAVE_SYSTEMD
 if !IS_MAKE_DISTCHECK
 SED_ARGS = s,%bindir%,$(bindir),g
