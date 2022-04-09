@@ -127,6 +127,11 @@ class Test:
         if self.daemon is None:
             return
 
+        # Close the command socket and wait 2 seconds for the daemon
+        # to deregister the client
+        self.cmdsock.close()
+        time.sleep(2)
+
         # Send a SIGTERM to the daemon
         os.kill(self.daemon.pid, signal.SIGTERM)
         try:
@@ -136,7 +141,6 @@ class Test:
             self.daemon.kill()
         finally:
             self.daemon = None
-            self.cmdsock.close()
 
     def append(self, testcase):
         """Add one testcase to the test case list"""
