@@ -1,0 +1,47 @@
+Set LED Fire to off
+config set led fire off
+OK config set led fire off
+
+Verify LED Fire was set to off
+config get led fire
+DATA led fire off
+
+Set LED Fire to on
+config set led fire on
+OK config set led fire on
+
+Verify LED Fire was set to on
+config get led fire
+DATA led fire on
+
+Set LED Fire to red TODO: This passes since the LED parser doesn't know the LED name
+config set led fire red
+OK config set led fire red
+
+Verify LED Fire was set to red
+config get led fire
+DATA led fire red
+
+Set LED Fire to amber TODO: This passes since the LED parser doesn't know the LED name
+config set led fire amber
+OK config set led fire amber
+
+Verify LED Fire was set to amber
+config get led fire
+DATA led fire amber
+
+Set LED Fire to green TODO: This passes since the LED parser doesn't know the LED name
+config set led fire green
+OK config set led fire green
+
+Verify LED Fire was set to green
+config get led fire
+DATA led fire green
+
+Set LED Fire to invalid value
+config set led fire foo
+ERR "Error 22 setting 'led.fire'='foo': Invalid argument"
+
+Verify LED Fire was not changed
+config get led fire
+DATA led fire green
