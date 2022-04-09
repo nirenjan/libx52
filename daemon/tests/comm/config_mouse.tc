@@ -1,0 +1,31 @@
+Set mouse speed to 32
+config set mouse speed 32
+OK config set mouse speed 32
+
+Verify mouse speed is set to 32
+config get mouse speed
+DATA mouse speed 32
+
+Set mouse speed to invalid value # TODO: May fail
+config set mouse speed off
+ERR "Error 22 setting 'mouse.speed'='off': Invalid argument"
+
+Verify mouse speed is unchanged # TODO: May fail if previous test failed
+config get mouse speed
+DATA mouse speed 32
+
+Set mouse speed to 33 (Exceeds max speed)
+config set mouse speed 33
+OK config set mouse speed 33
+
+Set mouse speed to 20 (In multiplier range)
+config set mouse speed 20
+OK config set mouse speed 20
+
+Set mouse speed to negative value
+config set mouse speed -1
+OK config set mouse speed -1
+
+Reset mouse speed to minimum
+config set mouse speed 0
+OK config set mouse speed 0
