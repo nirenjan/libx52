@@ -15,6 +15,7 @@
 #include "libusb.h"
 #include "hidapi.h"
 #include "libx52io.h"
+#include "version-info.h"
 
 static void print_sysinfo(void)
 {
@@ -74,6 +75,8 @@ int main(int argc, char **argv)
     puts("================");
     printf("Package version: %s\n", VERSION);
     printf("Build version: %s\n", BUILD_VERSION);
+    printf("Built on: %s\n", BUILD_DATE);
+    printf("version-info %s\n", BUILD_VERSION_INFO_IDENT);
 
     puts("");
     puts("Built against:");

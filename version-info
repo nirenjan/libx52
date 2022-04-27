@@ -1,4 +1,5 @@
 #!/bin/sh
+# Generate the build_info.h header
 # Use the Git version if Git is available, otherwise fallback to Version
 
 top_srcdir="${1-.}"
@@ -13,7 +14,6 @@ version="${top_srcdir}/Version"
 if ! test -n "${GIT_DIR}"
 then
     GIT_DIR="${top_srcdir}/.git"
-    export GIT_DIR
 fi
 
 if test -d "${GIT_DIR}"
@@ -31,4 +31,8 @@ then
     fi
 fi
 
-printf "%s" "${DESCRIBE}"
+cat <<EOM
+#define BUILD_VERSION "${DESCRIBE}"
+#define BUILD_DATE "$(date +%Y-%m-%dT%H:%M:%S%z)"
+EOM
+echo '#define BUILD_VERSION_INFO_IDENT "$Id$"'

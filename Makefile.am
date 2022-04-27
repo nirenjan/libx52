@@ -24,12 +24,25 @@ pkgconfig_DATA =
 TESTS =
 EXTRA_DIST =
 CLEANFILES =
+BUILT_SOURCES =
 
 x52includedir = $(includedir)/libx52
 x52include_HEADERS =
 
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 
+########################################################################
+# Get build version
+########################################################################
+BUILT_SOURCES += version-info.h
+CLEANFILES += version-info.h
+
+version-info.h: ${top_srcdir}/version-info
+	${top_srcdir}/version-info ${top_srcdir} >$@
+
+########################################################################
+# Include automake stubs
+########################################################################
 include libx52/Makefile.am
 include libx52util/Makefile.am
 include libx52io/Makefile.am
@@ -89,7 +102,7 @@ EXTRA_DIST += \
 	LICENSE \
 	README.md \
 	config.rpath \
-	configure.version \
+	version-info \
 	Version \
 	gettext.h \
 	usb-ids.h \

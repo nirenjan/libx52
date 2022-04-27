@@ -26,8 +26,6 @@ AX_GCC_FUNC_ATTRIBUTE([format])
 AX_GCC_FUNC_ATTRIBUTE([noreturn])
 AC_C_TYPEOF
 
-AC_DEFINE([BUILD_VERSION], ["m4_esyscmd([./configure.version])"], [Build version])
-
 AC_MSG_NOTICE([Detected host OS is ${host_os}])
 build_linux=no
 # Detect target system
