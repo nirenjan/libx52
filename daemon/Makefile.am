@@ -114,7 +114,8 @@ x52d_mouse_test_CFLAGS = \
 	$(WARN_CFLAGS)
 x52d_mouse_test_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
 x52d_mouse_test_LDADD = \
-	lib/pinelog/libpinelog.la
+	lib/pinelog/libpinelog.la \
+	@LTLIBINTL@
 
 TESTS += \
 	daemon/test_daemon_comm.py \
