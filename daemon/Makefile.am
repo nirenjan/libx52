@@ -100,7 +100,25 @@ EXTRA_DIST += \
 	daemon/test_daemon_comm.py \
 	daemon/tests/comm/config_args.tc
 
-TESTS += daemon/test_daemon_comm.py
+check_PROGRAMS += x52d-mouse-test
+
+x52d_mouse_test_SOURCES = \
+	daemon/x52d_mouse_test.c \
+	daemon/x52d_mouse.c
+x52d_mouse_test_CFLAGS = \
+	-DLOCALEDIR='"$(localedir)"' \
+	-I $(top_srcdir) \
+	-I $(top_srcdir)/libx52 \
+	-I $(top_srcdir)/libx52io \
+	-I $(top_srcdir)/lib/pinelog \
+	$(WARN_CFLAGS)
+x52d_mouse_test_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
+x52d_mouse_test_LDADD = \
+	lib/pinelog/libpinelog.la
+
+TESTS += \
+	daemon/test_daemon_comm.py \
+	x52d-mouse-test
 
 if HAVE_SYSTEMD
 if !IS_MAKE_DISTCHECK

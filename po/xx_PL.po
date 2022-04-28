@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-02-11 13:23-0800\n"
+"POT-Creation-Date: 2022-04-28 01:49-0700\n"
 "PO-Revision-Date: 2021-11-04 15:35-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -142,11 +142,11 @@ msgstr "YYay-MMay-DDay"
 msgid "Unknown LED state %d"
 msgstr "Unknownay EDLay atestay %d"
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:31
 msgid "off"
 msgstr "offay"
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:31
 msgid "on"
 msgstr "onay"
 
@@ -862,17 +862,17 @@ msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
-#: daemon/x52d_mouse.c:31
+#: daemon/x52d_mouse.c:30
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr "Ettingsay ousemay enableay otay %s"
 
-#: daemon/x52d_mouse.c:47
+#: daemon/x52d_mouse.c:46
 #, c-format
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr "Ignoringay ousemay eedspay %d outsideay upportedsay angeray (0-%d)"
 
-#: daemon/x52d_mouse.c:59
+#: daemon/x52d_mouse.c:58
 #, c-format
 msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
 msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms, ultipliermay %f)"

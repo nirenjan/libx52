@@ -12,7 +12,6 @@
 #include <stdbool.h>
 #include "libx52io.h"
 
-extern volatile bool mouse_enabled;
 extern volatile int mouse_delay;
 extern volatile int mouse_mult;
 

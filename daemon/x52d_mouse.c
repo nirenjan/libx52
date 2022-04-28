@@ -22,7 +22,6 @@
 #define MOUSE_DELAY_MIN     10000
 #define MAX_MOUSE_MULT 5
 
-volatile bool mouse_enabled = false;
 volatile int mouse_delay = DEFAULT_MOUSE_DELAY;
 volatile int mouse_mult = MOUSE_MULT_FACTOR;
 
