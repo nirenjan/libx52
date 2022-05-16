@@ -105,26 +105,26 @@ static void start_daemon(bool foreground, const char *pid_file)
         pid_file = X52D_PID_FILE;
     }
 
-    /* Check if there is an existing daemon process running */
-    pid_fd = fopen(pid_file, "r");
-    if (pid_fd != NULL) {
-        int rc;
+    if (!foreground) {
+        /* Check if there is an existing daemon process running */
+        pid_fd = fopen(pid_file, "r");
+        if (pid_fd != NULL) {
+            int rc;
 
-        /* File exists, read the PID and check if it exists */
-        rc = fscanf(pid_fd, "%u", &pid);
-        fclose(pid_fd);
+            /* File exists, read the PID and check if it exists */
+            rc = fscanf(pid_fd, "%u", &pid);
+            fclose(pid_fd);
 
-        if (rc != 1) {
-            perror("fscanf");
-        } else {
-            rc = kill(pid, 0);
-            if (rc == 0 || (rc < 0 && errno == EPERM)) {
-                PINELOG_FATAL(_("Daemon is already running as PID %u"), pid);
+            if (rc != 1) {
+                perror("fscanf");
+            } else {
+                rc = kill(pid, 0);
+                if (rc == 0 || (rc < 0 && errno == EPERM)) {
+                    PINELOG_FATAL(_("Daemon is already running as PID %u"), pid);
+                }
             }
         }
-    }
 
-    if (!foreground) {
         /* Fork off the parent process */
         pid = fork();
         if (pid < 0) {
@@ -163,25 +163,23 @@ static void start_daemon(bool foreground, const char *pid_file)
             /* Terminate the parent */
             exit(EXIT_SUCCESS);
         }
-    }
 
-    /* Write the PID to the pid_file */
-    pid_fd = fopen(pid_file, "w");
-    if (pid_fd == NULL) {
-        /* Unable to open PID file */
-        perror("fopen");
-        exit(EXIT_FAILURE);
-    }
-    if (fprintf(pid_fd, "%u\n", getpid()) < 0) {
-        perror("fprintf");
-        exit(EXIT_FAILURE);
-    }
-    if (fclose(pid_fd) != 0) {
-        perror("fclose");
-        exit(EXIT_FAILURE);
-    }
+        /* Write the PID to the pid_file */
+        pid_fd = fopen(pid_file, "w");
+        if (pid_fd == NULL) {
+            /* Unable to open PID file */
+            perror("fopen");
+            exit(EXIT_FAILURE);
+        }
+        if (fprintf(pid_fd, "%u\n", getpid()) < 0) {
+            perror("fprintf");
+            exit(EXIT_FAILURE);
+        }
+        if (fclose(pid_fd) != 0) {
+            perror("fclose");
+            exit(EXIT_FAILURE);
+        }
 
-    if (!foreground) {
         /* Set new file permissions */
         umask(0);
 
