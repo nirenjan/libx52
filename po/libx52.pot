@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-04-28 01:49-0700\n"
+"POT-Creation-Date: 2022-05-16 10:47-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -510,98 +510,98 @@ msgid ""
 "\t[-s command-socket-path]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:122
+#: daemon/x52d_main.c:123
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/x52d_main.c:218
+#: daemon/x52d_main.c:216
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:225
+#: daemon/x52d_main.c:223
 #, c-format
 msgid "Error getting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:229
+#: daemon/x52d_main.c:227
 #, c-format
 msgid "Error setting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:237
+#: daemon/x52d_main.c:235
 #, c-format
 msgid "Error binding to command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:242
+#: daemon/x52d_main.c:240
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:317
+#: daemon/x52d_main.c:315
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:345
+#: daemon/x52d_main.c:343
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:345 daemon/x52d_main.c:346
+#: daemon/x52d_main.c:343 daemon/x52d_main.c:344
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:345 daemon/x52d_main.c:346
+#: daemon/x52d_main.c:343 daemon/x52d_main.c:344
 msgid "false"
 msgstr ""
 
-#: daemon/x52d_main.c:346
+#: daemon/x52d_main.c:344
 #, c-format
 msgid "Quiet = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:347
+#: daemon/x52d_main.c:345
 #, c-format
 msgid "Verbosity = %d"
 msgstr ""
 
-#: daemon/x52d_main.c:348
+#: daemon/x52d_main.c:346
 #, c-format
 msgid "Log file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:349
+#: daemon/x52d_main.c:347
 #, c-format
 msgid "Config file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:350
+#: daemon/x52d_main.c:348
 #, c-format
 msgid "PID file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:351
+#: daemon/x52d_main.c:349
 #, c-format
 msgid "Command socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:381
+#: daemon/x52d_main.c:379
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:388
+#: daemon/x52d_main.c:386
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:394
+#: daemon/x52d_main.c:392
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:417
+#: daemon/x52d_main.c:415
 msgid "Shutting down X52 daemon"
 msgstr ""
 
