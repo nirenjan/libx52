@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-06-05 08:22-0700\n"
+"POT-Creation-Date: 2022-06-05 12:59-0700\n"
 "PO-Revision-Date: 2022-06-05 08:51-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -884,43 +884,43 @@ msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms, ultipliermay %f)"
 msgid "Setting mouse reverse scroll to %s"
 msgstr "Ettingsay ousemay everseray ollscray otay %s"
 
-#: daemon/x52d_mouse_evdev.c:43
+#: daemon/x52d_mouse_evdev.c:51
 #, c-format
 msgid "Error writing mouse button event (button %d, state %d)"
 msgstr "Erroray itingwray ousemay uttonbay eventay (uttonbay %d, atestay %d)"
 
-#: daemon/x52d_mouse_evdev.c:69
+#: daemon/x52d_mouse_evdev.c:79
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr "Erroray itingwray ousemay eelwhay eventay %d"
 
-#: daemon/x52d_mouse_evdev.c:102
+#: daemon/x52d_mouse_evdev.c:112
 #, c-format
 msgid "Error writing mouse axis event (axis %d, value %d)"
 msgstr "Erroray itingwray ousemay axisay eventay (axisay %d, aluevay %d)"
 
-#: daemon/x52d_mouse_evdev.c:115
+#: daemon/x52d_mouse_evdev.c:125
 msgid "Error writing mouse sync event"
 msgstr "Erroray itingwray ousemay yncsay eventay"
 
-#: daemon/x52d_mouse_evdev.c:134
+#: daemon/x52d_mouse_evdev.c:144
 msgid "Starting X52 virtual mouse driver thread"
 msgstr "Artingstay X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_evdev.c:157
+#: daemon/x52d_mouse_evdev.c:167
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr "Erroray %d initializingay ousemay eadthray: %s"
 
-#: daemon/x52d_mouse_evdev.c:164
+#: daemon/x52d_mouse_evdev.c:174
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_evdev.c:171
+#: daemon/x52d_mouse_evdev.c:181
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 
-#: daemon/x52d_mouse_evdev.c:236
+#: daemon/x52d_mouse_evdev.c:246
 #, c-format
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay: %s"

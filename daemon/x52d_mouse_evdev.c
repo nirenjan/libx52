@@ -30,13 +30,21 @@ static bool mouse_uidev_created = false;
 static volatile libx52io_report old_report;
 static volatile libx52io_report new_report;
 
+static bool button_changed(int index, bool *new_value)
+{
+    bool changed = old_report.button[index] != new_report.button[index];
+    if (changed) {
+        *new_value = new_report.button[index];
+    }
+    return changed;
+}
+
 static int report_button_change(int button, int index)
 {
     int rc = 1;
-    bool old_button = old_report.button[index];
-    bool new_button = new_report.button[index];
+    bool new_button;
 
-    if (old_button != new_button) {
+    if (button_changed(index, &new_button)) {
         rc = libevdev_uinput_write_event(mouse_uidev, EV_KEY, button,
                                     (int)new_button);
         if (rc != 0) {
@@ -52,8 +60,10 @@ static int report_wheel(void)
 {
     int rc = 1;
     int wheel = 0;
-    bool scroll_up = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
-    bool scroll_dn = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
+    bool scroll_up = false;
+    bool scroll_dn = false;
+    button_changed(LIBX52IO_BTN_MOUSE_SCROLL_UP, &scroll_up);
+    button_changed(LIBX52IO_BTN_MOUSE_SCROLL_DN, &scroll_dn);
 
     if (scroll_up) {
         // Scroll up event
