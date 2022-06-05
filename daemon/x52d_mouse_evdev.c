@@ -57,10 +57,10 @@ static int report_wheel(void)
 
     if (scroll_up) {
         // Scroll up event
-        wheel = 1;
+        wheel = 1 * mouse_scroll_dir;
     } else if (scroll_dn) {
         // Scroll down event
-        wheel = -1;
+        wheel = -1 * mouse_scroll_dir;
     }
 
     if (wheel != 0) {

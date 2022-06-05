@@ -75,6 +75,9 @@ CFG(Mouse, Enabled, mouse_enabled, bool, true)
 // virtual mouse
 CFG(Mouse, Speed, mouse_speed, int, 0)
 
+// ReverseScroll controls the scrolling direction
+CFG(Mouse, ReverseScroll, mouse_reverse_scroll, bool, false)
+
 /**********************************************************************
  * Profiles - only valid on Linux
  *********************************************************************/

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-05-16 10:47-0700\n"
-"PO-Revision-Date: 2021-11-04 15:35-0700\n"
+"POT-Creation-Date: 2022-06-05 08:22-0700\n"
+"PO-Revision-Date: 2022-06-05 08:51-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: libx52/x52_strerror.c:23 libx52io/io_strings.c:101
 msgid "Success"
@@ -142,11 +142,13 @@ msgstr "YYay-MMay-DDay"
 msgid "Unknown LED state %d"
 msgstr "Unknownay EDLay atestay %d"
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:31
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
+#: daemon/x52d_mouse.c:68
 msgid "off"
 msgstr "offay"
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:31
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
+#: daemon/x52d_mouse.c:68
 msgid "on"
 msgstr "onay"
 
@@ -862,20 +864,25 @@ msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
-#: daemon/x52d_mouse.c:30
+#: daemon/x52d_mouse.c:31
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr "Ettingsay ousemay enableay otay %s"
 
-#: daemon/x52d_mouse.c:46
+#: daemon/x52d_mouse.c:47
 #, c-format
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr "Ignoringay ousemay eedspay %d outsideay upportedsay angeray (0-%d)"
 
-#: daemon/x52d_mouse.c:58
+#: daemon/x52d_mouse.c:59
 #, c-format
 msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
 msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms, ultipliermay %f)"
+
+#: daemon/x52d_mouse.c:67
+#, c-format
+msgid "Setting mouse reverse scroll to %s"
+msgstr "Ettingsay ousemay everseray ollscray otay %s"
 
 #: daemon/x52d_mouse_evdev.c:43
 #, c-format
