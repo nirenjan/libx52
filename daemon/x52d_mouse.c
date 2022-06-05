@@ -24,6 +24,7 @@
 
 volatile int mouse_delay = DEFAULT_MOUSE_DELAY;
 volatile int mouse_mult = MOUSE_MULT_FACTOR;
+volatile int mouse_scroll_dir = 1;
 
 void x52d_cfg_set_Mouse_Enabled(bool enabled)
 {
@@ -59,4 +60,16 @@ void x52d_cfg_set_Mouse_Speed(int speed)
                   speed, new_delay / 1000, new_mult / (double)MOUSE_MULT_FACTOR);
     mouse_delay = new_delay;
     mouse_mult = new_mult;
+}
+
+void x52d_cfg_set_Mouse_ReverseScroll(bool enabled)
+{
+    PINELOG_DEBUG(_("Setting mouse reverse scroll to %s"),
+                  enabled ? _("on") : _("off"));
+
+    if (enabled) {
+        mouse_scroll_dir = -1;
+    } else {
+        mouse_scroll_dir = 1;
+    }
 }

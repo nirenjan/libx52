@@ -14,6 +14,7 @@
 
 extern volatile int mouse_delay;
 extern volatile int mouse_mult;
+extern volatile int mouse_scroll_dir;
 
 #define MOUSE_MULT_FACTOR  4
 
