@@ -32,7 +32,7 @@ static volatile libx52io_report new_report;
 
 static bool button_changed(int index, bool *new_value)
 {
-    bool changed = old_report.button[index] != new_report.button[index];
+    bool changed = (old_report.button[index] != new_report.button[index]);
     if (changed) {
         *new_value = new_report.button[index];
     }
@@ -117,13 +117,13 @@ static int report_axis(int axis, int index)
     return rc;
 }
 
-static void report_sync(void)
+static void report_sync(bool copy_report)
 {
     int rc;
     rc = libevdev_uinput_write_event(mouse_uidev, EV_SYN, SYN_REPORT, 0);
     if (rc != 0) {
         PINELOG_ERROR(_("Error writing mouse sync event"));
-    } else {
+    } else if (copy_report) {
         memcpy((void *)&old_report, (void *)&new_report, sizeof(old_report));
     }
 }
@@ -148,7 +148,7 @@ static void * x52_mouse_thr(void *param)
         state_changed |= (0 == report_axis(REL_Y, LIBX52IO_AXIS_THUMBY));
 
         if (state_changed) {
-            report_sync();
+            report_sync(false);
         }
 
         usleep(mouse_delay);
@@ -217,7 +217,7 @@ void x52d_mouse_report_event(libx52io_report *report)
         state_changed |= (0 == report_wheel());
 
         if (state_changed) {
-            report_sync();
+            report_sync(true);
         }
     } else {
         reset_reports();
