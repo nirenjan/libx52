@@ -541,6 +541,7 @@ int main(int argc, char **argv)
     rc = (*(cmd->handler))(x52, args);
     if (rc != LIBX52_SUCCESS) {
         fprintf(stderr, "Error: %s\n", libx52_strerror(rc));
+        rc = 1;
     }
 
     libx52_update(x52);
