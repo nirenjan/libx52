@@ -497,11 +497,6 @@ int main(int argc, char **argv)
     }
 
     cmd = &handlers[result.value.int_val];
-    if (!cmd->handler) {
-        fprintf(stderr, "Command %s not implemented yet!\n", argv[1]);
-        return 1;
-    }
-
     if (cmd->num_args > argc - 2) {
         fprintf(stderr, "Insufficient arguments for command %s\n", argv[1]);
         do_help(cmd);
