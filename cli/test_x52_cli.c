@@ -19,13 +19,15 @@ extern int run_main(int argc, char **argv);
 /* Wrapper functions for libx52 */
 int libx52_init(libx52_device **dev)
 {
+    function_called();
     *dev = NULL;
-    return LIBX52_SUCCESS;
+    return mock();
 }
 
 int libx52_connect(libx52_device *dev)
 {
-    return LIBX52_SUCCESS;
+    function_called();
+    return mock();
 }
 
 int libx52_update(libx52_device *dev)
@@ -35,10 +37,12 @@ int libx52_update(libx52_device *dev)
 
 void libx52_exit(libx52_device *dev)
 {
+    return;
 }
 
 const char *libx52_strerror(libx52_error_code rc)
 {
+    function_called();
     return "";
 }
 
