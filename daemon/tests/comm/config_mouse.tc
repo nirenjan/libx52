@@ -29,3 +29,19 @@ OK config set mouse speed -1
 Reset mouse speed to minimum
 config set mouse speed 0
 OK config set mouse speed 0
+
+Set mouse reverse scroll to enabled
+config set mouse reversescroll true
+OK config set mouse reversescroll true
+
+Check if reverse scrolling is enabled
+config get mouse reversescroll
+DATA mouse reversescroll true
+
+Set mouse reverse scroll to disabled
+config set mouse reversescroll false
+OK config set mouse reversescroll false
+
+Check if reverse scrolling is disabled
+config get mouse reversescroll
+DATA mouse reversescroll false

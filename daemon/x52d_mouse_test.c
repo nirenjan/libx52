@@ -111,6 +111,18 @@ static void test_mouse_speed_above_max(void **state)
     assert_int_equal(mouse_mult, orig_mouse_mult);
 }
 
+static void test_mouse_reverse_scroll_enabled(void **state)
+{
+    x52d_cfg_set_Mouse_ReverseScroll(true);
+    assert_int_equal(mouse_scroll_dir, -1);
+}
+
+static void test_mouse_reverse_scroll_disabled(void **state)
+{
+    x52d_cfg_set_Mouse_ReverseScroll(false);
+    assert_int_equal(mouse_scroll_dir, 1);
+}
+
 const struct CMUnitTest tests[] = {
     cmocka_unit_test(test_mouse_thread_enabled),
     cmocka_unit_test(test_mouse_thread_disabled),
@@ -122,10 +134,14 @@ const struct CMUnitTest tests[] = {
     cmocka_unit_test(test_mouse_speed_mid_hyper),
     cmocka_unit_test(test_mouse_speed_max_hyper),
     cmocka_unit_test(test_mouse_speed_above_max),
+    cmocka_unit_test(test_mouse_reverse_scroll_enabled),
+    cmocka_unit_test(test_mouse_reverse_scroll_disabled),
 };
 
 int main(void)
 {
     cmocka_set_message_output(CM_OUTPUT_TAP);
     cmocka_run_group_tests(tests, NULL, NULL);
+
+    return 0;
 }
