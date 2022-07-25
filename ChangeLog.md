@@ -11,9 +11,17 @@ The format is based upon [Keep a Changelog].
 - Communication infrastructure to communicate with the daemon. This includes the
   `x52ctl` utility which can be used either interactively or non-interactively
   from a separate program.
+- Links to prebuilt packages in Ubuntu PPA and Arch Linux AUR
+- Ability to change mouse scroll direction. See
+  [#45](https://github.com/nirenjan/libx52/issues/45)
 
 ### Changed
 - Renamed project from `x52pro-linux` to `libx52`
+
+### Fixed
+- Removed dependency on `rsync` during `make install`
+- Reduced default logging level of daemon to error only. See
+  [#38](https://github.com/nirenjan/libx52/issues/38)
 
 ## [0.2.3] - 2021-09-20
 ### Added
@@ -147,8 +155,8 @@ The format is based upon [Keep a Changelog].
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
 [TAP]: https://testanything.org
 [Unreleased]: https://github.com/nirenjan/libx52/compare/v0.2.3...HEAD
-[0.2.3]: https://github.com/nirenjan/libx52/compare/v0.2.3...v0.2.2
-[0.2.2]: https://github.com/nirenjan/libx52/compare/v0.2.2...v0.2.1
+[0.2.3]: https://github.com/nirenjan/libx52/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/nirenjan/libx52/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/nirenjan/libx52/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/nirenjan/libx52/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/nirenjan/libx52/compare/v0.1.1...v0.1.2
