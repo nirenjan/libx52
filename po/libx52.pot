@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-06-05 08:22-0700\n"
+"POT-Creation-Date: 2022-07-27 11:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -542,68 +542,78 @@ msgstr ""
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:315
+#: daemon/x52d_main.c:317
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:343
+#: daemon/x52d_main.c:345
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:343 daemon/x52d_main.c:344
+#: daemon/x52d_main.c:345 daemon/x52d_main.c:346
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:343 daemon/x52d_main.c:344
+#: daemon/x52d_main.c:345 daemon/x52d_main.c:346
 msgid "false"
-msgstr ""
-
-#: daemon/x52d_main.c:344
-#, c-format
-msgid "Quiet = %s"
-msgstr ""
-
-#: daemon/x52d_main.c:345
-#, c-format
-msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:346
 #, c-format
-msgid "Log file = %s"
+msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:347
 #, c-format
-msgid "Config file = %s"
+msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:348
 #, c-format
-msgid "PID file = %s"
+msgid "Log file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:349
 #, c-format
+msgid "Config file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:350
+#, c-format
+msgid "PID file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:351
+#, c-format
 msgid "Command socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:379
+#: daemon/x52d_main.c:362
+#, c-format
+msgid "Error %d blocking signals on child threads: %s"
+msgstr ""
+
+#: daemon/x52d_main.c:378
+#, c-format
+msgid "Error %d unblocking signals on child threads: %s"
+msgstr ""
+
+#: daemon/x52d_main.c:396
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:386
+#: daemon/x52d_main.c:403
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:392
+#: daemon/x52d_main.c:409
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:415
+#: daemon/x52d_main.c:432
 msgid "Shutting down X52 daemon"
 msgstr ""
 

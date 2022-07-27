@@ -73,7 +73,7 @@ static void listen_signal(int signum, void (*handler)(int))
 
     action.sa_handler = handler;
     sigemptyset(&action.sa_mask);
-    action.sa_flags = 0;
+    action.sa_flags = SA_RESTART;
 
     rc = sigaction(signum, &action, NULL);
     if (rc < 0) {
@@ -261,6 +261,8 @@ int main(int argc, char **argv)
     const char *command_sock = NULL;
     int opt;
     int command_sock_fd;
+    int rc;
+    sigset_t sigblockset;
 
     /* Initialize gettext */
     #if ENABLE_NLS
@@ -353,6 +355,14 @@ int main(int argc, char **argv)
     set_log_file(foreground, log_file);
     x52d_config_load(conf_file);
 
+    // Disable pthread signals
+    sigfillset(&sigblockset);
+    rc = pthread_sigmask(SIG_BLOCK, &sigblockset, NULL);
+    if (rc != 0) {
+        PINELOG_FATAL(_("Error %d blocking signals on child threads: %s"),
+                      errno, strerror(errno));
+    }
+
     // Start device threads
     x52d_dev_init();
     x52d_clock_init();
@@ -361,6 +371,13 @@ int main(int argc, char **argv)
     x52d_io_init();
     x52d_mouse_evdev_init();
     #endif
+
+    // Re-enable signals
+    rc = pthread_sigmask(SIG_UNBLOCK, &sigblockset, NULL);
+    if (rc != 0) {
+        PINELOG_FATAL(_("Error %d unblocking signals on child threads: %s"),
+                      errno, strerror(errno));
+    }
 
     command_sock_fd = listen_command(command_sock);
     if (command_sock_fd < 0) {
