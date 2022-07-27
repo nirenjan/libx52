@@ -11,17 +11,20 @@
 #include <string.h>
 #include <stdarg.h>
 #include <errno.h>
+#include <pthread.h>
 #include <poll.h>
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #define PINELOG_MODULE X52D_MOD_COMMAND
 #include "pinelog.h"
 #include "x52d_const.h"
 #include "x52d_command.h"
 #include "x52d_config.h"
+#include "x52dcomm-internal.h"
 
 #define MAX_CONN    (X52D_MAX_CLIENTS + 1)
 
@@ -30,14 +33,9 @@
 static int client_fd[X52D_MAX_CLIENTS];
 static int active_clients;
 
-void x52d_command_init(void)
-{
-    for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
-        client_fd[i] = INVALID_CLIENT;
-    }
-
-    active_clients = 0;
-}
+static pthread_t command_thr;
+static int command_sock_fd;
+static const char *command_sock;
 
 static void register_client(int sock_fd)
 {
@@ -506,4 +504,109 @@ int x52d_command_loop(int sock_fd)
     }
 
     return 0;
+}
+
+static void * x52d_command_thread(void *param)
+{
+    for (;;) {
+        if (x52d_command_loop(command_sock_fd) < 0) {
+            PINELOG_FATAL(_("Error %d during command loop: %s"),
+                          errno, strerror(errno));
+        }
+    }
+
+    return NULL;
+}
+
+int x52d_command_init(const char *sock_path)
+{
+    int sock_fd;
+    int len;
+    struct sockaddr_un local;
+    int flags;
+
+    for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
+        client_fd[i] = INVALID_CLIENT;
+    }
+
+    active_clients = 0;
+
+    command_sock = sock_path;
+    command_sock_fd = -1;
+
+    len = x52d_setup_command_sock(command_sock, &local);
+    if (len < 0) {
+        return -1;
+    }
+
+    sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (sock_fd < 0) {
+        /* Failure creating the socket. Abort early */
+        PINELOG_ERROR(_("Error creating command socket: %s"), strerror(errno));
+        return -1;
+    }
+
+    /* Mark the socket as non-blocking */
+    flags = fcntl(sock_fd, F_GETFL);
+    if (flags < 0) {
+        PINELOG_ERROR(_("Error getting command socket flags: %s"), strerror(errno));
+        goto sock_failure;
+    }
+    if (fcntl(sock_fd, F_SETFL, flags | O_NONBLOCK) < 0) {
+        PINELOG_ERROR(_("Error setting command socket flags: %s"), strerror(errno));
+        goto sock_failure;
+    }
+
+    /* Cleanup any existing socket */
+    unlink(local.sun_path);
+    if (bind(sock_fd, (struct sockaddr *)&local, (socklen_t)len) < 0) {
+        /* Failure binding socket */
+        PINELOG_ERROR(_("Error binding to command socket: %s"), strerror(errno));
+        goto listen_failure;
+    }
+
+    if (listen(sock_fd, X52D_MAX_CLIENTS) < 0) {
+        PINELOG_ERROR(_("Error listening on command socket: %s"), strerror(errno));
+        goto listen_failure;
+    }
+
+    command_sock_fd = sock_fd;
+    if (command_sock_fd < 0) {
+        command_sock_fd = -1;
+        goto listen_failure;
+    }
+
+    PINELOG_INFO(_("Starting command processing thread"));
+    pthread_create(&command_thr, NULL, x52d_command_thread, NULL);
+
+    return 0;
+
+listen_failure:
+    unlink(local.sun_path);
+sock_failure:
+    if (command_sock_fd >= 0) {
+        close(command_sock_fd);
+        command_sock_fd = -1;
+    }
+
+    return -1;
+}
+
+void x52d_command_exit(void)
+{
+    PINELOG_INFO(_("Shutting down command processing thread"));
+    pthread_cancel(command_thr);
+
+    // Close the socket and remove the socket file
+    if (command_sock_fd >= 0) {
+        command_sock = x52d_command_sock_path(command_sock);
+        PINELOG_TRACE("Closing command socket %s", command_sock);
+
+        close(command_sock_fd);
+        command_sock_fd = -1;
+
+        unlink(command_sock);
+        command_sock = NULL;
+    }
+
 }

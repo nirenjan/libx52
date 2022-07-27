@@ -14,7 +14,6 @@
 #include <sys/stat.h>
 #include <signal.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <errno.h>
 
 #include "x52d_clock.h"
@@ -197,59 +196,6 @@ static void start_daemon(bool foreground, const char *pid_file)
     }
 }
 
-/* Bind and listen to the command socket */
-static int listen_command(const char *command_sock)
-{
-    int sock_fd;
-    int len;
-    struct sockaddr_un local;
-    int flags;
-
-    len = x52d_setup_command_sock(command_sock, &local);
-    if (len < 0) {
-        return -1;
-    }
-
-    sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
-    if (sock_fd < 0) {
-        /* Failure creating the socket. Abort early */
-        PINELOG_ERROR(_("Error creating command socket: %s"), strerror(errno));
-        return -1;
-    }
-
-    /* Mark the socket as non-blocking */
-    flags = fcntl(sock_fd, F_GETFL);
-    if (flags < 0) {
-        PINELOG_ERROR(_("Error getting command socket flags: %s"), strerror(errno));
-        goto sock_failure;
-    }
-    if (fcntl(sock_fd, F_SETFL, flags | O_NONBLOCK) < 0) {
-        PINELOG_ERROR(_("Error setting command socket flags: %s"), strerror(errno));
-        goto sock_failure;
-    }
-
-    /* Cleanup any existing socket */
-    unlink(local.sun_path);
-    if (bind(sock_fd, (struct sockaddr *)&local, (socklen_t)len) < 0) {
-        /* Failure binding socket */
-        PINELOG_ERROR(_("Error binding to command socket: %s"), strerror(errno));
-        goto listen_failure;
-    }
-
-    if (listen(sock_fd, X52D_MAX_CLIENTS) < 0) {
-        PINELOG_ERROR(_("Error listening on command socket: %s"), strerror(errno));
-        goto listen_failure;
-    }
-
-    return sock_fd;
-
-listen_failure:
-    unlink(local.sun_path);
-sock_failure:
-    close(sock_fd);
-    return -1;
-}
-
 int main(int argc, char **argv)
 {
     int verbosity = 0;
@@ -260,7 +206,6 @@ int main(int argc, char **argv)
     const char *pid_file = NULL;
     const char *command_sock = NULL;
     int opt;
-    int command_sock_fd;
     int rc;
     sigset_t sigblockset;
 
@@ -366,7 +311,9 @@ int main(int argc, char **argv)
     // Start device threads
     x52d_dev_init();
     x52d_clock_init();
-    x52d_command_init();
+    if (x52d_command_init(command_sock) < 0) {
+        goto cleanup;
+    }
     #if defined(HAVE_EVDEV)
     x52d_io_init();
     x52d_mouse_evdev_init();
@@ -379,17 +326,12 @@ int main(int argc, char **argv)
                       errno, strerror(errno));
     }
 
-    command_sock_fd = listen_command(command_sock);
-    if (command_sock_fd < 0) {
-        goto cleanup;
-    }
-
     // Apply configuration
     x52d_config_apply();
 
     flag_quit = 0;
     while(!flag_quit) {
-        x52d_command_loop(command_sock_fd);
+        pause();
 
         /* Check if we need to reload configuration */
         if (flag_reload) {
@@ -412,18 +354,11 @@ cleanup:
     // Stop device threads
     x52d_clock_exit();
     x52d_dev_exit();
+    x52d_command_exit();
     #if defined(HAVE_EVDEV)
     x52d_mouse_evdev_exit();
     x52d_io_exit();
     #endif
-
-    // Close the socket and remove the socket file
-    if (command_sock_fd >= 0) {
-        command_sock = x52d_command_sock_path(command_sock);
-        PINELOG_TRACE("Closing command socket %s", command_sock);
-        close(command_sock_fd);
-        unlink(command_sock);
-    }
 
     // Remove the PID file
     PINELOG_TRACE("Removing PID file %s", pid_file);

@@ -9,7 +9,8 @@
 #ifndef X52D_COMMAND_H
 #define X52D_COMMAND_H
 
-void x52d_command_init(void);
+int x52d_command_init(const char *sock_path);
+void x52d_command_exit(void);
 int x52d_command_loop(int sock_fd);
 
 #endif // !defined X52D_COMMAND_H
