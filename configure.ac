@@ -9,7 +9,6 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 AC_PROG_CC
-AC_PROG_CC_STDC
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX(11, noext, mandatory)
 AC_PROG_AWK
@@ -84,7 +83,7 @@ PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
 AC_SUBST([HIDAPI_PC], [${hidapi_backend}])
 
 # Check for pthreads
-ACX_PTHREAD
+AX_PTHREAD
 
 # make distcheck doesn't work if some files are installed outside $prefix.
 # Check for a prefix ending in /_inst, if this is found, we can assume this
