@@ -10,6 +10,8 @@ AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 AC_PROG_CC
 AC_PROG_CC_STDC
+AC_PROG_CXX
+AX_CXX_COMPILE_STDCXX(11, noext, mandatory)
 AC_PROG_AWK
 AC_PROG_SED
 AC_PROG_MKDIR_P
