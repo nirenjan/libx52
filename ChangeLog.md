@@ -22,6 +22,8 @@ The format is based upon [Keep a Changelog].
 - Removed dependency on `rsync` during `make install`
 - Reduced default logging level of daemon to error only. See
   [#38](https://github.com/nirenjan/libx52/issues/38)
+- Fixed daemon crash when disconnecting/reconnecting the joystick. See
+  [#43](https://github.com/nirenjan/libx52/issues/43)
 
 ## [0.2.3] - 2021-09-20
 ### Added

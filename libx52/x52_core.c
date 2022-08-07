@@ -71,11 +71,15 @@ static int _x52_hotplug_callback(libusb_context *ctx,
 bool libx52_is_connected(libx52_device *dev)
 {
     int rc;
+    struct timeval tv = {0};
+    int completed = 0;
 
     if (!dev) {
         return false;
     }
 
+    /* Handle events, and then check if the hotplug callbacks have fired */
+    libusb_handle_events_timeout_completed(dev->ctx, &tv, &completed);
 
     if (dev->hdl) {
         if (dev->handle_registered) {
