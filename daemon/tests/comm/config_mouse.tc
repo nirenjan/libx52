@@ -6,11 +6,11 @@ Verify mouse speed is set to 32
 config get mouse speed
 DATA mouse speed 32
 
-Set mouse speed to invalid value # TODO: May fail
+Set mouse speed to invalid value
 config set mouse speed off
 ERR "Error 22 setting 'mouse.speed'='off': Invalid argument"
 
-Verify mouse speed is unchanged # TODO: May fail if previous test failed
+Verify mouse speed is unchanged
 config get mouse speed
 DATA mouse speed 32
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-07-27 12:45-0700\n"
+"POT-Creation-Date: 2022-08-31 20:39-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -733,40 +733,40 @@ msgstr ""
 msgid "Failed to dump %s.%s to config file %s"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:168
+#: daemon/x52d_config_parser.c:172
 #, c-format
 msgid "Ignoring unknown key '%s.%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:209
+#: daemon/x52d_config_parser.c:213
 #, c-format
 msgid "Failed processing configuration file %s - code %d"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:239
+#: daemon/x52d_config_parser.c:243
 msgid "Failed to allocate memory for override structure"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:248
+#: daemon/x52d_config_parser.c:252
 msgid "Failed to allocate memory for override string"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:259
+#: daemon/x52d_config_parser.c:263
 #, c-format
 msgid "No section found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:273
+#: daemon/x52d_config_parser.c:277
 #, c-format
 msgid "No key found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:284
+#: daemon/x52d_config_parser.c:288
 #, c-format
 msgid "No value found in override string '%s'"
 msgstr ""
 
-#: daemon/x52d_config_parser.c:335
+#: daemon/x52d_config_parser.c:339
 #, c-format
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""

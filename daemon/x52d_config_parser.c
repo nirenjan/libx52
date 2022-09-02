@@ -71,6 +71,10 @@ static int int_parser(struct x52d_config *cfg, size_t offset, const char *value)
     if (errno != 0) {
         return errno;
     }
+    if (*endptr != '\0') {
+        // Invalid characters in string
+        return EINVAL;
+    }
 
     *config = retval;
     return 0;
