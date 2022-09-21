@@ -90,17 +90,29 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">x52d_dial_command</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *sock_path);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a>(<span class="keywordtype">int</span> sock_fd, <span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> bufin, <span class="keywordtype">size_t</span> bufout);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif // !defined X52DCOMM_H</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">x52d_dial_notify</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *sock_path);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__x52dcomm.html#ga667ce343cc456bcb63221258bc35ad4e">x52d_format_command</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv, <span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> buflen);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a>(<span class="keywordtype">int</span> sock_fd, <span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> bufin, <span class="keywordtype">size_t</span> bufout);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">  129</a></span>&#160;<span class="keyword">typedef</span> int (* <a class="code" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a>)(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">x52d_recv_notification</a>(<span class="keywordtype">int</span> sock_fd, <a class="code" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a> callback);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#endif // !defined X52DCOMM_H</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup__x52dcomm_html_ga59b382427afc417499311336747fb191"><div class="ttname"><a href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">x52d_dial_command</a></div><div class="ttdeci">int x52d_dial_command(const char *sock_path)</div><div class="ttdoc">Open a connection to the daemon.</div></div>
+<div class="ttc" id="agroup__x52dcomm_html_ga667ce343cc456bcb63221258bc35ad4e"><div class="ttname"><a href="group__x52dcomm.html#ga667ce343cc456bcb63221258bc35ad4e">x52d_format_command</a></div><div class="ttdeci">int x52d_format_command(int argc, const char **argv, char *buffer, size_t buflen)</div><div class="ttdoc">Format a series of command strings into a buffer.</div></div>
+<div class="ttc" id="agroup__x52dcomm_html_ga59b382427afc417499311336747fb191"><div class="ttname"><a href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">x52d_dial_command</a></div><div class="ttdeci">int x52d_dial_command(const char *sock_path)</div><div class="ttdoc">Open a connection to the daemon command socket.</div></div>
+<div class="ttc" id="agroup__x52dcomm_html_gadfb485d611919a9a5a6dea019794f0e8"><div class="ttname"><a href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">x52d_dial_notify</a></div><div class="ttdeci">int x52d_dial_notify(const char *sock_path)</div><div class="ttdoc">Open a connection to the daemon notify socket.</div></div>
+<div class="ttc" id="agroup__x52dcomm_html_ga9a817265ac0e43fb191efe3347922df8"><div class="ttname"><a href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a></div><div class="ttdeci">int(* x52d_notify_callback_fn)(int argc, char **argv)</div><div class="ttdoc">Notification callback function type.</div><div class="ttdef"><b>Definition:</b> x52dcomm.h:129</div></div>
 <div class="ttc" id="agroup__x52dcomm_html_gaef9b481c4e5faaac14e2681cb64c3faa"><div class="ttname"><a href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a></div><div class="ttdeci">int x52d_send_command(int sock_fd, char *buffer, size_t bufin, size_t bufout)</div><div class="ttdoc">Send a command to the daemon and retrieve the response.</div></div>
+<div class="ttc" id="agroup__x52dcomm_html_ga0494e9f6fa20d568878f893f3474ed1c"><div class="ttname"><a href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">x52d_recv_notification</a></div><div class="ttdeci">int x52d_recv_notification(int sock_fd, x52d_notify_callback_fn callback)</div><div class="ttdoc">Receive a notification from the daemon.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

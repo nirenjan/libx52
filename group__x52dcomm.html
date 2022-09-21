@@ -64,6 +64,7 @@ $(function() {
 
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Daemon communication</div>  </div>
@@ -73,14 +74,30 @@ $(function() {
 <p>These functions are used to communicate with the X52 daemon.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga9a817265ac0e43fb191efe3347922df8"><td class="memItemLeft" align="right" valign="top"><a id="ga9a817265ac0e43fb191efe3347922df8"></a>
+typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a>) (int argc, char **argv)</td></tr>
+<tr class="memdesc:ga9a817265ac0e43fb191efe3347922df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notification callback function type. <br /></td></tr>
+<tr class="separator:ga9a817265ac0e43fb191efe3347922df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga59b382427afc417499311336747fb191"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">x52d_dial_command</a> (const char *sock_path)</td></tr>
-<tr class="memdesc:ga59b382427afc417499311336747fb191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a connection to the daemon.  <a href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">More...</a><br /></td></tr>
+<tr class="memdesc:ga59b382427afc417499311336747fb191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a connection to the daemon command socket.  <a href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">More...</a><br /></td></tr>
 <tr class="separator:ga59b382427afc417499311336747fb191"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfb485d611919a9a5a6dea019794f0e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">x52d_dial_notify</a> (const char *sock_path)</td></tr>
+<tr class="memdesc:gadfb485d611919a9a5a6dea019794f0e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a connection to the daemon notify socket.  <a href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">More...</a><br /></td></tr>
+<tr class="separator:gadfb485d611919a9a5a6dea019794f0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga667ce343cc456bcb63221258bc35ad4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga667ce343cc456bcb63221258bc35ad4e">x52d_format_command</a> (int argc, const char **argv, char *buffer, size_t buflen)</td></tr>
+<tr class="memdesc:ga667ce343cc456bcb63221258bc35ad4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format a series of command strings into a buffer.  <a href="group__x52dcomm.html#ga667ce343cc456bcb63221258bc35ad4e">More...</a><br /></td></tr>
+<tr class="separator:ga667ce343cc456bcb63221258bc35ad4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef9b481c4e5faaac14e2681cb64c3faa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a> (int sock_fd, char *buffer, size_t bufin, size_t bufout)</td></tr>
 <tr class="memdesc:gaef9b481c4e5faaac14e2681cb64c3faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a command to the daemon and retrieve the response.  <a href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">More...</a><br /></td></tr>
 <tr class="separator:gaef9b481c4e5faaac14e2681cb64c3faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0494e9f6fa20d568878f893f3474ed1c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">x52d_recv_notification</a> (int sock_fd, <a class="el" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a> callback)</td></tr>
+<tr class="memdesc:ga0494e9f6fa20d568878f893f3474ed1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive a notification from the daemon.  <a href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">More...</a><br /></td></tr>
+<tr class="separator:ga0494e9f6fa20d568878f893f3474ed1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>These functions are used to communicate with the X52 daemon. </p>
@@ -101,7 +118,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Open a connection to the daemon. </p>
+<p>Open a connection to the daemon command socket. </p>
 <p>This method opens a socket connection to the daemon command socket. This socket allows the client to issue commands and retrieve data. The <code>sock_path</code> parameter may be NULL, in which case, it will use the default socket path.</p>
 <p>The client will need to use the returned descriptor to communicate with the daemon using <a class="el" href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a>. Once finished, the client may use the <code>close(2)</code> method to close the file descriptor.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -119,6 +136,141 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="gadfb485d611919a9a5a6dea019794f0e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadfb485d611919a9a5a6dea019794f0e8">&#9670;&nbsp;</a></span>x52d_dial_notify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int x52d_dial_notify </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>sock_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open a connection to the daemon notify socket. </p>
+<p>This method opens a socket connection to the daemon notify socket. This socket allows the client to receive notifications from the daemon. Thej <code>sock_path</code> parameter may be NULL, in which case, it will use the default socket path.</p>
+<p>The client will need to use the returned descriptor to communicate with the daemon using <a class="el" href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">x52d_recv_notification</a>. Once finished, the client may use the <code>close(2)</code> method to close the file descriptor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">sock_path</td><td>Path to the daemon command socket.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Non-negative socket file descriptor on success. </dd>
+<dd>
+-1 on failure, and set <code>errno</code> accordingly.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">E2BIG</td><td>returned if the passed socket path is too big </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga667ce343cc456bcb63221258bc35ad4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga667ce343cc456bcb63221258bc35ad4e">&#9670;&nbsp;</a></span>x52d_format_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int x52d_format_command </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>argv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>buflen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format a series of command strings into a buffer. </p>
+<p>The client sends the command and parameters as a series of NUL terminated strings. This function concatenates the commands into a single buffer that can be passed to <a class="el" href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a>.</p>
+<p><code>buffer</code> should be at least 1024 bytes long.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>Number of arguments to fit in the buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">argv</td><td>Pointer to an array of arguments. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">buffer</td><td>Buffer to store the formatted command </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buflen</td><td>Length of the buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of bytes in the formatted command </dd>
+<dd>
+-1 on an error condition, and <code>errno</code> is set accordingly. </dd></dl>
+
+</div>
+</div>
+<a id="ga0494e9f6fa20d568878f893f3474ed1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0494e9f6fa20d568878f893f3474ed1c">&#9670;&nbsp;</a></span>x52d_recv_notification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int x52d_recv_notification </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sock_fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a>&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive a notification from the daemon. </p>
+<p>This function blocks until it receives a notification from the daemon. Once it receives a notification successfully, it will call the callback function with the arguments as string pointers. It will return the return value of the callback function, if it was called.</p>
+<p>This is a blocking function and will not return until either a notification is received from the server, or an exception condition occurs.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">sock_fd</td><td>Socket descriptor returned from <a class="el" href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">x52d_dial_notify</a></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">callback</td><td>Pointer to the callback function</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>return code of the callback function on success </dd>
+<dd>
+-1 on an error condition, and <code>errno</code> is set accordingly. </dd></dl>
 
 </div>
 </div>

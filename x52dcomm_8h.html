@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">x52dcomm.h File Reference</div>  </div>
@@ -79,14 +80,30 @@ $(function() {
 
 <p><a href="x52dcomm_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga9a817265ac0e43fb191efe3347922df8"><td class="memItemLeft" align="right" valign="top">
+typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a>) (int argc, char **argv)</td></tr>
+<tr class="memdesc:ga9a817265ac0e43fb191efe3347922df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notification callback function type. <br /></td></tr>
+<tr class="separator:ga9a817265ac0e43fb191efe3347922df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga59b382427afc417499311336747fb191"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">x52d_dial_command</a> (const char *sock_path)</td></tr>
-<tr class="memdesc:ga59b382427afc417499311336747fb191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a connection to the daemon.  <a href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">More...</a><br /></td></tr>
+<tr class="memdesc:ga59b382427afc417499311336747fb191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a connection to the daemon command socket.  <a href="group__x52dcomm.html#ga59b382427afc417499311336747fb191">More...</a><br /></td></tr>
 <tr class="separator:ga59b382427afc417499311336747fb191"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfb485d611919a9a5a6dea019794f0e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">x52d_dial_notify</a> (const char *sock_path)</td></tr>
+<tr class="memdesc:gadfb485d611919a9a5a6dea019794f0e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a connection to the daemon notify socket.  <a href="group__x52dcomm.html#gadfb485d611919a9a5a6dea019794f0e8">More...</a><br /></td></tr>
+<tr class="separator:gadfb485d611919a9a5a6dea019794f0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga667ce343cc456bcb63221258bc35ad4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga667ce343cc456bcb63221258bc35ad4e">x52d_format_command</a> (int argc, const char **argv, char *buffer, size_t buflen)</td></tr>
+<tr class="memdesc:ga667ce343cc456bcb63221258bc35ad4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format a series of command strings into a buffer.  <a href="group__x52dcomm.html#ga667ce343cc456bcb63221258bc35ad4e">More...</a><br /></td></tr>
+<tr class="separator:ga667ce343cc456bcb63221258bc35ad4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef9b481c4e5faaac14e2681cb64c3faa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">x52d_send_command</a> (int sock_fd, char *buffer, size_t bufin, size_t bufout)</td></tr>
 <tr class="memdesc:gaef9b481c4e5faaac14e2681cb64c3faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a command to the daemon and retrieve the response.  <a href="group__x52dcomm.html#gaef9b481c4e5faaac14e2681cb64c3faa">More...</a><br /></td></tr>
 <tr class="separator:gaef9b481c4e5faaac14e2681cb64c3faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0494e9f6fa20d568878f893f3474ed1c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">x52d_recv_notification</a> (int sock_fd, <a class="el" href="group__x52dcomm.html#ga9a817265ac0e43fb191efe3347922df8">x52d_notify_callback_fn</a> callback)</td></tr>
+<tr class="memdesc:ga0494e9f6fa20d568878f893f3474ed1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive a notification from the daemon.  <a href="group__x52dcomm.html#ga0494e9f6fa20d568878f893f3474ed1c">More...</a><br /></td></tr>
+<tr class="separator:ga0494e9f6fa20d568878f893f3474ed1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions, structures and enumerations for the Saitek X52 MFD &amp; LED daemon communication library. </p>
