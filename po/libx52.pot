@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-08-31 20:39-0700\n"
+"POT-Creation-Date: 2022-09-21 09:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -493,103 +493,128 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:63
+#: daemon/x52d_main.c:64
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:79
+#: daemon/x52d_main.c:80
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:90
+#: daemon/x52d_main.c:91
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
 "\t[-l log-file] [-o override]\n"
 "\t[-c config-file] [-p pid-file]\n"
 "\t[-s command-socket-path]\n"
+"\t[-b notify-socket-path]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:122
+#: daemon/x52d_main.c:124
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/x52d_main.c:262
+#: daemon/x52d_main.c:266
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:290
+#: daemon/x52d_main.c:298
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:290 daemon/x52d_main.c:291
+#: daemon/x52d_main.c:298 daemon/x52d_main.c:299
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:290 daemon/x52d_main.c:291
+#: daemon/x52d_main.c:298 daemon/x52d_main.c:299
 msgid "false"
 msgstr ""
 
-#: daemon/x52d_main.c:291
+#: daemon/x52d_main.c:299
 #, c-format
 msgid "Quiet = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:292
+#: daemon/x52d_main.c:300
 #, c-format
 msgid "Verbosity = %d"
 msgstr ""
 
-#: daemon/x52d_main.c:293
+#: daemon/x52d_main.c:301
 #, c-format
 msgid "Log file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:294
+#: daemon/x52d_main.c:302
 #, c-format
 msgid "Config file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:295
+#: daemon/x52d_main.c:303
 #, c-format
 msgid "PID file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:296
+#: daemon/x52d_main.c:304
 #, c-format
 msgid "Command socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:307
+#: daemon/x52d_main.c:315
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:325
+#: daemon/x52d_main.c:334
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:338
+#: daemon/x52d_main.c:347
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:345
+#: daemon/x52d_main.c:354
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:351
+#: daemon/x52d_main.c:360
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:367
+#: daemon/x52d_main.c:377
 msgid "Shutting down X52 daemon"
+msgstr ""
+
+#: daemon/x52d_client.c:32
+#, c-format
+msgid "Error accepting client connection on socket fd %d: %s"
+msgstr ""
+
+#: daemon/x52d_client.c:38
+#, c-format
+msgid "Error marking client fd %d as nonblocking: %s"
+msgstr ""
+
+#: daemon/x52d_client.c:87
+#, c-format
+msgid "Error when polling socket: FD %d, error %d, len %lu"
+msgstr ""
+
+#: daemon/x52d_client.c:118
+#, c-format
+msgid "Error %d when polling %d descriptors: %s"
+msgstr ""
+
+#: daemon/x52d_client.c:121
+msgid "Timed out when polling"
 msgstr ""
 
 #: daemon/x52d_clock.c:28
@@ -646,70 +671,51 @@ msgstr ""
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_command.c:51
-#, c-format
-msgid "Error accepting client connection on command socket: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:88
-#, c-format
-msgid "Error when polling command socket: FD %d, error %d, len %lu"
-msgstr ""
-
-#: daemon/x52d_command.c:115
-#, c-format
-msgid "Error when polling for command: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:119
-msgid "Timed out when polling for command"
-msgstr ""
-
-#: daemon/x52d_command.c:473
+#: daemon/x52d_command.c:366
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:484
+#: daemon/x52d_command.c:377
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_command.c:498
+#: daemon/x52d_command.c:401
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:530
+#: daemon/x52d_command.c:429
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:537
+#: daemon/x52d_command.c:436
 #, c-format
 msgid "Error getting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:541
+#: daemon/x52d_command.c:440
 #, c-format
 msgid "Error setting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:549
+#: daemon/x52d_command.c:448
 #, c-format
 msgid "Error binding to command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:554
+#: daemon/x52d_command.c:453
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:564
+#: daemon/x52d_command.c:463
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/x52d_command.c:582
+#: daemon/x52d_command.c:481
 msgid "Shutting down command processing thread"
 msgstr ""
 
@@ -896,17 +902,62 @@ msgstr ""
 msgid "Error %d creating X52 virtual mouse: %s"
 msgstr ""
 
-#: daemon/x52ctl.c:59
+#: daemon/x52d_notify.c:46
+#, c-format
+msgid "Error creating notification socket: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:51
+#, c-format
+msgid "Error marking notification socket as nonblocking: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:59
+#, c-format
+msgid "Error binding to notification socket: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:64
+#, c-format
+msgid "Error listening on notification socket: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:89 daemon/x52d_notify.c:105
+#, c-format
+msgid "Error %d reading from pipe: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:147
+#, c-format
+msgid "Error %d writing notification pipe: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:192
+#, c-format
+msgid "Error %d creating notification pipe: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:201
+#, c-format
+msgid "Error %d initializing notify thread: %s"
+msgstr ""
+
+#: daemon/x52d_notify.c:207
+#, c-format
+msgid "Error %d initializing notify listener: %s"
+msgstr ""
+
+#: daemon/x52ctl.c:60
 #, c-format
 msgid "Usage: %s [-i] [-s socket-path] [command]\n"
 msgstr ""
 
-#: daemon/x52ctl.c:75
+#: daemon/x52ctl.c:73
 #, c-format
 msgid "Argument length too long\n"
 msgstr ""
 
-#: daemon/x52ctl.c:147
+#: daemon/x52ctl.c:142
 #, c-format
 msgid "Running in interactive mode, ignoring extra arguments\n"
 msgstr ""
