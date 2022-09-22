@@ -288,13 +288,13 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
     MATCH(1, "show") {
         if (argc == 2) {
             // Show default logging level
-            DATA(lmap_get_string(loglevels, pinelog_get_level()));
+            DATA("global", lmap_get_string(loglevels, pinelog_get_level()));
         } else if (argc == 3) {
             int module = array_find_index(modules, X52D_MOD_MAX, argv[2]);
             if (module == X52D_MOD_MAX) {
                 ERR_fmt("Invalid module '%s'", argv[2]);
             } else {
-                DATA(lmap_get_string(loglevels, pinelog_get_module_level(module)));
+                DATA(argv[2], lmap_get_string(loglevels, pinelog_get_module_level(module)));
             }
         } else {
             ERR_fmt("Unexpected arguments for 'logging show' command; got %d, expected 2 or 3", argc);
