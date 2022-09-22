@@ -1,0 +1,15 @@
+Logging with insufficient arguments
+logging
+ERR "Insufficient arguments for 'logging' command"
+
+Get logging level with extra arguments
+logging show foo bar
+ERR "Unexpected arguments for 'logging show' command; got 4, expected 2 or 3"
+
+Set logging level with insufficient arguments
+logging set
+ERR "Unexpected arguments for 'logging set' command; got 2, expected 3 or 4"
+
+Invalid logging subcommand
+logging foo
+ERR "Unknown subcommand 'foo' for 'logging' command"

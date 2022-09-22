@@ -1,0 +1,15 @@
+Set global logging level to error
+logging set error
+OK logging set error
+
+Get global logging level (should be error)
+logging show
+DATA global error
+
+Set global logging level to default - should return error
+logging set default
+ERR "'default' level is not valid without a module"
+
+Set global logging level to unknown value - should return error
+logging set foo
+ERR "Unknown level 'foo' for 'logging set' command"

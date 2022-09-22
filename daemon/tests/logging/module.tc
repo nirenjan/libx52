@@ -1,0 +1,27 @@
+Set config module logging level to error
+logging set config error
+OK logging set config error
+
+Get config module logging level
+logging show config
+DATA config error
+
+Get configuration for invalid module
+logging show foo
+ERR "Invalid module 'foo'"
+
+Set module logging level for invalid module
+logging set foo error
+ERR "Invalid module 'foo'"
+
+Set invalid logging level for module
+logging set config foo
+ERR "Unknown level 'foo' for 'logging set' command"
+
+Set module logging level to default
+logging set config default
+OK logging set config default
+
+Get module logging level (should be error - same as global)
+logging show config
+DATA config error
