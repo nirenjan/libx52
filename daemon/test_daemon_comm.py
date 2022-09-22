@@ -167,8 +167,8 @@ class Test:
     def find_and_parse_testcase_files(self):
         """Find and parse *.tc files"""
         basedir = os.path.dirname(os.path.realpath(__file__))
-        pattern = os.path.join(basedir, '**', 'comm', '*.tc')
-        tc_files = glob.glob(pattern, recursive=True)
+        pattern = os.path.join(basedir, 'tests', '**', '*.tc')
+        tc_files = sorted(glob.glob(pattern, recursive=True))
 
         for tc_file in tc_files:
             with open(tc_file) as tc_fd:
