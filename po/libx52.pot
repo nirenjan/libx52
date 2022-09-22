@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-09-21 09:25-0700\n"
+"POT-Creation-Date: 2022-09-22 14:24-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -671,51 +671,51 @@ msgstr ""
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_command.c:366
+#: daemon/x52d_command.c:367
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:377
+#: daemon/x52d_command.c:378
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_command.c:401
+#: daemon/x52d_command.c:402
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:429
+#: daemon/x52d_command.c:430
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:436
+#: daemon/x52d_command.c:437
 #, c-format
 msgid "Error getting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:440
+#: daemon/x52d_command.c:441
 #, c-format
 msgid "Error setting command socket flags: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:448
+#: daemon/x52d_command.c:449
 #, c-format
 msgid "Error binding to command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:453
+#: daemon/x52d_command.c:454
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:463
+#: daemon/x52d_command.c:464
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/x52d_command.c:481
+#: daemon/x52d_command.c:482
 msgid "Shutting down command processing thread"
 msgstr ""
 
