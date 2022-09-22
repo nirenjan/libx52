@@ -263,6 +263,7 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
         [X52D_MOD_MOUSE] = "mouse",
         [X52D_MOD_COMMAND] = "command",
         [X52D_MOD_CLIENT] = "client",
+        [X52D_MOD_NOTIFY] = "notify",
     };
 
     // This corresponds to the levels in pinelog
