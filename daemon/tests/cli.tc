@@ -1,0 +1,3 @@
+Check for invalid command
+foo
+ERR "Unknown command 'foo'"

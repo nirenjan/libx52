@@ -106,7 +106,11 @@ EXTRA_DIST += \
 	daemon/tests/config/args.tc \
 	daemon/tests/config/clock.tc \
 	daemon/tests/config/led.tc \
-	daemon/tests/config/mouse.tc
+	daemon/tests/config/mouse.tc \
+	daemon/tests/logging/error.tc \
+	daemon/tests/logging/global.tc \
+	daemon/tests/logging/module.tc \
+	daemon/tests/cli.tc
 
 check_PROGRAMS += x52d-mouse-test
 
