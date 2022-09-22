@@ -103,7 +103,10 @@ EXTRA_DIST += \
 # Test cases
 EXTRA_DIST += \
 	daemon/test_daemon_comm.py \
-	daemon/tests/comm/config_args.tc
+	daemon/tests/config/args.tc \
+	daemon/tests/config/clock.tc \
+	daemon/tests/config/led.tc \
+	daemon/tests/config/mouse.tc
 
 check_PROGRAMS += x52d-mouse-test
 
