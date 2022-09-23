@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-09-22 14:24-0700\n"
-"PO-Revision-Date: 2022-09-21 09:30-0700\n"
+"POT-Creation-Date: 2022-09-22 21:22-0700\n"
+"PO-Revision-Date: 2022-09-22 21:23-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -615,30 +615,35 @@ msgstr "IDPay ilefay = %s"
 msgid "Command socket = %s"
 msgstr "Ommandcay ocketsay = %s"
 
-#: daemon/x52d_main.c:315
+#: daemon/x52d_main.c:305
+#, c-format
+msgid "Notify socket = %s"
+msgstr "Otifynay ocketsay = %s"
+
+#: daemon/x52d_main.c:316
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr "Erroray %d ockingblay ignalssay onay ildchay eadsthray: %s"
 
-#: daemon/x52d_main.c:334
+#: daemon/x52d_main.c:335
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr "Erroray %d unblockingay ignalssay onay ildchay eadsthray: %s"
 
-#: daemon/x52d_main.c:347
+#: daemon/x52d_main.c:348
 msgid "Reloading X52 configuration"
 msgstr "Eloadingray X52 onfigurationcay"
 
-#: daemon/x52d_main.c:354
+#: daemon/x52d_main.c:355
 msgid "Saving X52 configuration to disk"
 msgstr "Avingsay X52 onfigurationcay otay iskday"
 
-#: daemon/x52d_main.c:360
+#: daemon/x52d_main.c:361
 #, c-format
 msgid "Received termination signal %s"
 msgstr "Eceivedray erminationtay ignalsay %s"
 
-#: daemon/x52d_main.c:377
+#: daemon/x52d_main.c:378
 msgid "Shutting down X52 daemon"
 msgstr "Uttingshay ownday X52 aemonday"
 
@@ -975,27 +980,31 @@ msgstr "Erroray indingbay otay otificationnay ocketsay: %s"
 msgid "Error listening on notification socket: %s"
 msgstr "Erroray isteninglay onay otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:89 daemon/x52d_notify.c:105
+#: daemon/x52d_notify.c:73
+msgid "Error setting up notification socket"
+msgstr "Erroray ettingsay upay otificationnay ocketsay: %s"
+
+#: daemon/x52d_notify.c:90 daemon/x52d_notify.c:106
 #, c-format
 msgid "Error %d reading from pipe: %s"
 msgstr "Erroray eadingray omfray ipepay %d: %s"
 
-#: daemon/x52d_notify.c:147
+#: daemon/x52d_notify.c:148
 #, c-format
 msgid "Error %d writing notification pipe: %s"
 msgstr "Erroray %d itingwray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:192
+#: daemon/x52d_notify.c:193
 #, c-format
 msgid "Error %d creating notification pipe: %s"
 msgstr "Erroray %d eatingcray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:201
+#: daemon/x52d_notify.c:202
 #, c-format
 msgid "Error %d initializing notify thread: %s"
 msgstr "Erroray %d initializingay otifynay eadthray: %s"
 
-#: daemon/x52d_notify.c:207
+#: daemon/x52d_notify.c:208
 #, c-format
 msgid "Error %d initializing notify listener: %s"
 msgstr "Erroray %d initializingay otifynay istenerlay: %s"

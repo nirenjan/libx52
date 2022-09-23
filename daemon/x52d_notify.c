@@ -70,6 +70,7 @@ static int listen_notify(const char *notify_sock_path)
 listen_failure:
     unlink(local.sun_path);
     close(sock_fd);
+    PINELOG_FATAL(_("Error setting up notification socket"));
     return -1;
 }
 

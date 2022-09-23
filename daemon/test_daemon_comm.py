@@ -67,6 +67,7 @@ class Test:
         self.program = self.find_daemon_program()
         self.tmpdir = tempfile.TemporaryDirectory()
         self.command = os.path.join(self.tmpdir.name, "x52d.cmd")
+        self.notify = os.path.join(self.tmpdir.name, "x52d.notify")
         self.cmdsock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.daemon = None
         self.testcases = []
@@ -109,6 +110,7 @@ class Test:
             "-l", os.path.join(self.tmpdir.name, "x52d.log"), # Output logs to log file
             "-p", os.path.join(self.tmpdir.name, "x52d.pid"), # PID file
             "-s", self.command, # Command socket path
+            "-b", self.notify, # Notification socket path
         ]
 
         # Create empty config file

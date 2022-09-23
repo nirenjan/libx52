@@ -302,6 +302,7 @@ int main(int argc, char **argv)
     PINELOG_DEBUG(_("Config file = %s"), conf_file);
     PINELOG_DEBUG(_("PID file = %s"), pid_file);
     PINELOG_DEBUG(_("Command socket = %s"), command_sock);
+    PINELOG_DEBUG(_("Notify socket = %s"), notify_sock);
 
     start_daemon(foreground, pid_file);
 
