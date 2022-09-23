@@ -77,3 +77,7 @@ ERR "Unexpected arguments for 'config set' command; got 2, expected 5"
 Set configuration with extra arguments
 config set foo bar baz quux
 ERR "Unexpected arguments for 'config set' command; got 6, expected 5"
+
+Get configuration of unknown parameter
+config get foo bar
+ERR "Error getting 'foo.bar'"
