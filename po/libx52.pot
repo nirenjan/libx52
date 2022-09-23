@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-09-22 21:22-0700\n"
+"POT-Creation-Date: 2022-09-23 14:57-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -782,38 +782,38 @@ msgstr ""
 msgid "Error processing override '%s.%s=%s'"
 msgstr ""
 
-#: daemon/x52d_device.c:35
+#: daemon/x52d_device.c:36
 msgid "Starting X52 device manager thread"
 msgstr ""
 
-#: daemon/x52d_device.c:42
+#: daemon/x52d_device.c:43
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:51
+#: daemon/x52d_device.c:52
 msgid "Device connected, writing configuration"
 msgstr ""
 
-#: daemon/x52d_device.c:73
+#: daemon/x52d_device.c:75
 msgid "Initializing libx52"
 msgstr ""
 
-#: daemon/x52d_device.c:77
+#: daemon/x52d_device.c:79
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:88
+#: daemon/x52d_device.c:90
 msgid "Shutting down X52 device manager thread"
 msgstr ""
 
-#: daemon/x52d_device.c:101
+#: daemon/x52d_device.c:103
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr ""
 
-#: daemon/x52d_device.c:176
+#: daemon/x52d_device.c:179
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr ""

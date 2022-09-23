@@ -15,6 +15,7 @@
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_device.h"
+#include "x52d_notify.h"
 #include "libx52.h"
 #include "pinelog.h"
 
@@ -49,6 +50,7 @@ static void *x52_dev_thr(void *param)
             } else {
                 /* Successfully connected */
                 PINELOG_INFO(_("Device connected, writing configuration"));
+                X52D_NOTIFY("CONNECTED");
                 x52d_config_apply();
             }
         } else {
@@ -172,6 +174,7 @@ int x52d_dev_update(void)
             // pick it up.
             PINELOG_TRACE("Disconnecting detached device");
             libx52_disconnect(x52_dev);
+            X52D_NOTIFY("DISCONNECTED");
         } else {
             PINELOG_ERROR(_("Error %d when updating X52 device: %s"),
                           rc, libx52_strerror(rc));

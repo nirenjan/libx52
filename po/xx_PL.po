@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-09-22 21:22-0700\n"
+"POT-Creation-Date: 2022-09-23 14:57-0700\n"
 "PO-Revision-Date: 2022-09-22 21:23-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -835,38 +835,38 @@ msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
 msgid "Error processing override '%s.%s=%s'"
 msgstr "Erroray ocessingpray overriday '%s.%s=%s'"
 
-#: daemon/x52d_device.c:35
+#: daemon/x52d_device.c:36
 msgid "Starting X52 device manager thread"
 msgstr "Artingstay X52 eviceday anagermay eadthray"
 
-#: daemon/x52d_device.c:42
+#: daemon/x52d_device.c:43
 #, c-format
 msgid "Error %d connecting to device: %s"
 msgstr "Erroray %d onnectingcay otay eviceday: %s"
 
-#: daemon/x52d_device.c:51
+#: daemon/x52d_device.c:52
 msgid "Device connected, writing configuration"
 msgstr "Eviceday onnectedcay, itingwray onfigurationcay"
 
-#: daemon/x52d_device.c:73
+#: daemon/x52d_device.c:75
 msgid "Initializing libx52"
 msgstr "Initializingay libx52"
 
-#: daemon/x52d_device.c:77
+#: daemon/x52d_device.c:79
 #, c-format
 msgid "Failure %d initializing libx52: %s"
 msgstr "Ailurefay %d initializeay libx52: %s"
 
-#: daemon/x52d_device.c:88
+#: daemon/x52d_device.c:90
 msgid "Shutting down X52 device manager thread"
 msgstr "Uttingshay ownday X52 eviceday anagermay eadthray"
 
-#: daemon/x52d_device.c:101
+#: daemon/x52d_device.c:103
 #, c-format
 msgid "Error %d when updating X52 parameter: %s"
 msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
 
-#: daemon/x52d_device.c:176
+#: daemon/x52d_device.c:179
 #, c-format
 msgid "Error %d when updating X52 device: %s"
 msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
