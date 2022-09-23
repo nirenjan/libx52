@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Test communication with x52d and verify that the behavior is as expected"""
+# pylint: disable=consider-using-f-string
 
 import glob
 import os
@@ -7,7 +8,6 @@ import os.path
 import platform
 import shlex
 import signal
-import socket
 import subprocess
 import tempfile
 import time
@@ -29,10 +29,10 @@ class TestCase:
            space separated expected response, possibly quoted
         """
         self.desc, in_cmd, exp_resp = data.splitlines()
-        self.in_cmd = '\0'.join(shlex.split(in_cmd)).encode() + b'\0'
+        self.in_cmd = shlex.split(in_cmd)
         self.exp_resp = '\0'.join(shlex.split(exp_resp)).encode() + b'\0'
 
-    def execute(self, index, cmdsock):
+    def execute(self, index, suite):
         """Execute the test case and return the result in TAP format"""
         def dump_failed(name, value):
             """Dump the failed test case"""
@@ -48,13 +48,20 @@ class TestCase:
                 out = "not " + out
             print(out)
 
-        cmdsock.send(self.in_cmd)
-        got_resp = cmdsock.recv(1024)
+        cmd = [suite.find_control_program(),
+               '-s', suite.command, '--',
+               *self.in_cmd]
 
-        if got_resp != self.exp_resp:
+        testcase = subprocess.run(cmd, stdout=subprocess.PIPE, check=False)
+        if testcase.returncode != 0:
+            print_result(False)
+            print("# x52ctl returned code: {}".format(testcase.returncode))
+            dump_failed("Expected", self.exp_resp)
+            dump_failed("Got", testcase.stdout)
+        elif testcase.stdout != self.exp_resp:
             print_result(False)
             dump_failed("Expected", self.exp_resp)
-            dump_failed("Got", got_resp)
+            dump_failed("Got", testcase.stdout)
         else:
             print_result(True)
 
@@ -65,10 +72,9 @@ class Test:
     def __init__(self):
         """Create a new instance of the Test class"""
         self.program = self.find_daemon_program()
-        self.tmpdir = tempfile.TemporaryDirectory()
+        self.tmpdir = tempfile.TemporaryDirectory() # pylint: disable=consider-using-with
         self.command = os.path.join(self.tmpdir.name, "x52d.cmd")
         self.notify = os.path.join(self.tmpdir.name, "x52d.notify")
-        self.cmdsock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.daemon = None
         self.testcases = []
 
@@ -93,6 +99,17 @@ class Test:
 
         return os.path.realpath(daemon_candidates[0])
 
+    @staticmethod
+    def find_control_program():
+        """Find the control program. This script should be run from the
+           root of the build directory"""
+        ctl_candidates = glob.glob('**/x52ctl', recursive=True)
+        if not ctl_candidates:
+            print("Bail out! Unable to find x52ctl.")
+            sys.exit(1)
+
+        return os.path.realpath(ctl_candidates[0])
+
     def launch_daemon(self):
         """Launch an instance of the running daemon"""
         if self.daemon is not None:
@@ -105,7 +122,7 @@ class Test:
         daemon_cmdline = [
             self.program,
             "-f", # Run in foreground
-            "-v", # Verbose logging
+            "-q", # Quiet logging
             "-c", os.path.join(self.tmpdir.name, "x52d.cfg"), # Default config file
             "-l", os.path.join(self.tmpdir.name, "x52d.log"), # Output logs to log file
             "-p", os.path.join(self.tmpdir.name, "x52d.pid"), # PID file
@@ -114,25 +131,18 @@ class Test:
         ]
 
         # Create empty config file
-        with open(daemon_cmdline[4], 'w'):
+        with open(daemon_cmdline[4], 'w', encoding='utf-8'):
             pass
 
-        self.daemon = subprocess.Popen(daemon_cmdline)
+        self.daemon = subprocess.Popen(daemon_cmdline) # pylint: disable=consider-using-with
 
         print("# Sleeping 2 seconds for daemon to start")
         time.sleep(2)
-
-        self.cmdsock.connect(self.command)
 
     def terminate_daemon(self):
         """Terminate a running daemon"""
         if self.daemon is None:
             return
-
-        # Close the command socket and wait 2 seconds for the daemon
-        # to deregister the client
-        self.cmdsock.close()
-        time.sleep(2)
 
         # Send a SIGTERM to the daemon
         os.kill(self.daemon.pid, signal.SIGTERM)
@@ -164,7 +174,7 @@ class Test:
         """Run test cases"""
         print("1..{}".format(len(self.testcases)))
         for index, testcase in enumerate(self.testcases):
-            testcase.execute(index, self.cmdsock)
+            testcase.execute(index, self)
 
     def find_and_parse_testcase_files(self):
         """Find and parse *.tc files"""
@@ -173,7 +183,7 @@ class Test:
         tc_files = sorted(glob.glob(pattern, recursive=True))
 
         for tc_file in tc_files:
-            with open(tc_file) as tc_fd:
+            with open(tc_file, encoding='utf-8') as tc_fd:
                 # Test cases are separated by blank lines
                 testcases = tc_fd.read().split('\n\n')
                 self.extend(TestCase(tc_data) for tc_data in testcases)
