@@ -38,8 +38,8 @@ x52include_HEADERS += libx52/libx52.h
 pkgconfig_DATA += libx52/libx52.pc
 
 if HAVE_CMOCKA
-TESTS += libx52test
-check_PROGRAMS += libx52test
+TESTS += libx52test libx52-string-test
+check_PROGRAMS += libx52test libx52-string-test
 
 nodist_libx52test_SOURCES = libx52/test_libx52.c
 libx52test_SOURCES = $(libx52_la_SOURCES)
@@ -55,6 +55,13 @@ test_libx52_c_DEPENDS = \
 
 libx52/test_libx52.c: $(test_libx52_c_DEPENDS)
 	$(AM_V_GEN) $(PYTHON) $(test_libx52_c_DEPENDS) > $@
+
+libx52_string_test_SOURCES = \
+	libx52/test_strings.c \
+	libx52/x52_stringify.c \
+	libx52/x52_strerror.c
+libx52_string_test_CFLAGS = -I $(top_srcdir) -I $(top_srcdir)/libx52
+libx52_string_test_LDFLAGS = @CMOCKA_LIBS@
 endif
 
 # Extra files that need to be in the distribution
