@@ -62,6 +62,7 @@ libx52_string_test_SOURCES = \
 	libx52/x52_strerror.c
 libx52_string_test_CFLAGS = -I $(top_srcdir) -I $(top_srcdir)/libx52
 libx52_string_test_LDFLAGS = @CMOCKA_LIBS@
+libx52_string_test_LDADD = libx52.la
 endif
 
 # Extra files that need to be in the distribution
