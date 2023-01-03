@@ -31,7 +31,9 @@ static libusb_device_handle *libusbx52_init(void)
     int rc;
     ssize_t count;
     int i;
-    libusb_device **list;
+    libusb_device dummy = { 0 };
+    libusb_device *dummy_list[] = { &dummy };
+    libusb_device **list = dummy_list;
     libusb_device_handle *hdl = NULL;
     struct libusb_device_descriptor desc;
 
