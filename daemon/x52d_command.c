@@ -412,7 +412,6 @@ int x52d_command_init(const char *sock_path)
     int sock_fd;
     int len;
     struct sockaddr_un local;
-    int flags;
 
     x52d_client_init(client_fd);
 
@@ -431,33 +430,17 @@ int x52d_command_init(const char *sock_path)
         return -1;
     }
 
-    /* Mark the socket as non-blocking */
-    flags = fcntl(sock_fd, F_GETFL);
-    if (flags < 0) {
-        PINELOG_ERROR(_("Error getting command socket flags: %s"), strerror(errno));
-        goto sock_failure;
-    }
-    if (fcntl(sock_fd, F_SETFL, flags | O_NONBLOCK) < 0) {
-        PINELOG_ERROR(_("Error setting command socket flags: %s"), strerror(errno));
-        goto sock_failure;
-    }
-
-    /* Cleanup any existing socket */
-    unlink(local.sun_path);
-    if (bind(sock_fd, (struct sockaddr *)&local, (socklen_t)len) < 0) {
-        /* Failure binding socket */
-        PINELOG_ERROR(_("Error binding to command socket: %s"), strerror(errno));
-        goto listen_failure;
-    }
-
-    if (listen(sock_fd, X52D_MAX_CLIENTS) < 0) {
-        PINELOG_ERROR(_("Error listening on command socket: %s"), strerror(errno));
-        goto listen_failure;
-    }
-
     command_sock_fd = sock_fd;
-    if (command_sock_fd < 0) {
-        command_sock_fd = -1;
+
+    /* Mark the socket as non-blocking */
+    if (x52d_set_socket_nonblocking(sock_fd) < 0) {
+        PINELOG_ERROR(_("Error marking command socket as nonblocking: %s"),
+                      strerror(errno));
+        goto sock_failure;
+    }
+
+    if (x52d_listen_socket(&local, len, sock_fd) < 0) {
+        PINELOG_ERROR(_("Error listening on command socket: %s"), strerror(errno));
         goto listen_failure;
     }
 

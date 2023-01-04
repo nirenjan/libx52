@@ -89,6 +89,22 @@ sock_failure:
     return -1;
 }
 
+int x52d_listen_socket(struct sockaddr_un *local, int len, int sock_fd)
+{
+    /* Cleanup any existing socket */
+    unlink(local->sun_path);
+    if (bind(sock_fd, (struct sockaddr *)local, (socklen_t)len) < 0) {
+        /* Failure binding socket */
+        return -1;
+    }
+
+    if (listen(sock_fd, X52D_MAX_CLIENTS) < 0) {
+        return -1;
+    }
+
+    return 0;
+}
+
 void x52d_split_args(int *argc, char **argv, char *buffer, int buflen)
 {
     int i = 0;

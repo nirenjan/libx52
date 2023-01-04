@@ -52,15 +52,7 @@ static int listen_notify(const char *notify_sock_path)
         return -1;
     }
 
-    /* Cleanup any existing socket */
-    unlink(local.sun_path);
-    if (bind(sock_fd, (struct sockaddr *)&local, (socklen_t)len) < 0) {
-        /* Failure binding socket */
-        PINELOG_ERROR(_("Error binding to notification socket: %s"), strerror(errno));
-        goto listen_failure;
-    }
-
-    if (listen(sock_fd, X52D_MAX_CLIENTS) < 0) {
+    if (x52d_listen_socket(&local, len, sock_fd) < 0) {
         PINELOG_ERROR(_("Error listening on notification socket: %s"), strerror(errno));
         goto listen_failure;
     }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2022-12-25 22:03-0800\n"
-"PO-Revision-Date: 2022-09-22 21:23-0700\n"
+"POT-Creation-Date: 2023-01-04 08:39-0800\n"
+"PO-Revision-Date: 2023-01-04 08:40-0800\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -744,36 +744,26 @@ msgstr ""
 msgid "Error %d during command loop: %s"
 msgstr "Erroray %d uringday ommandcay ooplay: %s"
 
-#: daemon/x52d_command.c:430
+#: daemon/x52d_command.c:429
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr "Erroray eatingcray ommandcay ocketsay: %s"
 
 #: daemon/x52d_command.c:437
 #, c-format
-msgid "Error getting command socket flags: %s"
-msgstr "Erroray ettinggay ommandcay ocketsay agsflay: %s"
+msgid "Error marking command socket as nonblocking: %s"
+msgstr "Erroray arkingmay ommandcay ocketsay asay onblockingnay: %s"
 
-#: daemon/x52d_command.c:441
-#, c-format
-msgid "Error setting command socket flags: %s"
-msgstr "Erroray ettingsay ommandcay ocketsay agsflay: %s"
-
-#: daemon/x52d_command.c:449
-#, c-format
-msgid "Error binding to command socket: %s"
-msgstr "Erroray indingbay otay ommandcay ocketsay: %s"
-
-#: daemon/x52d_command.c:454
+#: daemon/x52d_command.c:443
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr "Erroray isteninglay onay ommandcay ocketsay: %s"
 
-#: daemon/x52d_command.c:464
+#: daemon/x52d_command.c:447
 msgid "Starting command processing thread"
 msgstr "Artingstay ommandcay ocessingpray eadthray"
 
-#: daemon/x52d_command.c:482
+#: daemon/x52d_command.c:465
 msgid "Shutting down command processing thread"
 msgstr "Uttingshay ownday ommandcay ocessingpray eadthray"
 
@@ -970,41 +960,36 @@ msgstr "Erroray eatingcray otificationnay ocketsay: %s"
 msgid "Error marking notification socket as nonblocking: %s"
 msgstr "Erroray arkingmay otificationnay ocketsay asay onblockingnay: %s"
 
-#: daemon/x52d_notify.c:59
-#, c-format
-msgid "Error binding to notification socket: %s"
-msgstr "Erroray indingbay otay otificationnay ocketsay: %s"
-
-#: daemon/x52d_notify.c:64
+#: daemon/x52d_notify.c:56
 #, c-format
 msgid "Error listening on notification socket: %s"
 msgstr "Erroray isteninglay onay otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:73
+#: daemon/x52d_notify.c:65
 msgid "Error setting up notification socket"
 msgstr "Erroray ettingsay upay otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:90 daemon/x52d_notify.c:106
+#: daemon/x52d_notify.c:82 daemon/x52d_notify.c:98
 #, c-format
 msgid "Error %d reading from pipe: %s"
 msgstr "Erroray eadingray omfray ipepay %d: %s"
 
-#: daemon/x52d_notify.c:148
+#: daemon/x52d_notify.c:140
 #, c-format
 msgid "Error %d writing notification pipe: %s"
 msgstr "Erroray %d itingwray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:193
+#: daemon/x52d_notify.c:185
 #, c-format
 msgid "Error %d creating notification pipe: %s"
 msgstr "Erroray %d eatingcray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:202
+#: daemon/x52d_notify.c:194
 #, c-format
 msgid "Error %d initializing notify thread: %s"
 msgstr "Erroray %d initializingay otifynay eadthray: %s"
 
-#: daemon/x52d_notify.c:208
+#: daemon/x52d_notify.c:200
 #, c-format
 msgid "Error %d initializing notify listener: %s"
 msgstr "Erroray %d initializingay otifynay istenerlay: %s"
