@@ -193,10 +193,9 @@ A side effect of this is that the client could request a set for any arbitrary
 section and key pair, and if that pair was not recognized, it would be ignored,
 but the daemon would still send an `OK` response.
 
-Finally, this will only set the value within the configuration memory
-structures, and will not invoke any callback to update the rest of the threads
-or device state. The client will need to call the `apply` subcommand to actually
-invoke the necessary callbacks.
+This will set the value within the configuration memory structures, and will
+immediately invoke the relevant callback to update the rest of the threads or
+device state.
 
 \b Arguments
 
@@ -221,22 +220,6 @@ invoke the necessary callbacks.
 ERR\0Error 22 setting 'led.fire'='none': Invalid argument\0
 ```
 
-# Apply configuration
-
-The `config apply` command will invoke all the callbacks and ensure that the
-configuration is applied to the running state.
-
-\b Arguments
-
-- `config`
-- `apply`
-
-\b Returns
-
-- `OK`
-- `config`
-- `apply`
-
 */
 
 /**
@@ -259,12 +242,14 @@ user to fine tune the logging while the daemon is running.
 of modules is below:
 
 - \c Config
+- \c Cllient
 - \c Clock
 - \c Command
 - \c Device
 - \c IO
 - \c LED
 - \c Mouse
+- \c Notify
 
 # Logging levels
 
