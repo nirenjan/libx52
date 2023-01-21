@@ -82,7 +82,6 @@ $(function() {
 </li>
 <li class="level1"><a href="#autotoc_md26">Retrieve configuration parameter</a></li>
 <li class="level1"><a href="#autotoc_md27">Set configuration parameter</a></li>
-<li class="level1"><a href="#autotoc_md28">Apply configuration</a></li>
 </ul>
 </div>
 <div class="textblock"><p>The <code>config</code> commands deal with <b>x52d</b> configuration subsystem, and have the following subcommands.</p>
@@ -183,7 +182,7 @@ Retrieve configuration parameter</h1>
 Set configuration parameter</h1>
 <p>The <code>config set</code> command requests the <b>x52d</b> daemon to set the given (section, key) parameter to the given value. The daemon will treat it the same way as if it was being read from the configuration file, i.e., it will follow identical parsing logic, including ignoring unknown keys and not reporting errors for them.</p>
 <p>A side effect of this is that the client could request a set for any arbitrary section and key pair, and if that pair was not recognized, it would be ignored, but the daemon would still send an <code>OK</code> response.</p>
-<p>Finally, this will only set the value within the configuration memory structures, and will not invoke any callback to update the rest of the threads or device state. The client will need to call the <code>apply</code> subcommand to actually invoke the necessary callbacks.</p>
+<p>This will set the value within the configuration memory structures, and will immediately invoke the relevant callback to update the rest of the threads or device state.</p>
 <p><b>Arguments</b> </p>
 <ul>
 <li><code>config</code></li>
@@ -203,21 +202,7 @@ Set configuration parameter</h1>
 </ul>
 <p><b>Error example</b></p>
 <div class="fragment"><div class="line">ERR\0Error 22 setting <span class="stringliteral">&#39;led.fire&#39;</span>=<span class="stringliteral">&#39;none&#39;</span>: Invalid argument\0</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md28"></a>
-Apply configuration</h1>
-<p>The <code>config apply</code> command will invoke all the callbacks and ensure that the configuration is applied to the running state.</p>
-<p><b>Arguments</b> </p>
-<ul>
-<li><code>config</code></li>
-<li><code>apply</code></li>
-</ul>
-<p><b>Returns</b> </p>
-<ul>
-<li><code>OK</code></li>
-<li><code>config</code></li>
-<li><code>apply</code> </li>
-</ul>
-</div></div><!-- contents -->
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

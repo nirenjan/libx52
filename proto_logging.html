@@ -72,27 +72,29 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md29">Modules</a></li>
-<li class="level1"><a href="#autotoc_md30">Logging levels</a></li>
-<li class="level1"><a href="#autotoc_md31">Show logging configuration</a></li>
-<li class="level1"><a href="#autotoc_md32">Set logging configuration</a></li>
+<ul><li class="level1"><a href="#autotoc_md28">Modules</a></li>
+<li class="level1"><a href="#autotoc_md29">Logging levels</a></li>
+<li class="level1"><a href="#autotoc_md30">Show logging configuration</a></li>
+<li class="level1"><a href="#autotoc_md31">Set logging configuration</a></li>
 </ul>
 </div>
 <div class="textblock"><p>The <code>logging</code> commands allow the user to fine tune the logging configuration of <code>x52d</code> as well as adjust the log levels for either all the modules, or for each of the modules individually.</p>
 <p>While the <code>-v</code> and <code>-q</code> command line options allow you to either increase the logging verbosity or suppress it entirely, they are required to be specified at program startup. On the other hand, having the <code>logging</code> commands allows the user to fine tune the logging while the daemon is running.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Modules</h1>
 <p><code>x52d</code> is split into several modules as far as logging is concerned. The list of modules is below:</p>
 <ul>
 <li><code>Config</code> </li>
+<li><code>Cllient</code> </li>
 <li><code>Clock</code> </li>
 <li><code>Command</code> </li>
 <li><code>Device</code> </li>
 <li><code>IO</code> </li>
 <li><code>LED</code> </li>
 <li><code>Mouse</code> </li>
+<li><code>Notify</code> </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Logging levels</h1>
 <p>The following is a list of supported logging levels. Each level logs the ones above it as well as the current level</p>
 <ul>
@@ -105,7 +107,7 @@ Logging levels</h1>
 <li><code>trace</code> - Log trace messages - useful for tracing program flow.</li>
 <li><code>default</code> - Not a level, but used when configuring module log levels, makes the module log level fallback to the global log level.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Show logging configuration</h1>
 <p>The <code>logging show</code> command takes in an optional module name, as listed in the Modules section above. It returns the module name, if specified, and the log level for that module. If the module is configured to fallback to the global level, then it will return the global level.</p>
 <p><b>Arguments</b> </p>
@@ -120,7 +122,7 @@ Show logging configuration</h1>
 <li><code><em>module-name</code></em> (if specified)</li>
 <li><em>log-level</em> </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Set logging configuration</h1>
 <p>The <code>logging set</code> command takes in the optional module name and the log level and sets the log level for that module, if specified, or the global level otherwise.</p>
 <p><b>Arguments</b> </p>
