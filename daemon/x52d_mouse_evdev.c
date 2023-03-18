@@ -52,13 +52,15 @@ static int report_wheel(void)
 {
     int rc = 1;
     int wheel = 0;
+    bool old_scroll_up = old_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
     bool scroll_up = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
+    bool old_scroll_dn = old_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
     bool scroll_dn = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
 
-    if (scroll_up) {
+    if (scroll_up && (scroll_up != old_scroll_up)) {
         // Scroll up event
         wheel = 1 * mouse_scroll_dir;
-    } else if (scroll_dn) {
+    } else if (scroll_dn && (scroll_dn != old_scroll_dn)) {
         // Scroll down event
         wheel = -1 * mouse_scroll_dir;
     }
