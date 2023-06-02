@@ -38,7 +38,7 @@ BUILT_SOURCES += version-info.h
 CLEANFILES += version-info.h
 
 version-info.h: ${top_srcdir}/version-info
-	${top_srcdir}/version-info ${top_srcdir} >$@
+	CC=${CC} ${top_srcdir}/version-info ${top_srcdir} >$@
 
 ########################################################################
 # Include automake stubs

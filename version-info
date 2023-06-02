@@ -35,5 +35,6 @@ cat <<EOM
 #define BUILD_VERSION "${DESCRIBE}"
 #define BUILD_DATE "$(date +%Y-%m-%dT%H:%M:%S%z)"
 #define BUILD_HOST "$(uname -a)"
+#define BUILD_COMPILER "$(${CC} --version | head -n1)"
 EOM
 echo '#define BUILD_VERSION_INFO_IDENT "$Id$"'

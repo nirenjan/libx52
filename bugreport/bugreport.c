@@ -76,6 +76,7 @@ int main(int argc, char **argv)
     printf("Package version: %s\n", VERSION);
     printf("Build version: %s\n", BUILD_VERSION);
     printf("Built on: %s\n", BUILD_HOST);
+    printf("Compiler: %s\n", BUILD_COMPILER);
     printf("Build date: %s\n", BUILD_DATE);
     printf("version-info %s\n", BUILD_VERSION_INFO_IDENT);
 
