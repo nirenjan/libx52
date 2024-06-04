@@ -120,13 +120,13 @@ int pinelog_init(int count) {
     free(module_level);
     free(module_name);
 
-    module_level = calloc(sizeof(*module_level), count);
+    module_level = calloc(count, sizeof(*module_level));
     if (module_level == NULL) {
         rc = errno;
         goto cleanup;
     }
 
-    module_name = calloc(sizeof(*module_name), count);
+    module_name = calloc(count, sizeof(*module_name));
     if (module_name == NULL) {
         rc = errno;
         goto cleanup;
