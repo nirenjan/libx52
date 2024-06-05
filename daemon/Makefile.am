@@ -112,6 +112,9 @@ EXTRA_DIST += \
 	daemon/tests/logging/module.tc \
 	daemon/tests/cli.tc
 
+TESTS += daemon/test_daemon_comm.py
+
+if HAVE_CMOCKA
 check_PROGRAMS += x52d-mouse-test
 
 x52d_mouse_test_SOURCES = \
@@ -129,9 +132,8 @@ x52d_mouse_test_LDADD = \
 	lib/pinelog/libpinelog.la \
 	@LTLIBINTL@
 
-TESTS += \
-	daemon/test_daemon_comm.py \
-	x52d-mouse-test
+TESTS += x52d-mouse-test
+endif
 
 if HAVE_SYSTEMD
 if !IS_MAKE_DISTCHECK
