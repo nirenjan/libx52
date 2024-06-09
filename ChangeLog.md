@@ -6,6 +6,22 @@ The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
 
+## [0.3.1] - 2024-06-08
+### Added
+- Updated bug report utility to add details about build host details and
+  compiler information.
+
+### Fixed
+- Updated syntax check for calloc calls. See
+  [#52](https://github.com/nirenjan/libx52/issues/52)
+- Fixed a tooling bug where running make check on a system without cmocka
+  library installed would fail during daemon testing.
+- Cleaned up daemon protocol documentation
+
+### Changed
+- Moved socket code around to make it easier to reuse the communication logic
+  out in both client(s) and server.
+
 ## [0.3.0] - 2022-12-25
 ### Added
 - Bug report utility to make it easier to gather system and build information
@@ -158,7 +174,8 @@ The format is based upon [Keep a Changelog].
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
 [TAP]: https://testanything.org
-[Unreleased]: https://github.com/nirenjan/libx52/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/nirenjan/libx52/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/nirenjan/libx52/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/nirenjan/libx52/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/nirenjan/libx52/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/nirenjan/libx52/compare/v0.2.1...v0.2.2
