@@ -17,7 +17,7 @@ TESTS += test-cli
 check_PROGRAMS += test-cli
 
 test_cli_SOURCES = cli/x52_cli.c cli/test_x52_cli.c
-test_cli_CFLAGS = -DX52_CLI_TESTING -I $(top_srcdir)/libx52
+test_cli_CFLAGS = @CMOCKA_CFLAGS@ -DX52_CLI_TESTING -I $(top_srcdir)/libx52
 test_cli_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
 
 # Add a dependency on test_x52_cli_tests.c

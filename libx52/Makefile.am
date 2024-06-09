@@ -43,7 +43,7 @@ check_PROGRAMS += libx52test libx52-string-test
 
 nodist_libx52test_SOURCES = libx52/test_libx52.c
 libx52test_SOURCES = $(libx52_la_SOURCES)
-libx52test_CFLAGS = @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir) -I $(top_srcdir)/libx52
+libx52test_CFLAGS = @CMOCKA_CFLAGS@ @LIBUSB_CFLAGS@ -DLOCALEDIR='"$(localedir)"' -I $(top_srcdir) -I $(top_srcdir)/libx52
 libx52test_CFLAGS += -Dlibusb_control_transfer=__wrap_libusb_control_transfer
 libx52test_LDFLAGS = @CMOCKA_LIBS@ @LIBUSB_LIBS@
 libx52test_LDADD = libx52.la
@@ -60,7 +60,7 @@ libx52_string_test_SOURCES = \
 	libx52/test_strings.c \
 	libx52/x52_stringify.c \
 	libx52/x52_strerror.c
-libx52_string_test_CFLAGS = -I $(top_srcdir) -I $(top_srcdir)/libx52
+libx52_string_test_CFLAGS = @CMOCKA_CFLAGS@ -I $(top_srcdir) -I $(top_srcdir)/libx52
 libx52_string_test_LDFLAGS = @CMOCKA_LIBS@
 libx52_string_test_LDADD = libx52.la
 endif

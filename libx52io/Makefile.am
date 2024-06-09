@@ -37,12 +37,12 @@ TESTS += test-axis test-parser
 check_PROGRAMS += test-axis test-parser
 
 test_axis_SOURCES = libx52io/test_axis.c $(libx52io_la_SOURCES)
-test_axis_CFLAGS = $(libx52io_la_CFLAGS)
+test_axis_CFLAGS = @CMOCKA_CFLAGS@ $(libx52io_la_CFLAGS)
 test_axis_LDFLAGS = @CMOCKA_LIBS@ @HIDAPI_LIBS@ $(WARN_LDFLAGS)
 test_axis_LDADD = @LTLIBINTL@
 
 test_parser_SOURCES = libx52io/test_parser.c $(libx52io_la_SOURCES)
-test_parser_CFLAGS = $(libx52io_la_CFLAGS)
+test_parser_CFLAGS = @CMOCKA_CFLAGS@ $(libx52io_la_CFLAGS)
 test_parser_LDFLAGS = @CMOCKA_LIBS@ @HIDAPI_LIBS@ $(WARN_LDFLAGS)
 test_parser_LDADD = @LTLIBINTL@
 

@@ -126,7 +126,7 @@ x52d_mouse_test_CFLAGS = \
 	-I $(top_srcdir)/libx52 \
 	-I $(top_srcdir)/libx52io \
 	-I $(top_srcdir)/lib/pinelog \
-	$(WARN_CFLAGS)
+	$(WARN_CFLAGS) @CMOCKA_CFLAGS@
 x52d_mouse_test_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
 x52d_mouse_test_LDADD = \
 	lib/pinelog/libpinelog.la \
