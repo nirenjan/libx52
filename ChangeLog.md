@@ -6,7 +6,7 @@ The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
 
-## [0.3.1] - 2024-06-08
+## [0.3.2] - 2024-06-09
 ### Added
 - Updated bug report utility to add details about build host details and
   compiler information.
@@ -21,6 +21,12 @@ The format is based upon [Keep a Changelog].
 ### Changed
 - Moved socket code around to make it easier to reuse the communication logic
   out in both client(s) and server.
+
+## 0.3.1 - 2024-06-08
+
+**Important:** Tag 0.3.1 has a bad Version file and should not be used. This has
+been superseded by 0.3.2 with corrected metadata. The changes from the previous
+release are the same.
 
 ## [0.3.0] - 2022-12-25
 ### Added
@@ -174,8 +180,8 @@ The format is based upon [Keep a Changelog].
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: http://semver.org/spec/v2.0.0.html
 [TAP]: https://testanything.org
-[Unreleased]: https://github.com/nirenjan/libx52/compare/v0.3.1...HEAD
-[0.3.1]: https://github.com/nirenjan/libx52/compare/v0.3.0...v0.3.1
+[Unreleased]: https://github.com/nirenjan/libx52/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/nirenjan/libx52/compare/v0.3.0...v0.3.2
 [0.3.0]: https://github.com/nirenjan/libx52/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/nirenjan/libx52/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/nirenjan/libx52/compare/v0.2.1...v0.2.2
