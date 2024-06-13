@@ -2,6 +2,12 @@ project('pinelog', 'C')
 
 libpinelog = static_library('pinelog', 'pinelog.c')
 
+libpinelog_inc = include_directories('.')
+libpinelog_dep = declare_dependency(
+	include_directories: libpinelog_inc,
+	link_with: libpinelog
+)
+
 prog_class = ['bench', 'test']
 date_class = ['nots', 'ts']
 level_class = ['nolvl', 'lvl']
