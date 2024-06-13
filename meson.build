@@ -1,6 +1,6 @@
 project('libx52', 'C',
   license: 'GPL-2.0-only WITH Classpath-exception-2.0',
-  version: configure_file('Version'))
+  version: files('Version')[0])
 
 # Internationalization
 i18n = import('i18n')
