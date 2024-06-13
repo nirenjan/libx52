@@ -1,0 +1,6 @@
+#mesondefine BUILD_VERSION
+#mesondefine BUILD_DATE
+#mesondefine BUILD_HOST
+#mesondefine BUILD_COMPILER
+#mesondefine BUILD_TARGET
+#mesondefine BUILD_VERSION_INFO_IDENT
