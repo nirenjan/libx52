@@ -15,6 +15,7 @@ sudo apt-get install -y \
     doxygen \
     libcmocka-dev \
     faketime \
-    meson
+    meson \
+    libinih-dev
 
 exit 0

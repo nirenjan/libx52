@@ -11,6 +11,7 @@ brew install \
     hidapi \
     doxygen \
     cmocka \
-    meson
+    meson \
+    inih
 
 exit 0
