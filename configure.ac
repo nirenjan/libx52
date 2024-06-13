@@ -135,12 +135,12 @@ AC_CONFIG_HEADERS([config.h])
 
 AC_CONFIG_FILES([ po/Makefile.in
     Makefile
-    lib/Makefile
+    subprojects/Makefile
     libx52/libx52.pc
     libx52io/libx52io.pc
     libx52util/libx52util.pc
-    lib/pinelog/Makefile
-    lib/inih/Makefile
+    subprojects/pinelog/Makefile
+    subprojects/inih/Makefile
     udev/60-saitek-x52-x52pro.rules
 ])
 AC_OUTPUT

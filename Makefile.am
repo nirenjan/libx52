@@ -7,7 +7,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 # Build any support libraries first
-SUBDIRS = lib
+SUBDIRS = subprojects
 
 if USE_NLS
 SUBDIRS += po
