@@ -14,6 +14,7 @@ sudo apt-get install -y \
     libevdev-dev \
     doxygen \
     libcmocka-dev \
-    faketime
+    faketime \
+    meson
 
 exit 0

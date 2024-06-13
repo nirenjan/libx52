@@ -10,6 +10,7 @@ brew install \
     libusb \
     hidapi \
     doxygen \
-    cmocka
+    cmocka \
+    meson
 
 exit 0

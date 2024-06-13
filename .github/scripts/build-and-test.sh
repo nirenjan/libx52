@@ -2,13 +2,10 @@
 # Run the build and tests
 set -e
 
-./autogen.sh
-mkdir build
+meson setup build
 cd build
-../configure
-make -j V=0
-make -j check V=0
-make -j distcheck
+meson compile
+meson test
 
 # Print bugreport output
 ./x52bugreport
