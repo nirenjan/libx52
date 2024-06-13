@@ -12,7 +12,11 @@ i18n.gettext(meson.project_name())
 dep_systemd = dependency('systemd', required: false)
 dep_libusb = dependency('libusb-1.0', required: true)
 dep_evdev = dependency('libevdev', required: false)
-dep_hidapi = dependency('hidapi-hidraw', 'hidapi', required: true)
+dep_hidapi = dependency('hidapi-hidraw', required: false)
+if not dep_hidapi.found()
+  dep_hidapi = dependency('hidapi', required: true)
+endif
+
 dep_udev = dependency('udev', required: false)
 
 doxygen_program = find_program('doxygen', required: false)
