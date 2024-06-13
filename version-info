@@ -31,10 +31,20 @@ then
     fi
 fi
 
+if test -n "$2"
+then
+    BUILD_COMPILER="$2"
+elif test -n "${CC}"
+then
+    BUILD_COMPILER="$(${CC} --version | head -n1)"
+else
+    BUILD_COMPILER=unknown
+fi
+
 cat <<EOM
 #define BUILD_VERSION "${DESCRIBE}"
 #define BUILD_DATE "$(date +%Y-%m-%dT%H:%M:%S%z)"
 #define BUILD_HOST "$(uname -a)"
-#define BUILD_COMPILER "$(${CC} --version | head -n1)"
+#define BUILD_COMPILER "${BUILD_COMPILER}"
 EOM
 echo '#define BUILD_VERSION_INFO_IDENT "$Id$"'
