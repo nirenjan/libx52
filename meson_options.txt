@@ -1,0 +1,7 @@
+option('disable-systemd',
+  type: 'boolean', value: false,
+  description: 'Disable systemd integration (show timestamps in logs)')
+
+option('input-group',
+  type: 'string', value: 'plugdev',
+  description: 'Group for input devices')

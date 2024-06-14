@@ -101,7 +101,13 @@ version_info_h = configure_file(
 #######################################################################
 
 # pinelog
-sub_pinelog = subproject('pinelog', required: true)
+pinelog_options = {}
+if dep_systemd.found() and not get_option('disable-systemd')
+  pinelog_options = {'show-date': false}
+endif
+
+sub_pinelog = subproject('pinelog', required: true,
+  default_options: pinelog_options)
 dep_pinelog = sub_pinelog.get_variable('libpinelog_dep')
 
 # inih
@@ -314,7 +320,7 @@ if dep_udev.found()
   udev_file = configure_file(
     input: 'udev/60-saitek-x52-x52pro.rules.in',
     output: '60-saitek-x52-x52pro.rules',
-    configuration: {'input_group': 'plugdev'}
+    configuration: {'input_group': get_option('input-group')}
   )
   install_data(udev_file, install_dir: udev_rules_dir)
   meson.add_install_script('udev/install-hook.sh')

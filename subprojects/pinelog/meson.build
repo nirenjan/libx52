@@ -1,6 +1,13 @@
-project('pinelog', 'C')
+project('pinelog', 'C',
+	default_options: {'show-date': true, 'show-level': true, 'show-backtrace': true})
 
-libpinelog = static_library('pinelog', 'pinelog.c')
+pinelog_cflags = [
+	'-DPINELOG_SHOW_DATE=@0@'.format(get_option('show-date').to_int()),
+	'-DPINELOG_SHOW_LEVEL=@0@'.format(get_option('show-level').to_int()),
+	'-DPINELOG_SHOW_BACKTRACE=@0@'.format(get_option('show-backtrace').to_int()),
+]
+
+libpinelog = static_library('pinelog', 'pinelog.c', c_args: pinelog_cflags)
 
 libpinelog_inc = include_directories('.')
 libpinelog_dep = declare_dependency(
