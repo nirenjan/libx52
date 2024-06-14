@@ -225,3 +225,19 @@ executable('x52bugreport', 'bugreport/bugreport.c',
   include_directories: 'libx52io',
   dependencies: [dep_libusb, dep_hidapi],
   link_with: [lib_libx52io])
+
+# x52cli
+executable('x52cli', 'cli/x52_cli.c',
+  include_directories: 'libx52',
+  link_with: lib_libx52)
+
+if dep_cmocka.found()
+  test_cli = executable('test-cli', 'cli/x52_cli.c', 'cli/test_x52_cli.c',
+    build_by_default: false,
+    c_args: ['-DX52_CLI_TESTING'],
+    include_directories: 'libx52',
+    dependencies: [dep_cmocka],
+    )
+
+  test('test-cli', test_cli, protocol: 'tap')
+endif
