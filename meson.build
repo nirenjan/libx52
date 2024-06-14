@@ -307,3 +307,15 @@ executable('x52ctl', 'daemon/x52ctl.c',
 
 install_data('daemon/x52d.conf',
   install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
+
+# udev rules
+if dep_udev.found()
+  udev_rules_dir = join_paths(dep_udev.get_variable('udevdir'), 'rules.d')
+  udev_file = configure_file(
+    input: 'udev/60-saitek-x52-x52pro.rules.in',
+    output: '60-saitek-x52-x52pro.rules',
+    configuration: {'input_group': 'plugdev'}
+  )
+  install_data(udev_file, install_dir: udev_rules_dir)
+  meson.add_install_script('udev/install-hook.sh')
+endif
