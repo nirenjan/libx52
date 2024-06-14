@@ -115,5 +115,17 @@
 /* Version number of package */
 #mesondefine VERSION
 
+/* Define to the location of the configuration directory */
+#mesondefine SYSCONFDIR
+
+/* Define to the location of the local state directory */
+#mesondefine LOCALSTATEDIR
+
+/* Define to the location of the log directory */
+#define LOGDIR LOCALSTATEDIR "/log"
+
+/* Define to the location of the run directory */
+#define RUNDIR LOCALSTATEDIR "/run"
+
 /* Define to __typeof__ if your compiler spells it that way. */
 #mesondefine typeof

@@ -38,6 +38,8 @@ assert(pyversion[1].to_int() >= 5, 'Require Python >= 3.5')
 cdata = configuration_data()
 cdata.set_quoted('PACKAGE', meson.project_name())
 cdata.set_quoted('LOCALEDIR', get_option('localedir'))
+cdata.set_quoted('SYSCONFDIR', get_option('sysconfdir'))
+cdata.set_quoted('LOCALSTATEDIR', get_option('localstatedir'))
 cdata.set_quoted('VERSION', meson.project_version())
 
 config_h = configure_file(
@@ -241,3 +243,67 @@ if dep_cmocka.found()
 
   test('test-cli', test_cli, protocol: 'tap')
 endif
+
+# x52test
+executable('x52test',
+  'joytest/x52_test.c',
+  'joytest/x52_test_mfd.c',
+  'joytest/x52_test_led.c',
+  'joytest/x52_test_clock.c',
+  include_directories: includes,
+  link_with: [lib_libx52])
+
+# x52evtest
+executable('x52evtest', 'evtest/ev_test.c',
+  include_directories: ['.', 'libx52io'],
+  link_with: [lib_libx52io])
+
+# x52d
+libx52dcomm_sources = [
+  'daemon/x52d_comm_client.c',
+  'daemon/x52d_comm_internal.c'
+  ]
+
+install_headers('daemon/x52dcomm.h', subdir: meson.project_name())
+
+lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources)
+
+x52d_sources = [
+  'daemon/x52d_main.c',
+  'daemon/x52d_config_parser.c',
+  'daemon/x52d_config_dump.c',
+  'daemon/x52d_config.c',
+  'daemon/x52d_device.c',
+  'daemon/x52d_client.c',
+  'daemon/x52d_clock.c',
+  'daemon/x52d_mouse.c',
+  'daemon/x52d_notify.c',
+  'daemon/x52d_led.c',
+  'daemon/x52d_command.c',
+  ]
+
+dep_threads = dependency('threads')
+x52d_linkwith = [lib_libx52, lib_libx52dcomm]
+x52d_deps = [dep_pinelog, dep_inih, dep_threads]
+x52d_cflags = []
+if dep_evdev.found()
+  x52d_sources += 'daemon/x52d_io.c'
+  x52d_sources += 'daemon/x52d_mouse_evdev.c'
+  x52d_cflags += '-DHAVE_EVDEV'
+  x52d_linkwith += lib_libx52io
+  x52d_deps += dep_evdev
+endif
+
+
+executable('x52d', x52d_sources,
+  include_directories: ['.', 'libx52', 'libx52io', 'libx52util'],
+  c_args: x52d_cflags,
+  dependencies: x52d_deps,
+  link_with: x52d_linkwith)
+
+executable('x52ctl', 'daemon/x52ctl.c',
+  include_directories: ['.'],
+  link_with: lib_libx52dcomm)
+
+install_data('daemon/x52d.conf',
+  install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
