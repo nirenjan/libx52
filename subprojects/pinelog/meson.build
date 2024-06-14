@@ -1,5 +1,5 @@
 project('pinelog', 'C',
-	default_options: {'show-date': true, 'show-level': true, 'show-backtrace': true})
+	default_options: ['show-date=true', 'show-level=true', 'show-backtrace=true'])
 
 pinelog_cflags = [
 	'-DPINELOG_SHOW_DATE=@0@'.format(get_option('show-date').to_int()),
