@@ -229,6 +229,7 @@ pkgconfig.generate(lib_libx52util)
 #######################################################################
 # x52bugreport
 executable('x52bugreport', 'bugreport/bugreport.c',
+  install: true,
   extra_files: ['bugreport/bugreport.dox'],
   include_directories: 'libx52io',
   dependencies: [dep_libusb, dep_hidapi],
@@ -236,6 +237,7 @@ executable('x52bugreport', 'bugreport/bugreport.c',
 
 # x52cli
 executable('x52cli', 'cli/x52_cli.c',
+  install: true,
   include_directories: 'libx52',
   link_with: lib_libx52)
 
@@ -256,11 +258,13 @@ executable('x52test',
   'joytest/x52_test_mfd.c',
   'joytest/x52_test_led.c',
   'joytest/x52_test_clock.c',
+  install: true,
   include_directories: includes,
   link_with: [lib_libx52])
 
 # x52evtest
 executable('x52evtest', 'evtest/ev_test.c',
+  install: true,
   include_directories: ['.', 'libx52io'],
   link_with: [lib_libx52io])
 
@@ -302,12 +306,14 @@ endif
 
 
 executable('x52d', x52d_sources,
+  install: true,
   include_directories: ['.', 'libx52', 'libx52io', 'libx52util'],
   c_args: x52d_cflags,
   dependencies: x52d_deps,
   link_with: x52d_linkwith)
 
 executable('x52ctl', 'daemon/x52ctl.c',
+  install: true,
   include_directories: ['.'],
   link_with: lib_libx52dcomm)
 
