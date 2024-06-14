@@ -101,9 +101,9 @@ version_info_h = configure_file(
 #######################################################################
 
 # pinelog
-pinelog_options = {}
+pinelog_options = []
 if dep_systemd.found() and not get_option('disable-systemd')
-  pinelog_options = {'show-date': false}
+  pinelog_options = ['show-date=false']
 endif
 
 sub_pinelog = subproject('pinelog', required: true,
