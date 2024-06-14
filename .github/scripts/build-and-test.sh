@@ -4,8 +4,8 @@ set -e
 
 meson setup build
 cd build
-meson compile
-meson test
+ninja
+ninja test
 
 # Print bugreport output
 ./x52bugreport
