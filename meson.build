@@ -316,7 +316,9 @@ install_data('daemon/x52d.conf',
 
 # udev rules
 if dep_udev.found()
-  udev_rules_dir = join_paths(dep_udev.get_variable('udevdir'), 'rules.d')
+  udev_rules_dir = join_paths(
+    dep_udev.get_variable(varname: 'udevdir', default_value:'/lib/udev'),
+    'rules.d')
   udev_file = configure_file(
     input: 'udev/60-saitek-x52-x52pro.rules.in',
     output: '60-saitek-x52-x52pro.rules',
