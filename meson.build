@@ -5,11 +5,9 @@ project('libx52', 'C',
 # Internationalization
 i18n = import('i18n')
 # # define GETTEXT_PACKAGE
-# add_project_arguments(
-#   '-DPACKAGE="libx52"',
-#   '-DLOCALEDIR=""',
-#   language:'C')
-i18n.gettext(meson.project_name())
+add_project_arguments(
+  '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
+  language:'C')
 
 dep_libusb = dependency('libusb-1.0', required: true)
 dep_hidapi = dependency('hidapi-hidraw', required: false)
@@ -336,3 +334,5 @@ if dep_udev.found()
   install_data(udev_file, install_dir: udev_rules_dir)
   meson.add_install_script('udev/install-hook.sh')
 endif
+
+subdir('po')
