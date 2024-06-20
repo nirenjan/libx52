@@ -303,7 +303,7 @@ if dep_evdev.found()
 endif
 
 
-executable('x52d', x52d_sources,
+exe_x52d = executable('x52d', x52d_sources,
   install: true,
   include_directories: ['.', 'libx52', 'libx52io', 'libx52util'],
   c_args: x52d_cflags,
@@ -317,6 +317,18 @@ executable('x52ctl', 'daemon/x52ctl.c',
 
 install_data('daemon/x52d.conf',
   install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
+
+test('daemon-communication', files('daemon/test_daemon_comm.py')[0],
+  depends: exe_x52d, protocol: 'tap')
+
+if dep_cmocka.found()
+  x52d_mouse_test_sources = ['daemon/x52d_mouse_test.c', 'daemon/x52d_mouse.c']
+  x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
+    include_directories: ['.', 'libx52', 'libx52io'],
+    dependencies: [dep_pinelog, dep_cmocka])
+
+  test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
+endif
 
 # udev rules
 if dep_udev.found()
