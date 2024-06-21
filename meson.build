@@ -98,9 +98,9 @@ cdata.set_quoted('LOCALSTATEDIR', get_option('localstatedir'))
 cdata.set_quoted('PACKAGE_VERSION', meson.project_version())
 cdata.set_quoted('VERSION', meson.project_version())
 cdata.set10('ENABLE_NLS', get_option('nls').enabled())
-cdata.set10('HAVE_FUNC_ATTRIBUTE_NORETURN', compiler.has_function_attribute('noreturn', required: false))
+cdata.set10('HAVE_FUNC_ATTRIBUTE_NORETURN', compiler.has_function_attribute('noreturn'))
 cdata.set10('HAVE_STRUCT_TM_TM_GMTOFF',
-  compiler.has_member('struct tm', 'tm_gmtoff', prefix:'#include <time.h>', required: false))
+  compiler.has_member('struct tm', 'tm_gmtoff', prefix:'#include <time.h>'))
 
 
 config_h = configure_file(
