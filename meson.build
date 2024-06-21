@@ -9,7 +9,6 @@ if get_option('nls').enabled()
   add_project_arguments(
     '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
     language:'C')
-  add_project_arguments('-DENABLE_NLS=1', language:'C')
 
   subdir('po')
 endif
@@ -38,19 +37,6 @@ python = pymod.find_installation('python3')
 pyversion = python.language_version().split('.')
 assert(pyversion[1].to_int() >= 5, 'Require Python >= 3.5')
 
-cdata = configuration_data()
-cdata.set_quoted('PACKAGE', meson.project_name())
-cdata.set_quoted('LOCALEDIR', get_option('localedir'))
-cdata.set_quoted('SYSCONFDIR', get_option('sysconfdir'))
-cdata.set_quoted('LOCALSTATEDIR', get_option('localstatedir'))
-cdata.set_quoted('VERSION', meson.project_version())
-
-config_h = configure_file(
-  input: 'config.h.meson',
-  output: 'config.h',
-  configuration: cdata
-)
-#
 #######################################################################
 # Version information
 #######################################################################
@@ -99,6 +85,30 @@ version_info_h = configure_file(
   configuration: version_data
 )
 
+#######################################################################
+# config.h
+#######################################################################
+cdata = configuration_data()
+cdata.set_quoted('PACKAGE', meson.project_name())
+cdata.set_quoted('PACKAGE_BUGREPORT', 'https://github.com/nirenjan/libx52/issues')
+cdata.set_quoted('PACKAGE_NAME', meson.project_name())
+cdata.set_quoted('LOCALEDIR', get_option('localedir'))
+cdata.set_quoted('SYSCONFDIR', get_option('sysconfdir'))
+cdata.set_quoted('LOCALSTATEDIR', get_option('localstatedir'))
+cdata.set_quoted('PACKAGE_VERSION', meson.project_version())
+cdata.set_quoted('VERSION', meson.project_version())
+cdata.set10('ENABLE_NLS', get_option('nls').enabled())
+cdata.set10('HAVE_FUNC_ATTRIBUTE_NORETURN', compiler.has_function_attribute('noreturn', required: false))
+cdata.set10('HAVE_STRUCT_TM_TM_GMTOFF',
+  compiler.has_member('struct tm', 'tm_gmtoff', prefix:'#include <time.h>', required: false))
+
+
+config_h = configure_file(
+  input: 'config.h.meson',
+  output: 'config.h',
+  configuration: cdata
+)
+#
 #######################################################################
 # Internal dependencies
 #######################################################################
