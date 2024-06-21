@@ -5,9 +5,14 @@ project('libx52', 'C',
 # Internationalization
 i18n = import('i18n')
 # # define GETTEXT_PACKAGE
-add_project_arguments(
-  '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
-  language:'C')
+if get_option('nls').enabled()
+  add_project_arguments(
+    '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
+    language:'C')
+  add_project_arguments('-DENABLE_NLS=1', language:'C')
+
+  subdir('po')
+endif
 
 dep_libusb = dependency('libusb-1.0', required: true)
 dep_hidapi = dependency('hidapi-hidraw', required: false)
@@ -100,7 +105,9 @@ version_info_h = configure_file(
 
 # pinelog
 pinelog_options = []
-if dep_systemd.found() and not get_option('disable-systemd')
+if dep_systemd.found() and not get_option('systemd-logs').disabled()
+  # If systemd logs is enabled or auto, and systemd is found, then hide
+  # the timestamps in log messages
   pinelog_options = ['show-date=false']
 endif
 
@@ -346,5 +353,3 @@ if dep_udev.found()
   install_data(udev_file, install_dir: udev_rules_dir)
   meson.add_install_script('udev/install-hook.sh')
 endif
-
-subdir('po')
