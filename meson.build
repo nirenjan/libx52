@@ -233,12 +233,15 @@ pkgconfig.generate(lib_libx52util)
 # Programs
 #######################################################################
 # x52bugreport
-executable('x52bugreport', 'bugreport/bugreport.c',
+exe_bugreport = executable('x52bugreport', 'bugreport/bugreport.c',
   install: true,
   extra_files: ['bugreport/bugreport.dox'],
   include_directories: 'libx52io',
   dependencies: [dep_libusb, dep_hidapi],
   link_with: [lib_libx52io])
+
+# Test only to get code coverage
+test('x52bugreport', exe_bugreport, protocol:'exitcode')
 
 # x52cli
 executable('x52cli', 'cli/x52_cli.c',
