@@ -285,7 +285,6 @@ int libx52_init(libx52_device ** dev);
  * cause errors.
  *
  * @param[in]   dev     Pointer to the device context
- * @returns None
  */
 void libx52_exit(libx52_device *dev);
 

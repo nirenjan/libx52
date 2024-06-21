@@ -366,3 +366,25 @@ if dep_udev.found()
   install_data(udev_file, install_dir: udev_rules_dir)
   meson.add_install_script('udev/install-hook.sh')
 endif
+
+#######################################################################
+# Documentation - doxygen
+#######################################################################
+if doxygen_program.found()
+  doxyfile = configure_file(
+    input: 'Doxyfile.in',
+    output: 'Doxyfile',
+    configuration: {
+      'PACKAGE_NAME': meson.project_name(),
+      'PACKAGE_VERSION': meson.project_version(),
+      'abs_top_builddir': meson.build_root(),
+      'abs_top_srcdir': meson.source_root(),
+    }
+  )
+
+  docs_tgt = custom_target('docs',
+    depend_files: [doxyfile, 'DoxygenLayout.xml'],
+    command: [doxygen_program],
+    output: 'docs'
+    )
+endif
