@@ -2,7 +2,7 @@
 # Run the build and tests
 set -e
 
-meson setup build
+meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled build
 cd build
 ninja
 ninja test

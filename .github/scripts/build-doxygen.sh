@@ -2,8 +2,6 @@
 # Generate Doxygen documentation
 set -e
 
-./autogen.sh
-mkdir build
+meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled build
 cd build
-../configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
-make docs/.stamp
+ninja docs
