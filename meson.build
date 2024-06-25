@@ -25,6 +25,9 @@ dep_systemd = dependency('systemd', required: false)
 dep_udev = dependency('udev', required: false)
 
 dep_cmocka = dependency('cmocka', required: false)
+if not dep_cmocka.found()
+  dep_cmocka = disabler()
+endif
 
 doxygen_program = find_program('doxygen', required: false)
 
@@ -158,38 +161,36 @@ install_headers('libx52/libx52.h', subdir: meson.project_name())
 pkgconfig.generate(lib_libx52)
 
 # Unit tests for libx52
-if dep_cmocka.found()
-  libx52_string_test = executable('libx52-string-test',
-    'libx52/test_strings.c',
-    'libx52/x52_stringify.c',
-    'libx52/x52_strerror.c',
-    build_by_default: false,
-    dependencies: [dep_cmocka],
-    link_with: [lib_libx52],
-    include_directories: [includes, lib_libx52.private_dir_include()],
-    )
+libx52_string_test = executable('libx52-string-test',
+  'libx52/test_strings.c',
+  'libx52/x52_stringify.c',
+  'libx52/x52_strerror.c',
+  build_by_default: false,
+  dependencies: [dep_cmocka],
+  link_with: [lib_libx52],
+  include_directories: [includes, lib_libx52.private_dir_include()],
+  )
 
-  test('libx52-string-test', libx52_string_test, protocol: 'tap')
+test('libx52-string-test', libx52_string_test, protocol: 'tap')
 
-  libx52_test_file = custom_target('libx52-test',
-    build_by_default: false,
-    depend_files: ['libx52/x52_test_gen.py', 'libx52/x52_tests.json'],
-    command: [python, '@SOURCE_ROOT@/libx52/x52_test_gen.py',  '@INPUT@'],
-    capture: true,
-    input: 'libx52/x52_tests.json',
-    output: 'test_libx52.c'
-    )
+libx52_test_file = custom_target('libx52-test',
+  build_by_default: false,
+  depend_files: ['libx52/x52_test_gen.py', 'libx52/x52_tests.json'],
+  command: [python, '@SOURCE_ROOT@/libx52/x52_test_gen.py',  '@INPUT@'],
+  capture: true,
+  input: 'libx52/x52_tests.json',
+  output: 'test_libx52.c'
+  )
 
-  libx52test = executable('libx52test', libx52_test_file, libx52_files,
-    c_args: ['-Dlibusb_control_transfer=__wrap_libusb_control_transfer'],
-    dependencies: [dep_cmocka, dep_libusb],
-    link_with: [lib_libx52],
-    build_by_default: false,
-    include_directories: [includes, lib_libx52.private_dir_include()],
-    )
+libx52test = executable('libx52test', libx52_test_file, libx52_files,
+  c_args: ['-Dlibusb_control_transfer=__wrap_libusb_control_transfer'],
+  dependencies: [dep_cmocka, dep_libusb],
+  link_with: [lib_libx52],
+  build_by_default: false,
+  include_directories: [includes, lib_libx52.private_dir_include()],
+  )
 
-  test('libx52test', libx52test, protocol: 'tap')
-endif
+test('libx52test', libx52test, protocol: 'tap')
 
 # libx52io
 libx52io_files = files(
@@ -208,19 +209,17 @@ lib_libx52io = library('x52io', libx52io_files,
 install_headers('libx52io/libx52io.h', subdir: meson.project_name())
 pkgconfig.generate(lib_libx52io)
 
-if dep_cmocka.found()
-  test_axis = executable('test-axis', 'libx52io/test_axis.c', libx52io_files,
-    build_by_default: false,
-    dependencies: [dep_cmocka, dep_hidapi],
-  )
-  test('test-axis', test_axis, protocol: 'tap')
+test_axis = executable('test-axis', 'libx52io/test_axis.c', libx52io_files,
+  build_by_default: false,
+  dependencies: [dep_cmocka, dep_hidapi],
+)
+test('test-axis', test_axis, protocol: 'tap')
 
-  test_parser = executable('test-parser', 'libx52io/test_parser.c', libx52io_files,
-    build_by_default: false,
-    dependencies: [dep_cmocka, dep_hidapi],
-  )
-  test('test-parser', test_parser, protocol: 'tap')
-endif
+test_parser = executable('test-parser', 'libx52io/test_parser.c', libx52io_files,
+  build_by_default: false,
+  dependencies: [dep_cmocka, dep_hidapi],
+)
+test('test-parser', test_parser, protocol: 'tap')
 
 # libx52util
 util_char_map = custom_target('util-char-map',
@@ -259,16 +258,14 @@ executable('x52cli', 'cli/x52_cli.c',
   include_directories: 'libx52',
   link_with: lib_libx52)
 
-if dep_cmocka.found()
-  test_cli = executable('test-cli', 'cli/x52_cli.c', 'cli/test_x52_cli.c',
-    build_by_default: false,
-    c_args: ['-DX52_CLI_TESTING'],
-    include_directories: 'libx52',
-    dependencies: [dep_cmocka],
-    )
+test_cli = executable('test-cli', 'cli/x52_cli.c', 'cli/test_x52_cli.c',
+  build_by_default: false,
+  c_args: ['-DX52_CLI_TESTING'],
+  include_directories: 'libx52',
+  dependencies: [dep_cmocka],
+  )
 
-  test('test-cli', test_cli, protocol: 'tap')
-endif
+test('test-cli', test_cli, protocol: 'tap')
 
 # x52test
 executable('x52test',
@@ -341,14 +338,12 @@ install_data('daemon/x52d.conf',
 test('daemon-communication', files('daemon/test_daemon_comm.py')[0],
   depends: exe_x52d, protocol: 'tap')
 
-if dep_cmocka.found()
-  x52d_mouse_test_sources = ['daemon/x52d_mouse_test.c', 'daemon/x52d_mouse.c']
-  x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
-    include_directories: ['.', 'libx52', 'libx52io'],
-    dependencies: [dep_pinelog, dep_cmocka])
+x52d_mouse_test_sources = ['daemon/x52d_mouse_test.c', 'daemon/x52d_mouse.c']
+x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
+  include_directories: ['.', 'libx52', 'libx52io'],
+  dependencies: [dep_pinelog, dep_cmocka])
 
-  test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
-endif
+test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
 
 # udev rules
 if dep_udev.found()
