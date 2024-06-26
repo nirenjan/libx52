@@ -37,7 +37,7 @@ version_data.set_quoted('BUILD_DATE', build_date)
 version_data.set_quoted('BUILD_HOST', build_host)
 version_data.set_quoted('BUILD_COMPILER', compiler_version)
 version_data.set_quoted('BUILD_TARGET', built_for)
-version_data.set_quoted('BUILD_VERSION_INFO_IDENT', '$Id: 1fa3db9a6ccf7a84723ee4cb69fd3eac1b1f57e6 $')
+version_data.set_quoted('BUILD_VERSION_INFO_IDENT', '$Id$')
 
 version_info_h = configure_file(
   input: 'version-info.h.meson',
