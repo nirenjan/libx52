@@ -8,7 +8,7 @@ ninja
 ninja test
 
 # Print bugreport output
-./x52bugreport
+./bugreport/x52bugreport
 
 # Make sure that there are no changes to the source code
 # This may happen if the source have changed with differences to the
