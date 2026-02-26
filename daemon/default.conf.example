@@ -1,0 +1,27 @@
+# Example X52 profile: keyboard mappings per mode and shift
+# Copy to e.g. /etc/x52d/profiles.d/default.conf and edit.
+# [Profile]: Name = display name; ShiftButton = button name (default BTN_PINKY if omitted)
+# [Mode1], [Mode2], [Mode3], [Mode1.Shift], [Mode2.Shift], [Mode3.Shift]:
+#   Button.X = key KEY_Y [KEY_Z ...]   (single key or combo, down on press/up on release)
+#   Button.X = macro KEY_A KEY_B       (sequence on button down only)
+# Fallback: ModeN.Shift -> ModeN; Mode2 -> Mode1; Mode3 -> Mode2 -> Mode1
+
+[Profile]
+Name=Example profile
+ShiftButton=BTN_PINKY
+
+[Mode1]
+# Single key: Fire -> E
+Button.BTN_FIRE = key KEY_E
+# Key combo: A -> Ctrl+X (modifiers first, then key)
+Button.BTN_A = key KEY_LEFTCTRL KEY_X
+# Alt+Y
+Button.BTN_B = key KEY_LEFTALT KEY_Y
+# Macro: T1 up -> Ctrl+Shift+T (on button down only)
+Button.BTN_T1_UP = macro KEY_LEFTCTRL KEY_LEFTSHIFT KEY_T
+
+[Mode1.Shift]
+Button.BTN_FIRE = key KEY_F
+
+[Mode2]
+Button.BTN_A = key KEY_SPACE

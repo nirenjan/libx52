@@ -14,7 +14,10 @@
 #include "x52d_const.h"
 #include "x52d_config.h"
 #include "x52d_io.h"
+#include "x52d_clutch.h"
+#include "x52d_keyboard.h"
 #include "x52d_mouse.h"
+#include "x52d_profile.h"
 #include "libx52io.h"
 
 #define PINELOG_MODULE X52D_MOD_IO
@@ -26,7 +29,14 @@ static pthread_t io_thr;
 
 static void process_report(libx52io_report *report, libx52io_report *prev)
 {
-    // TODO: Process changes
+#if defined(HAVE_EVDEV)
+    if (x52d_clutch_process(report, prev)) {
+        /* Clutch UI consumed input (profile selection mode) */
+        memcpy(prev, report, sizeof(*prev));
+        return;
+    }
+    x52d_profile_apply(report, prev);
+#endif
     x52d_mouse_report_event(report);
     memcpy(prev, report, sizeof(*prev));
 }

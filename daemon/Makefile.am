@@ -44,7 +44,10 @@ x52d_LDADD = \
 if HAVE_EVDEV
 x52d_SOURCES += \
 	daemon/x52d_io.c \
-	daemon/x52d_mouse_evdev.c
+	daemon/x52d_mouse_evdev.c \
+	daemon/x52d_keyboard_evdev.c \
+	daemon/x52d_profile.c \
+	daemon/x52d_clutch.c
 
 x52d_CFLAGS += -DHAVE_EVDEV @EVDEV_CFLAGS@
 x52d_LDFLAGS += @EVDEV_LIBS@
@@ -84,6 +87,7 @@ install-exec-hook:
 
 EXTRA_DIST += \
 	daemon/daemon.dox \
+	daemon/default.conf.example \
 	daemon/protocol.dox \
 	daemon/x52d.service.in \
 	daemon/x52d_client.h \
@@ -93,7 +97,10 @@ EXTRA_DIST += \
 	daemon/x52d_const.h \
 	daemon/x52d_device.h \
 	daemon/x52d_io.h \
+	daemon/x52d_clutch.h \
+	daemon/x52d_keyboard.h \
 	daemon/x52d_mouse.h \
+	daemon/x52d_profile.h \
 	daemon/x52d_notify.h \
 	daemon/x52d_command.h \
 	daemon/x52dcomm.h \
@@ -103,6 +110,9 @@ EXTRA_DIST += \
 # Test cases
 EXTRA_DIST += \
 	daemon/test_daemon_comm.py \
+	daemon/x52d_config_apply_stubs.c \
+	daemon/x52d_profile_test.c \
+	daemon/x52d_clutch_test.c \
 	daemon/tests/config/args.tc \
 	daemon/tests/config/clock.tc \
 	daemon/tests/config/led.tc \
@@ -133,6 +143,65 @@ x52d_mouse_test_LDADD = \
 	@LTLIBINTL@
 
 TESTS += x52d-mouse-test
+endif
+
+if HAVE_CMOCKA
+if HAVE_EVDEV
+check_PROGRAMS += x52d-profile-test x52d-clutch-test
+
+x52d_profile_test_SOURCES = \
+	daemon/x52d_profile_test.c \
+	daemon/x52d_profile.c \
+	daemon/x52d_config.c \
+	daemon/x52d_config_parser.c \
+	daemon/x52d_config_dump.c \
+	daemon/x52d_config_apply_stubs.c
+x52d_profile_test_CFLAGS = \
+	-DHAVE_EVDEV \
+	-DSYSCONFDIR=\"$(sysconfdir)\" \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DLOGDIR=\"$(localstatedir)/log\" \
+	-DRUNDIR=\"$(localstatedir)/run\" \
+	-I $(top_srcdir) \
+	-I $(top_srcdir)/daemon \
+	-I $(top_srcdir)/libx52 \
+	-I $(top_srcdir)/libx52io \
+	-I $(top_srcdir)/libx52util \
+	-I $(top_srcdir)/lib/pinelog \
+	-I $(top_srcdir)/lib/inih \
+	$(WARN_CFLAGS) @CMOCKA_CFLAGS@ @EVDEV_CFLAGS@
+x52d_profile_test_LDFLAGS = $(WARN_LDFLAGS)
+x52d_profile_test_LDADD = \
+	lib/pinelog/libpinelog.la \
+	lib/inih/libinih.la \
+	libx52io.la \
+	libx52.la \
+	@EVDEV_LIBS@ \
+	@CMOCKA_LIBS@ \
+	@LTLIBINTL@
+
+x52d_clutch_test_SOURCES = \
+	daemon/x52d_clutch_test.c \
+	daemon/x52d_clutch.c
+x52d_clutch_test_CFLAGS = \
+	-DHAVE_EVDEV \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-I $(top_srcdir) \
+	-I $(top_srcdir)/daemon \
+	-I $(top_srcdir)/libx52 \
+	-I $(top_srcdir)/libx52io \
+	-I $(top_srcdir)/lib/pinelog \
+	$(WARN_CFLAGS) @CMOCKA_CFLAGS@
+x52d_clutch_test_LDFLAGS = $(WARN_LDFLAGS)
+x52d_clutch_test_LDADD = \
+	lib/pinelog/libpinelog.la \
+	libx52.la \
+	libx52io.la \
+	@CMOCKA_LIBS@ \
+	@LTLIBINTL@
+
+TESTS += x52d-profile-test x52d-clutch-test
+endif
 endif
 
 if HAVE_SYSTEMD

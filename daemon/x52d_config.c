@@ -86,6 +86,7 @@ const char *x52d_config_get(const char *section, const char *key)
  * TODO: Remove the ones below when their implementation is complete
  */
 void x52d_cfg_set_Profiles_Directory(char* param) { (void)param; }
+void x52d_cfg_set_Profiles_Profile(char* param) { (void)param; }
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param) { (void)param; }
 void x52d_cfg_set_Profiles_ClutchLatched(bool param) { (void)param; }
 

@@ -21,7 +21,9 @@
 #include "x52d_config.h"
 #include "x52d_device.h"
 #include "x52d_io.h"
+#include "x52d_keyboard.h"
 #include "x52d_mouse.h"
+#include "x52d_profile.h"
 #include "x52d_command.h"
 #include "x52d_notify.h"
 #include "x52dcomm-internal.h"
@@ -327,6 +329,8 @@ int main(int argc, char **argv)
     #if defined(HAVE_EVDEV)
     x52d_io_init();
     x52d_mouse_evdev_init();
+    x52d_keyboard_evdev_init();
+    x52d_profile_init();
     #endif
 
     // Re-enable signals
@@ -367,6 +371,8 @@ cleanup:
     x52d_command_exit();
     x52d_notify_exit();
     #if defined(HAVE_EVDEV)
+    x52d_profile_exit();
+    x52d_keyboard_evdev_exit();
     x52d_mouse_evdev_exit();
     x52d_io_exit();
     #endif

@@ -45,6 +45,7 @@ struct x52d_config {
     bool clutch_latched;
 
     char profiles_dir[NAME_MAX];
+    char profile_name[NAME_MAX];
 };
 
 /* Callback functions for configuration */
@@ -74,6 +75,7 @@ void x52d_cfg_set_Mouse_Enabled(bool param);
 void x52d_cfg_set_Mouse_Speed(int param);
 void x52d_cfg_set_Mouse_ReverseScroll(bool param);
 void x52d_cfg_set_Profiles_Directory(char* param);
+void x52d_cfg_set_Profiles_Profile(char* param);
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
 void x52d_cfg_set_Profiles_ClutchLatched(bool param);
 

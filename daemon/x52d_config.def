@@ -84,6 +84,10 @@ CFG(Mouse, ReverseScroll, mouse_reverse_scroll, bool, false)
 // Directory is the location of the folder containing the individual profiles.
 CFG(Profiles, Directory, profiles_dir, string, /etc/x52d/profiles.d)
 
+// Profile is the name of the active profile (file profiles_dir/Profile.conf).
+// Profiles generate keyboard events only (single key or macro).
+CFG(Profiles, Profile, profile_name, string, default)
+
 // ClutchEnabled determines if the clutch button is treated specially
 CFG(Profiles, ClutchEnabled, clutch_enabled, bool, false)
 

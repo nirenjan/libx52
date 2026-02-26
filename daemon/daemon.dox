@@ -44,4 +44,53 @@ overridden.
 @code{.unparsed}
 -o clock.secondary=America/New_York
 @endcode
+
+# Profile files (Linux, when profiles are implemented)
+
+Profiles map joystick buttons to keyboard events only. They are selected by
+the main config option Profiles.Profile and loaded from Profiles.Directory.
+Mouse (thumbstick, mouse buttons, scroll) is handled separately by the
+virtual mouse and is not driven by profiles.
+
+## Mode and shift
+
+- The joystick has **3 modes**; only one is active at a time. Mode is determined
+  by BTN_MODE_1, BTN_MODE_2, BTN_MODE_3 (the physical mode switch).
+- The **shift key** is configured in the profile file ([Profile] section,
+  key ShiftButton, e.g. BTN_PINKY). When held, the profile uses the shift
+  layer for the current mode. Default is BTN_PINKY if not set in the profile.
+
+So at runtime the effective layer is (mode 1/2/3) × (shift released or held).
+Profile files use INI sections to define mappings per layer:
+
+- [Profile] — profile options: Name = display name; ShiftButton = BTN_PINKY (or another button name)
+- [Mode1], [Mode2], [Mode3] — mappings when shift is not held
+- [Mode1.Shift], [Mode2.Shift], [Mode3.Shift] — mappings when shift is held
+  (override the non-shift layer for that mode)
+
+Within each section, button mappings use the Button.<name> = ... syntax:
+- \c key \c KEY_X [\c KEY_Y ...] — single key or combo (e.g. Ctrl-X: \c key \c KEY_LEFTCTRL \c KEY_X). All keys go down on press and up on release in reverse order.
+- \c macro \c KEY_A \c KEY_B ... — sequence of key down/up on button down only. The shift and mode selector buttons can be left unmapped
+(recommended) or mapped like any other button.
+
+Fallback: if a mapping is not defined for the current layer, the next layer
+in the chain is used. ModeN.Shift falls back to ModeN; Mode2 falls back to
+Mode1; Mode3 falls back to Mode2 then Mode1. So you can define only Mode1
+and override in Mode1.Shift or Mode2 where needed.
+
+# Clutch (profile selection on MFD)
+
+When \c Profiles.ClutchEnabled is set, the clutch button enters a profile
+selection UI on the MFD:
+
+- **ClutchLatched yes**: First press-and-release of the clutch engages clutch
+  mode; next press-and-release exits. **ClutchLatched no**: Clutch mode is
+  active only while the clutch button is held; releasing exits.
+
+In clutch mode, profile names (from \c Profiles.Directory *.conf files) are
+shown on the MFD. Use the **hat** (AXIS_HATX / AXIS_HATY): **up/down** (HATY) to
+scroll through profiles, **left** (HATX -1, swipe left) to clear and exit without
+changing profile, **right** (HATX 1, swipe right) to select the highlighted
+profile and load it.
+The selected profile is applied immediately and in-memory config is updated.
 */

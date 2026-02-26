@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2024-06-09 20:24-0700\n"
+"POT-Creation-Date: 2026-02-26 22:35-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -493,17 +493,17 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:64
+#: daemon/x52d_main.c:66
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:80
+#: daemon/x52d_main.c:82
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:91
+#: daemon/x52d_main.c:93
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -513,88 +513,88 @@ msgid ""
 "\t[-b notify-socket-path]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:124
+#: daemon/x52d_main.c:126
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/x52d_main.c:266
+#: daemon/x52d_main.c:268
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:298
+#: daemon/x52d_main.c:300
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:298 daemon/x52d_main.c:299
+#: daemon/x52d_main.c:300 daemon/x52d_main.c:301
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:298 daemon/x52d_main.c:299
+#: daemon/x52d_main.c:300 daemon/x52d_main.c:301
 msgid "false"
-msgstr ""
-
-#: daemon/x52d_main.c:299
-#, c-format
-msgid "Quiet = %s"
-msgstr ""
-
-#: daemon/x52d_main.c:300
-#, c-format
-msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:301
 #, c-format
-msgid "Log file = %s"
+msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:302
 #, c-format
-msgid "Config file = %s"
+msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/x52d_main.c:303
 #, c-format
-msgid "PID file = %s"
+msgid "Log file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:304
 #, c-format
-msgid "Command socket = %s"
+msgid "Config file = %s"
 msgstr ""
 
 #: daemon/x52d_main.c:305
 #, c-format
+msgid "PID file = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:306
+#, c-format
+msgid "Command socket = %s"
+msgstr ""
+
+#: daemon/x52d_main.c:307
+#, c-format
 msgid "Notify socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:316
+#: daemon/x52d_main.c:318
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:335
+#: daemon/x52d_main.c:339
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:348
+#: daemon/x52d_main.c:352
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:355
+#: daemon/x52d_main.c:359
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:361
+#: daemon/x52d_main.c:365
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:378
+#: daemon/x52d_main.c:384
 msgid "Shutting down X52 daemon"
 msgstr ""
 
@@ -620,6 +620,16 @@ msgstr ""
 
 #: daemon/x52d_client.c:121
 msgid "Timed out when polling"
+msgstr ""
+
+#: daemon/x52d_clutch.c:96
+#, c-format
+msgid "Cannot open profiles directory %s: %s"
+msgstr ""
+
+#: daemon/x52d_clutch.c:207
+#, c-format
+msgid "Profile switched to: %s"
 msgstr ""
 
 #: daemon/x52d_clock.c:28
@@ -676,41 +686,41 @@ msgstr ""
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_command.c:367
+#: daemon/x52d_command.c:370
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:378
+#: daemon/x52d_command.c:381
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_command.c:402
+#: daemon/x52d_command.c:405
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:429
+#: daemon/x52d_command.c:432
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:437
+#: daemon/x52d_command.c:440
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:443
+#: daemon/x52d_command.c:446
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:447
+#: daemon/x52d_command.c:450
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/x52d_command.c:465
+#: daemon/x52d_command.c:468
 msgid "Shutting down command processing thread"
 msgstr ""
 
@@ -808,32 +818,50 @@ msgstr ""
 msgid "Error %d when updating X52 device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:42
+#: daemon/x52d_io.c:52
 msgid "Starting X52 I/O thread"
 msgstr ""
 
-#: daemon/x52d_io.c:64
+#: daemon/x52d_io.c:74
 #, c-format
 msgid "Error %d opening X52 I/O device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:75
+#: daemon/x52d_io.c:85
 #, c-format
 msgid "Error %d reading from X52 I/O device: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:102
+#: daemon/x52d_io.c:112
 #, c-format
 msgid "Error %d initializing X52 I/O library: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:108
+#: daemon/x52d_io.c:118
 #, c-format
 msgid "Error %d initializing I/O driver thread: %s"
 msgstr ""
 
-#: daemon/x52d_io.c:115
+#: daemon/x52d_io.c:125
 msgid "Shutting down X52 I/O driver thread"
+msgstr ""
+
+#: daemon/x52d_keyboard_evdev.c:40
+#, c-format
+msgid "Error writing key event (code %u, value %d): %s"
+msgstr ""
+
+#: daemon/x52d_keyboard_evdev.c:47
+msgid "Error writing keyboard sync event"
+msgstr ""
+
+#: daemon/x52d_keyboard_evdev.c:78
+#, c-format
+msgid "Error %d creating X52 virtual keyboard: %s"
+msgstr ""
+
+#: daemon/x52d_keyboard_evdev.c:82
+msgid "X52 virtual keyboard created"
 msgstr ""
 
 #: daemon/x52d_mouse.c:31
@@ -939,6 +967,52 @@ msgstr ""
 #: daemon/x52d_notify.c:200
 #, c-format
 msgid "Error %d initializing notify listener: %s"
+msgstr ""
+
+#: daemon/x52d_profile.c:246
+#, c-format
+msgid "Unknown button name in profile: %s"
+msgstr ""
+
+#: daemon/x52d_profile.c:251
+#, c-format
+msgid "Invalid action value for %s.%s: %s"
+msgstr ""
+
+#: daemon/x52d_profile.c:288
+msgid "Profile directory or name not set, using empty profile"
+msgstr ""
+
+#: daemon/x52d_profile.c:294
+msgid "Profile path too long"
+msgstr ""
+
+#: daemon/x52d_profile.c:300
+#, c-format
+msgid "Failed to load profile %s: %s"
+msgstr ""
+
+#: daemon/x52d_profile.c:304
+#, c-format
+msgid "Profile %s had %d parse errors"
+msgstr ""
+
+#: daemon/x52d_profile.c:310
+#, c-format
+msgid "Loaded profile: %s"
+msgstr ""
+
+#: daemon/x52d_profile.c:319
+#, c-format
+msgid "Unknown ShiftButton '%s' in profile, shift disabled"
+msgstr ""
+
+#: daemon/x52d_profile.c:326
+msgid "Profile module initialized"
+msgstr ""
+
+#: daemon/x52d_profile.c:344
+msgid "Profile module shut down"
 msgstr ""
 
 #: daemon/x52ctl.c:60
