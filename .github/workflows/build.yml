@@ -15,13 +15,13 @@ jobs:
     if: "!(contains(github.event.head_commit.message, '[ci skip]') || contains(github.event.head_commit.message, '[skip ci]'))"
     name: ${{ join(matrix.*, '/') }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ startsWith(matrix.os, 'macos-') || (matrix.os == 'ubuntu-24.04') }}
+    continue-on-error: ${{ startsWith(matrix.os, 'macos-') }}
     env:
       CC: ${{ matrix.cc }}
 
     strategy:
       matrix:
-        os: ['ubuntu-20.04', 'ubuntu-22.04', 'ubuntu-22.04', 'macos-13', 'macos-14']
+        os: ['ubuntu-22.04', 'ubuntu-24.04', 'macos-latest', 'macos-latest-large']
         cc: ['gcc', 'clang']
 
     steps:
