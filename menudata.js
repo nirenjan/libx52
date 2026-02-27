@@ -25,7 +25,6 @@
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
 {text:"Related Pages",url:"pages.html"},
-{text:"Modules",url:"modules.html"},
 {text:"Data Structures",url:"annotated.html",children:[
 {text:"Data Structures",url:"annotated.html"},
 {text:"Data Structure Index",url:"classes.html"},
@@ -45,4 +44,4 @@ var menudata={children:[
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html",children:[
 {text:"l",url:"globals_eval.html#index_l"}]}]}]},
-{text:"View on GitHub",url:"https://github.com/nirenjan/libx52"}]}
+{text:"View on GitHub",url:"^https://github.com/nirenjan/libx52"}]}
