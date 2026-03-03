@@ -362,6 +362,172 @@ static void test_profile_get_name(void **state)
     rmdir(tmpdir);
 }
 
+static void test_profile_action_name_key(void **state)
+{
+    char tmpdir[] = "/tmp/x52d_profile_test_XXXXXX";
+    char path[256];
+    libx52io_report report, prev;
+    const char *action_name;
+
+    (void)state;
+    assert_non_null(mkdtemp(tmpdir));
+
+    snprintf(path, sizeof(path), "%s/test.conf", tmpdir);
+    write_profile_file(path,
+        "[Mode1]\n"
+        "Button.BTN_FIRE = key KEY_E name \"Primary Fire\"\n");
+
+    x52d_config_set("Profiles", "Directory", tmpdir);
+    x52d_config_set("Profiles", "Profile", "test");
+    x52d_profile_init();
+
+    memset(&report, 0, sizeof(report));
+    memset(&prev, 0, sizeof(prev));
+    report.mode = 1;
+    action_name = x52d_profile_get_action_name(&report, LIBX52IO_BTN_FIRE);
+    assert_non_null(action_name);
+    assert_string_equal(action_name, "Primary Fire");
+
+    report.button[LIBX52IO_BTN_FIRE] = true;
+    key_record_reset();
+    x52d_profile_apply(&report, &prev);
+    assert_int_equal(key_record_n, 1);
+    assert_int_equal(key_record[0].code, key_code_from_name("KEY_E"));
+
+    x52d_profile_exit();
+    unlink(path);
+    rmdir(tmpdir);
+}
+
+static void test_profile_action_name_unquoted(void **state)
+{
+    char tmpdir[] = "/tmp/x52d_profile_test_XXXXXX";
+    char path[256];
+    libx52io_report report;
+    const char *action_name;
+
+    (void)state;
+    assert_non_null(mkdtemp(tmpdir));
+
+    snprintf(path, sizeof(path), "%s/test.conf", tmpdir);
+    write_profile_file(path,
+        "[Mode1]\n"
+        "Button.BTN_A = key KEY_X name YawLeft\n");
+
+    x52d_config_set("Profiles", "Directory", tmpdir);
+    x52d_config_set("Profiles", "Profile", "test");
+    x52d_profile_init();
+
+    memset(&report, 0, sizeof(report));
+    report.mode = 1;
+    action_name = x52d_profile_get_action_name(&report, LIBX52IO_BTN_A);
+    assert_non_null(action_name);
+    assert_string_equal(action_name, "YawLeft");
+
+    x52d_profile_exit();
+    unlink(path);
+    rmdir(tmpdir);
+}
+
+static void test_profile_action_name_none(void **state)
+{
+    char tmpdir[] = "/tmp/x52d_profile_test_XXXXXX";
+    char path[256];
+    libx52io_report report;
+    const char *action_name;
+
+    (void)state;
+    assert_non_null(mkdtemp(tmpdir));
+
+    snprintf(path, sizeof(path), "%s/test.conf", tmpdir);
+    write_profile_file(path,
+        "[Mode1]\n"
+        "Button.BTN_FIRE = key KEY_E\n");
+
+    x52d_config_set("Profiles", "Directory", tmpdir);
+    x52d_config_set("Profiles", "Profile", "test");
+    x52d_profile_init();
+
+    memset(&report, 0, sizeof(report));
+    report.mode = 1;
+    action_name = x52d_profile_get_action_name(&report, LIBX52IO_BTN_FIRE);
+    assert_null(action_name);
+
+    x52d_profile_exit();
+    unlink(path);
+    rmdir(tmpdir);
+}
+
+static void test_profile_action_name_shift_layer(void **state)
+{
+    char tmpdir[] = "/tmp/x52d_profile_test_XXXXXX";
+    char path[256];
+    libx52io_report report;
+    const char *action_name;
+
+    (void)state;
+    assert_non_null(mkdtemp(tmpdir));
+
+    snprintf(path, sizeof(path), "%s/test.conf", tmpdir);
+    write_profile_file(path,
+        "[Profile]\n"
+        "ShiftButton=BTN_PINKY\n"
+        "[Mode1]\n"
+        "Button.BTN_FIRE = key KEY_E name Unshifted\n"
+        "[Mode1.Shift]\n"
+        "Button.BTN_FIRE = key KEY_F name Shifted\n");
+
+    x52d_config_set("Profiles", "Directory", tmpdir);
+    x52d_config_set("Profiles", "Profile", "test");
+    x52d_profile_init();
+
+    memset(&report, 0, sizeof(report));
+    report.mode = 1;
+    report.button[LIBX52IO_BTN_PINKY] = false;
+    action_name = x52d_profile_get_action_name(&report, LIBX52IO_BTN_FIRE);
+    assert_non_null(action_name);
+    assert_string_equal(action_name, "Unshifted");
+
+    report.button[LIBX52IO_BTN_PINKY] = true;
+    action_name = x52d_profile_get_action_name(&report, LIBX52IO_BTN_FIRE);
+    assert_non_null(action_name);
+    assert_string_equal(action_name, "Shifted");
+
+    x52d_profile_exit();
+    unlink(path);
+    rmdir(tmpdir);
+}
+
+static void test_profile_action_name_macro(void **state)
+{
+    char tmpdir[] = "/tmp/x52d_profile_test_XXXXXX";
+    char path[256];
+    libx52io_report report;
+    const char *action_name;
+
+    (void)state;
+    assert_non_null(mkdtemp(tmpdir));
+
+    snprintf(path, sizeof(path), "%s/test.conf", tmpdir);
+    write_profile_file(path,
+        "[Mode1]\n"
+        "Button.BTN_T1_UP = macro KEY_A KEY_B name \"Simple macro\"\n");
+
+    x52d_config_set("Profiles", "Directory", tmpdir);
+    x52d_config_set("Profiles", "Profile", "test");
+    x52d_profile_init();
+
+    memset(&report, 0, sizeof(report));
+    report.mode = 1;
+    action_name = x52d_profile_get_action_name(&report, LIBX52IO_BTN_T1_UP);
+    assert_non_null(action_name);
+    assert_string_equal(action_name, "Simple macro");
+
+    x52d_profile_exit();
+    unlink(path);
+    rmdir(tmpdir);
+}
+
 int main(void)
 {
     const struct CMUnitTest tests[] = {
@@ -372,6 +538,11 @@ int main(void)
         cmocka_unit_test(test_profile_fallback_mode2_to_mode1),
         cmocka_unit_test(test_profile_shift_layer),
         cmocka_unit_test(test_profile_get_name),
+        cmocka_unit_test(test_profile_action_name_key),
+        cmocka_unit_test(test_profile_action_name_unquoted),
+        cmocka_unit_test(test_profile_action_name_none),
+        cmocka_unit_test(test_profile_action_name_shift_layer),
+        cmocka_unit_test(test_profile_action_name_macro),
     };
     cmocka_set_message_output(CM_OUTPUT_TAP);
     return cmocka_run_group_tests(tests, NULL, NULL);

@@ -36,6 +36,7 @@
 #define DEFAULT_SHIFT_BUTTON "BTN_PINKY"
 #define PROFILE_NAME_LEN 128
 #define SHIFT_BUTTON_STR_LEN 64
+#define ACTION_NAME_LEN 128
 #define BUTTON_PREFIX_LEN (sizeof(BUTTON_PREFIX) - 1)
 #define KEY_PREFIX      "key"
 #define MACRO_PREFIX    "macro"
@@ -59,6 +60,7 @@ typedef struct {
     size_t macro_step_count;
     size_t *macro_step_len; /* length of each step */
     uint16_t *macro_keys;   /* flat key codes, may be NULL */
+    char action_name[ACTION_NAME_LEN];  /* optional display name (e.g. "Yaw Left") */
 } profile_action_t;
 
 static profile_action_t layers[NUM_LAYERS][LIBX52IO_BUTTON_MAX];
@@ -97,7 +99,44 @@ static int key_name_to_code(const char *name)
 }
 
 /**
+ * Parse optional " name ..." or " name \"...\"" from remainder at p into out->action_name.
+ */
+static void parse_optional_action_name(char *p, profile_action_t *out)
+{
+    char *dst;
+    size_t n;
+
+    out->action_name[0] = '\0';
+    while (*p == ' ') p++;
+    if (strncasecmp(p, "name", 4) != 0 || (p[4] != ' ' && p[4] != '\0')) {
+        return;
+    }
+    p += 4;
+    while (*p == ' ') p++;
+    dst = out->action_name;
+    n = ACTION_NAME_LEN - 1;
+    if (*p == '"') {
+        p++;
+        while (n > 0 && *p != '\0' && *p != '"') {
+            *dst++ = *p++;
+            n--;
+        }
+    } else {
+        while (n > 0 && *p != '\0' && *p != '\n' && *p != '\r') {
+            *dst++ = *p++;
+            n--;
+        }
+    }
+    *dst = '\0';
+    /* Trim trailing space */
+    while (dst > out->action_name && (dst[-1] == ' ' || dst[-1] == '\t')) {
+        *--dst = '\0';
+    }
+}
+
+/**
  * Parse value into a single key code (action KEY) or macro (action MACRO).
+ * Optional trailing " name Display Name" or " name \"Quoted Name\"".
  * Returns 0 on success, -1 on parse error.
  */
 static int parse_action_value(const char *value, profile_action_t *out)
@@ -138,6 +177,10 @@ static int parse_action_value(const char *value, profile_action_t *out)
             if (*p == '\0') break;
             tok = (char *)p;
             while (*p != '\0' && *p != ' ') p++;
+            if (n > 0 && (size_t)(p - tok) == 4 && strncasecmp(tok, "name", 4) == 0) {
+                p = tok;
+                break;
+            }
             if (*p != '\0') { *p = '\0'; p++; }
             code = key_name_to_code(tok);
             if (code < 0) return -1;
@@ -149,6 +192,7 @@ static int parse_action_value(const char *value, profile_action_t *out)
         memcpy(out->key_codes, keys, n * sizeof(uint16_t));
         out->key_len = n;
         out->type = ACTION_KEY;
+        parse_optional_action_name(p, out);
         return 0;
     }
 
@@ -173,6 +217,10 @@ static int parse_action_value(const char *value, profile_action_t *out)
                 if (*p == '\0') break;
                 tok = (char *)p;
                 while (*p != '\0' && *p != ' ') p++;
+                if (n > 0 && (size_t)(p - tok) == 4 && strncasecmp(tok, "name", 4) == 0) {
+                    p = tok;
+                    break;
+                }
                 if (*p != '\0') *p++ = '\0';
                 code = key_name_to_code(tok);
                 if (code < 0) return -1;
@@ -233,6 +281,8 @@ static int parse_action_value(const char *value, profile_action_t *out)
         out->macro_step_len = step_len_alloc;
         out->macro_step_count = step_count;
         out->type = ACTION_MACRO;
+        /* p points past last segment; parse optional name from remainder */
+        parse_optional_action_name(p, out);
         return 0;
     }
 
@@ -272,6 +322,7 @@ static void free_action(profile_action_t *a)
         a->macro_len = 0;
         a->macro_step_count = 0;
     }
+    a->action_name[0] = '\0';
     a->type = ACTION_NONE;
 }
 
@@ -646,6 +697,31 @@ void x52d_profile_macro_wait_drained(void)
         pthread_cond_wait(&macro_queue.drained, &macro_queue.mutex);
     }
     pthread_mutex_unlock(&macro_queue.mutex);
+}
+
+const char *x52d_profile_get_action_name(const libx52io_report *report,
+                                        libx52io_button btn)
+{
+    unsigned int chain_index;
+    int layer;
+    const profile_action_t *a;
+    int i;
+
+    if (!profile_loaded || report == NULL || btn >= LIBX52IO_BUTTON_MAX) {
+        return NULL;
+    }
+    chain_index = get_layer_index(report);
+    for (i = 0; i < MAX_FALLBACK; i++) {
+        layer = fallback_chain[chain_index][i];
+        if (layer < 0) {
+            break;
+        }
+        a = &layers[layer][btn];
+        if (a->type != ACTION_NONE) {
+            return (a->action_name[0] != '\0') ? a->action_name : NULL;
+        }
+    }
+    return NULL;
 }
 
 static void emit_macro(const profile_action_t *a)

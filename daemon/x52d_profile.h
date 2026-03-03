@@ -63,6 +63,20 @@ void x52d_profile_apply(const libx52io_report *report,
  */
 void x52d_profile_macro_wait_drained(void);
 
+/**
+ * @brief Return the optional display name for the action bound to a button.
+ *
+ * Uses the same (mode, shift) layer and fallback as x52d_profile_apply().
+ * The name is set in the profile with e.g. "key KEY_A name Yaw Left".
+ *
+ * @param report Current joystick report (for mode and shift).
+ * @param btn    Button index.
+ * @return The action name, or NULL if no mapping or no name set.
+ *         Valid until x52d_profile_exit() or next x52d_profile_init().
+ */
+const char *x52d_profile_get_action_name(const libx52io_report *report,
+                                         libx52io_button btn);
+
 #else
 
 static inline void x52d_profile_init(void) { (void)0; }
@@ -74,6 +88,12 @@ static inline void x52d_profile_apply(const libx52io_report *report,
     (void)prev;
 }
 static inline void x52d_profile_macro_wait_drained(void) { (void)0; }
+static inline const char *x52d_profile_get_action_name(const libx52io_report *report,
+                                                       libx52io_button btn) {
+    (void)report;
+    (void)btn;
+    return NULL;
+}
 
 #endif /* HAVE_EVDEV */
 
