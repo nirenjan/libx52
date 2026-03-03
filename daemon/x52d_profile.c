@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <limits.h>
 #include <errno.h>
+#include <pthread.h>
+#include <unistd.h>
 
 #include "libevdev/libevdev.h"
 #include "libx52io.h"
@@ -38,6 +40,9 @@
 #define KEY_PREFIX      "key"
 #define MACRO_PREFIX    "macro"
 #define MAX_MACRO_KEYS  32
+#define MAX_MACRO_STEPS 32
+#define MACRO_JOB_QUEUE_SIZE 32
+#define MACRO_DELAY_MS   20
 
 typedef enum {
     ACTION_NONE,
@@ -49,8 +54,11 @@ typedef struct {
     action_type_t type;
     size_t key_len;         /* for ACTION_KEY: number of keys in combo */
     uint16_t *key_codes;    /* for ACTION_KEY, may be NULL */
-    size_t macro_len;
-    uint16_t *macro_keys;   /* for ACTION_MACRO, may be NULL */
+    /* ACTION_MACRO: steps separated by |; each step is one or more keys (combo) */
+    size_t macro_len;       /* total key count (flat) */
+    size_t macro_step_count;
+    size_t *macro_step_len; /* length of each step */
+    uint16_t *macro_keys;   /* flat key codes, may be NULL */
 } profile_action_t;
 
 static profile_action_t layers[NUM_LAYERS][LIBX52IO_BUTTON_MAX];
@@ -145,32 +153,85 @@ static int parse_action_value(const char *value, profile_action_t *out)
     }
 
     if (strcasecmp(tok, MACRO_PREFIX) == 0) {
-        while (n < MAX_MACRO_KEYS) {
+        size_t step_len_buf[MAX_MACRO_STEPS];
+        size_t step_count = 0;
+        size_t total_keys = 0;
+        size_t *step_len_alloc = NULL;
+        size_t keys_in_step;
+        char *segment_start;
+        char *segment_end;
+        char seg_buf[128];
+        size_t seg_len;
+        char *seg_p;
+        bool has_pipe = (strchr(value, '|') != NULL);
+
+        /* If no |, legacy format: each key is its own step (sequence of single keys) */
+        if (!has_pipe) {
+            n = 0;
+            while (n < MAX_MACRO_KEYS && step_count < MAX_MACRO_STEPS) {
+                while (*p == ' ') p++;
+                if (*p == '\0') break;
+                tok = (char *)p;
+                while (*p != '\0' && *p != ' ') p++;
+                if (*p != '\0') *p++ = '\0';
+                code = key_name_to_code(tok);
+                if (code < 0) return -1;
+                keys[n++] = (uint16_t)code;
+                step_len_buf[step_count++] = 1;
+                total_keys++;
+            }
+        } else {
+            /* Steps separated by |; each step is space-separated key names (single key or combo) */
+            /* First token "macro" was NUL-terminated in buf; skip past it to the rest of the value */
+            p = buf;
+            while (*p != '\0') p++;
+            p++;
             while (*p == ' ') p++;
-            if (*p == '\0') {
-                break;
+            while (step_count < MAX_MACRO_STEPS && total_keys < MAX_MACRO_KEYS) {
+                while (*p == ' ') p++;
+                if (*p == '\0') break;
+                segment_start = p;
+                while (*p != '\0' && *p != '|') p++;
+                segment_end = p;
+                if (*p == '|') p++;
+                seg_len = (size_t)(segment_end - segment_start);
+                while (seg_len > 0 && segment_start[seg_len - 1] == ' ') seg_len--;
+                if (seg_len == 0) return -1;
+                if (seg_len >= sizeof(seg_buf)) return -1;
+                memcpy(seg_buf, segment_start, seg_len);
+                seg_buf[seg_len] = '\0';
+                seg_p = seg_buf;
+                keys_in_step = 0;
+                while (*seg_p != '\0') {
+                    while (*seg_p == ' ') seg_p++;
+                    if (*seg_p == '\0') break;
+                    tok = seg_p;
+                    while (*seg_p != '\0' && *seg_p != ' ') seg_p++;
+                    if (*seg_p != '\0') *seg_p++ = '\0';
+                    code = key_name_to_code(tok);
+                    if (code < 0) return -1;
+                    if (total_keys >= MAX_MACRO_KEYS) return -1;
+                    keys[total_keys++] = (uint16_t)code;
+                    keys_in_step++;
+                }
+                if (keys_in_step == 0) return -1;
+                step_len_buf[step_count++] = keys_in_step;
             }
-            tok = (char *)p;
-            while (*p != '\0' && *p != ' ') p++;
-            if (*p != '\0') {
-                *p = '\0';
-                p++;
-            }
-            code = key_name_to_code(tok);
-            if (code < 0) {
-                return -1;
-            }
-            keys[n++] = (uint16_t)code;
         }
-        if (n == 0) {
+        if (step_count == 0 || total_keys == 0) return -1;
+        out->macro_keys = malloc(total_keys * sizeof(uint16_t));
+        if (out->macro_keys == NULL) return -1;
+        memcpy(out->macro_keys, keys, total_keys * sizeof(uint16_t));
+        step_len_alloc = malloc(step_count * sizeof(size_t));
+        if (step_len_alloc == NULL) {
+            free(out->macro_keys);
+            out->macro_keys = NULL;
             return -1;
         }
-        out->macro_keys = malloc(n * sizeof(uint16_t));
-        if (out->macro_keys == NULL) {
-            return -1;
-        }
-        memcpy(out->macro_keys, keys, n * sizeof(uint16_t));
-        out->macro_len = n;
+        memcpy(step_len_alloc, step_len_buf, step_count * sizeof(size_t));
+        out->macro_len = total_keys;
+        out->macro_step_len = step_len_alloc;
+        out->macro_step_count = step_count;
         out->type = ACTION_MACRO;
         return 0;
     }
@@ -199,10 +260,17 @@ static void free_action(profile_action_t *a)
         a->key_codes = NULL;
         a->key_len = 0;
     }
-    if (a->type == ACTION_MACRO && a->macro_keys != NULL) {
-        free(a->macro_keys);
-        a->macro_keys = NULL;
+    if (a->type == ACTION_MACRO) {
+        if (a->macro_keys != NULL) {
+            free(a->macro_keys);
+            a->macro_keys = NULL;
+        }
+        if (a->macro_step_len != NULL) {
+            free(a->macro_step_len);
+            a->macro_step_len = NULL;
+        }
         a->macro_len = 0;
+        a->macro_step_count = 0;
     }
     a->type = ACTION_NONE;
 }
@@ -320,8 +388,164 @@ static void load_profile(void)
     }
 }
 
+/* Macro job queue: each entry is one macro (steps; each step is single key or combo). */
+struct macro_job {
+    uint16_t *keys;
+    size_t *step_len;
+    size_t step_count;
+};
+
+static struct {
+    struct macro_job ring[MACRO_JOB_QUEUE_SIZE];
+    unsigned int head;
+    unsigned int tail;
+    unsigned int count;
+    pthread_mutex_t mutex;
+    pthread_cond_t cond;
+    pthread_cond_t drained;
+    pthread_t thread;
+    bool shutdown;
+    bool thread_started;
+} macro_queue;
+
+static bool macro_queue_push_job(const uint16_t *keys, const size_t *step_len,
+                                 size_t step_count)
+{
+    size_t total_keys = 0;
+    size_t s;
+    uint16_t *keys_copy = NULL;
+    size_t *step_len_copy = NULL;
+    bool ok = false;
+
+    if (step_count == 0 || keys == NULL || step_len == NULL) {
+        return false;
+    }
+    for (s = 0; s < step_count; s++) {
+        total_keys += step_len[s];
+    }
+    if (total_keys == 0) {
+        return false;
+    }
+    keys_copy = malloc(total_keys * sizeof(uint16_t));
+    if (keys_copy == NULL) {
+        return false;
+    }
+    memcpy(keys_copy, keys, total_keys * sizeof(uint16_t));
+    step_len_copy = malloc(step_count * sizeof(size_t));
+    if (step_len_copy == NULL) {
+        free(keys_copy);
+        return false;
+    }
+    memcpy(step_len_copy, step_len, step_count * sizeof(size_t));
+
+    pthread_mutex_lock(&macro_queue.mutex);
+    if (macro_queue.count < MACRO_JOB_QUEUE_SIZE) {
+        macro_queue.ring[macro_queue.tail].keys = keys_copy;
+        macro_queue.ring[macro_queue.tail].step_len = step_len_copy;
+        macro_queue.ring[macro_queue.tail].step_count = step_count;
+        macro_queue.tail = (macro_queue.tail + 1) % MACRO_JOB_QUEUE_SIZE;
+        macro_queue.count++;
+        ok = true;
+        pthread_cond_signal(&macro_queue.cond);
+    }
+    pthread_mutex_unlock(&macro_queue.mutex);
+    if (!ok) {
+        free(step_len_copy);
+        free(keys_copy);
+    }
+    return ok;
+}
+
+static void *macro_worker_thread(void *arg)
+{
+    (void)arg;
+    for (;;) {
+        struct macro_job job = { NULL, 0 };
+        bool got = false;
+
+        pthread_mutex_lock(&macro_queue.mutex);
+        while (macro_queue.count == 0 && !macro_queue.shutdown) {
+            pthread_cond_wait(&macro_queue.cond, &macro_queue.mutex);
+        }
+        if (macro_queue.shutdown && macro_queue.count == 0) {
+            pthread_cond_broadcast(&macro_queue.drained);
+            pthread_mutex_unlock(&macro_queue.mutex);
+            break;
+        }
+        if (macro_queue.count > 0) {
+            job = macro_queue.ring[macro_queue.head];
+            macro_queue.ring[macro_queue.head].keys = NULL;
+            macro_queue.ring[macro_queue.head].step_len = NULL;
+            macro_queue.ring[macro_queue.head].step_count = 0;
+            macro_queue.head = (macro_queue.head + 1) % MACRO_JOB_QUEUE_SIZE;
+            macro_queue.count--;
+            got = true;
+        }
+        pthread_mutex_unlock(&macro_queue.mutex);
+
+        if (got && job.keys != NULL && job.step_len != NULL) {
+            size_t offset = 0;
+            size_t s;
+            for (s = 0; s < job.step_count; s++) {
+                size_t len = job.step_len[s];
+                size_t i;
+                /* Combo: all keys down in order, delay, all keys up in reverse */
+                for (i = 0; i < len; i++) {
+                    x52d_keyboard_evdev_key(job.keys[offset + i], 1);
+                }
+                usleep((useconds_t)MACRO_DELAY_MS * 1000);
+                for (i = len; i > 0; i--) {
+                    x52d_keyboard_evdev_key(job.keys[offset + i - 1], 0);
+                }
+                offset += len;
+                usleep((useconds_t)MACRO_DELAY_MS * 1000);
+            }
+            free(job.step_len);
+            free(job.keys);
+            /* Signal drained only after all keys emitted, so wait_drained is accurate */
+            pthread_mutex_lock(&macro_queue.mutex);
+            pthread_cond_broadcast(&macro_queue.drained);
+            pthread_mutex_unlock(&macro_queue.mutex);
+        }
+    }
+    pthread_mutex_lock(&macro_queue.mutex);
+    pthread_cond_broadcast(&macro_queue.drained);
+    pthread_mutex_unlock(&macro_queue.mutex);
+    return NULL;
+}
+
 void x52d_profile_init(void)
 {
+    int rc;
+
+    macro_queue.head = 0;
+    macro_queue.tail = 0;
+    macro_queue.count = 0;
+    macro_queue.shutdown = false;
+    rc = pthread_mutex_init(&macro_queue.mutex, NULL);
+    if (rc != 0) {
+        PINELOG_ERROR(_("Failed to create macro queue mutex: %s"), strerror(rc));
+    } else {
+        rc = pthread_cond_init(&macro_queue.cond, NULL);
+        if (rc != 0) {
+            pthread_mutex_destroy(&macro_queue.mutex);
+            PINELOG_ERROR(_("Failed to create macro queue cond: %s"), strerror(rc));
+        } else if (pthread_cond_init(&macro_queue.drained, NULL) != 0) {
+            pthread_cond_destroy(&macro_queue.cond);
+            pthread_mutex_destroy(&macro_queue.mutex);
+            PINELOG_ERROR(_("Failed to create macro queue drained cond"));
+        } else {
+            rc = pthread_create(&macro_queue.thread, NULL, macro_worker_thread, NULL);
+            if (rc != 0) {
+                pthread_cond_destroy(&macro_queue.drained);
+                pthread_cond_destroy(&macro_queue.cond);
+                pthread_mutex_destroy(&macro_queue.mutex);
+                PINELOG_ERROR(_("Failed to start macro worker thread: %s"), strerror(rc));
+            } else {
+                macro_queue.thread_started = true;
+            }
+        }
+    }
     load_profile();
     PINELOG_INFO(_("Profile module initialized"));
 }
@@ -336,6 +560,17 @@ const char *x52d_profile_get_name(void)
 
 void x52d_profile_exit(void)
 {
+    if (macro_queue.thread_started) {
+        pthread_mutex_lock(&macro_queue.mutex);
+        macro_queue.shutdown = true;
+        pthread_cond_broadcast(&macro_queue.cond);
+        pthread_mutex_unlock(&macro_queue.mutex);
+        pthread_join(macro_queue.thread, NULL);
+        pthread_cond_destroy(&macro_queue.drained);
+        pthread_cond_destroy(&macro_queue.cond);
+        pthread_mutex_destroy(&macro_queue.mutex);
+        macro_queue.thread_started = false;
+    }
     clear_all_layers();
     shift_button_index = -1;
     profile_name_str[0] = '\0';
@@ -401,16 +636,26 @@ static const profile_action_t *get_action_for_button(const libx52io_report *repo
     return NULL;
 }
 
-static void emit_macro(const profile_action_t *a)
+void x52d_profile_macro_wait_drained(void)
 {
-    size_t i;
-
-    if (a->type != ACTION_MACRO || a->macro_keys == NULL || !x52d_keyboard_evdev_available()) {
+    if (!macro_queue.thread_started) {
         return;
     }
-    for (i = 0; i < a->macro_len; i++) {
-        x52d_keyboard_evdev_key(a->macro_keys[i], 1);
-        x52d_keyboard_evdev_key(a->macro_keys[i], 0);
+    pthread_mutex_lock(&macro_queue.mutex);
+    while (macro_queue.count > 0) {
+        pthread_cond_wait(&macro_queue.drained, &macro_queue.mutex);
+    }
+    pthread_mutex_unlock(&macro_queue.mutex);
+}
+
+static void emit_macro(const profile_action_t *a)
+{
+    if (a->type != ACTION_MACRO || a->macro_keys == NULL || a->macro_step_len == NULL ||
+        !x52d_keyboard_evdev_available()) {
+        return;
+    }
+    if (!macro_queue_push_job(a->macro_keys, a->macro_step_len, a->macro_step_count)) {
+        PINELOG_WARN(_("Macro queue full, dropping macro"));
     }
 }
 

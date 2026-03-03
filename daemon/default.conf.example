@@ -3,7 +3,8 @@
 # [Profile]: Name = display name; ShiftButton = button name (default BTN_PINKY if omitted)
 # [Mode1], [Mode2], [Mode3], [Mode1.Shift], [Mode2.Shift], [Mode3.Shift]:
 #   Button.X = key KEY_Y [KEY_Z ...]   (single key or combo, down on press/up on release)
-#   Button.X = macro KEY_A KEY_B       (sequence on button down only)
+#   Button.X = macro KEY_A KEY_B       (sequence: A then B)
+#   Button.X = macro KEY_LEFTCTRL KEY_C | KEY_A   (steps separated by |: combo Ctrl+C then key A)
 # Fallback: ModeN.Shift -> ModeN; Mode2 -> Mode1; Mode3 -> Mode2 -> Mode1
 
 [Profile]

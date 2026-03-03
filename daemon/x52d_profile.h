@@ -47,13 +47,21 @@ const char *x52d_profile_get_name(void);
  * Compares @a report with @a prev and emits keyboard events for any
  * button that has a mapping in the current (mode, shift) layer.
  * Single-key mappings: key down on press, key up on release.
- * Macro mappings: sequence of key down/up on button down only.
+ * Macro mappings: sequence of key down/up on button down only (queued
+ * and emitted by a worker thread with a short delay between events).
  *
  * @param report Current joystick report.
  * @param prev   Previous report (for edge detection).
  */
 void x52d_profile_apply(const libx52io_report *report,
                        const libx52io_report *prev);
+
+/**
+ * @brief Block until all queued macro key events have been emitted.
+ *
+ * Useful for tests or before switching profile so macros finish playing.
+ */
+void x52d_profile_macro_wait_drained(void);
 
 #else
 
@@ -65,6 +73,7 @@ static inline void x52d_profile_apply(const libx52io_report *report,
     (void)report;
     (void)prev;
 }
+static inline void x52d_profile_macro_wait_drained(void) { (void)0; }
 
 #endif /* HAVE_EVDEV */
 

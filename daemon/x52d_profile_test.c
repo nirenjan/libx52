@@ -182,7 +182,7 @@ static void test_profile_macro_button_down_only(void **state)
 
     key_record_reset();
     x52d_profile_apply(&report, &prev);
-
+    x52d_profile_macro_wait_drained();
     assert_int_equal(key_record_n, 4);
     assert_int_equal(key_record[0].code, key_code_from_name("KEY_A"));
     assert_int_equal(key_record[0].value, 1);
@@ -192,6 +192,58 @@ static void test_profile_macro_button_down_only(void **state)
     assert_int_equal(key_record[2].value, 1);
     assert_int_equal(key_record[3].code, key_code_from_name("KEY_B"));
     assert_int_equal(key_record[3].value, 0);
+
+    memcpy(&prev, &report, sizeof(report));
+    report.button[LIBX52IO_BTN_T1_UP] = false;
+    key_record_reset();
+    x52d_profile_apply(&report, &prev);
+    assert_int_equal(key_record_n, 0);
+
+    x52d_profile_exit();
+    unlink(path);
+    rmdir(tmpdir);
+}
+
+static void test_profile_macro_pipe_combo(void **state)
+{
+    char tmpdir[] = "/tmp/x52d_profile_test_XXXXXX";
+    char path[256];
+    libx52io_report report, prev;
+
+    (void)state;
+    assert_non_null(mkdtemp(tmpdir));
+
+    snprintf(path, sizeof(path), "%s/test.conf", tmpdir);
+    write_profile_file(path,
+        "[Mode1]\n"
+        "Button.BTN_T1_UP = macro KEY_LEFTCTRL KEY_C | KEY_A\n");
+
+    x52d_config_set("Profiles", "Directory", tmpdir);
+    x52d_config_set("Profiles", "Profile", "test");
+    x52d_profile_init();
+
+    memset(&report, 0, sizeof(report));
+    memset(&prev, 0, sizeof(prev));
+    report.mode = 1;
+    report.button[LIBX52IO_BTN_T1_UP] = true;
+
+    key_record_reset();
+    x52d_profile_apply(&report, &prev);
+    x52d_profile_macro_wait_drained();
+    /* Step 1: Ctrl+C (down order: Ctrl, C; up order: C, Ctrl). Step 2: A (down, up) */
+    assert_int_equal(key_record_n, 6);
+    assert_int_equal(key_record[0].code, key_code_from_name("KEY_LEFTCTRL"));
+    assert_int_equal(key_record[0].value, 1);
+    assert_int_equal(key_record[1].code, key_code_from_name("KEY_C"));
+    assert_int_equal(key_record[1].value, 1);
+    assert_int_equal(key_record[2].code, key_code_from_name("KEY_C"));
+    assert_int_equal(key_record[2].value, 0);
+    assert_int_equal(key_record[3].code, key_code_from_name("KEY_LEFTCTRL"));
+    assert_int_equal(key_record[3].value, 0);
+    assert_int_equal(key_record[4].code, key_code_from_name("KEY_A"));
+    assert_int_equal(key_record[4].value, 1);
+    assert_int_equal(key_record[5].code, key_code_from_name("KEY_A"));
+    assert_int_equal(key_record[5].value, 0);
 
     memcpy(&prev, &report, sizeof(report));
     report.button[LIBX52IO_BTN_T1_UP] = false;
@@ -316,6 +368,7 @@ int main(void)
         cmocka_unit_test(test_profile_single_key),
         cmocka_unit_test(test_profile_key_combo),
         cmocka_unit_test(test_profile_macro_button_down_only),
+        cmocka_unit_test(test_profile_macro_pipe_combo),
         cmocka_unit_test(test_profile_fallback_mode2_to_mode1),
         cmocka_unit_test(test_profile_shift_layer),
         cmocka_unit_test(test_profile_get_name),
