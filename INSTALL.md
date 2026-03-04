@@ -3,8 +3,8 @@ Installation instructions for libx52
 
 Build has been tested on the following operating systems (x86-64 only):
 
-* Ubuntu 20.04 LTS
 * Ubuntu 22.04 LTS
+* Ubuntu 24.04 LTS
 * macOS Big Sur 11
 * macOS Monterey 12
 

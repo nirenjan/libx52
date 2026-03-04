@@ -21,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        os: ['ubuntu-22.04', 'ubuntu-24.04', 'macos-latest', 'macos-latest-large']
+        os: ['ubuntu-22.04', 'ubuntu-24.04', 'macos-latest']
         cc: ['gcc', 'clang']
 
     steps:
