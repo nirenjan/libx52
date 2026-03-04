@@ -6,10 +6,10 @@ privacy laws such as the GDPR and CCPA.
 ## Summary
 
 - **No automatic collection**: The software does not transmit any data to the
-- project or third parties. No telemetry, analytics, or crash reporting is
-- implemented.
+  project or third parties. No telemetry, analytics, or crash reporting is
+  implemented.
 - **Local operation**: All processing is on your machine. Configuration and logs
-- stay local unless you choose to share them (e.g. when opening a bug report).
+  stay local unless you choose to share them (e.g. when opening a bug report).
 
 ## Data that may be displayed or stored locally
 
