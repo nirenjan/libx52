@@ -15,6 +15,10 @@
 current system and build environment. The reported information can be provided
 when raising a bug report on https://github.com/nirenjan/libx52/issues.
 
+The output does not include device serial number or system hostname. You may
+redact any line before posting if you prefer. See the project PRIVACY.md for
+details.
+
 # USAGE
 
 \b x52bugreport

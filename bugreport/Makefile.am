@@ -21,4 +21,6 @@ x52bugreport_LDFLAGS = \
 
 x52bugreport_LDADD = libx52io.la
 
+$(x52bugreport_OBJECTS): version-info.h
+
 EXTRA_DIST += bugreport/bugreport.dox

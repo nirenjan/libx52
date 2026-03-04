@@ -59,8 +59,6 @@ static void print_devinfo(void)
     printf("Device name: '%s' '%s'\n",
            libx52io_get_manufacturer_string(ctx),
            libx52io_get_product_string(ctx));
-    printf("Serial number: '%s'\n",
-           libx52io_get_serial_number_string(ctx));
 
     libx52io_close(ctx);
 devinfo_cleanup:
@@ -75,7 +73,9 @@ int main(int argc, char **argv)
     puts("================");
     printf("Package version: %s\n", VERSION);
     printf("Build version: %s\n", BUILD_VERSION);
-    printf("Built on: %s\n", BUILD_HOST);
+    printf("Build host kernel: %s\n", BUILD_KERNEL);
+    printf("Build host architecture: %s\n", BUILD_ARCH);
+    printf("Build host version: %s\n", BUILD_OS_VERSION);
     printf("Compiler: %s\n", BUILD_COMPILER);
     printf("Build date: %s\n", BUILD_DATE);
     printf("version-info %s\n", BUILD_VERSION_INFO_IDENT);

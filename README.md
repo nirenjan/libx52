@@ -18,6 +18,8 @@ capable of reading the joystick, but it cannot control the MFD or LEDs.
 Most of the extra functionality can be handled from userspace. See
 the individual folders for README information.
 
+For data handling and privacy (e.g. GDPR/CCPA), see [PRIVACY.md](PRIVACY.md).
+
 **Note:** This repository currently only provides commandline interfaces to
 control the MFD and LEDs. If you are not comfortable working in the commandline,
 then the [gx52](https://gitlab.com/leinardi/gx52) project might be a better fit
