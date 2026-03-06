@@ -33,7 +33,7 @@ fi
 
 cat <<EOM
 #define BUILD_VERSION "${DESCRIBE}"
-#define BUILD_DATE "$(date +%Y-%m-%dT%H:%M:%S%z)"
+#define BUILD_DATE "$(date -u +%Y-%m-%dT%H:%M:%S%z)"
 #define BUILD_ARCH "$(uname -mp)"
 #define BUILD_KERNEL "$(uname -sr)"
 #define BUILD_OS_VERSION "$(uname -v)"
