@@ -1,5 +1,8 @@
 name: Kernel Module
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ '*' ]
