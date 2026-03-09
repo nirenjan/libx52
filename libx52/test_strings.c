@@ -18,7 +18,9 @@
 #define TEST_STRINGIFY(name) do { \
     char expected[256]; \
     for (int i=-1; i < sizeof(name ## _map) / sizeof(name ## _map[0]); i++) { \
-        if (name ## _map[i] != NULL) { \
+        if (i < 0) { \
+            snprintf(expected, sizeof(expected), unknown_fmt, i); \
+        } else if (name ## _map[i] != NULL) { \
             strncpy(expected, name ## _map[i], sizeof(expected)); \
         } else { \
             snprintf(expected, sizeof(expected), unknown_fmt, i); \
