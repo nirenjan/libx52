@@ -48,7 +48,7 @@ int libx52util_convert_utf8_string(const uint8_t *input,
         if (entry->type == TYPE_ENTRY) {
             output[index] = entry->value;
             index++;
-            if (index >= *len) {
+            if (index >= *len && *input) {
                 retval = -E2BIG;
                 break;
             }
