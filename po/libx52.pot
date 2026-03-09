@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2024-06-09 20:24-0700\n"
+"POT-Creation-Date: 2026-03-09 00:47-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -598,27 +598,27 @@ msgstr ""
 msgid "Shutting down X52 daemon"
 msgstr ""
 
-#: daemon/x52d_client.c:32
+#: daemon/x52d_client.c:37
 #, c-format
 msgid "Error accepting client connection on socket fd %d: %s"
 msgstr ""
 
-#: daemon/x52d_client.c:38
+#: daemon/x52d_client.c:43
 #, c-format
 msgid "Error marking client fd %d as nonblocking: %s"
 msgstr ""
 
-#: daemon/x52d_client.c:87
+#: daemon/x52d_client.c:97
 #, c-format
 msgid "Error when polling socket: FD %d, error %d, len %lu"
 msgstr ""
 
-#: daemon/x52d_client.c:118
+#: daemon/x52d_client.c:128
 #, c-format
 msgid "Error %d when polling %d descriptors: %s"
 msgstr ""
 
-#: daemon/x52d_client.c:121
+#: daemon/x52d_client.c:131
 msgid "Timed out when polling"
 msgstr ""
 
@@ -627,7 +627,7 @@ msgstr ""
 msgid "Setting clock enable to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:35 daemon/x52d_clock.c:116
+#: daemon/x52d_clock.c:35 daemon/x52d_clock.c:119
 #, c-format
 msgid "Setting %s clock timezone to %s"
 msgstr ""
@@ -648,69 +648,69 @@ msgstr ""
 msgid "Unable to backup timezone environment. Falling back to UTC"
 msgstr ""
 
-#: daemon/x52d_clock.c:135
+#: daemon/x52d_clock.c:138
 #, c-format
 msgid "Setting %s clock format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:159
+#: daemon/x52d_clock.c:162
 #, c-format
 msgid "Setting date format to %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:170
+#: daemon/x52d_clock.c:173
 msgid "Starting X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_clock.c:181
+#: daemon/x52d_clock.c:184
 #, c-format
 msgid "Error %d retrieving current time: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:202
+#: daemon/x52d_clock.c:205
 #, c-format
 msgid "Error %d initializing clock thread: %s"
 msgstr ""
 
-#: daemon/x52d_clock.c:209
+#: daemon/x52d_clock.c:212
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_command.c:367
+#: daemon/x52d_command.c:379
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:378
+#: daemon/x52d_command.c:390
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_command.c:402
+#: daemon/x52d_command.c:414
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:429
+#: daemon/x52d_command.c:441
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:437
+#: daemon/x52d_command.c:449
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:443
+#: daemon/x52d_command.c:455
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:447
+#: daemon/x52d_command.c:459
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/x52d_command.c:465
+#: daemon/x52d_command.c:477
 msgid "Shutting down command processing thread"
 msgstr ""
 
