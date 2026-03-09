@@ -1,5 +1,9 @@
 name: "CodeQL"
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   pull_request:
     # The branches below must be a subset of the branches above
