@@ -27,7 +27,7 @@ bool x52d_client_register(int client_fd[X52D_MAX_CLIENTS], int sock_fd)
     int fd;
     int i;
 
-    #if defined(__GNUC__) && !defined(__clang__)
+    #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
         #pragma GCC diagnostic push
         #pragma GCC diagnostic ignored "-Wanalyzer-fd-leak"
     #endif
@@ -45,7 +45,7 @@ bool x52d_client_register(int client_fd[X52D_MAX_CLIENTS], int sock_fd)
         goto error;
     }
 
-    #if defined(__GNUC__) && !defined(__clang__)
+    #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
         #pragma GCC diagnostic pop
     #endif
 
