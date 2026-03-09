@@ -27,6 +27,11 @@ bool x52d_client_register(int client_fd[X52D_MAX_CLIENTS], int sock_fd)
     int fd;
     int i;
 
+    #if defined(__GNUC__) && !defined(__clang__)
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wanalyzer-fd-leak"
+    #endif
+
     fd = accept(sock_fd, NULL, NULL);
     if (fd < 0) {
         PINELOG_ERROR(_("Error accepting client connection on socket fd %d: %s"),
@@ -39,6 +44,11 @@ bool x52d_client_register(int client_fd[X52D_MAX_CLIENTS], int sock_fd)
                       fd, strerror(errno));
         goto error;
     }
+
+    #if defined(__GNUC__) && !defined(__clang__)
+        #pragma GCC diagnostic pop
+    #endif
+
 
     for (i = 0; i < X52D_MAX_CLIENTS; i++) {
         if (client_fd[i] == INVALID_CLIENT) {

@@ -97,8 +97,11 @@ cleanup:
     if (orig_tz == NULL) {
         unsetenv("TZ");
     } else {
-        setenv("TZ", orig_tz_copy, true);
-        free(orig_tz_copy);
+        // If the copy is NULL, then we didn't change TZ, so don't bother
+        if (orig_tz_copy != NULL) {
+            setenv("TZ", orig_tz_copy, true);
+            free(orig_tz_copy);
+        }
     }
 
     if (new_tz != NULL) {

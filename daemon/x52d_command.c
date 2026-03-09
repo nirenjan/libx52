@@ -239,6 +239,19 @@ static const char *lmap_get_string(const struct level_map *map, int level)
     return NULL;
 }
 
+#define DATA_LMAP(map, level, resp) do {\
+    int input_level_ ## __LINE__ = level; \
+    const char *lmap_level_ ## __LINE__ = lmap_get_string(map, input_level_ ## __LINE__); \
+    char lmap_unknown_level ## __LINE__[32] = {0}; \
+    if (lmap_level_ ## __LINE__ == NULL) { \
+        snprintf(lmap_unknown_level ## __LINE__, sizeof(lmap_unknown_level ## __LINE__), \
+                 "unknown (%d)", input_level_ ## __LINE__); \
+        lmap_level_ ## __LINE__ = lmap_unknown_level ## __LINE__; \
+    } \
+    DATA(resp, lmap_level_ ## __LINE__); \
+} while(0)
+
+
 static int array_find_index(const char **array, int nmemb, const char *string)
 {
     int i;
@@ -287,14 +300,13 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
     // logging show [module]
     MATCH(1, "show") {
         if (argc == 2) {
-            // Show default logging level
-            DATA("global", lmap_get_string(loglevels, pinelog_get_level()));
+            DATA_LMAP(loglevels, pinelog_get_level(), "global");
         } else if (argc == 3) {
             int module = array_find_index(modules, X52D_MOD_MAX, argv[2]);
             if (module == X52D_MOD_MAX) {
                 ERR_fmt("Invalid module '%s'", argv[2]);
             } else {
-                DATA(argv[2], lmap_get_string(loglevels, pinelog_get_module_level(module)));
+                DATA_LMAP(loglevels, pinelog_get_module_level(module), argv[2]);
             }
         } else {
             ERR_fmt("Unexpected arguments for 'logging show' command; got %d, expected 2 or 3", argc);
