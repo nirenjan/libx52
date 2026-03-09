@@ -75,10 +75,12 @@ int libx52util_convert_utf8_string(const uint8_t *input,
             while (*input >= 0x80 && *input < 0xC0) {
                 input++; /* Skip invalid characters */
             }
+
+            /* New UTF-8 character, reset the entry pointer */
+            entry = &map_root[*input];
         }
     }
 
     *len = index;
     return retval;
 }
-
