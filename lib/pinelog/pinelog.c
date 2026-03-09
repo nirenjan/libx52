@@ -118,7 +118,9 @@ int pinelog_init(int count) {
 
     num_modules = count;
     free(module_level);
+    module_level = NULL;
     free(module_name);
+    module_name = NULL;
 
     module_level = calloc(count, sizeof(*module_level));
     if (module_level == NULL) {
@@ -141,7 +143,9 @@ int pinelog_init(int count) {
 cleanup:
     num_modules = 0;
     free(module_level);
+    module_level = NULL;
     free(module_name);
+    module_name = NULL;
     return rc;
 }
 #if defined __has_attribute
