@@ -229,6 +229,10 @@ int libx52_init(libx52_device **dev)
 
 void libx52_exit(libx52_device *dev)
 {
+    if (!dev) {
+        return;
+    }
+
     libx52_disconnect(dev);
     libusb_exit(dev->ctx);
 
