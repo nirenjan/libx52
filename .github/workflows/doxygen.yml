@@ -5,6 +5,11 @@ on:
     branches:
     - 'master'
 
+permissions:
+  contents: read
+  pages: write    # Required to push to the Pages server
+  id-token: write # Required to verify the deployment is legitimate
+
 jobs:
   doxygen:
     if: "!(contains(github.event.head_commit.message, '[doxy skip]') || contains(github.event.head_commit.message, '[skip doxy]'))"
@@ -23,8 +28,11 @@ jobs:
     - name: Dump generated files
       run: find ./build -type f -print
 
-    - name: Deploy generated documentation to Github pages
-      uses: peaceiris/actions-gh-pages@v4
+    - name: Upload built pages
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build/docs/html
+        path: './build/docs/html'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
