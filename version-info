@@ -31,12 +31,30 @@ then
     fi
 fi
 
+if test -n "$2"
+then
+    BUILD_COMPILER="$2"
+elif test -n "${CC}"
+then
+    BUILD_COMPILER="$(${CC} --version | head -n1)"
+else
+    BUILD_COMPILER=unknown
+fi
+
 cat <<EOM
 #define BUILD_VERSION "${DESCRIBE}"
 #define BUILD_DATE "$(date -u +%Y-%m-%dT%H:%M:%S%z)"
 #define BUILD_ARCH "$(uname -mp)"
 #define BUILD_KERNEL "$(uname -sr)"
 #define BUILD_OS_VERSION "$(uname -v)"
-#define BUILD_COMPILER "$(${CC} --version | head -n1)"
+#define BUILD_COMPILER "${BUILD_COMPILER}"
 EOM
 echo '#define BUILD_VERSION_INFO_IDENT "$Id$"'
+
+if test -n "${CC}"
+then
+    BUILD_TARGET="$(${CC} -dumpmachine || echo "unknown")"
+else
+    BUILD_TARGET=unknown
+fi
+echo "#define BUILD_TARGET \"${BUILD_TARGET}\""

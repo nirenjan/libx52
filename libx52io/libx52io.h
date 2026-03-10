@@ -303,7 +303,6 @@ int libx52io_init(libx52io_context **ctx);
  * cause errors.
  *
  * @param[in]   ctx     Pointer to the device context
- * @returns None
  */
 void libx52io_exit(libx52io_context *ctx);
 

@@ -1,0 +1,39 @@
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
+#mesondefine ENABLE_NLS
+
+/* Define to 1 if the system has the `noreturn' function attribute */
+#mesondefine HAVE_FUNC_ATTRIBUTE_NORETURN
+
+/* Define to 1 if `tm_gmtoff' is a member of `struct tm'. */
+#mesondefine HAVE_STRUCT_TM_TM_GMTOFF
+
+/* Name of package */
+#mesondefine PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#mesondefine PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#mesondefine PACKAGE_NAME
+
+/* Define to the version of this package. */
+#mesondefine PACKAGE_VERSION
+
+/* Define to the version of this package. */
+#mesondefine VERSION
+
+/* Define to the directory where locale files are stored */
+#mesondefine LOCALEDIR
+
+/* Define to the location of the configuration directory */
+#mesondefine SYSCONFDIR
+
+/* Define to the location of the local state directory */
+#mesondefine LOCALSTATEDIR
+
+/* Define to the location of the log directory */
+#define LOGDIR LOCALSTATEDIR "/log"
+
+/* Define to the location of the run directory */
+#define RUNDIR LOCALSTATEDIR "/run"

@@ -1,0 +1,8 @@
+option('show-date', type: 'boolean',
+	description: 'Show timestamp in log message')
+
+option('show-level', type: 'boolean',
+	description: 'Show level string in log message')
+
+option('show-backtrace', type: 'boolean',
+	description: 'Show backtrace information in log message')

@@ -1,0 +1,11 @@
+option('systemd-logs',
+  type: 'feature',
+  description: 'Hide timestamps in log messages, needed for systemd')
+
+option('nls',
+  type: 'feature',
+  description: 'Enable message translations')
+
+option('input-group',
+  type: 'string', value: 'plugdev',
+  description: 'Group for input devices')

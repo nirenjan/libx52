@@ -462,12 +462,12 @@ static void do_help(const struct command_handler *cmd)
     if (cmd) {
         fprintf(stderr, "Command usage: %s\n", cmd->help);
     } else {
-        printf("\nCommands:\n");
+        fprintf(stderr, "\nCommands:\n");
         for (i = 0; i < X52_CTL_CMD_MAX; i++) {
-            printf("\t%s\n", handlers[i].help);
+            fprintf(stderr, "\t%s\n", handlers[i].help);
         }
 
-        printf("\nWARNING: raw command may damage your device\n\n");
+        fprintf(stderr, "\nWARNING: raw command may damage your device\n\n");
     }
 }
 

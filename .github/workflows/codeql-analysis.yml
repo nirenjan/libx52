@@ -40,13 +40,7 @@ jobs:
       #   languages: go, javascript, csharp, python, cpp, java
 
     - name: Build
-      run: |
-        ./autogen.sh
-        mkdir -p build
-        cd build
-        ../configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
-        make -j V=0
-        make -j V=0 check
+      run: ./.github/scripts/build-and-test.sh
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4

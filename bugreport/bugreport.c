@@ -76,6 +76,7 @@ int main(int argc, char **argv)
     printf("Build host kernel: %s\n", BUILD_KERNEL);
     printf("Build host architecture: %s\n", BUILD_ARCH);
     printf("Build host version: %s\n", BUILD_OS_VERSION);
+    printf("Build target: %s\n", BUILD_TARGET);
     printf("Compiler: %s\n", BUILD_COMPILER);
     printf("Build date: %s\n", BUILD_DATE);
     printf("version-info %s\n", BUILD_VERSION_INFO_IDENT);

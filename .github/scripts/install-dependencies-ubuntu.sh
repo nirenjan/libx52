@@ -15,6 +15,9 @@ sudo apt-get install -y \
     libinih-dev \
     doxygen \
     libcmocka-dev \
-    faketime
+    faketime \
+    meson \
+    ninja-build \
+    libinih-dev
 
 exit 0

@@ -48,7 +48,7 @@ static void test_map_{in_char}(void **state) {{
     rc = libx52util_convert_utf8_string(input_array, output, &out_len);
     assert_int_equal(rc, 0);
     assert_int_equal(out_len, 1);
-    assert_string_equal(output, expected_output);
+    assert_memory_equal(output, expected_output, 2);
 }}
 """
 

@@ -26,7 +26,7 @@ x52d_CFLAGS = \
 	-I $(top_srcdir)/libx52io \
 	-I $(top_srcdir)/libx52 \
 	-I $(top_srcdir)/libx52util \
-	-I $(top_srcdir)/lib/pinelog \
+	-I $(top_srcdir)/subprojects/pinelog \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(localstatedir)/log\" \
@@ -35,7 +35,7 @@ x52d_CFLAGS = \
 
 x52d_LDFLAGS = @INIH_LIBS@ @PTHREAD_LIBS@ $(WARN_LDFLAGS)
 x52d_LDADD = \
-	lib/pinelog/libpinelog.la \
+	subprojects/pinelog/libpinelog.la \
 	libx52.la \
 	@LTLIBINTL@
 
@@ -123,11 +123,11 @@ x52d_mouse_test_CFLAGS = \
 	-I $(top_srcdir) \
 	-I $(top_srcdir)/libx52 \
 	-I $(top_srcdir)/libx52io \
-	-I $(top_srcdir)/lib/pinelog \
+	-I $(top_srcdir)/subprojects/pinelog \
 	$(WARN_CFLAGS) @CMOCKA_CFLAGS@
 x52d_mouse_test_LDFLAGS = @CMOCKA_LIBS@ $(WARN_LDFLAGS)
 x52d_mouse_test_LDADD = \
-	lib/pinelog/libpinelog.la \
+	subprojects/pinelog/libpinelog.la \
 	@LTLIBINTL@
 
 TESTS += x52d-mouse-test

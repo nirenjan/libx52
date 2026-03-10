@@ -2,16 +2,13 @@
 # Run the build and tests
 set -e
 
-./autogen.sh
-mkdir build
+meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled build
 cd build
-../configure
-make -j V=0
-make -j check V=0
-make -j distcheck
+ninja
+ninja test
 
 # Print bugreport output
-./x52bugreport
+./bugreport/x52bugreport
 
 # Make sure that there are no changes to the source code
 # This may happen if the source have changed with differences to the
