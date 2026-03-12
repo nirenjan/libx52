@@ -1,6 +1,6 @@
 project('libx52', 'C',
   license: 'GPL-2.0-only WITH Classpath-exception-2.0',
-  version: '0.3.2')
+  version: '0.3.3')
 
 dep_libusb = dependency('libusb-1.0', required: true)
 dep_hidapi = dependency('hidapi-hidraw', required: false)

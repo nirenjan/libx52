@@ -22,15 +22,30 @@ jobs:
       - name: Build project
         run: ./.github/scripts/build-and-test.sh
 
-      - name: Find release tarball
-        id: find_release
+      - name: Prepare release assets
         run: |
-          echo "::set-output name=path::$(find $PWD -name 'libx52*.tar*')"
-          echo "::set-output name=asset::$(find . -name 'libx52*.tar*' -exec basename {} \; | sed 's/libx52-\(.*\)\.tar/libx52_\1.orig.tar/')"
+          # Find the Meson generated tarball
+          # meson dist usuall creates a tar.xz, but be prepared to handle
+          # additional compression formats
+          DIST_FILE=$(find build/meson-dist -name 'libx52-*.tar.*' -a ! -name '*.tar.*sum')
+
+          # Extract the version from the filename
+          VERSION=$(echo "$DIST_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          EXTENSION="${DIST_FILE#*${VERSION}}"
+
+          ASSET_NAME="libx52_${VERSION}.orig${EXTENSION}"
+          ASSET_PATH="build/meson-dist/${ASSET_NAME}"
+
+          # Rename the file
+          mv -v "$DIST_FILE" "$ASSET_PATH"
+
+          cd build/meson-dist
+          rm *.sha256sum
+          sha256sum "$ASSET_NAME" > "${ASSET_NAME}.sha256sum"
+          cd ../..
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -38,14 +53,5 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-
-      - name: Upload Release Tarball
-        id: upload-release-tarball
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.find_release.outputs.path }}
-          asset_name: ${{ steps.find_release.outputs.asset }}
-          asset_content_type: application/gzip
+          files: |
+            build/meson-dist/*

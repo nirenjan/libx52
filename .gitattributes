@@ -1,2 +1,5 @@
 /version-info ident
 */meson.build ident
+/.github/ export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore

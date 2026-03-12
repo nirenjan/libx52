@@ -6,6 +6,7 @@ meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled b
 cd build
 ninja
 ninja test
+meson dist
 
 # Print bugreport output
 ./bugreport/x52bugreport
