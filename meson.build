@@ -137,4 +137,26 @@ if doxygen_program.found()
     command: [doxygen_program],
     output: 'docs'
     )
+
+  install_subdir(meson.current_build_dir() / 'docs' / 'html',
+    install_dir: get_option('prefix') / get_option('datadir') / 'doc' / meson.project_name(),
+    strip_directory: true
+  )
+
+  wanted_man_pages = ['x52cli.1', 'x52bugreport.1']
+  foreach p: wanted_man_pages
+    section = 'man' + p.split('.')[-1] # Extracts the section
+
+    custom_target(p,
+      input: docs_tgt,
+      output: p,
+      command: ['cp', meson.current_build_dir() / 'docs' / 'man' / section / p, '@OUTPUT@'],
+      install: true,
+      install_dir: get_option('prefix') / get_option('mandir') / section
+    )
+  endforeach
+  install_subdir(meson.current_build_dir() / 'docs' / 'man',
+    install_dir: get_option('prefix') / get_option('mandir'),
+    strip_directory: true
+  )
 endif
