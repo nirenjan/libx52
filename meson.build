@@ -42,7 +42,7 @@ cdata.set_quoted('SYSCONFDIR', get_option('prefix') / get_option('sysconfdir'))
 cdata.set_quoted('LOCALSTATEDIR', get_option('prefix') / get_option('localstatedir'))
 cdata.set_quoted('PACKAGE_VERSION', meson.project_version())
 cdata.set_quoted('VERSION', meson.project_version())
-cdata.set10('ENABLE_NLS', get_option('nls').enabled())
+cdata.set10('ENABLE_NLS', not get_option('nls').disabled())
 cdata.set10('HAVE_FUNC_ATTRIBUTE_NORETURN', compiler.has_function_attribute('noreturn'))
 cdata.set10('HAVE_STRUCT_TM_TM_GMTOFF',
   compiler.has_member('struct tm', 'tm_gmtoff', prefix:'#include <time.h>'))
@@ -73,7 +73,7 @@ if not dep_intl.found() and host_machine.system() == 'darwin'
 endif
 
 # # define GETTEXT_PACKAGE
-if get_option('nls').enabled()
+if not get_option('nls').disabled()
   add_project_arguments(
     '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
     language:'C')
