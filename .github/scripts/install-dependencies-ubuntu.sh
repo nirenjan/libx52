@@ -12,6 +12,7 @@ sudo apt-get install -y \
     libusb-1.0-0-dev \
     libhidapi-dev \
     libevdev-dev \
+    libinih-dev \
     doxygen \
     libcmocka-dev \
     faketime

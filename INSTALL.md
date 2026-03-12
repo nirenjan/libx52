@@ -17,6 +17,7 @@ Build has been tested on the following operating systems (x86-64 only):
 * autopoint
 * gettext
 * hidapi + headers
+* inih
 * libtool
 * libusb-1.0 + headers
 * libevdev + headers (on Linux)
@@ -28,10 +29,10 @@ Build has been tested on the following operating systems (x86-64 only):
 
 | Platform | Install instructions |
 | -------- | -------------------- |
-| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libevdev-dev libtool libusb-1.0-0-dev pkg-config python3 git` |
+| Ubuntu   | `sudo apt-get install automake autoconf gettext autopoint libhidapi-dev libevdev-dev libtool libusb-1.0-0-dev libinih-dev pkg-config python3 git` |
 | MacOS + Homebrew  | `brew install automake autoconf gettext hidapi libtool libusb pkg-config python3 git` |
-| Arch Linux | `pacman -S base-devel libusb hidapi libevdev python git` |
-| Fedora | `sudo dnf install autoconf automake gettext-devel findutils libtool hidapi-devel libusb-devel libevdev-devel pkg-config python3 git` |
+| Arch Linux | `pacman -S base-devel libusb hidapi libevdev libinih python git` |
+| Fedora | `sudo dnf install autoconf automake gettext-devel findutils libtool hidapi-devel libusb-devel libevdev-devel inih-devel pkg-config python3 git` |
 
 ## Optional Packages
 
