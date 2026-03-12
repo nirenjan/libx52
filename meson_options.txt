@@ -2,6 +2,11 @@ option('systemd-logs',
   type: 'feature',
   description: 'Hide timestamps in log messages, needed for systemd')
 
+option('systemd-unit-dir',
+  type: 'string',
+  value: '',
+  description: 'Directory for systemd service files (leave empty for auto-detection)')
+
 option('nls',
   type: 'feature',
   description: 'Enable message translations')

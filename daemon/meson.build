@@ -62,3 +62,24 @@ x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
 
+# Install service file
+if dep_systemd.found()
+  systemd_system_unit_dir = get_option('systemd-unit-dir')
+  if systemd_system_unit_dir == ''
+    systemd_system_unit_dir = dep_systemd.get_variable(
+      pkgconfig: 'systemd_system_unit_dir',
+      default_value: '/lib/systemd/system')
+  endif
+  sed = find_program('sed')
+  bindir_path = get_option('prefix') / get_option('bindir')
+  sed_script = 's|%bindir%|' + bindir_path + '|g'
+
+  systemd_service_file = configure_file(
+    input: 'x52d.service.in',
+    output: 'x52d.service',
+    command: [sed, sed_script, '@INPUT@'],
+    capture: true,
+    install: true,
+    install_dir: systemd_system_unit_dir
+  )
+endif
