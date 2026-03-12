@@ -11,29 +11,23 @@ The format is based upon [Keep a Changelog].
 ### Added
 - Updated build infrastructure to use Meson instead of Autotools.
 - Added a [privacy policy](PRIVACY.md) to comply with GDPR/CCPA regulations.
-- Added a [security policy](SECURITY.md) to help securely report
-  vulnerabilities.
+- Added a [security policy](SECURITY.md) to help securely report vulnerabilities.
 - Added Dependabot configuration to keep Action files up to date.
+- Added a changelog script to automatically generate the latest release changelog.
 
 ### Changed
-- **BREAKING**: Removed vendored inih package and switched build framework to
-  use inih from the system package manager.
+- **BREAKING**: Removed vendored inih package and switched build framework to use inih from the system package manager.
 - `x52bugreport` tool now strips out potentially identifying information.
-- Removed the use of a 3rd party action to deploy generated Doxygen pages to the
-  gh-pages branch. This now uses the modern gh-pages deployment action.
-- Updated release action to use softprops/action-gh-release@v2, since the
-  original actions are no longer maintained.
+- Removed the use of a 3rd party action to deploy generated Doxygen pages to the gh-pages branch. This now uses the modern gh-pages deployment action.
+- Updated release action to use softprops/action-gh-release@v2, since the original actions are no longer maintained.
 
 ### Deprecated
-- Autotools build framework is now deprecated, and will be removed in the next
-  release.
+- Autotools build framework is now deprecated, and will be removed in the next release.
 
 ### Fixed
 - Github Actions updated to use current set of runners
 - Fixed handling malformed UTF-8 input in libx52util
-- Fixed boundary check issue in libx52util that incorrectly returned `-E2BIG` if
-  the output buffer was the exact size to capture the translated string and the
-  null terminator.
+- Fixed boundary check issue in libx52util that incorrectly returned `-E2BIG` if the output buffer was the exact size to capture the translated string and the null terminator.
 - Fixed potential UB in libx52-string-test
 - Fixed NULL pointer dereference in `libx52_exit`
 - Fixed errors identified by the GCC `-fanalyzer` flag
