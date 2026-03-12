@@ -1,3 +1,5 @@
+libx52io_version = '1.0.0'
+
 libx52io_files = files(
   'io_core.c',
   'io_axis.c',
@@ -8,12 +10,17 @@ libx52io_files = files(
 
 lib_libx52io = library('x52io', libx52io_files,
   install: true,
-  version: '1.0.0',
+  version: libx52io_version,
   dependencies: [dep_hidapi, dep_intl],
   include_directories: [includes])
 
 install_headers('libx52io.h', subdir: meson.project_name())
-pkgconfig.generate(lib_libx52io)
+pkgconfig.generate(lib_libx52io,
+  name: 'libx52io',
+  description: 'Linux/Unix library to read and parse X52 input',
+  subdirs: meson.project_name(),
+  version: libx52io_version,
+)
 
 test_axis = executable('test-axis', 'test_axis.c', libx52io_files,
   build_by_default: false,

@@ -1,3 +1,5 @@
+libx52_version = '2.4.2'
+
 libx52_files = files(
   'x52_control.c',
   'x52_core.c',
@@ -9,12 +11,16 @@ libx52_files = files(
 
 lib_libx52 = library('x52', libx52_files,
   install: true,
-  version: '2.4.2',
+  version: libx52_version,
   dependencies: [dep_libusb, dep_intl],
   include_directories: [includes])
 
 install_headers('libx52.h', subdir: meson.project_name())
-pkgconfig.generate(lib_libx52)
+pkgconfig.generate(lib_libx52,
+  name: 'libx52',
+  description: 'Linux/Unix library to control Saitek X52/X52Pro joystick extended functionality.',
+  subdirs: meson.project_name(),
+  version: libx52_version)
 
 # Unit tests for libx52
 libx52_string_test = executable('libx52-string-test',

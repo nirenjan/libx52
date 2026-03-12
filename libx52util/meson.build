@@ -1,4 +1,5 @@
 # libx52util
+libx52util_version = '1.0.1'
 gen_script = files('x52_char_map_gen.py')[0]
 
 util_char_map = custom_target('util-char-map',
@@ -10,12 +11,17 @@ util_char_map = custom_target('util-char-map',
 
 lib_libx52util = library('x52util', util_char_map, 'x52_char_map_lookup.c',
   install: true,
-  version: '1.0.1',
+  version: libx52util_version,
   include_directories: [includes],
   )
 
 install_headers('libx52util.h', subdir: meson.project_name())
-pkgconfig.generate(lib_libx52util)
+pkgconfig.generate(lib_libx52util,
+  name: 'libx52util',
+  description: 'Extra utility functions to manage X52 extended functionality',
+  subdirs: meson.project_name(),
+  version: libx52util_version,
+)
 
 test_gen_script = files('x52_map_test_gen.py')[0]
 
