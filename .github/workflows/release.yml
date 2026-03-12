@@ -45,7 +45,7 @@ jobs:
           cd ../..
 
       - name: Generate changelog
-        run: ./.github/scripts/generate_changelog.py > ${{ github.workspace }}.CHANGELOG.txt
+        run: ./.github/scripts/generate_changelog.py > ${{ github.workspace }}/CHANGELOG.txt
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
