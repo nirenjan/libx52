@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.2\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-03-09 00:47-0700\n"
+"POT-Creation-Date: 2026-03-12 08:31-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -613,12 +613,12 @@ msgstr ""
 msgid "Error when polling socket: FD %d, error %d, len %lu"
 msgstr ""
 
-#: daemon/x52d_client.c:128
+#: daemon/x52d_client.c:127
 #, c-format
 msgid "Error %d when polling %d descriptors: %s"
 msgstr ""
 
-#: daemon/x52d_client.c:131
+#: daemon/x52d_client.c:130
 msgid "Timed out when polling"
 msgstr ""
 
@@ -916,27 +916,27 @@ msgstr ""
 msgid "Error setting up notification socket"
 msgstr ""
 
-#: daemon/x52d_notify.c:82 daemon/x52d_notify.c:98
+#: daemon/x52d_notify.c:80 daemon/x52d_notify.c:90
 #, c-format
 msgid "Error %d reading from pipe: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:140
+#: daemon/x52d_notify.c:127
 #, c-format
 msgid "Error %d writing notification pipe: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:185
+#: daemon/x52d_notify.c:172
 #, c-format
 msgid "Error %d creating notification pipe: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:194
+#: daemon/x52d_notify.c:181
 #, c-format
 msgid "Error %d initializing notify thread: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:200
+#: daemon/x52d_notify.c:187
 #, c-format
 msgid "Error %d initializing notify listener: %s"
 msgstr ""

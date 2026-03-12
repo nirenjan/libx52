@@ -119,12 +119,11 @@ int x52d_client_poll(int client_fd[X52D_MAX_CLIENTS], struct pollfd pfd[MAX_CONN
 
     PINELOG_TRACE("Polling %d file descriptors", pfd_count);
 
-retry_poll:
-    rc = poll(pfd, pfd_count, -1);
+    do {
+        rc = poll(pfd, pfd_count, -1);
+    } while (rc < 0 && errno == EINTR);
+
     if (rc < 0) {
-        if (errno == EINTR) {
-            goto retry_poll;
-        }
         PINELOG_ERROR(_("Error %d when polling %d descriptors: %s"),
                       errno, pfd_count, strerror(errno));
     } else if (rc == 0) {

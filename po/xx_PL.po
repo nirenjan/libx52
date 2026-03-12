@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-03-09 00:47-0700\n"
+"POT-Creation-Date: 2026-03-12 08:31-0700\n"
 "PO-Revision-Date: 2023-01-04 08:40-0800\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -662,12 +662,12 @@ msgstr "Erroray arkingmay ientclay fday %d asay onblockingnay: %s"
 msgid "Error when polling socket: FD %d, error %d, len %lu"
 msgstr "Erroray enwhay ollingpay ocketsay: FDay %d, erroray %d, enlay %lu"
 
-#: daemon/x52d_client.c:128
+#: daemon/x52d_client.c:127
 #, c-format
 msgid "Error %d when polling %d descriptors: %s"
 msgstr "Erroray %d enwhay ollingpay %d escriptorsday: %s"
 
-#: daemon/x52d_client.c:131
+#: daemon/x52d_client.c:130
 msgid "Timed out when polling"
 msgstr "Imedtay outay enwhay ollingpay"
 
@@ -969,27 +969,27 @@ msgstr "Erroray isteninglay onay otificationnay ocketsay: %s"
 msgid "Error setting up notification socket"
 msgstr "Erroray ettingsay upay otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:82 daemon/x52d_notify.c:98
+#: daemon/x52d_notify.c:80 daemon/x52d_notify.c:90
 #, c-format
 msgid "Error %d reading from pipe: %s"
 msgstr "Erroray eadingray omfray ipepay %d: %s"
 
-#: daemon/x52d_notify.c:140
+#: daemon/x52d_notify.c:127
 #, c-format
 msgid "Error %d writing notification pipe: %s"
 msgstr "Erroray %d itingwray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:185
+#: daemon/x52d_notify.c:172
 #, c-format
 msgid "Error %d creating notification pipe: %s"
 msgstr "Erroray %d eatingcray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:194
+#: daemon/x52d_notify.c:181
 #, c-format
 msgid "Error %d initializing notify thread: %s"
 msgstr "Erroray %d initializingay otifynay eadthray: %s"
 
-#: daemon/x52d_notify.c:200
+#: daemon/x52d_notify.c:187
 #, c-format
 msgid "Error %d initializing notify listener: %s"
 msgstr "Erroray %d initializingay otifynay istenerlay: %s"

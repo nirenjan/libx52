@@ -73,45 +73,32 @@ static void * x52_notify_thr(void * param)
     int rc;
 
     for (;;) {
-read_pipe_size:
-        rc = read(notify_pipe[0], &bufsiz, sizeof(bufsiz));
+        do {
+            rc = read(notify_pipe[0], &bufsiz, sizeof(bufsiz));
+        } while (rc < 0 && errno == EINTR);
         if (rc < 0) {
-            if (errno == EINTR) {
-                goto read_pipe_size;
-            } else {
-                PINELOG_ERROR(_("Error %d reading from pipe: %s"),
-                              errno, strerror(errno));
-            }
-        }
-
-        if (rc < 0) {
+            PINELOG_ERROR(_("Error %d reading from pipe: %s"),
+                          errno, strerror(errno));
             // Error condition, try again
             continue;
         }
 
-read_pipe_data:
-        rc = read(notify_pipe[0], buffer, bufsiz);
+        do {
+            rc = read(notify_pipe[0], buffer, bufsiz);
+        } while (rc < 0 && errno == EINTR);
         if (rc < 0) {
-            if (errno == EINTR) {
-                goto read_pipe_data;
-            } else {
-                PINELOG_ERROR(_("Error %d reading from pipe: %s"),
-                              errno, strerror(errno));
-            }
-        }
-
-        if (rc < 0) {
+            PINELOG_ERROR(_("Error %d reading from pipe: %s"),
+                          errno, strerror(errno));
+            // Error condition, try again
             continue;
         }
 
         for (int i = 0; i < X52D_MAX_CLIENTS; i++) {
             // Broadcast to every connected client
             if (client_fd[i] != INVALID_CLIENT) {
-write_client_notification:
-                rc = write(client_fd[i], buffer, bufsiz);
-                if (rc < 0 && errno == EINTR) {
-                    goto write_client_notification;
-                }
+                do {
+                    rc = write(client_fd[i], buffer, bufsiz);
+                } while (rc < 0 && errno == EINTR);
             }
         }
     }
