@@ -11,6 +11,11 @@ option('nls',
   type: 'feature',
   description: 'Enable message translations')
 
+option('udev-rules-dir',
+  type: 'string',
+  value: '',
+  description: 'Directory for udev rules (leave empty for auto-detection)')
+
 option('input-group',
   type: 'string', value: 'plugdev',
   description: 'Group for input devices')
