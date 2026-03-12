@@ -81,6 +81,9 @@ AM_COND_IF([LINUX], [hidapi_backend=hidapi-hidraw], [hidapi_backend=hidapi])
 PKG_CHECK_MODULES([HIDAPI], [${hidapi_backend}])
 AC_SUBST([HIDAPI_PC], [${hidapi_backend}])
 
+# Check for inih library, this is now packaged with recent distros
+PKG_CHECK_MODULES([INIH], [inih])
+
 # Check for pthreads
 ACX_PTHREAD
 
@@ -140,7 +143,6 @@ AC_CONFIG_FILES([ po/Makefile.in
     libx52io/libx52io.pc
     libx52util/libx52util.pc
     lib/pinelog/Makefile
-    lib/inih/Makefile
     udev/60-saitek-x52-x52pro.rules
 ])
 AC_OUTPUT
