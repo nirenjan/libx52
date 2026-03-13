@@ -6,7 +6,18 @@ The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
 
+### Fixed
+- Addressed meson build bugs found in v0.3.3
+
 ## [0.3.3] - 2026-03-12
+
+**Note:** While this release does introduce Meson support and deprecate the
+Autotools framework, there are several bugs in the Meson build files, causing a
+number of missing builds, notably the systemd service file, the documentation
+and man pages. In addition, the translation files were not handled at all, and
+translation services were disabled by default, compared to the Autotools
+framework where it was enabled by default. These bugs will be addressed in the
+next release.
 
 ### Added
 - Updated build infrastructure to use Meson instead of Autotools.
