@@ -43,7 +43,7 @@ exe_x52d = executable('x52d', x52d_sources,
   dependencies: x52d_deps,
   link_with: x52d_linkwith)
 
-executable('x52ctl', 'x52ctl.c',
+exe_x52ctl = executable('x52ctl', 'x52ctl.c',
   install: true,
   dependencies: [dep_intl],
   include_directories: includes,
@@ -53,7 +53,7 @@ install_data('x52d.conf',
   install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
 
 test('daemon-communication', files('test_daemon_comm.py')[0],
-  depends: exe_x52d, protocol: 'tap')
+  depends: [exe_x52d, exe_x52ctl], protocol: 'tap')
 
 x52d_mouse_test_sources = ['x52d_mouse_test.c', 'x52d_mouse.c']
 x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
