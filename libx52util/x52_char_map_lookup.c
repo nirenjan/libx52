@@ -11,10 +11,62 @@
 
 #include "config.h"
 #include <stdint.h>
+#include <string.h>
 #include <errno.h>
 
 #include "libx52util.h"
 #include "x52_char_map.h"
+
+/**
+ * @brief Converts a UTF8 stream to a uint32_t
+ *
+ * @param[in]       utf8in  Pointer to UTF8 input stream. Must be NUL-terminated
+ * @param[out]      unichr  Output character pointer
+ *
+ * @returns number of bytes to advance stream by - 0 if NUL or input pointer is NULL
+ */
+static int utf8_to_u32(const uint8_t *utf8in, uint32_t *unichr)
+{
+    if (!utf8in || !*utf8in) return 0;
+
+    uint8_t b = utf8in[0];
+
+    // 1-byte (0xxxxxxx)
+    if (b < 0x80) {
+        *unichr = b;
+        return 1;
+    }
+
+    // Invalid leading bytes
+    if (b < 0xC2 || b > 0xF4) goto error;
+
+    // 2-byte (110xxxxx 10xxxxxx)
+    if ((b & 0xE0) == 0xC0) {
+        if ((utf8in[1] & 0xC0) != 0x80) goto error;
+        *unichr = ((b & 0x1F) << 6) | (utf8in[1] & 0x3F);
+        return 2;
+    }
+
+    // 3-byte (1110xxxx 10xxxxxx 10xxxxxx)
+    if ((b & 0xF0) == 0xE0) {
+        if ((utf8in[1] & 0xC0) != 0x80 || (utf8in[2] & 0xC0) != 0x80) goto error;
+        *unichr = ((b & 0x0F) << 12) | ((utf8in[1] & 0x3F) << 6) | (utf8in[2] & 0x3F);
+        return 3;
+    }
+
+    // 4-byte (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+    if ((b & 0xF8) == 0xF0) {
+        if ((utf8in[1] & 0xC0) != 0x80 || (utf8in[2] & 0xC0) != 0x80 ||
+                (utf8in[3] & 0xC0) != 0x80) goto error;
+        *unichr = ((b & 0x07) << 18) | ((utf8in[1] & 0x3F) << 12) |
+              ((utf8in[2] & 0x3F) << 6) | (utf8in[3] & 0x3F);
+        return 4;
+    }
+
+error:
+    *unichr = 0xFFFD; // Unicode Replacement Character
+    return 1;     // Consume lead byte to attempt resync
+}
 
 /**
  * @brief Convert UTF8 string to X52 character map.
@@ -32,52 +84,61 @@
 int libx52util_convert_utf8_string(const uint8_t *input,
                                    uint8_t *output, size_t *len)
 {
-    struct map_entry *entry;
     size_t index;
     int retval = 0;
-    unsigned char local_index;
+    uint32_t unichr;
+    int bytes_consumed;
+    uint16_t translated;
 
     if (!input || !output || !len || !*len) {
         return -EINVAL;
     }
 
     index = 0;
-    entry = &map_root[*input];
+    // Reset the output array
+    memset(output, 0, *len);
+
     while (*input) {
-        input++;
-        if (entry->type == TYPE_ENTRY) {
-            output[index] = entry->value;
+        // Length check
+        if (index >= *len) {
+            retval = -E2BIG;
+            break;
+        }
+
+        bytes_consumed = utf8_to_u32(input, &unichr);
+        if (bytes_consumed == 0) {
+            // We should never get here, since the while loop should have
+            // caught it
+            retval = 0;
+            break;
+        }
+        input += bytes_consumed;
+
+        // Check for bytes in the Supplementary planes
+        if (unichr >= 0x10000) {
+            unichr = 0xFFFD; // Unicode replacement character
+        }
+
+        translated = root_table[unichr >> 8][unichr & 0xFF];
+        if (translated < 256) {
+            // Table entry, push to output
+            output[index] = (uint8_t)translated;
             index++;
-            if (index >= *len && *input) {
+        } else {
+            // We have a sequence, output that
+            const uint8_t *sequence = sequence_table[translated - 256];
+            uint8_t seq_len = sequence[0];
+
+            // Let's make sure that we can actually output to the buffer
+            if ((index + seq_len) >= *len) {
                 retval = -E2BIG;
                 break;
             }
-            entry = &map_root[*input];
-        } else if (entry->type == TYPE_POINTER) {
-            local_index = *input;
-            if (local_index < 0x80 || local_index >= 0xC0) {
-                /* Invalid input, skip till we find the start of another
-                 * valid UTF-8 character
-                 */
-                while (*input >= 0x80 && *input < 0xC0) {
-                    input++; /* Skip invalid characters */
-                }
 
-                /* New UTF-8 character, reset the entry pointer */
-                entry = &map_root[*input];
-            } else {
-                /* Mask off the upper bits, we only care about the lower 6 bits */
-                local_index &= 0x3F;
-                entry = &(entry->next[local_index]);
+            for (int i = 1; i <= seq_len; i++) {
+                output[index] = sequence[i];
+                index++;
             }
-        } else {
-            /* Invalid value, skip */
-            while (*input >= 0x80 && *input < 0xC0) {
-                input++; /* Skip invalid characters */
-            }
-
-            /* New UTF-8 character, reset the entry pointer */
-            entry = &map_root[*input];
         }
     }
 
