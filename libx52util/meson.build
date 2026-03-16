@@ -34,3 +34,7 @@ libx52util_bmp_test = executable(
 test('libx52util-bmp-test', libx52util_bmp_test,
   protocol: 'tap',
   args: [util_char_map[1]])
+
+benchmark('libx52util-bmp-bench', libx52util_bmp_test,
+  protocol: 'tap',
+  args: [util_char_map[1]])

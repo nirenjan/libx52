@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "libx52util.h"
@@ -61,6 +62,11 @@ static void encode_utf8(uint32_t cp, uint8_t *out)
     }
 }
 
+static double get_time_diff(struct timespec start, struct timespec end)
+{
+    return (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+}
+
 int main(int argc, char *argv[])
 {
     uint8_t input[8] = {0};
@@ -71,6 +77,8 @@ int main(int argc, char *argv[])
     int fd;
     uint8_t *expected_blob;
     bool smp_pages_ok;
+
+    struct timespec start, end;
 
     // Argument check
     if (argc != 2) {
@@ -96,6 +104,8 @@ int main(int argc, char *argv[])
     puts("TAP version 13");
     // Check the 256 BMP Pages, plus the supplementary pages
     puts("1..257");
+
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     for (uint32_t page = 0; page < 256; page++) {
         bool page_ok = true;
@@ -139,6 +149,16 @@ int main(int argc, char *argv[])
 
         printf("%sok - %d Page 0x%02x\n", page_ok ? "": "not ",
                 page + 1, page);
+    }
+
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    {
+        double time_spent = get_time_diff(start, end);
+        printf("# -- Benchmark results --\n");
+        printf("# Total time for 64K lookups: %.4f seconds\n", time_spent);
+        printf("# Throughput: %.2f Mchars/sec\n", (65536.0 / time_spent) / 1e6);
+
+        printf("# -----------------------\n");
     }
 
     // Handle the supplementary pages
