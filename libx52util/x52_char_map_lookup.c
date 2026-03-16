@@ -27,9 +27,10 @@
  */
 static int utf8_to_u32(const uint8_t *utf8in, uint32_t *unichr)
 {
+    uint8_t b;
     if (!utf8in || !*utf8in) return 0;
 
-    uint8_t b = utf8in[0];
+    b = utf8in[0];
 
     // 1-byte (0xxxxxxx)
     if (b < 0x80) {
