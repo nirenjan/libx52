@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-03-12 12:28-0700\n"
+"POT-Creation-Date: 2026-03-16 23:07-0700\n"
 "PO-Revision-Date: 2023-01-04 08:40-0800\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -1004,7 +1004,7 @@ msgstr "Usageay: %s [-i] [-s ocketsay-athpay] [ommandcay]\n"
 msgid "Argument length too long\n"
 msgstr "Argumentay engthlay ootay onglay\n"
 
-#: daemon/x52ctl.c:142
+#: daemon/x52ctl.c:180
 #, c-format
 msgid "Running in interactive mode, ignoring extra arguments\n"
 msgstr "Unningray inay interactiveay odemay, ignoringay extraay argumentsay\n"

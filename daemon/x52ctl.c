@@ -89,15 +89,53 @@ static int send_command(int sock_fd, int argc, char **argv)
     return 0;
 }
 
+static void interactive_mode(int sock_fd)
+{
+    bool keep_running = true;
+    char buffer[1024];
+
+    fputs("> ", stdout);
+    while (keep_running && fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        int sargc;
+        char *sargv[512] = { 0 };
+        int pos;
+
+        if (strcasecmp(buffer, "quit\n") == 0) {
+            keep_running = false;
+        } else {
+            /* Break the buffer into argc/argv */
+            sargc = 0;
+            pos = 0;
+            while (buffer[pos]) {
+                if (isspace(buffer[pos])) {
+                    buffer[pos] = '\0';
+                    pos++;
+                } else {
+                    sargv[sargc] = &buffer[pos];
+                    sargc++;
+                    for (; buffer[pos] && !isspace(buffer[pos]); pos++);
+                }
+            }
+
+            if (send_command(sock_fd, sargc, sargv)) {
+                keep_running = false;
+            }
+        }
+
+        if (keep_running) {
+            fputs("\n> ", stdout);
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     bool interactive = false;
-    char *socket_path = NULL;
+    const char *socket_path = NULL;
     int opt;
     int sock_fd;
     int rc = EXIT_SUCCESS;
 
-    char buffer[1024];
 
     /*
      * Parse command line arguments
@@ -142,38 +180,7 @@ int main(int argc, char **argv)
                     _("Running in interactive mode, ignoring extra arguments\n"));
         }
 
-        fputs("> ", stdout);
-        while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-            int sargc;
-            char *sargv[512] = { 0 };
-            int pos;
-
-            if (strcasecmp(buffer, "quit\n") == 0) {
-                break;
-            }
-
-            /* Break the buffer into argc/argv */
-            sargc = 0;
-            pos = 0;
-            while (buffer[pos]) {
-                if (isspace(buffer[pos])) {
-                    buffer[pos] = '\0';
-                    pos++;
-                } else {
-                    sargv[sargc] = &buffer[pos];
-                    sargc++;
-                    for (; buffer[pos] && !isspace(buffer[pos]); pos++);
-                }
-            }
-
-            if (send_command(sock_fd, sargc, sargv)) {
-                rc = EXIT_FAILURE;
-                break;
-            }
-
-            fputs("\n> ", stdout);
-        }
-
+        interactive_mode(sock_fd);
     } else {
         if (send_command(sock_fd, argc - optind, &argv[optind])) {
             rc = EXIT_FAILURE;
