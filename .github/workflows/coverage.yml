@@ -1,0 +1,44 @@
+name: Code Coverage
+
+permissions:
+  contents: read
+
+on: 
+  push:
+    branches:
+      - '*'
+      - '!gh-pages'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: |
+          ./.github/scripts/install-dependencies-ubuntu.sh
+          sudo apt-get install -y gcovr
+
+      - name: Configure and Build
+        run: |
+          meson setup build -Db_coverage=true --buildtype=debug
+          meson compile -C build
+
+      - name: Run Tests
+        run: meson test -C build
+
+      - name: Generate Coverage Report
+        run: |
+          # This generates the XML report for the upload step
+          ninja -C build coverage-xml
+
+      - name: Upload Report to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: buildd/meson-logs/coverage.xml
+          fail_ci_if_error: true
