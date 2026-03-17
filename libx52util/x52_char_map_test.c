@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
     for (uint32_t smp = 0x1; smp <= 0x10; smp++) {
         const uint8_t *rec = &expected_blob[0xFFFD * RECORD_SIZE];
         for (uint32_t offset = 0; offset < 0x100; offset += 0xFF) {
-            uint32_t cp = smp * 256 + offset;
+            uint32_t cp = smp * 0x10000 + offset;
 
             memset(input, 0, sizeof(input));
             memset(output, 0, sizeof(output));
