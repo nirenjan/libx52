@@ -168,7 +168,7 @@ int main(int argc, char **argv)
 
             if (send_command(sock_fd, sargc, sargv)) {
                 rc = EXIT_FAILURE;
-                goto cleanup;
+                break;
             }
 
             fputs("\n> ", stdout);
@@ -177,12 +177,9 @@ int main(int argc, char **argv)
     } else {
         if (send_command(sock_fd, argc - optind, &argv[optind])) {
             rc = EXIT_FAILURE;
-            goto cleanup;
         }
     }
 
-
-cleanup:
     close(sock_fd);
     return rc;
 }
