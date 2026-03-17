@@ -1,4 +1,6 @@
 # x52d
+libx52dcomm_version = '1.0.0'
+
 libx52dcomm_sources = [
   'x52d_comm_client.c',
   'x52d_comm_internal.c'
@@ -8,6 +10,7 @@ install_headers('x52dcomm.h', subdir: meson.project_name())
 
 lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
   dependencies: [dep_intl],
+  version: libx52dcomm_version,
   include_directories: includes)
 
 x52d_sources = [
