@@ -169,6 +169,7 @@ static pthread_t clock_thr;
 static void * x52_clock_thr(void *param)
 {
     int rc;
+    (void)param;
 
     PINELOG_INFO(_("Starting X52 clock manager thread"));
     for (;;) {

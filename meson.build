@@ -81,6 +81,8 @@ if not get_option('nls').disabled()
   subdir('po')
 endif
 
+add_project_arguments('-isystem', meson.current_source_dir() / 'sys', language: 'C')
+
 #######################################################################
 # Internal dependencies
 #######################################################################

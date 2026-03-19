@@ -36,6 +36,7 @@ static void *x52_io_thr(void *param)
     int rc;
     libx52io_report report;
     libx52io_report prev_report;
+    (void)param;
 
     #define IO_READ_TIMEOUT 50 /* milliseconds */
     #define IO_ACQ_TIMEOUT 5 /* seconds */

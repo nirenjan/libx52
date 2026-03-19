@@ -17,7 +17,7 @@
 
 #define TEST_STRINGIFY(name) do { \
     char expected[256]; \
-    for (int i=-1; i < sizeof(name ## _map) / sizeof(name ## _map[0]); i++) { \
+    for (int i=-1; i < (int)(sizeof(name ## _map) / sizeof(name ## _map[0])); i++) { \
         if (i < 0) { \
             snprintf(expected, sizeof(expected), unknown_fmt, i); \
         } else if (name ## _map[i] != NULL) { \
@@ -31,6 +31,8 @@
 
 static void test_led_id_names(void **state)
 {
+    (void)state; // Suppress unused parameter warning
+
     static const char * led_id_map[21] = {
         [LIBX52_LED_FIRE] = "Fire",
         [LIBX52_LED_A] = "A",
@@ -52,6 +54,8 @@ static void test_led_id_names(void **state)
 
 static void test_led_state_names(void **state)
 {
+    (void)state; // Suppress unused parameter warning
+
     static const char * led_state_map[6] = {
         [LIBX52_LED_STATE_OFF] = "off",
         [LIBX52_LED_STATE_ON] = "on",
@@ -66,6 +70,8 @@ static void test_led_state_names(void **state)
 }
 
 static void test_clock_id_names(void **state) {
+    (void)state; // Suppress unused parameter warning
+
     static const char * clock_id_map[4] = {
         [LIBX52_CLOCK_1] = "primary",
         [LIBX52_CLOCK_2] = "secondary",
@@ -78,6 +84,8 @@ static void test_clock_id_names(void **state) {
 }
 
 static void test_clock_format_names(void **state) {
+    (void)state; // Suppress unused parameter warning
+
     static const char * clock_format_map[3] = {
         [LIBX52_CLOCK_FORMAT_12HR] = "12 hour",
         [LIBX52_CLOCK_FORMAT_24HR] = "24 hour",
@@ -89,6 +97,8 @@ static void test_clock_format_names(void **state) {
 }
 
 static void test_date_format_names(void **state) {
+    (void)state; // Suppress unused parameter warning
+
     static const char * date_format_map[4] = {
         [LIBX52_DATE_FORMAT_DDMMYY] = "DD-MM-YY",
         [LIBX52_DATE_FORMAT_MMDDYY] = "MM-DD-YY",
@@ -103,6 +113,8 @@ static void test_date_format_names(void **state) {
 #define libx52_error_to_str libx52_strerror
 
 static void test_strerror(void **state) {
+    (void)state; // Suppress unused parameter warning
+
     static const char *error_map[18] = {
         [LIBX52_SUCCESS] = "Success",
         [LIBX52_ERROR_INIT_FAILURE] = "Initialization failure",

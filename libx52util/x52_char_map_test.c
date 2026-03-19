@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
                 page_ok = false;
                 printf("# Output mismatch @ %04X:\n", cp);
                 printf("# exp/got:");
-                for (int i = 0; i < len; i++) {
+                for (size_t i = 0; i < len; i++) {
                     printf("%02X/%02X ", rec[i+1], output[i]);
                 }
                 puts("");
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
                 smp_pages_ok = false;
                 printf("# Output mismatch @ %08X:\n", cp);
                 printf("# exp/got:");
-                for (int i = 0; i < len; i++) {
+                for (size_t i = 0; i < len; i++) {
                     printf("%02X/%02X ", rec[i+1], output[i]);
                 }
                 puts("");

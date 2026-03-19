@@ -130,6 +130,7 @@ static void reset_reports(void)
 static void * x52_mouse_thr(void *param)
 {
     bool state_changed;
+    (void)param;
 
     PINELOG_INFO(_("Starting X52 virtual mouse driver thread"));
     for (;;) {

@@ -8,7 +8,7 @@
 
 #ifndef TEST_LIST
 // Setup the test case function
-#define TEST_CASE(tc)   static void tc(void **state)
+#define TEST_CASE(tc)   static void tc(void **state __attribute__((unused)))
 #define TEST_DEF(x) x
 // Function header, this calls the corresponding libx52 function, and expects
 // a certain number of calls to that function

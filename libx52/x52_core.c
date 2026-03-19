@@ -48,6 +48,8 @@ static int _x52_hotplug_callback(libusb_context *ctx,
 {
     libx52_device *dev = user_data;
 
+    (void)device; // Suppress unused parameter warning
+
     if (dev == NULL) {
         return 0;
     }

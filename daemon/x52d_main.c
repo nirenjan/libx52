@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
 
@@ -38,12 +39,14 @@ static void termination_handler(int signum)
 static volatile bool flag_reload;
 static void reload_handler(int signum)
 {
+    (void)signum;
     flag_reload = true;
 }
 
 static volatile bool flag_save_cfg;
 static void save_config_handler(int signum)
 {
+    (void)signum;
     flag_save_cfg = true;
 }
 
@@ -111,14 +114,16 @@ static void start_daemon(bool foreground, const char *pid_file)
         pid_fd = fopen(pid_file, "r");
         if (pid_fd != NULL) {
             int rc;
+            intmax_t tmp_pid;
 
             /* File exists, read the PID and check if it exists */
-            rc = fscanf(pid_fd, "%u", &pid);
+            rc = fscanf(pid_fd, "%" SCNdMAX, &tmp_pid);
             fclose(pid_fd);
 
             if (rc != 1) {
                 perror("fscanf");
             } else {
+                pid = (pid_t)tmp_pid;
                 rc = kill(pid, 0);
                 if (rc == 0 || (rc < 0 && errno == EPERM)) {
                     PINELOG_FATAL(_("Daemon is already running as PID %u"), pid);

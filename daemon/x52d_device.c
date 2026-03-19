@@ -29,6 +29,7 @@ static volatile bool device_update_needed;
 static void *x52_dev_thr(void *param)
 {
     int rc;
+    (void)param;
 
     #define DEV_ACQ_DELAY 5 // seconds
     #define DEV_UPD_DELAY 50000 // microseconds

@@ -44,6 +44,7 @@ static bool exit_loop = false;
 
 static void signal_handler(int sig)
 {
+    (void)sig;
     exit_loop = true;
 }
 
@@ -52,7 +53,7 @@ static bool denoise = true;
 
 /* For i18n */
 #define _(x) gettext(x)
-int main(int argc, char **argv)
+int main(void)
 {
     libx52io_context *ctx;
     libx52io_report last, curr;

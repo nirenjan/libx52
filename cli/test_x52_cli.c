@@ -26,22 +26,26 @@ int libx52_init(libx52_device **dev)
 
 int libx52_connect(libx52_device *dev)
 {
+    (void)dev;
     function_called();
     return mock();
 }
 
 int libx52_update(libx52_device *dev)
 {
+    (void)dev;
     return LIBX52_SUCCESS;
 }
 
 void libx52_exit(libx52_device *dev)
 {
+    (void)dev;
     return;
 }
 
 const char *libx52_strerror(libx52_error_code rc)
 {
+    (void)rc;
     function_called();
     return "";
 }
@@ -172,7 +176,7 @@ const struct CMUnitTest tests[] = {
     #include "test_x52_cli_tests.c"
 };
 
-int main(int argc, char **argv)
+int main(void)
 {
     cmocka_set_message_output(CM_OUTPUT_TAP);
     cmocka_run_group_tests(tests, NULL, NULL);

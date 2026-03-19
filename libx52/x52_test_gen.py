@@ -73,6 +73,7 @@ int __wrap_libusb_control_transfer(libusb_device_handle *dev_handle,
                                    uint16_t wLength,
                                    unsigned int timeout)
 {
+    (void)dev_handle;
     function_called();
     check_expected(wIndex);
     check_expected(wValue);

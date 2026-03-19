@@ -103,6 +103,8 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value)
 static int _x52_write_shift(libx52_device *x52, uint32_t bit)
 {
     uint16_t value;
+    (void)bit;
+
     value = tst_bit(&x52->led_mask, X52_BIT_SHIFT) ? X52_SHIFT_ON : X52_SHIFT_OFF;
     return libx52_vendor_command(x52, X52_SHIFT_INDICATOR, value);
 }
@@ -152,6 +154,7 @@ static int _x52_write_line(libx52_device *x52, uint32_t bit)
 static int _x52_write_pov_blink(libx52_device *x52, uint32_t bit)
 {
     uint16_t value;
+    (void)bit;
     value = tst_bit(&x52->led_mask, X52_BIT_POV_BLINK) ? X52_BLINK_ON : X52_BLINK_OFF;
     return libx52_vendor_command(x52, X52_BLINK_INDICATOR, value);
 }
@@ -177,6 +180,7 @@ static int _x52_write_date(libx52_device *x52, uint32_t bit)
     uint16_t value1; //dd-mm
     uint16_t value2; //yy
     int rc;
+    (void)bit;
 
     switch (x52->date_format) {
     case LIBX52_DATE_FORMAT_YYMMDD:
@@ -288,7 +292,7 @@ static int _x52_write_time(libx52_device *x52, uint32_t bit)
 
 typedef int (*x52_handler)(libx52_device *, uint32_t);
 
-const x52_handler _x52_handlers[32] = {
+static const x52_handler _x52_handlers[32] = {
     [X52_BIT_SHIFT]         = _x52_write_shift,
     [X52_BIT_LED_FIRE]      = _x52_write_led,
     [X52_BIT_LED_A_RED]     = _x52_write_led,

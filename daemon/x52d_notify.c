@@ -71,6 +71,7 @@ static void * x52_notify_thr(void * param)
     char buffer[X52D_BUFSZ];
     uint16_t bufsiz;
     int rc;
+    (void)param;
 
     for (;;) {
         do {
@@ -146,6 +147,7 @@ static void * x52_notify_loop(void * param)
 {
     struct pollfd pfd[MAX_CONN];
     int rc;
+    (void)param;
 
     for (;;) {
         rc = x52d_client_poll(client_fd, pfd, notify_sock);

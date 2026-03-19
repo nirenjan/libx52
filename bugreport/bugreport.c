@@ -65,7 +65,7 @@ devinfo_cleanup:
     libx52io_exit(ctx);
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
     const struct libusb_version *libusb;
 

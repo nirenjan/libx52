@@ -409,6 +409,7 @@ int x52d_command_loop(int sock_fd)
 
 static void * x52d_command_thread(void *param)
 {
+    (void)param;
     for (;;) {
         if (x52d_command_loop(command_sock_fd) < 0) {
             PINELOG_FATAL(_("Error %d during command loop: %s"),
