@@ -41,7 +41,7 @@ static void print_time_difference(const char *type, struct timespec *ts)
            type, tp_usec, tp_nsec, ret.tv_sec, ret.tv_nsec);
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
     struct timespec ts_wall[2];
     struct timespec ts_cpu[2];

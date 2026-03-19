@@ -348,6 +348,10 @@ void pinelog_log_message(int module, int level, const char *file, int line, cons
         #else
         fprintf(output_stream, "%s:%d ", file, line);
         #endif
+    #else
+        // Suppress unused parameter warnings
+        (void)file;
+        (void)line;
     #endif
 
     /* Set the module name if it is not the root */

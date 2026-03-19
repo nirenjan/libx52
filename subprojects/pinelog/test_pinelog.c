@@ -36,6 +36,7 @@ static size_t expected_len;
 
 time_t time(time_t *p)
 {
+    (void)p;
     // Override the time function from libc
     return 1636671600;
 }
@@ -196,7 +197,7 @@ static void tap_bailout(const char *msg)
     exit(1);
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
     int fifo_fd[2];
     int flags;
