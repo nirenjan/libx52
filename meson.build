@@ -1,6 +1,7 @@
 project('libx52', 'C',
   license: 'GPL-2.0-only WITH Classpath-exception-2.0',
-  version: '0.3.3')
+  version: '0.3.3',
+  meson_version: '>=0.61')
 
 dep_libusb = dependency('libusb-1.0', required: true)
 dep_hidapi = dependency('hidapi-hidraw', required: false)
@@ -129,36 +130,20 @@ if doxygen_program.found()
     configuration: {
       'PACKAGE_NAME': meson.project_name(),
       'PACKAGE_VERSION': meson.project_version(),
-      'abs_top_builddir': meson.build_root(),
-      'abs_top_srcdir': meson.source_root(),
+      'abs_top_builddir': meson.project_build_root(),
+      'abs_top_srcdir': meson.project_source_root(),
     }
   )
 
-  docs_tgt = custom_target('docs',
+  custom_target('docs',
     depend_files: [doxyfile, 'DoxygenLayout.xml'],
     command: [doxygen_program],
     output: 'docs'
     )
 
-  install_subdir(meson.current_build_dir() / 'docs' / 'html',
-    install_dir: get_option('prefix') / get_option('datadir') / 'doc' / meson.project_name(),
-    strip_directory: true
-  )
-
-  wanted_man_pages = ['x52cli.1', 'x52bugreport.1']
-  foreach p: wanted_man_pages
-    section = 'man' + p.split('.')[-1] # Extracts the section
-
-    custom_target(p,
-      input: docs_tgt,
-      output: p,
-      command: ['cp', meson.current_build_dir() / 'docs' / 'man' / section / p, '@OUTPUT@'],
-      install: true,
-      install_dir: get_option('prefix') / get_option('mandir') / section
-    )
-  endforeach
-  install_subdir(meson.current_build_dir() / 'docs' / 'man',
-    install_dir: get_option('prefix') / get_option('mandir'),
-    strip_directory: true
+  meson.add_install_script(
+    'install-doxygen-docs.sh',
+    get_option('datadir')  / 'doc' / meson.project_name(),
+    get_option('mandir'),
   )
 endif

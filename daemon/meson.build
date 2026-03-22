@@ -11,6 +11,7 @@ install_headers('x52dcomm.h', subdir: meson.project_name())
 lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
   dependencies: [dep_intl],
   version: libx52dcomm_version,
+  install: true,
   include_directories: includes)
 
 x52d_sources = [
