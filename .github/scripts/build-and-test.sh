@@ -4,8 +4,8 @@ set -e
 
 meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled build
 cd build
-ninja
-ninja test
+meson compile
+meson test
 meson dist
 
 # Print bugreport output
