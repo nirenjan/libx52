@@ -1,0 +1,8 @@
+FROM fedora:latest
+
+LABEL org.opencontainers.image.description="INTERNAL CI USE ONLY - Not intended for production"
+LABEL org.opencontainers.image.authors="Nirenjan Krishnan"
+
+COPY ./install-dependencies-fedora.sh ./ci-setup.sh /tmp/
+
+RUN /tmp/install-dependencies-fedora.sh && dnf clean all && /tmp/ci-setup.sh

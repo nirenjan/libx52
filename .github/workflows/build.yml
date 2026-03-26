@@ -10,34 +10,46 @@ on:
     - '!gh-pages'
     paths-ignore:
     - 'kernel_module/**'
+    - 'docker/**'
   pull_request:
     branches: [ master ]
 
 jobs:
-  build:
-    if: "!(contains(github.event.head_commit.message, '[ci skip]') || contains(github.event.head_commit.message, '[skip ci]'))"
-    name: ${{ join(matrix.*, '/') }}
-    runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ startsWith(matrix.os, 'macos-') }}
-    env:
-      CC: ${{ matrix.cc }}
+  list-distros:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: set-matrix
+        run: .github/scripts/generate_build_matrix.py ghcr.io/${{ github.repository }} >> $GITHUB_OUTPUT
 
+  build:
+    needs: list-distros
+    if: "!(contains(github.event.head_commit.message, '[ci skip]') || contains(github.event.head_commit.message, '[skip ci]'))"
     strategy:
+      fail-fast: false
       matrix:
-        os: ['ubuntu-22.04', 'ubuntu-24.04', 'macos-latest']
-        cc: ['gcc', 'clang']
+        include: ${{ fromJson(needs.list-distros.outputs.matrix) }}
+
+    name: ${{ format('{0}/{1}{2}', matrix.distro, matrix.compiler, matrix.experimental == true && ' (experimental)' || '') }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    container:
+      image: ${{ matrix.image }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
-
-    - name: Install dependencies (Ubuntu)
-      run: ./.github/scripts/install-dependencies-ubuntu.sh
-      if: ${{ startsWith(matrix.os, 'ubuntu-') }}
 
     - name: Install dependencies (MacOS)
       run: ./.github/scripts/install-dependencies-macos.sh
       if: ${{ startsWith(matrix.os, 'macos-') }}
 
     - name: Build and Test
+      env:
+        CC: ${{ matrix.compiler }}
       run: ./.github/scripts/build-and-test.sh

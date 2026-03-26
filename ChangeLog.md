@@ -6,6 +6,10 @@ The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
 
+### Changed
+
+- Migrated CI builds to run in multiple distro containers.
+
 ### Fixed
 - Addressed meson build bugs found in v0.3.3
 

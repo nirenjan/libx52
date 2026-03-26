@@ -5,6 +5,10 @@ Build has been tested on the following operating systems (x86-64 only):
 
 * Ubuntu 22.04 LTS
 * Ubuntu 24.04 LTS
+* Fedora latest (Fedora 42, as of this commit)
+* Archlinux
+* Alpine Linux (Experimental)
+* Ubuntu 26.04 LTS (Experimental as of this commit)
 * macOS (latest tag on Github, ARM)
 
 # Prerequisites

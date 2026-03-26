@@ -2,8 +2,18 @@
 # Run the build and tests
 set -e
 
-meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled build
-cd build
+BUILDDIR="${1:-build}"
+
+rm -rf "$BUILDDIR"
+
+# Handle the meson dist failure in CI
+if [[ "$GITHUB_ACTIONS" == "true" ]]
+then
+    git config --global --add safe.directory '*'
+fi
+
+meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled "$BUILDDIR"
+cd "$BUILDDIR"
 meson compile
 meson test
 meson dist

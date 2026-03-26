@@ -1,0 +1,15 @@
+# This file is deliberately named with a lowercase d, in order to avoid the
+# Github action logic from picking this up as a supported distro. The Alpine
+# image fails in the Github actions, because it needs the /dev/bus/usb device
+# mounted inside the container, however, attempting to do so causes every
+# build to fail. Therefore, we disable the Alpine image in CI, but keep it
+# local, so that we can test the build against Alpine locally if necessary.
+FROM alpine:latest
+
+LABEL org.opencontainers.image.description="INTERNAL CI USE ONLY - Not intended for production"
+LABEL org.opencontainers.image.authors="Nirenjan Krishnan"
+LABEL com.project.ci.experimental="true"
+
+COPY ./install-dependencies-alpine.sh ./ci-setup.sh /tmp/
+RUN /tmp/install-dependencies-alpine.sh
+RUN /tmp/ci-setup.sh

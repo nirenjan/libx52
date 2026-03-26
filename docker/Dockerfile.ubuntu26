@@ -1,0 +1,13 @@
+FROM ubuntu:26.04
+
+LABEL org.opencontainers.image.description="INTERNAL CI USE ONLY - Not intended for production"
+LABEL org.opencontainers.image.authors="Nirenjan Krishnan"
+LABEL com.project.ci.experimental="true"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+COPY ./install-dependencies-ubuntu.sh ./ci-setup.sh /tmp/
+
+RUN /tmp/install-dependencies-ubuntu.sh && \
+    rm -rf /var/lib/apt/lists/* && \
+    /tmp/ci-setup.sh
