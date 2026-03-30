@@ -9,7 +9,12 @@ if not dep_hidapi.found()
   dep_hidapi = dependency('hidapi', required: true)
 endif
 
-dep_evdev = dependency('libevdev', required: false)
+if host_machine.system() == 'linux'
+  dep_evdev = dependency('libevdev', required: false)
+else
+  # Create a dummy dependency
+  dep_evdev = dependency('', required: false)
+endif
 
 dep_systemd = dependency('systemd', required: false)
 dep_udev = dependency('udev', required: false)
@@ -108,11 +113,12 @@ dep_inih = dependency('inih')
 # Shared libraries and programs
 #######################################################################
 # Includes
-includes = include_directories('.', 'libx52', 'libx52io', 'libx52util')
+includes = include_directories('.', 'libx52', 'libx52io', 'libx52util', 'vkm')
 
 subdir('libx52')
 subdir('libx52io')
 subdir('libx52util')
+subdir('vkm')
 subdir('bugreport')
 subdir('cli')
 subdir('joytest')

@@ -26,19 +26,14 @@ x52d_sources = [
   'x52d_notify.c',
   'x52d_led.c',
   'x52d_command.c',
+  'x52d_io.c',
+  'x52d_mouse_handler.c',
   ]
 
 dep_threads = dependency('threads')
-x52d_linkwith = [lib_libx52, lib_libx52dcomm]
+x52d_linkwith = [lib_libx52, lib_libx52dcomm, lib_vkm, lib_libx52io]
 x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_intl]
 x52d_cflags = []
-if dep_evdev.found()
-  x52d_sources += 'x52d_io.c'
-  x52d_sources += 'x52d_mouse_evdev.c'
-  x52d_cflags += '-DHAVE_EVDEV'
-  x52d_linkwith += lib_libx52io
-  x52d_deps += dep_evdev
-endif
 
 exe_x52d = executable('x52d', x52d_sources,
   install: true,

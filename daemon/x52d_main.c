@@ -329,10 +329,8 @@ int main(int argc, char **argv)
         goto cleanup;
     }
     x52d_notify_init(notify_sock);
-    #if defined(HAVE_EVDEV)
     x52d_io_init();
-    x52d_mouse_evdev_init();
-    #endif
+    x52d_mouse_handler_init();
 
     // Re-enable signals
     rc = pthread_sigmask(SIG_UNBLOCK, &sigblockset, NULL);
@@ -371,10 +369,8 @@ cleanup:
     x52d_dev_exit();
     x52d_command_exit();
     x52d_notify_exit();
-    #if defined(HAVE_EVDEV)
-    x52d_mouse_evdev_exit();
+    x52d_mouse_handler_exit();
     x52d_io_exit();
-    #endif
 
     // Remove the PID file
     PINELOG_TRACE("Removing PID file %s", pid_file);

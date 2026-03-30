@@ -1,7 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver - Mouse driver
  *
- * Copyright (C) 2021 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2021-2026 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
@@ -12,10 +12,10 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#include "libevdev/libevdev.h"
-#include "libevdev/libevdev-uinput.h"
 #include "libx52io.h"
+#include "vkm.h"
 
+#define PINELOG_MODULE X52D_MOD_MOUSE
 #include "pinelog.h"
 #include "x52d_config.h"
 #include "x52d_const.h"
@@ -24,36 +24,47 @@
 static pthread_t mouse_thr;
 static bool mouse_thr_enabled = false;
 
-static struct libevdev_uinput *mouse_uidev;
-static bool mouse_uidev_created = false;
+static vkm_context *mouse_context;
 
 static volatile libx52io_report old_report;
 static volatile libx52io_report new_report;
 
-static int report_button_change(int button, int index)
+static int report_button_change(vkm_mouse_button button, int index)
 {
-    int rc = 1;
+    vkm_result rc;
     bool old_button = old_report.button[index];
     bool new_button = new_report.button[index];
+    vkm_button_state state;
 
     if (old_button != new_button) {
-        rc = libevdev_uinput_write_event(mouse_uidev, EV_KEY, button,
-                                    (int)new_button);
-        if (rc != 0) {
-            PINELOG_ERROR(_("Error writing mouse button event (button %d, state %d)"),
-                          button, (int)new_button);
+        state = new_button ? VKM_BUTTON_PRESSED : VKM_BUTTON_RELEASED;
+        rc = vkm_mouse_click(mouse_context, button, state);
+        if (rc != VKM_SUCCESS && rc != VKM_ERROR_NO_CHANGE) {
+            PINELOG_ERROR(_("Error %d writing mouse button event (button %d, state %d)"),
+                          rc, button, (int)new_button);
         }
     }
 
-    return rc;
+    return (rc == VKM_SUCCESS);
 }
 
 static int report_wheel(void)
 {
-    int rc = 1;
+    vkm_result rc;
     int wheel = 0;
     bool scroll_up = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
     bool scroll_dn = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
+    bool old_scroll_up = old_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
+    bool old_scroll_dn = old_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
+    vkm_mouse_scroll_direction dir;
+
+    /*
+     * Handle multiple scroll button presses in sequence. This happens if a
+     * hardware axis is very noisy and the firmware sends a sequence of reports
+     * with button down, even though this is technically a momentary button.
+     */
+    scroll_up = (scroll_up ^ old_scroll_up) & scroll_up;
+    scroll_dn = (scroll_dn ^ old_scroll_dn) & scroll_dn;
 
     if (scroll_up) {
         // Scroll up event
@@ -64,19 +75,18 @@ static int report_wheel(void)
     }
 
     if (wheel != 0) {
-        rc = libevdev_uinput_write_event(mouse_uidev, EV_REL, REL_WHEEL, wheel);
-        if (rc != 0) {
-            PINELOG_ERROR(_("Error writing mouse wheel event %d"), wheel);
+        dir = (wheel == 1) ? VKM_MOUSE_SCROLL_UP : VKM_MOUSE_SCROLL_DOWN;
+        rc = vkm_mouse_scroll(mouse_context, dir);
+        if (rc != VKM_SUCCESS) {
+            PINELOG_ERROR(_("Error writing mouse wheel event %d"), dir);
         }
     }
 
-    return rc;
+    return (rc == VKM_SUCCESS);
 }
 
-static int report_axis(int axis, int index)
+static int get_axis_val(int index)
 {
-    int rc = 1;
-
     int axis_val = new_report.axis[index];
 
     /*
@@ -96,22 +106,29 @@ static int report_axis(int axis, int index)
      */
     axis_val = (axis_val * mouse_mult) / MOUSE_MULT_FACTOR;
 
-    if (axis_val) {
-        rc = libevdev_uinput_write_event(mouse_uidev, EV_REL, axis, axis_val);
-        if (rc != 0) {
-            PINELOG_ERROR(_("Error writing mouse axis event (axis %d, value %d)"),
-                          axis, axis_val);
-        }
+    return axis_val;
+}
+
+static int report_axis(void)
+{
+    vkm_result rc;
+    int dx = get_axis_val(LIBX52IO_AXIS_THUMBX);
+    int dy = get_axis_val(LIBX52IO_AXIS_THUMBY);
+
+    rc = vkm_mouse_move(mouse_context, dx, dy);
+    if (rc != VKM_SUCCESS && rc != VKM_ERROR_NO_CHANGE) {
+        PINELOG_ERROR(_("Error %d writing mouse axis event (dx %d, dy %d)"),
+                rc, dx, dy);
     }
 
-    return rc;
+    return (rc == VKM_SUCCESS);
 }
 
 static void report_sync(void)
 {
-    int rc;
-    rc = libevdev_uinput_write_event(mouse_uidev, EV_SYN, SYN_REPORT, 0);
-    if (rc != 0) {
+    vkm_result rc;
+    rc = vkm_sync(mouse_context);
+    if (rc != VKM_SUCCESS) {
         PINELOG_ERROR(_("Error writing mouse sync event"));
     } else {
         memcpy((void *)&old_report, (void *)&new_report, sizeof(old_report));
@@ -129,16 +146,11 @@ static void reset_reports(void)
 
 static void * x52_mouse_thr(void *param)
 {
-    bool state_changed;
     (void)param;
 
     PINELOG_INFO(_("Starting X52 virtual mouse driver thread"));
     for (;;) {
-        state_changed = false;
-        state_changed |= (0 == report_axis(REL_X, LIBX52IO_AXIS_THUMBX));
-        state_changed |= (0 == report_axis(REL_Y, LIBX52IO_AXIS_THUMBY));
-
-        if (state_changed) {
+        if (report_axis()) {
             report_sync();
         }
 
@@ -166,9 +178,9 @@ static void x52d_mouse_thr_exit(void)
     pthread_cancel(mouse_thr);
 }
 
-void x52d_mouse_evdev_thread_control(bool enabled)
+void x52d_mouse_thread_control(bool enabled)
 {
-    if (!mouse_uidev_created) {
+    if (!vkm_is_ready(mouse_context)) {
         PINELOG_INFO(_("Virtual mouse not created. Ignoring thread state change"));
         return;
     }
@@ -198,13 +210,13 @@ void x52d_mouse_report_event(libx52io_report *report)
     if (report) {
         memcpy((void *)&new_report, report, sizeof(new_report));
 
-        if (!mouse_uidev_created || !mouse_thr_enabled) {
+        if (!vkm_is_ready(mouse_context) || !mouse_thr_enabled) {
             return;
         }
 
         state_changed = false;
-        state_changed |= (0 == report_button_change(BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
-        state_changed |= (0 == report_button_change(BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
+        state_changed |= (0 == report_button_change(VKM_MOUSE_BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
+        state_changed |= (0 == report_button_change(VKM_MOUSE_BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
         state_changed |= (0 == report_wheel());
 
         if (state_changed) {
@@ -215,35 +227,27 @@ void x52d_mouse_report_event(libx52io_report *report)
     }
 }
 
-void x52d_mouse_evdev_init(void)
+void x52d_mouse_handler_init(void)
 {
-    int rc;
-    struct libevdev *dev;
+    vkm_result rc;
 
-    /* Create a new mouse device */
-    dev = libevdev_new();
-    libevdev_set_name(dev, "X52 virtual mouse");
-    libevdev_enable_event_type(dev, EV_REL);
-    libevdev_enable_event_code(dev, EV_REL, REL_X, NULL);
-    libevdev_enable_event_code(dev, EV_REL, REL_Y, NULL);
-    libevdev_enable_event_code(dev, EV_REL, REL_WHEEL, NULL);
-    libevdev_enable_event_type(dev, EV_KEY);
-    libevdev_enable_event_code(dev, EV_KEY, BTN_LEFT, NULL);
-    libevdev_enable_event_code(dev, EV_KEY, BTN_RIGHT, NULL);
+    rc = vkm_init(&mouse_context);
+    if (rc != VKM_SUCCESS) {
+        PINELOG_ERROR(_("Error %d creating X52 virtual mouse"), rc);
+        return;
+    }
 
-    rc = libevdev_uinput_create_from_device(dev, LIBEVDEV_UINPUT_OPEN_MANAGED,
-                                            &mouse_uidev);
-    if (rc != 0) {
-        PINELOG_ERROR(_("Error %d creating X52 virtual mouse: %s"),
-                      -rc, strerror(-rc));
-    } else {
-        mouse_uidev_created = true;
+    vkm_set_option(mouse_context, VKM_OPT_DEVICE_NAME, "X52 virtual mouse");
+
+    rc = vkm_start(mouse_context);
+    if (rc != VKM_SUCCESS) {
+        PINELOG_ERROR(_("Error %d creating X52 virtual mouse"), rc);
     }
 }
 
-void x52d_mouse_evdev_exit(void)
+void x52d_mouse_handler_exit(void)
 {
-    x52d_mouse_evdev_thread_control(false);
-    mouse_uidev_created = false;
-    libevdev_uinput_destroy(mouse_uidev);
+    x52d_mouse_thread_control(false);
+    vkm_exit(mouse_context);
+    mouse_context = NULL;
 }

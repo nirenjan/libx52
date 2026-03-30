@@ -19,22 +19,18 @@
 #include "x52d_const.h"
 #include "x52d_mouse.h"
 
-#if defined HAVE_EVDEV
-/* Stub for evdev */
-void x52d_mouse_evdev_thread_control(bool enabled)
+/* Stub for handler */
+void x52d_mouse_thread_control(bool enabled)
 {
     function_called();
     check_expected(enabled);
 }
-#endif
 
 static void test_mouse_thread_enabled(void **state)
 {
     (void)state;
-    #if defined HAVE_EVDEV
-    expect_function_calls(x52d_mouse_evdev_thread_control, 1);
-    expect_value(x52d_mouse_evdev_thread_control, enabled, true);
-    #endif
+    expect_function_calls(x52d_mouse_thread_control, 1);
+    expect_value(x52d_mouse_thread_control, enabled, true);
 
     x52d_cfg_set_Mouse_Enabled(true);
 }
@@ -42,10 +38,8 @@ static void test_mouse_thread_enabled(void **state)
 static void test_mouse_thread_disabled(void **state)
 {
     (void)state;
-    #if defined HAVE_EVDEV
-    expect_function_calls(x52d_mouse_evdev_thread_control, 1);
-    expect_value(x52d_mouse_evdev_thread_control, enabled, false);
-    #endif
+    expect_function_calls(x52d_mouse_thread_control, 1);
+    expect_value(x52d_mouse_thread_control, enabled, false);
 
     x52d_cfg_set_Mouse_Enabled(false);
 }

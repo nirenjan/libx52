@@ -30,9 +30,7 @@ void x52d_cfg_set_Mouse_Enabled(bool enabled)
 {
     PINELOG_DEBUG(_("Setting mouse enable to %s"),
                   enabled ? _("on") : _("off"));
-    #if defined HAVE_EVDEV
-    x52d_mouse_evdev_thread_control(enabled);
-    #endif
+    x52d_mouse_thread_control(enabled);
 }
 
 void x52d_cfg_set_Mouse_Speed(int speed)

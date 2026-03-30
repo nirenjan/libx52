@@ -4,6 +4,8 @@ libx52/x52_stringify.c
 
 libx52io/io_strings.c
 
+vkm/vkm_common.c
+
 evtest/ev_test.c
 
 joytest/x52_test.c
@@ -22,6 +24,6 @@ daemon/x52d_config_parser.c
 daemon/x52d_device.c
 daemon/x52d_io.c
 daemon/x52d_mouse.c
-daemon/x52d_mouse_evdev.c
+daemon/x52d_mouse_handler.c
 daemon/x52d_notify.c
 daemon/x52ctl.c

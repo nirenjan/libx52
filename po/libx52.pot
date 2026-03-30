@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-03-19 00:09-0700\n"
+"POT-Creation-Date: 2026-03-27 20:52-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libx52/x52_strerror.c:23 libx52io/io_strings.c:101
+#: libx52/x52_strerror.c:23 libx52io/io_strings.c:101 vkm/vkm_common.c:25
 msgid "Success"
 msgstr ""
 
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Insufficient memory"
 msgstr ""
 
-#: libx52/x52_strerror.c:26
+#: libx52/x52_strerror.c:26 vkm/vkm_common.c:29
 msgid "Invalid parameter"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "System call interrupted"
 msgstr ""
 
-#: libx52/x52_strerror.c:66 libx52io/io_strings.c:125
+#: libx52/x52_strerror.c:66 libx52io/io_strings.c:125 vkm/vkm_common.c:52
 #, c-format
 msgid "Unknown error %d"
 msgstr ""
@@ -143,12 +143,12 @@ msgid "Unknown LED state %d"
 msgstr ""
 
 #: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
-#: daemon/x52d_mouse.c:68
+#: daemon/x52d_mouse.c:66
 msgid "off"
 msgstr ""
 
 #: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
-#: daemon/x52d_mouse.c:68
+#: daemon/x52d_mouse.c:66
 msgid "on"
 msgstr ""
 
@@ -231,6 +231,34 @@ msgstr ""
 
 #: libx52io/io_strings.c:107
 msgid "Read timeout"
+msgstr ""
+
+#: vkm/vkm_common.c:26
+msgid "Unknown error"
+msgstr ""
+
+#: vkm/vkm_common.c:27
+msgid "Not ready"
+msgstr ""
+
+#: vkm/vkm_common.c:28
+msgid "Out of memory"
+msgstr ""
+
+#: vkm/vkm_common.c:30
+msgid "Not supported"
+msgstr ""
+
+#: vkm/vkm_common.c:31
+msgid "Virtual device failure"
+msgstr ""
+
+#: vkm/vkm_common.c:32
+msgid "Unable to write event"
+msgstr ""
+
+#: vkm/vkm_common.c:33
+msgid "No state change"
 msgstr ""
 
 #: evtest/ev_test.c:110
@@ -576,25 +604,25 @@ msgstr ""
 msgid "Error %d blocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:340
+#: daemon/x52d_main.c:338
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:353
+#: daemon/x52d_main.c:351
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:360
+#: daemon/x52d_main.c:358
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:366
+#: daemon/x52d_main.c:364
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:383
+#: daemon/x52d_main.c:379
 msgid "Shutting down X52 daemon"
 msgstr ""
 
@@ -841,60 +869,60 @@ msgstr ""
 msgid "Setting mouse enable to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:47
+#: daemon/x52d_mouse.c:45
 #, c-format
 msgid "Ignoring mouse speed %d outside supported range (0-%d)"
 msgstr ""
 
-#: daemon/x52d_mouse.c:59
+#: daemon/x52d_mouse.c:57
 #, c-format
 msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
 msgstr ""
 
-#: daemon/x52d_mouse.c:67
+#: daemon/x52d_mouse.c:65
 #, c-format
 msgid "Setting mouse reverse scroll to %s"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:43
+#: daemon/x52d_mouse_handler.c:43
 #, c-format
-msgid "Error writing mouse button event (button %d, state %d)"
+msgid "Error %d writing mouse button event (button %d, state %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:69
+#: daemon/x52d_mouse_handler.c:81
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:102
+#: daemon/x52d_mouse_handler.c:120
 #, c-format
-msgid "Error writing mouse axis event (axis %d, value %d)"
+msgid "Error %d writing mouse axis event (dx %d, dy %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:115
+#: daemon/x52d_mouse_handler.c:132
 msgid "Error writing mouse sync event"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:135
+#: daemon/x52d_mouse_handler.c:151
 msgid "Starting X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:158
+#: daemon/x52d_mouse_handler.c:170
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:165
+#: daemon/x52d_mouse_handler.c:177
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:172
+#: daemon/x52d_mouse_handler.c:184
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr ""
 
-#: daemon/x52d_mouse_evdev.c:237
+#: daemon/x52d_mouse_handler.c:236 daemon/x52d_mouse_handler.c:244
 #, c-format
-msgid "Error %d creating X52 virtual mouse: %s"
+msgid "Error %d creating X52 virtual mouse"
 msgstr ""
 
 #: daemon/x52d_notify.c:46

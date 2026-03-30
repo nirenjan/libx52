@@ -986,6 +986,7 @@ INPUT_FILE_ENCODING    =
 FILE_PATTERNS          = libx52.h \
                          libx52io.h \
                          libx52util.h \
+                         vkm.h \
                          x52_cli.c \
                          x52ctl.c \
                          x52dcomm.h \
