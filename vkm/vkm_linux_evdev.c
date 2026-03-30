@@ -218,9 +218,7 @@ error:
 
 void vkm_exit(vkm_context *ctx)
 {
-    char *name;
-    struct libevdev_uinput *uidev;
-    struct libevdev *dev;
+    volatile unsigned char *vp;
 
     if (ctx == NULL) {
         return;
@@ -228,20 +226,20 @@ void vkm_exit(vkm_context *ctx)
 
     (void)vkm_reset(ctx);
 
-    dev = ctx->dev;
-    uidev = ctx->uidev;
-    name = ctx->name;
+    free(ctx->name);
 
-    memset(ctx, 0, sizeof(*ctx));
-
-    free(name);
-
-    if (uidev) {
-        libevdev_uinput_destroy(uidev);
+    if (ctx->uidev) {
+        libevdev_uinput_destroy(ctx->uidev);
     }
 
-    if (dev) {
-        libevdev_free(dev);
+    if (ctx->dev) {
+        libevdev_free(ctx->dev);
+    }
+
+    /* Clear the memory to prevent reuse */
+    vp = (volatile unsigned char *)ctx;
+    for (int i = 0; i < sizeof(*ctx); i++) {
+        vp[i] = (unsigned char)0;
     }
 
     free(ctx);

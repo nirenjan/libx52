@@ -31,7 +31,7 @@ static volatile libx52io_report new_report;
 
 static int report_button_change(vkm_mouse_button button, int index)
 {
-    vkm_result rc;
+    vkm_result rc = VKM_ERROR_NO_CHANGE;
     bool old_button = old_report.button[index];
     bool new_button = new_report.button[index];
     vkm_button_state state;
@@ -50,7 +50,7 @@ static int report_button_change(vkm_mouse_button button, int index)
 
 static int report_wheel(void)
 {
-    vkm_result rc;
+    vkm_result rc = VKM_ERROR_NO_CHANGE;
     int wheel = 0;
     bool scroll_up = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
     bool scroll_dn = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];

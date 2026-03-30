@@ -231,6 +231,8 @@ int libx52_init(libx52_device **dev)
 
 void libx52_exit(libx52_device *dev)
 {
+    volatile unsigned char *vp;
+
     if (!dev) {
         return;
     }
@@ -239,7 +241,10 @@ void libx52_exit(libx52_device *dev)
     libusb_exit(dev->ctx);
 
     /* Clear the memory to prevent reuse */
-    memset(dev, 0, sizeof(*dev));
+    vp = (volatile unsigned char *)dev;
+    for (int i = 0; i < sizeof(*dev); i++) {
+        vp[i] = (unsigned char)0;
+    }
 
     free(dev);
 }
