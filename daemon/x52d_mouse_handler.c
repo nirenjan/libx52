@@ -63,8 +63,8 @@ static int report_wheel(void)
      * hardware axis is very noisy and the firmware sends a sequence of reports
      * with button down, even though this is technically a momentary button.
      */
-    scroll_up = (scroll_up ^ old_scroll_up) & scroll_up;
-    scroll_dn = (scroll_dn ^ old_scroll_dn) & scroll_dn;
+    scroll_up &&= !old_scroll_up;
+    scroll_dn &&= !old_scroll_dn;
 
     if (scroll_up) {
         // Scroll up event
@@ -215,9 +215,9 @@ void x52d_mouse_report_event(libx52io_report *report)
         }
 
         state_changed = false;
-        state_changed |= (0 == report_button_change(VKM_MOUSE_BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
-        state_changed |= (0 == report_button_change(VKM_MOUSE_BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
-        state_changed |= (0 == report_wheel());
+        state_changed ||= (0 == report_button_change(VKM_MOUSE_BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
+        state_changed ||= (0 == report_button_change(VKM_MOUSE_BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
+        state_changed ||= (0 == report_wheel());
 
         if (state_changed) {
             report_sync();
