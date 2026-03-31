@@ -39,6 +39,10 @@ assert(pyversion[1].to_int() >= 5, 'Require Python >= 3.5')
 # config.h
 #######################################################################
 compiler = meson.get_compiler('c')
+sym_hidden_cargs = []
+if compiler.has_argument('-fvisibility=hidden')
+  sym_hidden_cargs = ['-fvisibility=hidden']
+endif
 cdata = configuration_data()
 cdata.set_quoted('PACKAGE', meson.project_name())
 cdata.set_quoted('PACKAGE_BUGREPORT', 'https://github.com/nirenjan/libx52/issues')

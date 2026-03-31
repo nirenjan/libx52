@@ -24,6 +24,7 @@ libx52_la_CFLAGS = \
 	@LIBUSB_CFLAGS@ \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-I $(top_srcdir) \
+	$(VISIBILITY_CFLAGS) \
 	$(WARN_CFLAGS)
 libx52_la_LDFLAGS = \
 	-export-symbols-regex '^libx52_' \

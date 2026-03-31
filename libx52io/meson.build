@@ -11,6 +11,7 @@ libx52io_files = files(
 lib_libx52io = library('x52io', libx52io_files,
   install: true,
   version: libx52io_version,
+  c_args: sym_hidden_cargs,
   dependencies: [dep_hidapi, dep_intl],
   include_directories: [includes])
 

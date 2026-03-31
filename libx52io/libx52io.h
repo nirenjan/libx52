@@ -23,6 +23,16 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifndef LIBX52IO_API
+# if defined(__GNUC__) && (__GNUC__ * 100 + __GNUC_MINOR__) >= 303
+#  define LIBX52IO_API __attribute__((visibility("default")))
+# elif defined(_WIN32)
+#  define LIBX52IO_API __declspec(dllexport)
+# else
+#  define LIBX52IO_API
+# endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -293,7 +303,7 @@ typedef struct libx52io_report libx52io_report;
  *
  * @returns \c libx52io_error_code indicating status
  */
-int libx52io_init(libx52io_context **ctx);
+LIBX52IO_API int libx52io_init(libx52io_context **ctx);
 
 /**
  * @brief Exit the library and free up any resources used
@@ -304,7 +314,7 @@ int libx52io_init(libx52io_context **ctx);
  *
  * @param[in]   ctx     Pointer to the device context
  */
-void libx52io_exit(libx52io_context *ctx);
+LIBX52IO_API void libx52io_exit(libx52io_context *ctx);
 
 /**
  * @brief Open a connection to a supported joystick
@@ -321,7 +331,7 @@ void libx52io_exit(libx52io_context *ctx);
  * - \ref LIBX52IO_ERROR_NO_DEVICE if no supported joystick is found
  * - \ref LIBX52IO_ERROR_CONN if the connection fails
  */
-int libx52io_open(libx52io_context *ctx);
+LIBX52IO_API int libx52io_open(libx52io_context *ctx);
 
 /**
  * @brief Close an existing connection to a supported joystick
@@ -335,7 +345,7 @@ int libx52io_open(libx52io_context *ctx);
  * - \ref LIBX52IO_SUCCESS on closing, or if the connection is already closed.
  * - \ref LIBX52IO_ERROR_INVALID if the context pointer is not valid
  */
-int libx52io_close(libx52io_context *ctx);
+LIBX52IO_API int libx52io_close(libx52io_context *ctx);
 
 /**
  * @brief Read and parse a HID report
@@ -356,7 +366,7 @@ int libx52io_close(libx52io_context *ctx);
  *   including if the device was disconnected during the read.
  * - \ref LIBX52IO_ERROR_TIMEOUT if no report was read before timeout.
  */
-int libx52io_read_timeout(libx52io_context *ctx, libx52io_report *report, int timeout);
+LIBX52IO_API int libx52io_read_timeout(libx52io_context *ctx, libx52io_report *report, int timeout);
 
 /**
  * @brief Read and parse a HID report
@@ -374,7 +384,7 @@ int libx52io_read_timeout(libx52io_context *ctx, libx52io_report *report, int ti
  * - \ref LIBX52IO_ERROR_IO if there was an error reading from the device,
  *   including if the device was disconnected during the read.
  */
-int libx52io_read(libx52io_context *ctx, libx52io_report *report);
+LIBX52IO_API int libx52io_read(libx52io_context *ctx, libx52io_report *report);
 
 /**
  * @brief Retrieve the range of an axis
@@ -393,7 +403,7 @@ int libx52io_read(libx52io_context *ctx, libx52io_report *report);
  *   valid, or the requested axis is not a valid axis identifier
  * - \ref LIBX52IO_ERROR_NO_DEVICE if the device is disconnected
  */
-int libx52io_get_axis_range(libx52io_context *ctx, libx52io_axis axis, int32_t *min, int32_t *max);
+LIBX52IO_API int libx52io_get_axis_range(libx52io_context *ctx, libx52io_axis axis, int32_t *min, int32_t *max);
 
 /**
  * @brief Get the string representation of an error code
@@ -402,7 +412,7 @@ int libx52io_get_axis_range(libx52io_context *ctx, libx52io_axis axis, int32_t *
  *
  * @returns String representation of the error. This pointer must not be freed.
  */
-const char * libx52io_strerror(libx52io_error_code code);
+LIBX52IO_API const char *libx52io_strerror(libx52io_error_code code);
 
 /**
  * @brief Get the string representation of an axis.
@@ -412,7 +422,7 @@ const char * libx52io_strerror(libx52io_error_code code);
  * @returns String representation of the axis. This pointer must not be freed.
  * If axis is outside the defined range, then this returns NULL.
  */
-const char * libx52io_axis_to_str(libx52io_axis axis);
+LIBX52IO_API const char *libx52io_axis_to_str(libx52io_axis axis);
 
 /**
  * @brief Get the string representation of a button.
@@ -422,7 +432,7 @@ const char * libx52io_axis_to_str(libx52io_axis axis);
  * @returns String representation of the button. This pointer must not be freed.
  * If button is outside the defined range, then this returns NULL.
  */
-const char * libx52io_button_to_str(libx52io_button button);
+LIBX52IO_API const char *libx52io_button_to_str(libx52io_button button);
 
 /**
  * @brief Get the vendor ID of the connected X52 device.
@@ -431,7 +441,7 @@ const char * libx52io_button_to_str(libx52io_button button);
  *
  * @returns Vendor ID of the connected device. Returns 0 if no device is connected.
  */
-uint16_t libx52io_get_vendor_id(libx52io_context *ctx);
+LIBX52IO_API uint16_t libx52io_get_vendor_id(libx52io_context *ctx);
 
 /**
  * @brief Get the product ID of the connected X52 device.
@@ -440,7 +450,7 @@ uint16_t libx52io_get_vendor_id(libx52io_context *ctx);
  *
  * @returns Product ID of the connected device. Returns 0 if no device is connected.
  */
-uint16_t libx52io_get_product_id(libx52io_context *ctx);
+LIBX52IO_API uint16_t libx52io_get_product_id(libx52io_context *ctx);
 
 /**
  * @brief Get the device version of the connected X52 device.
@@ -449,7 +459,7 @@ uint16_t libx52io_get_product_id(libx52io_context *ctx);
  *
  * @returns Device version of the connected device. Returns 0 if no device is connected.
  */
-uint16_t libx52io_get_device_version(libx52io_context *ctx);
+LIBX52IO_API uint16_t libx52io_get_device_version(libx52io_context *ctx);
 
 /**
  * @brief Get the manufacturer string of the connected X52 device.
@@ -462,7 +472,7 @@ uint16_t libx52io_get_device_version(libx52io_context *ctx);
  * @returns Pointer to the manufacturer string, which may be NULL. Return value
  * is always NULL if no device is connected.
  */
-const char * libx52io_get_manufacturer_string(libx52io_context *ctx);
+LIBX52IO_API const char *libx52io_get_manufacturer_string(libx52io_context *ctx);
 
 /**
  * @brief Get the product string of the connected X52 device.
@@ -475,7 +485,7 @@ const char * libx52io_get_manufacturer_string(libx52io_context *ctx);
  * @returns Pointer to the product string, which may be NULL. Return value
  * is always NULL if no device is connected.
  */
-const char * libx52io_get_product_string(libx52io_context *ctx);
+LIBX52IO_API const char *libx52io_get_product_string(libx52io_context *ctx);
 
 /**
  * @brief Get the serial number of the connected X52 device.
@@ -488,7 +498,7 @@ const char * libx52io_get_product_string(libx52io_context *ctx);
  * @returns Pointer to the serial number string, which may be NULL. Return value
  * is always NULL if no device is connected.
  */
-const char * libx52io_get_serial_number_string(libx52io_context *ctx);
+LIBX52IO_API const char *libx52io_get_serial_number_string(libx52io_context *ctx);
 
 /** @} */
 

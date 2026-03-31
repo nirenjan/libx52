@@ -20,6 +20,17 @@
 #define LIBX52UTIL_H
 
 #include <stddef.h>
+#include <stdint.h>
+
+#ifndef LIBX52UTIL_API
+# if defined(__GNUC__) && (__GNUC__ * 100 + __GNUC_MINOR__) >= 303
+#  define LIBX52UTIL_API __attribute__((visibility("default")))
+# elif defined(_WIN32)
+#  define LIBX52UTIL_API __declspec(dllexport)
+# else
+#  define LIBX52UTIL_API
+# endif
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,8 +57,8 @@ extern "C" {
  * @returns 0 on success, -EINVAL on invalid parameters, -E2BIG if the buffer
  * filled up before converting the entire string.
  */
-int libx52util_convert_utf8_string(const uint8_t *input,
-                                   uint8_t *output, size_t *len);
+LIBX52UTIL_API int libx52util_convert_utf8_string(const uint8_t *input,
+                                                  uint8_t *output, size_t *len);
 
 /** @} */
 

@@ -23,6 +23,16 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifndef VKM_API
+# if defined(__GNUC__) && (__GNUC__ * 100 + __GNUC_MINOR__) >= 303
+#  define VKM_API __attribute__((visibility("default")))
+# elif defined(_WIN32)
+#  define VKM_API __declspec(dllexport)
+# else
+#  define VKM_API
+# endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -113,7 +123,7 @@ typedef enum {
  *
  * @returns Pointer to a NUL-terminated description string
  */
-const char *vkm_strerror(vkm_result code);
+VKM_API const char *vkm_strerror(vkm_result code);
 
 /**
  * @brief Option list
@@ -413,7 +423,7 @@ typedef enum {
  *
  * @returns \ref vkm_error_code indicating status
  */
-vkm_result vkm_init(vkm_context **ctx);
+VKM_API vkm_result vkm_init(vkm_context **ctx);
 
 /**
  * @brief Exit the VKM library and free up any resources used
@@ -424,7 +434,7 @@ vkm_result vkm_init(vkm_context **ctx);
  *
  * @param[in]   ctx     Context pointer
  */
-void vkm_exit(vkm_context *ctx);
+VKM_API void vkm_exit(vkm_context *ctx);
 
 /**
  * @brief Release all virtual keys and mouse buttons that are still down
@@ -443,7 +453,7 @@ void vkm_exit(vkm_context *ctx);
  * - \ref VKM_ERROR_INVALID_PARAM on bad pointer
  * - \ref VKM_ERROR_EVENT if writing a release event failed
  */
-vkm_result vkm_reset(vkm_context *ctx);
+VKM_API vkm_result vkm_reset(vkm_context *ctx);
 
 /**
  * @brief Start any virtual keyboard/mouse devices on the platform
@@ -458,7 +468,7 @@ vkm_result vkm_reset(vkm_context *ctx);
  * - \ref VKM_ERROR_INVALID_PARAM on bad pointer
  * - \ref VKM_ERROR_UNKNOWN on other errors
  */
-vkm_result vkm_start(vkm_context *ctx);
+VKM_API vkm_result vkm_start(vkm_context *ctx);
 
 /**
  * @brief check if VKM is started and ready
@@ -467,7 +477,7 @@ vkm_result vkm_start(vkm_context *ctx);
  *
  * @returns boolean indicating if ready or not.
  */
-bool vkm_is_ready(vkm_context *ctx);
+VKM_API bool vkm_is_ready(vkm_context *ctx);
 
 /**
  * @brief Check if VKM is supported on this platform
@@ -477,7 +487,7 @@ bool vkm_is_ready(vkm_context *ctx);
  *
  * @returns boolean indicating support.
  */
-bool vkm_platform_supported(void);
+VKM_API bool vkm_platform_supported(void);
 
 /**
  * @brief Check if a particular feature is enabled on this platform
@@ -488,7 +498,7 @@ bool vkm_platform_supported(void);
  *
  * @returns boolean indicating if feature is supported or not.
  */
-bool vkm_feature_supported(vkm_feature feat);
+VKM_API bool vkm_feature_supported(vkm_feature feat);
 
 /**
  * @brief Set an option flag for VKM.
@@ -505,7 +515,7 @@ bool vkm_feature_supported(vkm_feature feat);
  * - \ref VKM_ERROR_INVALID_PARAM if the option or arguments are invalid
  * - \ref VKM_ERROR_NOT_SUPPORTED if the option is valid but not supported on this platform
  */
-vkm_result vkm_set_option(vkm_context *ctx, vkm_option option, ...);
+VKM_API vkm_result vkm_set_option(vkm_context *ctx, vkm_option option, ...);
 
 /**
  * @brief Move the mouse by the specified amount
@@ -523,7 +533,7 @@ vkm_result vkm_set_option(vkm_context *ctx, vkm_option option, ...);
  * - \ref VKM_ERROR_NOT_SUPPORTED if the mouse move is not supported on this platform
  * - \ref VKM_ERROR_NOT_READY if VKM is not started
  */
-vkm_result vkm_mouse_move(vkm_context *ctx, int dx, int dy);
+VKM_API vkm_result vkm_mouse_move(vkm_context *ctx, int dx, int dy);
 
 /**
  * @brief Click the mouse button
@@ -540,7 +550,7 @@ vkm_result vkm_mouse_move(vkm_context *ctx, int dx, int dy);
  * - \ref VKM_ERROR_NOT_SUPPORTED if the mouse button click is not supported on this platform
  * - \ref VKM_ERROR_NOT_READY if VKM is not started
  */
-vkm_result vkm_mouse_click(vkm_context *ctx, vkm_mouse_button button, vkm_button_state state);
+VKM_API vkm_result vkm_mouse_click(vkm_context *ctx, vkm_mouse_button button, vkm_button_state state);
 
 /**
  * @brief Scroll the mouse wheel
@@ -562,7 +572,7 @@ vkm_result vkm_mouse_click(vkm_context *ctx, vkm_mouse_button button, vkm_button
  * - \ref VKM_ERROR_NOT_SUPPORTED if the mouse scrolling is not supported on this platform
  * - \ref VKM_ERROR_NOT_READY if VKM is not started
  */
-vkm_result vkm_mouse_scroll(vkm_context *ctx, vkm_mouse_scroll_direction dir);
+VKM_API vkm_result vkm_mouse_scroll(vkm_context *ctx, vkm_mouse_scroll_direction dir);
 
 /**
  * @brief Send a single keyboard event
@@ -583,7 +593,7 @@ vkm_result vkm_mouse_scroll(vkm_context *ctx, vkm_mouse_scroll_direction dir);
  *  supported on this platform
  * - \ref VKM_ERROR_NOT_READY if VKM is not started
  */
-vkm_result vkm_keyboard_send(vkm_context *ctx, vkm_key key, vkm_key_modifiers modifiers, vkm_key_state state);
+VKM_API vkm_result vkm_keyboard_send(vkm_context *ctx, vkm_key key, vkm_key_modifiers modifiers, vkm_key_state state);
 
 /**
  * @brief Send a sync packet to the OS
@@ -600,7 +610,7 @@ vkm_result vkm_keyboard_send(vkm_context *ctx, vkm_key key, vkm_key_modifiers mo
  * - \ref VKM_ERROR_INVALID_PARAM if parameters are invalid
  * - \ref VKM_ERROR_NOT_READY if VKM is not started
  */
-vkm_result vkm_sync(vkm_context *ctx);
+VKM_API vkm_result vkm_sync(vkm_context *ctx);
 
 #ifdef __cplusplus
 }

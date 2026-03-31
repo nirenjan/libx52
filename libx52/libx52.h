@@ -24,6 +24,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/** Applied to public library entry points (default visibility with hidden ELF default). */
+#ifndef LIBX52_API
+# if defined(__GNUC__) && (__GNUC__ * 100 + __GNUC_MINOR__) >= 303
+#  define LIBX52_API __attribute__((visibility("default")))
+# elif defined(_WIN32)
+#  define LIBX52_API __declspec(dllexport)
+# else
+#  define LIBX52_API
+# endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -275,7 +286,7 @@ typedef enum {
  *
  * @returns \ref libx52_error_code indicating status
  */
-int libx52_init(libx52_device ** dev);
+LIBX52_API int libx52_init(libx52_device ** dev);
 
 /**
  * @brief Exit the library and free up any resources used
@@ -286,7 +297,7 @@ int libx52_init(libx52_device ** dev);
  *
  * @param[in]   dev     Pointer to the device context
  */
-void libx52_exit(libx52_device *dev);
+LIBX52_API void libx52_exit(libx52_device *dev);
 
 /** @} */
 
@@ -316,7 +327,7 @@ void libx52_exit(libx52_device *dev);
  *
  * @returns \ref libx52_error_code indicating status
  */
-int libx52_connect(libx52_device *dev);
+LIBX52_API int libx52_connect(libx52_device *dev);
 
 /**
  * @brief Disconnect from the X52 device
@@ -329,7 +340,7 @@ int libx52_connect(libx52_device *dev);
  *
  * @returns \ref libx52_error_code indicating status
  */
-int libx52_disconnect(libx52_device *dev);
+LIBX52_API int libx52_disconnect(libx52_device *dev);
 
 /**
  * @brief Check if joystick is connected
@@ -350,7 +361,7 @@ int libx52_disconnect(libx52_device *dev);
  *
  * @returns Boolean indicating if the internal device handle is valid.
  */
-bool libx52_is_connected(libx52_device *dev);
+LIBX52_API bool libx52_is_connected(libx52_device *dev);
 
 /** @} */
 
@@ -390,7 +401,7 @@ bool libx52_is_connected(libx52_device *dev);
  * - \ref LIBX52_ERROR_INVALID_PARAM if either \p x52 is invalid, or \p line is
  *   outside the accepted range.
  */
-int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t length);
+LIBX52_API int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t length);
 
 /**
  * @brief Set the LED state
@@ -415,7 +426,7 @@ int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t 
  *   not a supported one. The API also returns \ref LIBX52_ERROR_NOT_SUPPORTED
  *   if the probed joystick is not an X52 Pro, but the non-Pro X52 variant.
  */
-int libx52_set_led_state(libx52_device *x52,
+LIBX52_API int libx52_set_led_state(libx52_device *x52,
                          libx52_led_id led,
                          libx52_led_state state);
 
@@ -455,7 +466,7 @@ int libx52_set_led_state(libx52_device *x52,
  * - \ref LIBX52_ERROR_TRY_AGAIN if no change from previous time
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid.
  */
-int libx52_set_clock(libx52_device *x52, time_t time, int local);
+LIBX52_API int libx52_set_clock(libx52_device *x52, time_t time, int local);
 
 /**
  * @brief Set the timezone for the secondary and tertiary clocks.
@@ -487,7 +498,7 @@ int libx52_set_clock(libx52_device *x52, time_t time, int local);
  * - \ref LIBX52_ERROR_NOT_SUPPORTED if \p clock is \ref LIBX52_CLOCK_1
  * - \ref LIBX52_ERROR_OUT_OF_RANGE if \p offset is more than &plusmn; 24 hours.
  */
-int libx52_set_clock_timezone(libx52_device *x52,
+LIBX52_API int libx52_set_clock_timezone(libx52_device *x52,
                               libx52_clock_id clock,
                               int offset);
 
@@ -511,7 +522,7 @@ int libx52_set_clock_timezone(libx52_device *x52,
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid, or if either of \p
  *   clock or \p format are outside their respective ranges.
  */
-int libx52_set_clock_format(libx52_device *x52,
+LIBX52_API int libx52_set_clock_format(libx52_device *x52,
                             libx52_clock_id clock,
                             libx52_clock_format format);
 
@@ -530,7 +541,7 @@ int libx52_set_clock_format(libx52_device *x52,
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
-int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
+LIBX52_API int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
 
 /**
  * @brief Set the date
@@ -547,7 +558,7 @@ int libx52_set_time(libx52_device *x52, uint8_t hour, uint8_t minute);
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
-int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
+LIBX52_API int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
 
 /**
  * @brief Set the date format for the MFD date display
@@ -561,7 +572,7 @@ int libx52_set_date(libx52_device *x52, uint8_t dd, uint8_t mm, uint8_t yy);
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
-int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
+LIBX52_API int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
 
 /** @} */
 
@@ -586,7 +597,7 @@ int libx52_set_date_format(libx52_device *x52, libx52_date_format format);
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
-int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness);
+LIBX52_API int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness);
 
 /**
  * @brief Set the state of the shift indicator
@@ -601,7 +612,7 @@ int libx52_set_brightness(libx52_device *x52, uint8_t mfd, uint16_t brightness);
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
-int libx52_set_shift(libx52_device *x52, uint8_t state);
+LIBX52_API int libx52_set_shift(libx52_device *x52, uint8_t state);
 
 /**
  * @brief Set the blinking state
@@ -615,7 +626,7 @@ int libx52_set_shift(libx52_device *x52, uint8_t state);
  * - 0 on success
  * - \ref LIBX52_ERROR_INVALID_PARAM if \p x52 is not valid
  */
-int libx52_set_blink(libx52_device *x52, uint8_t state);
+LIBX52_API int libx52_set_blink(libx52_device *x52, uint8_t state);
 
 /** @} */
 
@@ -638,7 +649,7 @@ int libx52_set_blink(libx52_device *x52, uint8_t state);
  *
  * @returns \ref libx52_error_code indicating status
  */
-int libx52_update(libx52_device *x52);
+LIBX52_API int libx52_update(libx52_device *x52);
 
 /**
  * @brief Write a raw vendor control packet
@@ -655,7 +666,7 @@ int libx52_update(libx52_device *x52);
  *
  * @returns \ref libx52_error_code indicating status
  */
-int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
+LIBX52_API int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
 
 /**
  * @brief Check if the device supports the given feature.
@@ -670,7 +681,7 @@ int libx52_vendor_command(libx52_device *x52, uint16_t index, uint16_t value);
  *
  * @returns \ref libx52_error_code indicating status
  */
-int libx52_check_feature(libx52_device *x52, libx52_feature feature);
+LIBX52_API int libx52_check_feature(libx52_device *x52, libx52_feature feature);
 
 /** @} */
 
@@ -690,7 +701,7 @@ int libx52_check_feature(libx52_device *x52, libx52_feature feature);
  * @returns Pointer to a NULL terminated string describing the error.
  * Returned pointer must not be freed.
  */
-const char * libx52_strerror(libx52_error_code error);
+LIBX52_API const char *libx52_strerror(libx52_error_code error);
 
 /**
  * @brief Returns a string representation of the clock ID
@@ -700,7 +711,7 @@ const char * libx52_strerror(libx52_error_code error);
  * @returns Pointer to a NULL terminated string describing the clock ID.
  * Returned pointer must not be freed.
  */
-const char * libx52_clock_id_to_str(libx52_clock_id id);
+LIBX52_API const char *libx52_clock_id_to_str(libx52_clock_id id);
 
 /**
  * @brief Returns a string representation of the clock format
@@ -710,7 +721,7 @@ const char * libx52_clock_id_to_str(libx52_clock_id id);
  * @returns Pointer to a NULL terminated string describing the clock format.
  * Returned pointer must not be freed.
  */
-const char * libx52_clock_format_to_str(libx52_clock_format format);
+LIBX52_API const char *libx52_clock_format_to_str(libx52_clock_format format);
 
 /**
  * @brief Returns a string representation of the date format
@@ -720,7 +731,7 @@ const char * libx52_clock_format_to_str(libx52_clock_format format);
  * @returns Pointer to a NULL terminated string describing the date format.
  * Returned pointer must not be freed.
  */
-const char * libx52_date_format_to_str(libx52_date_format format);
+LIBX52_API const char *libx52_date_format_to_str(libx52_date_format format);
 
 /**
  * @brief Returns a string representation of the LED
@@ -730,7 +741,7 @@ const char * libx52_date_format_to_str(libx52_date_format format);
  * @returns Pointer to a NULL terminated string describing the LED.
  * Returned pointer must not be freed.
  */
-const char * libx52_led_id_to_str(libx52_led_id id);
+LIBX52_API const char *libx52_led_id_to_str(libx52_led_id id);
 
 /**
  * @brief Returns a string representation of the LED state
@@ -740,7 +751,7 @@ const char * libx52_led_id_to_str(libx52_led_id id);
  * @returns Pointer to a NULL terminated string describing the LED state.
  * Returned pointer must not be freed.
  */
-const char * libx52_led_state_to_str(libx52_led_state state);
+LIBX52_API const char *libx52_led_state_to_str(libx52_led_state state);
 
 /** @} */
 

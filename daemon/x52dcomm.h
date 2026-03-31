@@ -22,6 +22,16 @@
 
 #include <stddef.h>
 
+#ifndef X52DCOMM_API
+# if defined(__GNUC__) && (__GNUC__ * 100 + __GNUC_MINOR__) >= 303
+#  define X52DCOMM_API __attribute__((visibility("default")))
+# elif defined(_WIN32)
+#  define X52DCOMM_API __declspec(dllexport)
+# else
+#  define X52DCOMM_API
+# endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -52,7 +62,7 @@ extern "C" {
  *
  * @exception E2BIG returned if the passed socket path is too big
  */
-int x52d_dial_command(const char *sock_path);
+X52DCOMM_API int x52d_dial_command(const char *sock_path);
 
 /**
  * @brief Open a connection to the daemon notify socket.
@@ -73,7 +83,7 @@ int x52d_dial_command(const char *sock_path);
  *
  * @exception E2BIG returned if the passed socket path is too big
  */
-int x52d_dial_notify(const char *sock_path);
+X52DCOMM_API int x52d_dial_notify(const char *sock_path);
 
 /**
  * @brief Format a series of command strings into a buffer
@@ -92,7 +102,7 @@ int x52d_dial_notify(const char *sock_path);
  * @returns number of bytes in the formatted command
  * @returns -1 on an error condition, and \c errno is set accordingly.
  */
-int x52d_format_command(int argc, const char **argv, char *buffer, size_t buflen);
+X52DCOMM_API int x52d_format_command(int argc, const char **argv, char *buffer, size_t buflen);
 
 /**
  * @brief Send a command to the daemon and retrieve the response.
@@ -121,7 +131,7 @@ int x52d_format_command(int argc, const char **argv, char *buffer, size_t buflen
  * @returns number of bytes returned from the server
  * @returns -1 on an error condition, and \c errno is set accordingly.
  */
-int x52d_send_command(int sock_fd, char *buffer, size_t bufin, size_t bufout);
+X52DCOMM_API int x52d_send_command(int sock_fd, char *buffer, size_t bufin, size_t bufout);
 
 /**
  * @brief Notification callback function type
@@ -147,7 +157,7 @@ typedef int (* x52d_notify_callback_fn)(int argc, char **argv);
  * @returns return code of the callback function on success
  * @returns -1 on an error condition, and \c errno is set accordingly.
  */
-int x52d_recv_notification(int sock_fd, x52d_notify_callback_fn callback);
+X52DCOMM_API int x52d_recv_notification(int sock_fd, x52d_notify_callback_fn callback);
 
 /** @} */
 #ifdef __cplusplus

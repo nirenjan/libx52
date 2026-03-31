@@ -12,6 +12,7 @@ libx52_files = files(
 lib_libx52 = library('x52', libx52_files,
   install: true,
   version: libx52_version,
+  c_args: sym_hidden_cargs,
   dependencies: [dep_libusb, dep_intl],
   include_directories: [includes])
 

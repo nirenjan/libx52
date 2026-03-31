@@ -61,8 +61,11 @@ libx52dcomm_la_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLOGDIR=\"$(localstatedir)/log\" \
 	-DRUNDIR=\"$(localstatedir)/run\" \
+	$(VISIBILITY_CFLAGS) \
 	$(WARN_CFLAGS)
-libx52dcomm_la_LDFLAGS = $(WARN_LDFLAGS)
+libx52dcomm_la_LDFLAGS = \
+	-export-symbols-regex '^x52d_(dial_command|dial_notify|format_command|send_command|recv_notification)$' \
+	$(WARN_LDFLAGS)
 
 x52include_HEADERS += daemon/x52dcomm.h
 

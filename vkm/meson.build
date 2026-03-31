@@ -25,6 +25,7 @@ endif
 lib_vkm = library('vkm', vkm_files + vkm_platform_files,
   install: true,
   version: vkm_version,
+  c_args: sym_hidden_cargs,
   dependencies: [vkm_dep, dep_intl],
   include_directories: [includes])
 

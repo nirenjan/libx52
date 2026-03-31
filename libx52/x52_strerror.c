@@ -39,7 +39,7 @@ static const char *error_string[] = {
     N_("System call interrupted"),
 };
 
-const char * libx52_strerror(libx52_error_code error)
+LIBX52_API const char * libx52_strerror(libx52_error_code error)
 {
     switch (error) {
     case LIBX52_SUCCESS:

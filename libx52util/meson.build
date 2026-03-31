@@ -12,6 +12,7 @@ util_char_map = custom_target('util-char-map',
 lib_libx52util = library('x52util', util_char_map, 'x52_char_map_lookup.c',
   install: true,
   version: libx52util_version,
+  c_args: sym_hidden_cargs,
   include_directories: [includes],
   )
 

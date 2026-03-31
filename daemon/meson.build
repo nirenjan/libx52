@@ -11,6 +11,7 @@ install_headers('x52dcomm.h', subdir: meson.project_name())
 lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
   dependencies: [dep_intl],
   version: libx52dcomm_version,
+  c_args: sym_hidden_cargs,
   install: true,
   include_directories: includes)
 
@@ -31,14 +32,15 @@ x52d_sources = [
   ]
 
 dep_threads = dependency('threads')
-x52d_linkwith = [lib_libx52, lib_libx52dcomm, lib_vkm, lib_libx52io]
+# Comm sources are compiled into x52d (same as Autotools); libx52dcomm is only for x52ctl.
+x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io]
 x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_intl]
 x52d_cflags = []
 
-exe_x52d = executable('x52d', x52d_sources,
+exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
   install: true,
   include_directories: includes,
-  c_args: x52d_cflags,
+  c_args: sym_hidden_cargs + x52d_cflags,
   dependencies: x52d_deps,
   link_with: x52d_linkwith)
 
