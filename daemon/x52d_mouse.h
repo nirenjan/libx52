@@ -12,11 +12,11 @@
 #include <stdbool.h>
 #include "libx52io.h"
 
-extern volatile int mouse_delay;
-extern volatile int mouse_mult;
+extern volatile bool mouse_isometric_mode;
 extern volatile int mouse_scroll_dir;
-
-#define MOUSE_MULT_FACTOR  4
+extern volatile double mouse_curve_factor;
+extern volatile double mouse_deadzone;
+extern volatile int mouse_sensitivity;
 
 void x52d_mouse_thread_control(bool enabled);
 void x52d_mouse_handler_init(void);

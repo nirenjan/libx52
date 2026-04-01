@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "libx52io.h"
 #include "vkm.h"
@@ -85,40 +86,94 @@ static int report_wheel(void)
     return (rc == VKM_SUCCESS);
 }
 
-static int get_axis_val(int index)
+static inline int fsgn(double f)
 {
-    int axis_val = new_report.axis[index];
-
-    /*
-     * Axis value ranges from 0 to 15, with the default midpoint at 8.
-     * We need to translate this to a range of -7 to +7. Since the midpoint
-     * is slightly off-center, we will shift the values left, and subtract
-     * 15, effectively, giving us a range of -15 to +15. Shifting right again
-     * will reduce the range to -7 to +7, and effectively ignore the reported
-     * values of 7 and 8.
-     */
-    axis_val = ((axis_val << 1) - 15) >> 1;
-
-    /*
-     * Factor in the multiplicative factor for the axis. This deliberately
-     * uses integer division, since the uinput event only accepts integers.
-     * For the speed purposes, this should be good enough.
-     */
-    axis_val = (axis_val * mouse_mult) / MOUSE_MULT_FACTOR;
-
-    return axis_val;
+    return (f >= 0 ? 1 : -1);
 }
 
 static int report_axis(void)
 {
-    vkm_result rc;
-    int dx = get_axis_val(LIBX52IO_AXIS_THUMBX);
-    int dy = get_axis_val(LIBX52IO_AXIS_THUMBY);
+    #define MAX_TICK_SPEED 250.0
 
-    rc = vkm_mouse_move(mouse_context, dx, dy);
+    static double accum_x = 0.0;
+    static double accum_y = 0.0;
+
+    /* Center raw HID values (0,15) => (-8, 7) */
+    int dx = new_report.axis[LIBX52IO_AXIS_THUMBX] - 8;
+    int dy = new_report.axis[LIBX52IO_AXIS_THUMBY] - 8;
+
+    /* Calculate radial magnitude */
+    double mag = sqrt((double)(dx * dx + dy * dy));
+
+    /* Radial deadzone check */
+    if (mag <= mouse_deadzone) {
+        accum_x = 0.0;
+        accum_y = 0.0;
+        return 0;
+    }
+
+    /* Calculate gain */
+    double gain = (double)mouse_sensitivity / 100.0;
+
+    /* Normalize magnitude */
+    double adj_mag = mag - mouse_deadzone;
+    double out_x = 0.0;
+    double out_y = 0.0;
+
+    if (mouse_isometric_mode) {
+        /* Isometric mode: speed is a function of total distance */
+        double speed = gain * pow(adj_mag, mouse_curve_factor);
+
+        /* Clamp total speed before breaking into components */
+        if (speed > MAX_TICK_SPEED) {
+            speed = MAX_TICK_SPEED;
+        }
+
+        /* Unit vector * speed */
+        out_x = (dx / mag) * speed;
+        out_y = (dy / mag) * speed;
+    } else {
+        /* Linear mode: speed is independently calculated for X & Y axes */
+        double ratio = adj_mag / mag;
+        double cur_x = dx * ratio;
+        double cur_y = dy * ratio;
+
+        out_x = fsgn(cur_x) * gain * pow(fabs(cur_x), mouse_curve_factor);
+        out_y = fsgn(cur_y) * gain * pow(fabs(cur_y), mouse_curve_factor);
+
+        /* Clamp individual axis speeds */
+        if (fabs(out_x) > MAX_TICK_SPEED) {
+            out_x = fsgn(out_x) * MAX_TICK_SPEED;
+        }
+
+        if (fabs(out_y) > MAX_TICK_SPEED) {
+            out_y = fsgn(out_y) * MAX_TICK_SPEED;
+        }
+    }
+
+    /* Accumulate movement and independent resets */
+    accum_x += out_x;
+    accum_y += out_y;
+
+    if (dx == 0) {
+        accum_x = 0.0;
+    }
+    if (dy == 0) {
+        accum_y = 0.0;
+    }
+
+    /* Extract integer values for VKM injection */
+    int move_x = (int)accum_x;
+    int move_y = (int)accum_y;
+
+    accum_x -= move_x;
+    accum_y -= move_y;
+
+    vkm_result rc;
+    rc = vkm_mouse_move(mouse_context, move_x, move_y);
     if (rc != VKM_SUCCESS && rc != VKM_ERROR_NO_CHANGE) {
         PINELOG_ERROR(_("Error %d writing mouse axis event (dx %d, dy %d)"),
-                rc, dx, dy);
+                rc, move_x, move_y);
     }
 
     return (rc == VKM_SUCCESS);
@@ -154,7 +209,7 @@ static void * x52_mouse_thr(void *param)
             report_sync();
         }
 
-        usleep(mouse_delay);
+        usleep(10000);
     }
 
     return NULL;
