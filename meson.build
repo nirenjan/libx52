@@ -93,6 +93,9 @@ endif
 
 add_project_arguments('-isystem', meson.current_source_dir() / 'sys', language: 'C')
 
+# Sometimes libm is in standard library
+dep_math = compiler.find_library('m', required: false)
+
 #######################################################################
 # Internal dependencies
 #######################################################################

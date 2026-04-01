@@ -32,7 +32,6 @@ x52d_sources = [
   ]
 
 dep_threads = dependency('threads')
-dep_math = dependency('m', required: false) # Sometimes not a separate library
 
 # Comm sources are compiled into x52d (same as Autotools); libx52dcomm is only for x52ctl.
 x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io]
