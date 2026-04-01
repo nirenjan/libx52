@@ -91,14 +91,14 @@ static void test_mouse_speed_max_hyper(void **state)
 {
     (void)state;
     x52d_cfg_set_Mouse_Speed(32);
-    assert_int_equal(mouse_sensitivity, 600);
+    assert_int_equal(mouse_sensitivity, 500);
 }
 
 static void test_mouse_speed_above_max(void **state)
 {
     (void)state;
     x52d_cfg_set_Mouse_Speed(33);
-    assert_int_equal(mouse_sensitivity, 600);
+    assert_int_equal(mouse_sensitivity, 500);
 }
 
 static void test_mouse_reverse_scroll_enabled(void **state)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-03-27 20:52-0700\n"
+"POT-Creation-Date: 2026-04-01 14:00-0700\n"
 "PO-Revision-Date: 2026-03-27 08:33-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -142,13 +142,13 @@ msgstr "YYay-MMay-DDay"
 msgid "Unknown LED state %d"
 msgstr "Unknownay EDLay atestay %d"
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
-#: daemon/x52d_mouse.c:66
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:63
+#: daemon/x52d_mouse.c:103 daemon/x52d_mouse.c:115
 msgid "off"
 msgstr "offay"
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
-#: daemon/x52d_mouse.c:66
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:63
+#: daemon/x52d_mouse.c:103 daemon/x52d_mouse.c:115
 msgid "on"
 msgstr "onay"
 
@@ -234,34 +234,32 @@ msgid "Read timeout"
 msgstr "Eadray imeouttay"
 
 #: vkm/vkm_common.c:26
-#, fuzzy
 msgid "Unknown error"
-msgstr "Unknownay erroray %d"
+msgstr "Unknownay erroray"
 
 #: vkm/vkm_common.c:27
 msgid "Not ready"
-msgstr ""
+msgstr "Otnay eadyray"
 
 #: vkm/vkm_common.c:28
 msgid "Out of memory"
-msgstr ""
+msgstr "Outay ofay emorymay"
 
 #: vkm/vkm_common.c:30
-#, fuzzy
 msgid "Not supported"
-msgstr "Operationay otnay upportedsay"
+msgstr "Otnay upportedsay"
 
 #: vkm/vkm_common.c:31
 msgid "Virtual device failure"
-msgstr ""
+msgstr "Irtualvay eviceday ailurefay"
 
 #: vkm/vkm_common.c:32
 msgid "Unable to write event"
-msgstr ""
+msgstr "Unableay otay itewray eventay"
 
 #: vkm/vkm_common.c:33
 msgid "No state change"
-msgstr ""
+msgstr "Onay atestay angechay"
 
 #: evtest/ev_test.c:110
 #, c-format
@@ -919,64 +917,106 @@ msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
-#: daemon/x52d_mouse.c:31
+#: daemon/x52d_mouse.c:46 daemon/x52d_mouse.c:52
+#, c-format
+msgid "Clamping %s value %d to range [%d..%d]"
+msgstr ""
+
+#: daemon/x52d_mouse.c:62
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr "Ettingsay ousemay enableay otay %s"
 
-#: daemon/x52d_mouse.c:45
-#, c-format
-msgid "Ignoring mouse speed %d outside supported range (0-%d)"
-msgstr "Ignoringay ousemay eedspay %d outsideay upportedsay angeray (0-%d)"
+#: daemon/x52d_mouse.c:79
+msgid ""
+"Config option 'mouse.speed' is DEPRECATED. Please use 'mouse.sensitivity' "
+"instead"
+msgstr ""
 
-#: daemon/x52d_mouse.c:57
+#: daemon/x52d_mouse.c:94
 #, c-format
-msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
-msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms, ultipliermay %f)"
+msgid "Migrating legacy mouse speed '%d' to sensitivity '%d%%'"
+msgstr ""
 
-#: daemon/x52d_mouse.c:65
+#: daemon/x52d_mouse.c:96
+msgid "speed -> sensitivity"
+msgstr ""
+
+#: daemon/x52d_mouse.c:102
 #, c-format
 msgid "Setting mouse reverse scroll to %s"
 msgstr "Ettingsay ousemay everseray ollscray otay %s"
 
-#: daemon/x52d_mouse_handler.c:43
+#: daemon/x52d_mouse.c:114
+#,  c-format
+msgid "Setting mouse isometric mode to %s"
+msgstr "Ettingsay ousemay isometricay odemay otay %s"
+
+#: daemon/x52d_mouse.c:121
+msgid "sensitivity"
+msgstr "ensitivitysay"
+
+#: daemon/x52d_mouse.c:124
+#, c-format
+msgid "Setting mouse sensitivity to %d%%"
+msgstr "Ettingsay ousemay ensitivitysay otay %s"
+
+#: daemon/x52d_mouse.c:130
+msgid "curve factor"
+msgstr "urvecay actorfay"
+
+#: daemon/x52d_mouse.c:133
+#, c-format
+msgid "Setting mouse curve factor to %f"
+msgstr "Ettingsay ousemay urvecay actorfay otay %s"
+
+#: daemon/x52d_mouse.c:139
+msgid "deadzone factor"
+msgstr "eadzoneday actorfay"
+
+#: daemon/x52d_mouse.c:142
+#, c-format
+msgid "Setting mouse deadzone to %f"
+msgstr "Ettingsay ousemay eadzoneday otay %s"
+
+#: daemon/x52d_mouse_handler.c:44
 #, c-format
 msgid "Error %d writing mouse button event (button %d, state %d)"
 msgstr ""
 "Erroray %d itingwray ousemay uttonbay eventay (uttonbay %d, atestay %d)"
 
-#: daemon/x52d_mouse_handler.c:81
+#: daemon/x52d_mouse_handler.c:82
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr "Erroray itingwray ousemay eelwhay eventay %d"
 
-#: daemon/x52d_mouse_handler.c:120
+#: daemon/x52d_mouse_handler.c:175
 #, c-format
 msgid "Error %d writing mouse axis event (dx %d, dy %d)"
 msgstr "Erroray %d itingwray ousemay axisay eventay (xday %d, yday %d)"
 
-#: daemon/x52d_mouse_handler.c:132
+#: daemon/x52d_mouse_handler.c:187
 msgid "Error writing mouse sync event"
 msgstr "Erroray itingwray ousemay yncsay eventay"
 
-#: daemon/x52d_mouse_handler.c:151
+#: daemon/x52d_mouse_handler.c:206
 msgid "Starting X52 virtual mouse driver thread"
 msgstr "Artingstay X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_handler.c:170
+#: daemon/x52d_mouse_handler.c:225
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr "Erroray %d initializingay ousemay eadthray: %s"
 
-#: daemon/x52d_mouse_handler.c:177
+#: daemon/x52d_mouse_handler.c:232
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_handler.c:184
+#: daemon/x52d_mouse_handler.c:239
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 
-#: daemon/x52d_mouse_handler.c:236 daemon/x52d_mouse_handler.c:244
+#: daemon/x52d_mouse_handler.c:291 daemon/x52d_mouse_handler.c:299
 #, c-format
 msgid "Error %d creating X52 virtual mouse"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay"
@@ -1039,3 +1079,11 @@ msgstr "Argumentay engthlay ootay onglay\n"
 #, c-format
 msgid "Running in interactive mode, ignoring extra arguments\n"
 msgstr "Unningray inay interactiveay odemay, ignoringay extraay argumentsay\n"
+
+#, c-format
+#~ msgid "Ignoring mouse speed %d outside supported range (0-%d)"
+#~ msgstr "Ignoringay ousemay eedspay %d outsideay upportedsay angeray (0-%d)"
+
+#, c-format
+#~ msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
+#~ msgstr "Ettingsay ousemay eedspay otay %d (elayday %d ms, ultipliermay %f)"

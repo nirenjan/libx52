@@ -89,7 +89,7 @@ void x52d_cfg_set_Mouse_Speed(int speed)
         new_mult = MOUSE_MULT_FACTOR + (speed - max_base_speed);
     }
 
-    sensitivity = round(10000000.0 / new_delay * new_mult / (double)MOUSE_MULT_FACTOR);
+    sensitivity = round(1e6 / new_delay * new_mult / (double)MOUSE_MULT_FACTOR);
 
     PINELOG_INFO(_("Migrating legacy mouse speed '%d' to sensitivity '%d%%'"),
                  speed, (int)sensitivity);
@@ -109,14 +109,14 @@ void x52d_cfg_set_Mouse_ReverseScroll(bool enabled)
     }
 }
 
-void x52d_config_set_Mouse_IsometricMode(bool enabled)
+void x52d_cfg_set_Mouse_IsometricMode(bool enabled)
 {
     PINELOG_DEBUG(_("Setting mouse isometric mode to %s"),
                   enabled ? _("on") : _("off"));
     mouse_isometric_mode = enabled;
 }
 
-void x52d_config_set_Mouse_Sensitivity(int factor)
+void x52d_cfg_set_Mouse_Sensitivity(int factor)
 {
     mouse_sensitivity = clamp_int(_("sensitivity"), factor,
                                   MIN_SENSITIVITY, MAX_SENSITIVITY);
@@ -124,7 +124,7 @@ void x52d_config_set_Mouse_Sensitivity(int factor)
     PINELOG_DEBUG(_("Setting mouse sensitivity to %d%%"), mouse_sensitivity);
 }
 
-void x52d_config_set_Mouse_CurveFactor(int factor)
+void x52d_cfg_set_Mouse_CurveFactor(int factor)
 {
     // Factor ranges from 1-5, clamp it in this range
     factor = clamp_int(_("curve factor"), factor, 1, 5);
@@ -133,7 +133,7 @@ void x52d_config_set_Mouse_CurveFactor(int factor)
     PINELOG_DEBUG(_("Setting mouse curve factor to %f"), mouse_curve_factor);
 }
 
-void x52d_config_set_Mouse_Deadzone(int factor)
+void x52d_cfg_set_Mouse_Deadzone(int factor)
 {
     // Factor ranges from 0-12, clamp it in this range
     factor = clamp_int(_("deadzone factor"), factor, 0, 11);
