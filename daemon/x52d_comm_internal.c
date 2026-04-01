@@ -54,7 +54,7 @@ static int _setup_sockaddr(struct sockaddr_un *remote, const char *sock_path)
     remote->sun_family = AF_UNIX;
     /* We've already verified that sock_path will fit, so we don't need strncpy */
     strcpy(remote->sun_path, sock_path);
-    len += sizeof(remote->sun_family);
+    len += sizeof(*remote) - sizeof(remote->sun_path);
 
     return len;
 }
