@@ -14,8 +14,8 @@
 
 extern volatile bool mouse_isometric_mode;
 extern volatile int mouse_scroll_dir;
-extern volatile double mouse_curve_factor;
-extern volatile double mouse_deadzone;
+extern volatile int mouse_curve_factor;
+extern volatile int mouse_deadzone_factor;
 extern volatile int mouse_sensitivity;
 
 void x52d_mouse_thread_control(bool enabled);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-01 14:00-0700\n"
+"POT-Creation-Date: 2026-04-01 14:23-0700\n"
 "PO-Revision-Date: 2026-03-27 08:33-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -142,13 +142,13 @@ msgstr "YYay-MMay-DDay"
 msgid "Unknown LED state %d"
 msgstr "Unknownay EDLay atestay %d"
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:63
-#: daemon/x52d_mouse.c:103 daemon/x52d_mouse.c:115
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
+#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
 msgid "off"
 msgstr "offay"
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:63
-#: daemon/x52d_mouse.c:103 daemon/x52d_mouse.c:115
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
+#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
 msgid "on"
 msgstr "onay"
 
@@ -917,64 +917,64 @@ msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
-#: daemon/x52d_mouse.c:46 daemon/x52d_mouse.c:52
+#: daemon/x52d_mouse.c:38 daemon/x52d_mouse.c:44
 #, c-format
 msgid "Clamping %s value %d to range [%d..%d]"
 msgstr ""
 
-#: daemon/x52d_mouse.c:62
+#: daemon/x52d_mouse.c:54
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr "Ettingsay ousemay enableay otay %s"
 
-#: daemon/x52d_mouse.c:79
+#: daemon/x52d_mouse.c:71
 msgid ""
 "Config option 'mouse.speed' is DEPRECATED. Please use 'mouse.sensitivity' "
 "instead"
 msgstr ""
 
-#: daemon/x52d_mouse.c:94
+#: daemon/x52d_mouse.c:86
 #, c-format
 msgid "Migrating legacy mouse speed '%d' to sensitivity '%d%%'"
 msgstr ""
 
-#: daemon/x52d_mouse.c:96
+#: daemon/x52d_mouse.c:88
 msgid "speed -> sensitivity"
 msgstr ""
 
-#: daemon/x52d_mouse.c:102
+#: daemon/x52d_mouse.c:94
 #, c-format
 msgid "Setting mouse reverse scroll to %s"
 msgstr "Ettingsay ousemay everseray ollscray otay %s"
 
-#: daemon/x52d_mouse.c:114
-#,  c-format
+#: daemon/x52d_mouse.c:106
+#, c-format
 msgid "Setting mouse isometric mode to %s"
 msgstr "Ettingsay ousemay isometricay odemay otay %s"
 
-#: daemon/x52d_mouse.c:121
+#: daemon/x52d_mouse.c:113
 msgid "sensitivity"
 msgstr "ensitivitysay"
 
-#: daemon/x52d_mouse.c:124
+#: daemon/x52d_mouse.c:116
 #, c-format
 msgid "Setting mouse sensitivity to %d%%"
 msgstr "Ettingsay ousemay ensitivitysay otay %s"
 
-#: daemon/x52d_mouse.c:130
+#: daemon/x52d_mouse.c:123
 msgid "curve factor"
 msgstr "urvecay actorfay"
 
-#: daemon/x52d_mouse.c:133
+#: daemon/x52d_mouse.c:124
 #, c-format
 msgid "Setting mouse curve factor to %f"
 msgstr "Ettingsay ousemay urvecay actorfay otay %s"
 
-#: daemon/x52d_mouse.c:139
+#: daemon/x52d_mouse.c:130
 msgid "deadzone factor"
 msgstr "eadzoneday actorfay"
 
-#: daemon/x52d_mouse.c:142
+#: daemon/x52d_mouse.c:131
 #, c-format
 msgid "Setting mouse deadzone to %f"
 msgstr "Ettingsay ousemay eadzoneday otay %s"
@@ -990,33 +990,33 @@ msgstr ""
 msgid "Error writing mouse wheel event %d"
 msgstr "Erroray itingwray ousemay eelwhay eventay %d"
 
-#: daemon/x52d_mouse_handler.c:175
+#: daemon/x52d_mouse_handler.c:185
 #, c-format
 msgid "Error %d writing mouse axis event (dx %d, dy %d)"
 msgstr "Erroray %d itingwray ousemay axisay eventay (xday %d, yday %d)"
 
-#: daemon/x52d_mouse_handler.c:187
+#: daemon/x52d_mouse_handler.c:197
 msgid "Error writing mouse sync event"
 msgstr "Erroray itingwray ousemay yncsay eventay"
 
-#: daemon/x52d_mouse_handler.c:206
+#: daemon/x52d_mouse_handler.c:216
 msgid "Starting X52 virtual mouse driver thread"
 msgstr "Artingstay X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_handler.c:225
+#: daemon/x52d_mouse_handler.c:235
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr "Erroray %d initializingay ousemay eadthray: %s"
 
-#: daemon/x52d_mouse_handler.c:232
+#: daemon/x52d_mouse_handler.c:242
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_handler.c:239
+#: daemon/x52d_mouse_handler.c:249
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 
-#: daemon/x52d_mouse_handler.c:291 daemon/x52d_mouse_handler.c:299
+#: daemon/x52d_mouse_handler.c:301 daemon/x52d_mouse_handler.c:309
 #, c-format
 msgid "Error %d creating X52 virtual mouse"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay"

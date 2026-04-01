@@ -26,18 +26,10 @@
 #define MIN_SENSITIVITY 10
 #define MAX_SENSITIVITY 500
 
-static const double MOUSE_CURVE_FACTORS[5] = {
-    1.0, 1.2, 1.5, 1.8, 2.2
-};
-
-static const double MOUSE_DEADZONES[12] = {
-    0.0, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5
-};
-
 volatile int mouse_scroll_dir = 1;
 volatile bool mouse_isometric_mode = false;
-volatile double mouse_curve_factor = MOUSE_CURVE_FACTORS[2]; // default
-volatile double mouse_deadzone = MOUSE_DEADZONES[0];
+volatile int mouse_curve_factor = 3;
+volatile int mouse_deadzone_factor = 0;
 volatile int mouse_sensitivity = 0;
 
 static int clamp_int(const char *description, int value, int min, int max)
@@ -127,17 +119,14 @@ void x52d_cfg_set_Mouse_Sensitivity(int factor)
 void x52d_cfg_set_Mouse_CurveFactor(int factor)
 {
     // Factor ranges from 1-5, clamp it in this range
-    factor = clamp_int(_("curve factor"), factor, 1, 5);
-
-    mouse_curve_factor = MOUSE_CURVE_FACTORS[factor-1];
+    // Shift by 1 so it uses the correct index
+    mouse_curve_factor = clamp_int(_("curve factor"), factor, 1, 5) - 1;
     PINELOG_DEBUG(_("Setting mouse curve factor to %f"), mouse_curve_factor);
 }
 
 void x52d_cfg_set_Mouse_Deadzone(int factor)
 {
     // Factor ranges from 0-12, clamp it in this range
-    factor = clamp_int(_("deadzone factor"), factor, 0, 11);
-
-    mouse_deadzone = MOUSE_DEADZONES[factor];
-    PINELOG_DEBUG(_("Setting mouse deadzone to %f"), mouse_deadzone);
+    mouse_deadzone_factor = clamp_int(_("deadzone factor"), factor, 0, 11);
+    PINELOG_DEBUG(_("Setting mouse deadzone to %f"), mouse_deadzone_factor);
 }

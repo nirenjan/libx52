@@ -91,6 +91,14 @@ static inline int fsgn(double f)
     return (f >= 0 ? 1 : -1);
 }
 
+static const double MOUSE_CURVE_FACTORS[5] = {
+    1.0, 1.2, 1.5, 1.8, 2.2
+};
+
+static const double MOUSE_DEADZONES[12] = {
+    0.0, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5
+};
+
 static int report_axis(void)
 {
     #define MAX_TICK_SPEED 250.0
@@ -104,9 +112,10 @@ static int report_axis(void)
 
     /* Calculate radial magnitude */
     double mag = sqrt((double)(dx * dx + dy * dy));
+    double cfg_deadzone = MOUSE_DEADZONES[mouse_deadzone_factor];
 
     /* Radial deadzone check */
-    if (mag <= mouse_deadzone) {
+    if (mag <= cfg_deadzone) {
         accum_x = 0.0;
         accum_y = 0.0;
         return 0;
@@ -114,15 +123,16 @@ static int report_axis(void)
 
     /* Calculate gain */
     double gain = (double)mouse_sensitivity / 100.0;
+    double exponent = MOUSE_CURVE_FACTORS[mouse_curve_factor];
 
     /* Normalize magnitude */
-    double adj_mag = mag - mouse_deadzone;
+    double adj_mag = mag - cfg_deadzone;
     double out_x = 0.0;
     double out_y = 0.0;
 
     if (mouse_isometric_mode) {
         /* Isometric mode: speed is a function of total distance */
-        double speed = gain * pow(adj_mag, mouse_curve_factor);
+        double speed = gain * pow(adj_mag, exponent);
 
         /* Clamp total speed before breaking into components */
         if (speed > MAX_TICK_SPEED) {
@@ -138,8 +148,8 @@ static int report_axis(void)
         double cur_x = dx * ratio;
         double cur_y = dy * ratio;
 
-        out_x = fsgn(cur_x) * gain * pow(fabs(cur_x), mouse_curve_factor);
-        out_y = fsgn(cur_y) * gain * pow(fabs(cur_y), mouse_curve_factor);
+        out_x = fsgn(cur_x) * gain * pow(fabs(cur_x), exponent);
+        out_y = fsgn(cur_y) * gain * pow(fabs(cur_y), exponent);
 
         /* Clamp individual axis speeds */
         if (fabs(out_x) > MAX_TICK_SPEED) {

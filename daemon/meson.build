@@ -60,7 +60,7 @@ test('daemon-communication', files('test_daemon_comm.py')[0],
 x52d_mouse_test_sources = ['x52d_mouse_test.c', 'x52d_mouse.c']
 x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
   include_directories: includes,
-  dependencies: [dep_pinelog, dep_cmocka, dep_intl])
+  dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math])
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
 
