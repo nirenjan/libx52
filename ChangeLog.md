@@ -9,6 +9,7 @@ The format is based upon [Keep a Changelog].
 ### Changed
 
 - Migrated CI builds to run in multiple distro containers.
+- Improved virtual mouse motion to use a smoother approach, as well as allow an isometric speed calculation. This change deprecates the old `Mouse.Speed` configuration option and replaces it with a Sensitivity percentage option.
 
 ### Fixed
 - Addressed meson build bugs found in v0.3.3

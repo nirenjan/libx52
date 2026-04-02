@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-03-27 20:52-0700\n"
+"POT-Creation-Date: 2026-04-01 20:47-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,13 +142,13 @@ msgstr ""
 msgid "Unknown LED state %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
-#: daemon/x52d_mouse.c:66
+#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
+#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
 msgid "off"
 msgstr ""
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:32
-#: daemon/x52d_mouse.c:66
+#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
+#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
 msgid "on"
 msgstr ""
 
@@ -864,63 +864,105 @@ msgstr ""
 msgid "Shutting down X52 I/O driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse.c:31
+#: daemon/x52d_mouse.c:38 daemon/x52d_mouse.c:44
+#, c-format
+msgid "Clamping %s value %d to range [%d..%d]"
+msgstr ""
+
+#: daemon/x52d_mouse.c:54
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:45
-#, c-format
-msgid "Ignoring mouse speed %d outside supported range (0-%d)"
+#: daemon/x52d_mouse.c:71
+msgid ""
+"Config option 'mouse.speed' is DEPRECATED. Please use 'mouse.sensitivity' "
+"instead"
 msgstr ""
 
-#: daemon/x52d_mouse.c:57
+#: daemon/x52d_mouse.c:86
 #, c-format
-msgid "Setting mouse speed to %d (delay %d ms, multiplier %f)"
+msgid "Migrating legacy mouse speed '%d' to sensitivity '%d' (percentage)"
 msgstr ""
 
-#: daemon/x52d_mouse.c:65
+#: daemon/x52d_mouse.c:88
+msgid "speed -> sensitivity"
+msgstr ""
+
+#: daemon/x52d_mouse.c:94
 #, c-format
 msgid "Setting mouse reverse scroll to %s"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:43
+#: daemon/x52d_mouse.c:106
+#, c-format
+msgid "Setting mouse isometric mode to %s"
+msgstr ""
+
+#: daemon/x52d_mouse.c:113
+msgid "sensitivity"
+msgstr ""
+
+#: daemon/x52d_mouse.c:116
+#, c-format
+msgid "Setting mouse sensitivity to %d%%"
+msgstr ""
+
+#: daemon/x52d_mouse.c:123
+msgid "curve factor"
+msgstr ""
+
+#: daemon/x52d_mouse.c:124
+#, c-format
+msgid "Setting mouse curve factor to %d"
+msgstr ""
+
+#: daemon/x52d_mouse.c:130
+msgid "deadzone factor"
+msgstr ""
+
+#: daemon/x52d_mouse.c:131
+#, c-format
+msgid "Setting mouse deadzone to %d"
+msgstr ""
+
+#: daemon/x52d_mouse_handler.c:44
 #, c-format
 msgid "Error %d writing mouse button event (button %d, state %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:81
+#: daemon/x52d_mouse_handler.c:82
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:120
+#: daemon/x52d_mouse_handler.c:185
 #, c-format
 msgid "Error %d writing mouse axis event (dx %d, dy %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:132
+#: daemon/x52d_mouse_handler.c:197
 msgid "Error writing mouse sync event"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:151
+#: daemon/x52d_mouse_handler.c:216
 msgid "Starting X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:170
+#: daemon/x52d_mouse_handler.c:235
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:177
+#: daemon/x52d_mouse_handler.c:242
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:184
+#: daemon/x52d_mouse_handler.c:249
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:236 daemon/x52d_mouse_handler.c:244
+#: daemon/x52d_mouse_handler.c:301 daemon/x52d_mouse_handler.c:309
 #, c-format
 msgid "Error %d creating X52 virtual mouse"
 msgstr ""

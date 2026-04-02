@@ -71,12 +71,25 @@ CFG(Brightness, LED, brightness[1], int, 128)
 // Enabled controls whether the virtual mouse is enabled or not.
 CFG(Mouse, Enabled, mouse_enabled, bool, true)
 
-// Speed is a value that is proportional to the speed of updates to the
-// virtual mouse
+// DEPRECATED: Speed is a value that is proportional to the speed of updates to
+// the virtual mouse
 CFG(Mouse, Speed, mouse_speed, int, 0)
+
+// Sensitivity is a percentage that is used to scale the speed of the virtual
+// mouse. This replaces the old speed value.
+CFG(Mouse, Sensitivity, mouse_sensitivity, int, 0)
 
 // ReverseScroll controls the scrolling direction
 CFG(Mouse, ReverseScroll, mouse_reverse_scroll, bool, false)
+
+// IsometricMode controls whether to use linear or isometric speed calculations
+CFG(Mouse, IsometricMode, mouse_isometric_mode, bool, false)
+
+// CurveFactor controls the speed curve
+CFG(Mouse, CurveFactor, mouse_curve_factor, int, 3)
+
+// Deadzone controls the deadzone range for the thumbstick
+CFG(Mouse, Deadzone, mouse_deadzone_factor, int, 0)
 
 /**********************************************************************
  * Profiles - only valid on Linux

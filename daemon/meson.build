@@ -32,9 +32,10 @@ x52d_sources = [
   ]
 
 dep_threads = dependency('threads')
+
 # Comm sources are compiled into x52d (same as Autotools); libx52dcomm is only for x52ctl.
 x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io]
-x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_intl]
+x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_math, dep_intl]
 x52d_cflags = []
 
 exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
@@ -59,7 +60,7 @@ test('daemon-communication', files('test_daemon_comm.py')[0],
 x52d_mouse_test_sources = ['x52d_mouse_test.c', 'x52d_mouse.c']
 x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
   include_directories: includes,
-  dependencies: [dep_pinelog, dep_cmocka, dep_intl])
+  dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math])
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
 

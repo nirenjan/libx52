@@ -39,7 +39,11 @@ struct x52d_config {
 
     bool mouse_enabled;
     int mouse_speed;
+    int mouse_sensitivity;
     bool mouse_reverse_scroll;
+    bool mouse_isometric_mode;
+    int mouse_curve_factor;
+    int mouse_deadzone_factor;
 
     bool clutch_enabled;
     bool clutch_latched;
@@ -72,7 +76,11 @@ void x52d_cfg_set_Brightness_MFD(uint16_t param);
 void x52d_cfg_set_Brightness_LED(uint16_t param);
 void x52d_cfg_set_Mouse_Enabled(bool param);
 void x52d_cfg_set_Mouse_Speed(int param);
+void x52d_cfg_set_Mouse_Sensitivity(int param);
 void x52d_cfg_set_Mouse_ReverseScroll(bool param);
+void x52d_cfg_set_Mouse_IsometricMode(bool param);
+void x52d_cfg_set_Mouse_CurveFactor(int param);
+void x52d_cfg_set_Mouse_Deadzone(int param);
 void x52d_cfg_set_Profiles_Directory(char* param);
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
 void x52d_cfg_set_Profiles_ClutchLatched(bool param);
