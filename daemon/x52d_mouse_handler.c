@@ -215,9 +215,9 @@ void x52d_mouse_report_event(libx52io_report *report)
         }
 
         state_changed = false;
-        state_changed = state_changed || (0 == report_button_change(VKM_MOUSE_BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY));
-        state_changed = state_changed || (0 == report_button_change(VKM_MOUSE_BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY));
-        state_changed = state_changed || (0 == report_wheel());
+        state_changed = (0 == report_button_change(VKM_MOUSE_BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY)) || state_changed;
+        state_changed = (0 == report_button_change(VKM_MOUSE_BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY)) || state_changed;
+        state_changed = (0 == report_wheel()) || state_changed;
 
         if (state_changed) {
             report_sync();
