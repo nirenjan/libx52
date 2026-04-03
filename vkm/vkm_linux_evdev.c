@@ -20,8 +20,14 @@
 
 #include "vkm-internal.h"
 
-/** evdev codes; index by \ref vkm_key. \c -1 for \ref VKM_KEY_NONE only. */
+/** evdev codes; index by \ref vkm_key (HID usage). \c -1 if unmapped. */
 static const int vkm_key_to_evdev[VKM_KEY_MAX] = {
+#if defined(__GNUC__) || defined(__clang__)
+    [0 ...(VKM_KEY_MAX - 1)] = -1,
+#else
+#error "vkm_linux_evdev.c requires GCC or Clang (sparse vkm_key_to_evdev initializer)"
+#endif
+
     [VKM_KEY_NONE] = -1,
 
     [VKM_KEY_LEFT_CTRL] = KEY_LEFTCTRL,

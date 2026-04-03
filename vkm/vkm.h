@@ -221,104 +221,91 @@ typedef enum {
 } vkm_mouse_scroll_direction;
 
 /**
- * @brief Physical key identifiers (105-key ISO / “international” PC set)
+ * @brief Physical key identifiers (USB HID keyboard/keypad page, usage page 0x07)
  *
- * Logical key codes for \ref vkm_keyboard_send. Identifiers follow the USB HID
- * Usage Tables (keyboard/keypad page) in meaning; enumerator values are
- * arbitrary and are not HID usage IDs.
- *
- * Shift keys are listed with the alphanumeric block; other modifiers are grouped
- * at the start of the enumerator list.
+ * Logical key codes for \ref vkm_keyboard_send. Each enumerator's numeric value is
+ * the USB HID usage ID for that key (same encoding as the keyboard bitmap in HID
+ * report descriptors, except for \c VKM_KEY_NONE). Letters use the HID ordering
+ * (\c A=0x04 … \c Z=0x1D), not QWERTY row order. \c VKM_KEY_MAX is \c 0xE8, one
+ * past the highest usage used here, so valid keys satisfy \c key < VKM_KEY_MAX.
  */
 typedef enum {
-    VKM_KEY_NONE = 0, /**< Sentinel: no key (e.g. modifier-only update) */
+    VKM_KEY_NONE = 0x00, /**< Sentinel: no key (e.g. modifier-only update) */
 
-    VKM_KEY_LEFT_CTRL,      /**< Left Control */
-    VKM_KEY_LEFT_ALT,       /**< Left Alt */
-    VKM_KEY_LEFT_GUI,       /**< Left GUI / Meta / Windows key */
-    VKM_KEY_RIGHT_CTRL,     /**< Right Control */
-    VKM_KEY_RIGHT_ALT,      /**< Right Alt / AltGr */
-    VKM_KEY_RIGHT_GUI,      /**< Right GUI / Meta */
-    VKM_KEY_APPLICATION,    /**< Application / Menu key */
+    VKM_KEY_A = 0x04, /**< \c A / a (HID Latin alphabet block) */
+    VKM_KEY_B,        /**< \c B */
+    VKM_KEY_C,        /**< \c C */
+    VKM_KEY_D,        /**< \c D */
+    VKM_KEY_E,        /**< \c E */
+    VKM_KEY_F,        /**< \c F */
+    VKM_KEY_G,        /**< \c G */
+    VKM_KEY_H,        /**< \c H */
+    VKM_KEY_I,        /**< \c I */
+    VKM_KEY_J,        /**< \c J */
+    VKM_KEY_K,        /**< \c K */
+    VKM_KEY_L,        /**< \c L */
+    VKM_KEY_M,        /**< \c M */
+    VKM_KEY_N,        /**< \c N */
+    VKM_KEY_O,        /**< \c O */
+    VKM_KEY_P,        /**< \c P */
+    VKM_KEY_Q,        /**< \c Q */
+    VKM_KEY_R,        /**< \c R */
+    VKM_KEY_S,        /**< \c S */
+    VKM_KEY_T,        /**< \c T */
+    VKM_KEY_U,        /**< \c U */
+    VKM_KEY_V,        /**< \c V */
+    VKM_KEY_W,        /**< \c W */
+    VKM_KEY_X,        /**< \c X */
+    VKM_KEY_Y,        /**< \c Y */
+    VKM_KEY_Z,        /**< \c Z */
 
-    VKM_KEY_ESCAPE,         /**< Escape */
-    VKM_KEY_F1,             /**< F1 */
-    VKM_KEY_F2,             /**< F2 */
-    VKM_KEY_F3,             /**< F3 */
-    VKM_KEY_F4,             /**< F4 */
-    VKM_KEY_F5,             /**< F5 */
-    VKM_KEY_F6,             /**< F6 */
-    VKM_KEY_F7,             /**< F7 */
-    VKM_KEY_F8,             /**< F8 */
-    VKM_KEY_F9,             /**< F9 */
-    VKM_KEY_F10,            /**< F10 */
-    VKM_KEY_F11,            /**< F11 */
-    VKM_KEY_F12,            /**< F12 */
+    VKM_KEY_1 = 0x1E, /**< \c 1 / ! */
+    VKM_KEY_2,        /**< \c 2 / @ */
+    VKM_KEY_3,        /**< \c 3 / # */
+    VKM_KEY_4,        /**< \c 4 / $ */
+    VKM_KEY_5,        /**< \c 5 / % */
+    VKM_KEY_6,        /**< \c 6 / ^ */
+    VKM_KEY_7,        /**< \c 7 / & */
+    VKM_KEY_8,        /**< \c 8 / * */
+    VKM_KEY_9,        /**< \c 9 / ( */
+    VKM_KEY_0,        /**< \c 0 / ) */
 
-    VKM_KEY_GRAVE_ACCENT,   /**< Grave accent / tilde (` and ~ on US) */
-    VKM_KEY_1,              /**< \c 1 / ! */
-    VKM_KEY_2,              /**< \c 2 / @ */
-    VKM_KEY_3,              /**< \c 3 / # */
-    VKM_KEY_4,              /**< \c 4 / $ */
-    VKM_KEY_5,              /**< \c 5 / % */
-    VKM_KEY_6,              /**< \c 6 / ^ */
-    VKM_KEY_7,              /**< \c 7 / & */
-    VKM_KEY_8,              /**< \c 8 / * */
-    VKM_KEY_9,              /**< \c 9 / ( */
-    VKM_KEY_0,              /**< \c 0 / ) */
-    VKM_KEY_MINUS,          /**< Minus / underscore */
-    VKM_KEY_EQUAL,          /**< Equals / plus */
-    VKM_KEY_BACKSPACE,      /**< Backspace */
+    VKM_KEY_ENTER = 0x28,       /**< Return / Enter */
+    VKM_KEY_ESCAPE,             /**< Escape */
+    VKM_KEY_BACKSPACE,          /**< Delete / Backspace */
+    VKM_KEY_TAB,                /**< Tab */
+    VKM_KEY_SPACE,              /**< Space bar */
+    VKM_KEY_MINUS,              /**< Minus / underscore */
+    VKM_KEY_EQUAL,              /**< Equals / plus */
+    VKM_KEY_LEFT_BRACKET,       /**< Left bracket / brace */
+    VKM_KEY_RIGHT_BRACKET,      /**< Right bracket / brace */
+    VKM_KEY_BACKSLASH,         /**< Backslash / pipe (US placement; JIS Yen) */
+    VKM_KEY_NONUS_HASH,        /**< Non-US # / ~ (HID usage 0x32) */
+    VKM_KEY_SEMICOLON,         /**< Semicolon / colon */
+    VKM_KEY_APOSTROPHE,        /**< Apostrophe / quote */
+    VKM_KEY_GRAVE_ACCENT,      /**< Grave accent / tilde */
+    VKM_KEY_COMMA,             /**< Comma / less-than */
+    VKM_KEY_PERIOD,            /**< Period / greater-than */
+    VKM_KEY_SLASH,             /**< Slash / question */
 
-    VKM_KEY_TAB,            /**< Tab */
-    VKM_KEY_Q,              /**< \c Q */
-    VKM_KEY_W,              /**< \c W */
-    VKM_KEY_E,              /**< \c E */
-    VKM_KEY_R,              /**< \c R */
-    VKM_KEY_T,              /**< \c T */
-    VKM_KEY_Y,              /**< \c Y */
-    VKM_KEY_U,              /**< \c U */
-    VKM_KEY_I,              /**< \c I */
-    VKM_KEY_O,              /**< \c O */
-    VKM_KEY_P,              /**< \c P */
-    VKM_KEY_LEFT_BRACKET,   /**< Left bracket / brace */
-    VKM_KEY_RIGHT_BRACKET,  /**< Right bracket / brace */
-    VKM_KEY_BACKSLASH,      /**< Backslash / pipe (US placement; JIS Yen) */
+    VKM_KEY_CAPS_LOCK = 0x39,   /**< Caps Lock */
 
-    VKM_KEY_CAPS_LOCK,      /**< Caps Lock */
-    VKM_KEY_A,              /**< \c A */
-    VKM_KEY_S,              /**< \c S */
-    VKM_KEY_D,              /**< \c D */
-    VKM_KEY_F,              /**< \c F */
-    VKM_KEY_G,              /**< \c G */
-    VKM_KEY_H,              /**< \c H */
-    VKM_KEY_J,              /**< \c J */
-    VKM_KEY_K,              /**< \c K */
-    VKM_KEY_L,              /**< \c L */
-    VKM_KEY_SEMICOLON,      /**< Semicolon / colon */
-    VKM_KEY_APOSTROPHE,     /**< Apostrophe / quote */
-    VKM_KEY_NONUS_HASH,     /**< ISO non-US # / ~ (HID usage) */
-    VKM_KEY_ENTER,          /**< Return / Enter */
+    VKM_KEY_F1 = 0x3A, /**< F1 */
+    VKM_KEY_F2,        /**< F2 */
+    VKM_KEY_F3,        /**< F3 */
+    VKM_KEY_F4,        /**< F4 */
+    VKM_KEY_F5,        /**< F5 */
+    VKM_KEY_F6,        /**< F6 */
+    VKM_KEY_F7,        /**< F7 */
+    VKM_KEY_F8,        /**< F8 */
+    VKM_KEY_F9,        /**< F9 */
+    VKM_KEY_F10,       /**< F10 */
+    VKM_KEY_F11,       /**< F11 */
+    VKM_KEY_F12,       /**< F12 */
 
-    VKM_KEY_LEFT_SHIFT,     /**< Left Shift */
-    VKM_KEY_INTL_BACKSLASH, /**< ISO extra key (e.g. \| between left Shift and Z) */
-    VKM_KEY_Z,              /**< \c Z */
-    VKM_KEY_X,              /**< \c X */
-    VKM_KEY_C,              /**< \c C */
-    VKM_KEY_V,              /**< \c V */
-    VKM_KEY_B,              /**< \c B */
-    VKM_KEY_N,              /**< \c N */
-    VKM_KEY_M,              /**< \c M */
-    VKM_KEY_COMMA,          /**< Comma / less-than */
-    VKM_KEY_PERIOD,         /**< Period / greater-than */
-    VKM_KEY_SLASH,          /**< Slash / question */
-    VKM_KEY_RIGHT_SHIFT,    /**< Right Shift */
-
-    VKM_KEY_SPACE,          /**< Space bar */
-
-    VKM_KEY_PRINT_SCREEN,   /**< Print Screen */
-    VKM_KEY_SCROLL_LOCK,    /**< Scroll Lock */
-    VKM_KEY_PAUSE,          /**< Pause / Break */
+    VKM_KEY_PRINT_SCREEN = 0x46, /**< Print Screen */
+    VKM_KEY_SCROLL_LOCK,         /**< Scroll Lock */
+    VKM_KEY_PAUSE,               /**< Pause / Break */
 
     VKM_KEY_INSERT,         /**< Insert */
     VKM_KEY_HOME,           /**< Home */
@@ -327,31 +314,43 @@ typedef enum {
     VKM_KEY_END,            /**< End */
     VKM_KEY_PAGE_DOWN,      /**< Page Down */
 
-    VKM_KEY_RIGHT_ARROW,    /**< Arrow right */
-    VKM_KEY_LEFT_ARROW,     /**< Arrow left */
-    VKM_KEY_DOWN_ARROW,     /**< Arrow down */
-    VKM_KEY_UP_ARROW,       /**< Arrow up */
+    VKM_KEY_RIGHT_ARROW, /**< Arrow right */
+    VKM_KEY_LEFT_ARROW,  /**< Arrow left */
+    VKM_KEY_DOWN_ARROW,  /**< Arrow down */
+    VKM_KEY_UP_ARROW,    /**< Arrow up */
 
-    VKM_KEY_KEYPAD_NUM_LOCK, /**< Keypad Num Lock */
-    VKM_KEY_KEYPAD_DIVIDE,  /**< Keypad \c / */
-    VKM_KEY_KEYPAD_MULTIPLY,/**< Keypad \c * */
-    VKM_KEY_KEYPAD_MINUS,   /**< Keypad \c - */
-    VKM_KEY_KEYPAD_PLUS,    /**< Keypad \c + */
-    VKM_KEY_KEYPAD_ENTER,   /**< Keypad Enter */
-    VKM_KEY_KEYPAD_1,       /**< Keypad \c 1 / End */
-    VKM_KEY_KEYPAD_2,       /**< Keypad \c 2 / Down */
-    VKM_KEY_KEYPAD_3,       /**< Keypad \c 3 / Page Down */
-    VKM_KEY_KEYPAD_4,       /**< Keypad \c 4 / Left */
-    VKM_KEY_KEYPAD_5,       /**< Keypad \c 5 */
-    VKM_KEY_KEYPAD_6,       /**< Keypad \c 6 / Right */
-    VKM_KEY_KEYPAD_7,       /**< Keypad \c 7 / Home */
-    VKM_KEY_KEYPAD_8,       /**< Keypad \c 8 / Up */
-    VKM_KEY_KEYPAD_9,       /**< Keypad \c 9 / Page Up */
-    VKM_KEY_KEYPAD_0,       /**< Keypad \c 0 / Insert */
-    VKM_KEY_KEYPAD_DECIMAL, /**< Keypad decimal / Delete */
-    VKM_KEY_KEYPAD_COMMA,   /**< Keypad comma (locale-specific layouts) */
+    VKM_KEY_KEYPAD_NUM_LOCK = 0x53, /**< Keypad Num Lock */
+    VKM_KEY_KEYPAD_DIVIDE,          /**< Keypad \c / */
+    VKM_KEY_KEYPAD_MULTIPLY,        /**< Keypad \c * */
+    VKM_KEY_KEYPAD_MINUS,           /**< Keypad \c - */
+    VKM_KEY_KEYPAD_PLUS,            /**< Keypad \c + */
+    VKM_KEY_KEYPAD_ENTER,           /**< Keypad Enter */
+    VKM_KEY_KEYPAD_1,               /**< Keypad \c 1 / End */
+    VKM_KEY_KEYPAD_2,               /**< Keypad \c 2 / Down */
+    VKM_KEY_KEYPAD_3,               /**< Keypad \c 3 / Page Down */
+    VKM_KEY_KEYPAD_4,               /**< Keypad \c 4 / Left */
+    VKM_KEY_KEYPAD_5,               /**< Keypad \c 5 */
+    VKM_KEY_KEYPAD_6,               /**< Keypad \c 6 / Right */
+    VKM_KEY_KEYPAD_7,               /**< Keypad \c 7 / Home */
+    VKM_KEY_KEYPAD_8,               /**< Keypad \c 8 / Up */
+    VKM_KEY_KEYPAD_9,               /**< Keypad \c 9 / Page Up */
+    VKM_KEY_KEYPAD_0,               /**< Keypad \c 0 / Insert */
+    VKM_KEY_KEYPAD_DECIMAL,        /**< Keypad decimal / Delete */
+    VKM_KEY_INTL_BACKSLASH, /**< Non-US \c \\ / \c | (ISO key; HID 0x64) */
+    VKM_KEY_APPLICATION,    /**< Application / Menu */
 
-    VKM_KEY_MAX             /**< Past last key; do not use in application code */
+    VKM_KEY_KEYPAD_COMMA = 0x85, /**< Keypad comma (Braz. keypad, etc.) */
+
+    VKM_KEY_LEFT_CTRL = 0xE0,  /**< Left Control */
+    VKM_KEY_LEFT_SHIFT,        /**< Left Shift */
+    VKM_KEY_LEFT_ALT,          /**< Left Alt */
+    VKM_KEY_LEFT_GUI,          /**< Left GUI / Meta / Windows key */
+    VKM_KEY_RIGHT_CTRL,        /**< Right Control */
+    VKM_KEY_RIGHT_SHIFT,       /**< Right Shift */
+    VKM_KEY_RIGHT_ALT,         /**< Right Alt / AltGr */
+    VKM_KEY_RIGHT_GUI,         /**< Right GUI / Meta */
+
+    VKM_KEY_MAX /**< One past highest usage; bounds checks and tables */
 } vkm_key;
 
 /**
