@@ -8,6 +8,7 @@
 
 #include "config.h"
 #include <stdio.h>
+#include <string.h>
 #include "libx52io.h"
 #include "gettext.h"
 
@@ -15,6 +16,28 @@
  * deliberately left untranslated, as they essentially correspond one
  * on one to the enumeration definitions.
  */
+
+/* Locale-independent: only ASCII A–Z fold with a–z; digits and underscore unchanged */
+static int x52io_ascii_strcasecmp(const char *a, const char *b)
+{
+    for (;;) {
+        unsigned char ca = (unsigned char)*a++;
+        unsigned char cb = (unsigned char)*b++;
+
+        if (ca >= 'A' && ca <= 'Z') {
+            ca = (unsigned char)(ca - 'A' + 'a');
+        }
+        if (cb >= 'A' && cb <= 'Z') {
+            cb = (unsigned char)(cb - 'A' + 'a');
+        }
+        if (ca != cb) {
+            return (int)ca - (int)cb;
+        }
+        if (ca == '\0') {
+            return 0;
+        }
+    }
+}
 
 /* String mapping for axis */
 static const char * _x52io_axis_str[LIBX52IO_AXIS_MAX] = {
@@ -90,6 +113,78 @@ const char * libx52io_button_to_str(libx52io_button button)
     }
 
     return NULL;
+}
+
+int libx52io_axis_from_str(const char *str, libx52io_axis *axis)
+{
+    libx52io_axis i;
+
+    if (!str || !axis) {
+        return LIBX52IO_ERROR_INVALID;
+    }
+
+    for (i = LIBX52IO_AXIS_X; i < LIBX52IO_AXIS_MAX; i++) {
+        if (strcmp(str, _x52io_axis_str[i]) == 0) {
+            *axis = i;
+            return LIBX52IO_SUCCESS;
+        }
+    }
+
+    return LIBX52IO_ERROR_INVALID;
+}
+
+int libx52io_button_from_str(const char *str, libx52io_button *button)
+{
+    libx52io_button b;
+
+    if (!str || !button) {
+        return LIBX52IO_ERROR_INVALID;
+    }
+
+    for (b = LIBX52IO_BTN_TRIGGER; b < LIBX52IO_BUTTON_MAX; b++) {
+        if (strcmp(str, _x52io_button_str[b]) == 0) {
+            *button = b;
+            return LIBX52IO_SUCCESS;
+        }
+    }
+
+    return LIBX52IO_ERROR_INVALID;
+}
+
+int libx52io_axis_from_str_nocase(const char *str, libx52io_axis *axis)
+{
+    libx52io_axis i;
+
+    if (!str || !axis) {
+        return LIBX52IO_ERROR_INVALID;
+    }
+
+    for (i = LIBX52IO_AXIS_X; i < LIBX52IO_AXIS_MAX; i++) {
+        if (x52io_ascii_strcasecmp(str, _x52io_axis_str[i]) == 0) {
+            *axis = i;
+            return LIBX52IO_SUCCESS;
+        }
+    }
+
+    return LIBX52IO_ERROR_INVALID;
+}
+
+int libx52io_button_from_str_nocase(const char *str, libx52io_button *button)
+{
+    libx52io_button b;
+
+    if (!str || !button) {
+        return LIBX52IO_ERROR_INVALID;
+    }
+
+    for (b = LIBX52IO_BTN_TRIGGER; b < LIBX52IO_BUTTON_MAX; b++) {
+        if (x52io_ascii_strcasecmp(str, _x52io_button_str[b]) == 0) {
+            *button = b;
+            return LIBX52IO_SUCCESS;
+        }
+    }
+
+    return LIBX52IO_ERROR_INVALID;
 }
 
 /* Error buffer used for building custom error strings */
