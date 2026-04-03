@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-02 23:32-0700\n"
+"POT-Creation-Date: 2026-04-03 08:36-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -704,41 +704,41 @@ msgstr ""
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/x52d_command.c:379
+#: daemon/x52d_command.c:380
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:390
+#: daemon/x52d_command.c:391
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/x52d_command.c:415
+#: daemon/x52d_command.c:416
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:442
+#: daemon/x52d_command.c:443
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:450
+#: daemon/x52d_command.c:451
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:456
+#: daemon/x52d_command.c:457
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/x52d_command.c:460
+#: daemon/x52d_command.c:461
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/x52d_command.c:478
+#: daemon/x52d_command.c:479
 msgid "Shutting down command processing thread"
 msgstr ""
 
@@ -862,6 +862,40 @@ msgstr ""
 
 #: daemon/x52d_io.c:116
 msgid "Shutting down X52 I/O driver thread"
+msgstr ""
+
+#: daemon/x52d_layout.c:449
+msgid "Layout section name too long"
+msgstr ""
+
+#: daemon/x52d_layout.c:483
+#, c-format
+msgid "Invalid UTF-8 in layout section '%s'"
+msgstr ""
+
+#: daemon/x52d_layout.c:488
+#, c-format
+msgid "Layout section must encode exactly one code point: '%s'"
+msgstr ""
+
+#: daemon/x52d_layout.c:541
+#, c-format
+msgid "Unknown Key value '%s'"
+msgstr ""
+
+#: daemon/x52d_layout.c:550
+#, c-format
+msgid "Invalid Mods value '%s'"
+msgstr ""
+
+#: daemon/x52d_layout.c:619
+#, c-format
+msgid "Layout parse error at line %d"
+msgstr ""
+
+#: daemon/x52d_layout.c:663
+#, c-format
+msgid "Layout parse error in %s at line %d"
 msgstr ""
 
 #: daemon/x52d_mouse.c:38 daemon/x52d_mouse.c:44

@@ -29,6 +29,7 @@ x52d_sources = [
   'x52d_command.c',
   'x52d_io.c',
   'x52d_mouse_handler.c',
+  'x52d_layout.c',
   ]
 
 dep_threads = dependency('threads')
@@ -66,6 +67,13 @@ x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
   dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math])
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
+
+x52d_layout_test = executable('x52d-layout-test', 'x52d_layout_test.c', 'x52d_layout.c',
+  include_directories: includes,
+  dependencies: [dep_pinelog, dep_cmocka, dep_inih, dep_intl])
+
+test('x52d-layout-test', x52d_layout_test, protocol: 'tap',
+  workdir: meson.current_source_dir())
 
 # Install service file
 if dep_systemd.found()

@@ -43,6 +43,7 @@ sym_hidden_cargs = []
 if compiler.has_argument('-fvisibility=hidden')
   sym_hidden_cargs = ['-fvisibility=hidden']
 endif
+
 cdata = configuration_data()
 cdata.set_quoted('PACKAGE', meson.project_name())
 cdata.set_quoted('PACKAGE_BUGREPORT', 'https://github.com/nirenjan/libx52/issues')
@@ -112,8 +113,6 @@ sub_pinelog = subproject('pinelog', required: true,
   default_options: pinelog_options)
 dep_pinelog = sub_pinelog.get_variable('libpinelog_dep')
 
-# inih
-# Use system inih
 dep_inih = dependency('inih')
 
 #######################################################################

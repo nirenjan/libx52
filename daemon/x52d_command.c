@@ -274,6 +274,7 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
         [X52D_MOD_IO] = "io",
         [X52D_MOD_LED] = "led",
         [X52D_MOD_MOUSE] = "mouse",
+        [X52D_MOD_LAYOUT] = "layout",
         [X52D_MOD_COMMAND] = "command",
         [X52D_MOD_CLIENT] = "client",
         [X52D_MOD_NOTIFY] = "notify",

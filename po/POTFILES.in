@@ -23,6 +23,7 @@ daemon/x52d_config_dump.c
 daemon/x52d_config_parser.c
 daemon/x52d_device.c
 daemon/x52d_io.c
+daemon/x52d_layout.c
 daemon/x52d_mouse.c
 daemon/x52d_mouse_handler.c
 daemon/x52d_notify.c
