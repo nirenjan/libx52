@@ -80,6 +80,23 @@ static int int_parser(struct x52d_config *cfg, size_t offset, const char *value)
     return 0;
 }
 
+static int axis_hysteresis_parser(struct x52d_config *cfg, size_t offset, const char *value)
+{
+    int rc;
+
+    rc = int_parser(cfg, offset, value);
+    if (rc != 0) {
+        return rc;
+    }
+
+    CONFIG_PTR(int *, config);
+    if (*config < 0 || *config > 50) {
+        return EINVAL;
+    }
+
+    return 0;
+}
+
 static int led_parser(struct x52d_config *cfg, size_t offset, const char *value)
 {
     CONFIG_PTR(libx52_led_state *, config);

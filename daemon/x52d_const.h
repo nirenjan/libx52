@@ -15,6 +15,8 @@
 
 #define X52D_SYS_CFG_FILE   SYSCONFDIR "/" X52D_APP_NAME "/" X52D_APP_NAME ".conf"
 
+#define X52D_SYS_LAYOUTS_DIR   SYSCONFDIR "/" X52D_APP_NAME "/layouts.d"
+
 #define X52D_PID_FILE   RUNDIR "/" X52D_APP_NAME ".pid"
 
 #define X52D_SOCK_COMMAND   RUNDIR "/" X52D_APP_NAME ".cmd"

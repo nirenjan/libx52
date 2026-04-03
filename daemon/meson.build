@@ -54,6 +54,9 @@ exe_x52ctl = executable('x52ctl', 'x52ctl.c',
 install_data('x52d.conf',
   install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
 
+install_subdir('layouts.d',
+  install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
+
 test('daemon-communication', files('test_daemon_comm.py')[0],
   depends: [exe_x52d, exe_x52ctl], protocol: 'tap')
 

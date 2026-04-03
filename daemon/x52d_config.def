@@ -92,6 +92,22 @@ CFG(Mouse, CurveFactor, mouse_curve_factor, int, 3)
 CFG(Mouse, Deadzone, mouse_deadzone_factor, int, 0)
 
 /**********************************************************************
+ * Layouts - keyboard layout files (.layout), only valid on Linux
+ *********************************************************************/
+// Directory is the location of the folder containing layout maps
+// (e.g. us.layout for DefaultKeymap=us).
+CFG(Layouts, Directory, layouts_dir, string, /etc/x52d/layouts.d)
+
+/**********************************************************************
+ * Keyboard / profile input mapping - only valid on Linux
+ *********************************************************************/
+// DefaultKeymap selects layouts.d/<name>.layout (e.g. us -> us.layout).
+CFG(Keyboard, DefaultKeymap, default_keymap, string, us)
+
+// Enabled controls whether keyboard emulation from profiles is active.
+CFG(Keyboard, Enabled, keyboard_enabled, bool, true)
+
+/**********************************************************************
  * Profiles - only valid on Linux
  *********************************************************************/
 // Directory is the location of the folder containing the individual profiles.
@@ -104,5 +120,9 @@ CFG(Profiles, ClutchEnabled, clutch_enabled, bool, false)
 // (press once to enter clutch mode, press again to exit clutch mode), or must
 // be held down to remain in clutch mode.
 CFG(Profiles, ClutchLatched, clutch_latched, bool, false)
+
+// AxisHysteresisPercent expands axis band boundaries by this percentage (0-50)
+// to reduce chatter at band edges. Profiles may override per-profile.
+CFG(Profiles, AxisHysteresisPercent, axis_hysteresis_percent, axis_hysteresis, 0)
 
 #undef CFG

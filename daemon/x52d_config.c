@@ -85,9 +85,13 @@ const char *x52d_config_get(const char *section, const char *key)
 /* Callback stubs
  * TODO: Remove the ones below when their implementation is complete
  */
+void x52d_cfg_set_Layouts_Directory(char *param) { (void)param; }
+void x52d_cfg_set_Keyboard_DefaultKeymap(char *param) { (void)param; }
+void x52d_cfg_set_Keyboard_Enabled(bool param) { (void)param; }
 void x52d_cfg_set_Profiles_Directory(char* param) { (void)param; }
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param) { (void)param; }
 void x52d_cfg_set_Profiles_ClutchLatched(bool param) { (void)param; }
+void x52d_cfg_set_Profiles_AxisHysteresisPercent(int param) { (void)param; }
 
 void x52d_config_apply_immediate(const char *section, const char *key)
 {

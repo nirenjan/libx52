@@ -49,6 +49,10 @@ struct x52d_config {
     bool clutch_latched;
 
     char profiles_dir[NAME_MAX];
+    char layouts_dir[NAME_MAX];
+    char default_keymap[NAME_MAX];
+    bool keyboard_enabled;
+    int axis_hysteresis_percent;
 };
 
 /* Callback functions for configuration */
@@ -81,9 +85,13 @@ void x52d_cfg_set_Mouse_ReverseScroll(bool param);
 void x52d_cfg_set_Mouse_IsometricMode(bool param);
 void x52d_cfg_set_Mouse_CurveFactor(int param);
 void x52d_cfg_set_Mouse_Deadzone(int param);
+void x52d_cfg_set_Layouts_Directory(char *param);
+void x52d_cfg_set_Keyboard_DefaultKeymap(char *param);
+void x52d_cfg_set_Keyboard_Enabled(bool param);
 void x52d_cfg_set_Profiles_Directory(char* param);
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
 void x52d_cfg_set_Profiles_ClutchLatched(bool param);
+void x52d_cfg_set_Profiles_AxisHysteresisPercent(int param);
 
 int x52d_config_process_kv(void *user, const char *section, const char *key, const char *value);
 const char *x52d_config_get_param(struct x52d_config *cfg, const char *section, const char *key);

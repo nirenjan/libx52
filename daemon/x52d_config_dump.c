@@ -60,6 +60,11 @@ static const char * int_dumper(const char *section, const char *key, struct x52d
     return dump;
 }
 
+static const char * axis_hysteresis_dumper(const char *section, const char *key, struct x52d_config *cfg, size_t offset)
+{
+    return int_dumper(section, key, cfg, offset);
+}
+
 static const char * led_dumper(const char *section, const char *key, struct x52d_config *cfg, size_t offset)
 {
     CONFIG_PTR(libx52_led_state *, config);
