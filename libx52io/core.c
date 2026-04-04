@@ -9,7 +9,7 @@
 #include "config.h"
 #include <stdlib.h>
 #include <string.h>
-#include "io_common.h"
+#include "common.h"
 #include "usb-ids.h"
 #include "gettext.h"
 

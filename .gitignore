@@ -10,7 +10,7 @@ x52test*
 x52evtest*
 libx52/test_*
 libx52test*
-libx52util/util_char_map.c
+libx52util/char_map.c
 udev/*.rules
 x52d*
 !daemon/x52d*.*

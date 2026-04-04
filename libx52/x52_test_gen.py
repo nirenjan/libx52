@@ -18,7 +18,7 @@ _TEST_FILE_HEADER = """/*
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "x52_common.h"
+#include "common.h"
 
 static int group_setup(void **state)
 {

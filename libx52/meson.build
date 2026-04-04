@@ -1,12 +1,12 @@
 libx52_version = '2.4.2'
 
 libx52_files = files(
-  'x52_control.c',
-  'x52_core.c',
-  'x52_date_time.c',
-  'x52_mfd_led.c',
-  'x52_strerror.c',
-  'x52_stringify.c',
+  'control.c',
+  'core.c',
+  'date_time.c',
+  'mfd_led.c',
+  'strerror.c',
+  'stringify.c',
 )
 
 lib_libx52 = library('x52', libx52_files,
@@ -25,8 +25,8 @@ pkgconfig.generate(lib_libx52,
 # Unit tests for libx52
 libx52_string_test = executable('libx52-string-test',
   'test_strings.c',
-  'x52_stringify.c',
-  'x52_strerror.c',
+  'stringify.c',
+  'strerror.c',
   build_by_default: false,
   dependencies: [dep_cmocka, dep_intl],
   link_with: [lib_libx52],

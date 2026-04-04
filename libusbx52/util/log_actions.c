@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include "libusbx52.h"
-#include "x52_commands.h"
+#include "commands.h"
 
 libusb_context *global_context;
 

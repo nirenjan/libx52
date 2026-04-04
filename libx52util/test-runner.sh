@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TEST_RUNNER="./libx52util-bmp-test"
-TEST_BIN="./libx52util/x52_char_map.bin"
+TEST_BIN="./libx52util/char_map.bin"
 
 if [ -e "${TEST_RUNNER}" ] && [ -e "${TEST_BIN}" ];
 then

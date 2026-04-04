@@ -17,219 +17,219 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libx52/x52_strerror.c:23 libx52io/io_strings.c:196 vkm/vkm_common.c:25
+#: libx52/strerror.c:23 libx52io/strings.c:196 vkm/vkm_common.c:25
 msgid "Success"
 msgstr ""
 
-#: libx52/x52_strerror.c:24 libx52io/io_strings.c:197
+#: libx52/strerror.c:24 libx52io/strings.c:197
 msgid "Initialization failure"
 msgstr ""
 
-#: libx52/x52_strerror.c:25
+#: libx52/strerror.c:25
 msgid "Insufficient memory"
 msgstr ""
 
-#: libx52/x52_strerror.c:26 vkm/vkm_common.c:29
+#: libx52/strerror.c:26 vkm/vkm_common.c:29
 msgid "Invalid parameter"
 msgstr ""
 
-#: libx52/x52_strerror.c:27
+#: libx52/strerror.c:27
 msgid "Operation not supported"
 msgstr ""
 
-#: libx52/x52_strerror.c:28
+#: libx52/strerror.c:28
 msgid "Try again"
 msgstr ""
 
-#: libx52/x52_strerror.c:29
+#: libx52/strerror.c:29
 msgid "Input parameter out of range"
 msgstr ""
 
-#: libx52/x52_strerror.c:30
+#: libx52/strerror.c:30
 msgid "USB transaction failure"
 msgstr ""
 
-#: libx52/x52_strerror.c:31
+#: libx52/strerror.c:31
 msgid "USB input/output error"
 msgstr ""
 
-#: libx52/x52_strerror.c:32
+#: libx52/strerror.c:32
 msgid "Access denied"
 msgstr ""
 
-#: libx52/x52_strerror.c:33
+#: libx52/strerror.c:33
 msgid "No such device"
 msgstr ""
 
-#: libx52/x52_strerror.c:34
+#: libx52/strerror.c:34
 msgid "Entity not found"
 msgstr ""
 
-#: libx52/x52_strerror.c:35
+#: libx52/strerror.c:35
 msgid "Resource busy"
 msgstr ""
 
-#: libx52/x52_strerror.c:36
+#: libx52/strerror.c:36
 msgid "Operation timeout"
 msgstr ""
 
-#: libx52/x52_strerror.c:37
+#: libx52/strerror.c:37
 msgid "Overflow"
 msgstr ""
 
-#: libx52/x52_strerror.c:38
+#: libx52/strerror.c:38
 msgid "Pipe error"
 msgstr ""
 
-#: libx52/x52_strerror.c:39
+#: libx52/strerror.c:39
 msgid "System call interrupted"
 msgstr ""
 
-#: libx52/x52_strerror.c:66 libx52io/io_strings.c:220 vkm/vkm_common.c:52
+#: libx52/strerror.c:66 libx52io/strings.c:220 vkm/vkm_common.c:52
 #, c-format
 msgid "Unknown error %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:29
+#: libx52/stringify.c:29
 #, c-format
 msgid "Unknown clock ID %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:30
+#: libx52/stringify.c:30
 msgid "primary"
 msgstr ""
 
-#: libx52/x52_stringify.c:31
+#: libx52/stringify.c:31
 msgid "secondary"
 msgstr ""
 
-#: libx52/x52_stringify.c:32
+#: libx52/stringify.c:32
 msgid "tertiary"
 msgstr ""
 
-#: libx52/x52_stringify.c:35
+#: libx52/stringify.c:35
 #, c-format
 msgid "Unknown clock format %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:36
+#: libx52/stringify.c:36
 msgid "12 hour"
 msgstr ""
 
-#: libx52/x52_stringify.c:37
+#: libx52/stringify.c:37
 msgid "24 hour"
 msgstr ""
 
-#: libx52/x52_stringify.c:40
+#: libx52/stringify.c:40
 #, c-format
 msgid "Unknown date format %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:41
+#: libx52/stringify.c:41
 msgid "DD-MM-YY"
 msgstr ""
 
-#: libx52/x52_stringify.c:42
+#: libx52/stringify.c:42
 msgid "MM-DD-YY"
 msgstr ""
 
-#: libx52/x52_stringify.c:43
+#: libx52/stringify.c:43
 msgid "YY-MM-DD"
 msgstr ""
 
-#: libx52/x52_stringify.c:46
+#: libx52/stringify.c:46
 #, c-format
 msgid "Unknown LED state %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
+#: libx52/stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
 #: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
 msgid "off"
 msgstr ""
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
+#: libx52/stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
 #: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
 msgid "on"
 msgstr ""
 
-#: libx52/x52_stringify.c:49
+#: libx52/stringify.c:49
 msgid "red"
 msgstr ""
 
-#: libx52/x52_stringify.c:50
+#: libx52/stringify.c:50
 msgid "amber"
 msgstr ""
 
-#: libx52/x52_stringify.c:51
+#: libx52/stringify.c:51
 msgid "green"
 msgstr ""
 
-#: libx52/x52_stringify.c:60
+#: libx52/stringify.c:60
 msgid "Fire"
 msgstr ""
 
-#: libx52/x52_stringify.c:63
+#: libx52/stringify.c:63
 msgid "A"
 msgstr ""
 
-#: libx52/x52_stringify.c:66
+#: libx52/stringify.c:66
 msgid "B"
 msgstr ""
 
-#: libx52/x52_stringify.c:69
+#: libx52/stringify.c:69
 msgid "D"
 msgstr ""
 
-#: libx52/x52_stringify.c:72
+#: libx52/stringify.c:72
 msgid "E"
 msgstr ""
 
-#: libx52/x52_stringify.c:75
+#: libx52/stringify.c:75
 msgid "T1"
 msgstr ""
 
-#: libx52/x52_stringify.c:78
+#: libx52/stringify.c:78
 msgid "T2"
 msgstr ""
 
-#: libx52/x52_stringify.c:81
+#: libx52/stringify.c:81
 msgid "T3"
 msgstr ""
 
-#: libx52/x52_stringify.c:84
+#: libx52/stringify.c:84
 msgid "POV"
 msgstr ""
 
-#: libx52/x52_stringify.c:87
+#: libx52/stringify.c:87
 msgid "Clutch"
 msgstr ""
 
-#: libx52/x52_stringify.c:90
+#: libx52/stringify.c:90
 msgid "Throttle"
 msgstr ""
 
-#: libx52/x52_stringify.c:93
+#: libx52/stringify.c:93
 #, c-format
 msgid "Unknown LED ID %d"
 msgstr ""
 
-#: libx52io/io_strings.c:198
+#: libx52io/strings.c:198
 msgid "No device"
 msgstr ""
 
-#: libx52io/io_strings.c:199
+#: libx52io/strings.c:199
 msgid "Invalid arguments"
 msgstr ""
 
-#: libx52io/io_strings.c:200
+#: libx52io/strings.c:200
 msgid "Connection failure"
 msgstr ""
 
-#: libx52io/io_strings.c:201
+#: libx52io/strings.c:201
 msgid "I/O error"
 msgstr ""
 
-#: libx52io/io_strings.c:202
+#: libx52io/strings.c:202
 msgid "Read timeout"
 msgstr ""
 

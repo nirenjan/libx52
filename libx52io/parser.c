@@ -7,7 +7,7 @@
  */
 
 #include <stdint.h>
-#include "io_common.h"
+#include "common.h"
 #include "usb-ids.h"
 
 static void map_hat(uint8_t hat, libx52io_report *report)

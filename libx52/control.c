@@ -14,8 +14,8 @@
 #include <string.h>
 
 #include <libx52/libx52.h>
-#include "x52_commands.h"
-#include "x52_common.h"
+#include "commands.h"
+#include "common.h"
 
 /* Translate a libusb error to a libx52 error */
 int _x52_translate_libusb_error(enum libusb_error errcode)

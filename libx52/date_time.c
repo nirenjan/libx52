@@ -15,8 +15,8 @@
 #include <string.h>
 
 #include <libx52/libx52.h>
-#include "x52_commands.h"
-#include "x52_common.h"
+#include "commands.h"
+#include "common.h"
 
 #if !HAVE_STRUCT_TM_TM_GMTOFF
 /* Slow method to compute GMT offset */

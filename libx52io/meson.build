@@ -1,11 +1,11 @@
 libx52io_version = '1.1.0'
 
 libx52io_files = files(
-  'io_core.c',
-  'io_axis.c',
-  'io_parser.c',
-  'io_strings.c',
-  'io_device.c',
+  'core.c',
+  'axis.c',
+  'parser.c',
+  'strings.c',
+  'device.c',
 )
 
 lib_libx52io = library('x52io', libx52io_files,

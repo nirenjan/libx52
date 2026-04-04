@@ -15,7 +15,7 @@
 #include <errno.h>
 
 #include <libx52/libx52util.h>
-#include "x52_char_map.h"
+#include "char_map.h"
 
 /**
  * @brief Converts a UTF8 stream to a uint32_t

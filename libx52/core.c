@@ -15,8 +15,8 @@
 
 #include "usb-ids.h"
 #include <libx52/libx52.h>
-#include "x52_commands.h"
-#include "x52_common.h"
+#include "commands.h"
+#include "common.h"
 #include "gettext.h"
 
 /* Check if the USB device is supported by this library */

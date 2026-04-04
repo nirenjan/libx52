@@ -11,7 +11,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-#include "io_common.h"
+#include "common.h"
 #include "usb-ids.h"
 
 static int group_setup(void **state)

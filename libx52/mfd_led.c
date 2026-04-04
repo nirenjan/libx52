@@ -13,7 +13,7 @@
 #include <errno.h>
 #include <string.h>
 
-#include "x52_common.h"
+#include "common.h"
 
 int libx52_set_text(libx52_device *x52, uint8_t line, const char *text, uint8_t length)
 {

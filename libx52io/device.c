@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wchar.h>
-#include "io_common.h"
+#include "common.h"
 
 static char * _save_string(wchar_t *wcs)
 {

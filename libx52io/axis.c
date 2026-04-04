@@ -7,7 +7,7 @@
  */
 
 #include <string.h>
-#include "io_common.h"
+#include "common.h"
 #include "usb-ids.h"
 
 static const int32_t axis_min[] = {
