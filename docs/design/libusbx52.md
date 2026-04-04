@@ -13,10 +13,9 @@ up the list of devices manually and simulate various scenarios.
 
 # Design Overview
 
-Unfortunately, the automake infrastructure does not support the use of
-LD_PRELOAD because it is deemed "non-portable" in the automake sense. As a
-result, this is now up to a test runner application to implement a method to
-control the data passed between two processes.
+The build system does not wire up `LD_PRELOAD` for this library: using it is
+left to the test runner, which must arrange for the stub to be preloaded and
+control the data passed between processes.
 
 # Data Structures
 

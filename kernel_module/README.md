@@ -18,8 +18,7 @@ and therefore, do not require this driver.
 
 # Building
 
-This directory is deliberately not integrated with the top level Autotools
-based build framework.
+This directory is deliberately not integrated with the top-level Meson build.
 
 Install the Linux headers for the currently running kernel. On Ubuntu, this
 can be done by running `sudo apt-get install -y linux-headers-$(uname -r)`.

@@ -22,10 +22,11 @@ Once you add new strings to be translated, update `po/POTFILES.in` to include
 any new files that have to be translated. The file path is relative to the root
 of the project.
 
-The next step is to rebuild the translation template `libx52.pot`. To do
-this, run `make -C po update-po` from your build directory (where you ran
-`configure`). This also updates any translation files (with `.po` extension) to
-include the new source strings.
+The next step is to rebuild the translation template `libx52.pot`. From the
+repository root, run `meson compile -C build libx52-update-po` (adjust `build`
+to your build directory), or `ninja -C build libx52-update-po`. This also
+updates any translation files (with `.po` extension) to include the new source
+strings.
 
 # Adding new languages (translators)
 
