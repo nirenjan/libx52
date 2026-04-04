@@ -6,3 +6,6 @@ option('show-level', type: 'boolean',
 
 option('show-backtrace', type: 'boolean',
 	description: 'Show backtrace information in log message')
+
+option('strip-file-path', type: 'boolean', value: true,
+	description: 'If true, log location shows only the source basename; if false, use the compiler __FILE__ (path prefix helps when many units share a name, e.g. core.c)')

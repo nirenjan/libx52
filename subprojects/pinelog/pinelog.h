@@ -180,10 +180,16 @@ void pinelog_log_message(int module, int level, const char *file, int line, cons
 #define pinelog_exit exit
 #endif
 
-// Base filename
-#if defined __has_builtin
-#   if __has_builtin(__builtin_strrchr)
-#       define PINELOG_FILE __builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__
+/* When 1 (default), only the basename is shown (e.g. core.c). Set to 0 to use the
+ * compiler's __FILE__ (often a relative path like libx52/core.c vs libx52io/core.c). */
+#ifndef PINELOG_STRIP_FILE_PATH
+#   define PINELOG_STRIP_FILE_PATH 1
+#endif
+#if PINELOG_STRIP_FILE_PATH
+#   if defined __has_builtin
+#       if __has_builtin(__builtin_strrchr)
+#           define PINELOG_FILE __builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__
+#       endif
 #   endif
 #endif
 #ifndef PINELOG_FILE

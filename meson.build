@@ -101,11 +101,14 @@ dep_math = compiler.find_library('m', required: false)
 #######################################################################
 
 # pinelog
-pinelog_options = []
+pinelog_options = [
+  # Keep directory prefix in __FILE__ for logs (e.g. libx52/core.c vs libx52io/core.c).
+  'strip-file-path=false',
+]
 if dep_systemd.found() and not get_option('systemd-logs').disabled()
   # If systemd logs is enabled or auto, and systemd is found, then hide
   # the timestamps in log messages
-  pinelog_options = ['show-date=false']
+  pinelog_options += ['show-date=false']
 endif
 
 sub_pinelog = subproject('pinelog', required: true,
