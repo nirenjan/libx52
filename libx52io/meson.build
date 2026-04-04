@@ -1,4 +1,4 @@
-libx52io_version = '1.0.0'
+libx52io_version = '1.1.0'
 
 libx52io_files = files(
   'io_core.c',
@@ -36,5 +36,12 @@ test_parser = executable('test-parser', 'test_parser.c', libx52io_files,
   include_directories: [includes],
 )
 test('test-parser', test_parser, protocol: 'tap')
+
+test_io_strings = executable('test-io-strings', 'test_io_strings.c', libx52io_files,
+  build_by_default: false,
+  dependencies: [dep_cmocka, dep_hidapi, dep_intl],
+  include_directories: [includes],
+)
+test('test-io-strings', test_io_strings, protocol: 'tap')
 
 

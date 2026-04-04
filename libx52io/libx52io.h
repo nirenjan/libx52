@@ -435,6 +435,62 @@ LIBX52IO_API const char *libx52io_axis_to_str(libx52io_axis axis);
 LIBX52IO_API const char *libx52io_button_to_str(libx52io_button button);
 
 /**
+ * @brief Parse the string representation of an axis.
+ *
+ * Accepts tokens as returned by \ref libx52io_axis_to_str (e.g. \c ABS_X).
+ *
+ * @param[in]   str     NUL-terminated axis name
+ * @param[out]  axis    Receives the axis ID on success
+ *
+ * @returns \ref LIBX52IO_SUCCESS if \a str was recognized,
+ *   \ref LIBX52IO_ERROR_INVALID if \a str or \a axis is NULL or \a str is unknown.
+ */
+LIBX52IO_API int libx52io_axis_from_str(const char *str, libx52io_axis *axis);
+
+/**
+ * @brief Parse the string representation of a button.
+ *
+ * Accepts tokens as returned by \ref libx52io_button_to_str (e.g. \c BTN_FIRE).
+ *
+ * @param[in]   str     NUL-terminated button name
+ * @param[out]  button  Receives the button ID on success
+ *
+ * @returns \ref LIBX52IO_SUCCESS if \a str was recognized,
+ *   \ref LIBX52IO_ERROR_INVALID if \a str or \a button is NULL or \a str is unknown.
+ */
+LIBX52IO_API int libx52io_button_from_str(const char *str, libx52io_button *button);
+
+/**
+ * @brief Parse an axis name with ASCII case-insensitive matching.
+ *
+ * Like \ref libx52io_axis_from_str, but treats ASCII letters \c A– \c Z the same
+ * as \c a– \c z. Digits, underscore, and NUL must match exactly. Matching is
+ * not locale-dependent.
+ *
+ * @param[in]   str     NUL-terminated axis name
+ * @param[out]  axis    Receives the axis ID on success
+ *
+ * @returns \ref LIBX52IO_SUCCESS if \a str was recognized,
+ *   \ref LIBX52IO_ERROR_INVALID if \a str or \a axis is NULL or \a str is unknown.
+ */
+LIBX52IO_API int libx52io_axis_from_str_nocase(const char *str, libx52io_axis *axis);
+
+/**
+ * @brief Parse a button name with ASCII case-insensitive matching.
+ *
+ * Like \ref libx52io_button_from_str, but treats ASCII letters \c A– \c Z the same
+ * as \c a– \c z. Digits, underscore, and NUL must match exactly. Matching is
+ * not locale-dependent.
+ *
+ * @param[in]   str     NUL-terminated button name
+ * @param[out]  button  Receives the button ID on success
+ *
+ * @returns \ref LIBX52IO_SUCCESS if \a str was recognized,
+ *   \ref LIBX52IO_ERROR_INVALID if \a str or \a button is NULL or \a str is unknown.
+ */
+LIBX52IO_API int libx52io_button_from_str_nocase(const char *str, libx52io_button *button);
+
+/**
  * @brief Get the vendor ID of the connected X52 device.
  *
  * @param[in]   ctx     Pointer to the device context
