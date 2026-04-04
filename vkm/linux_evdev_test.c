@@ -163,7 +163,7 @@ static void expect_enable_mouse_events(bool hi_res, bool horiz)
 #undef EXPECT_KEY_CODE
 }
 
-/** Same order as \c enable_keyboard_events() in \c vkm_linux_evdev.c (skip unmapped indices). */
+/** Same order as \c enable_keyboard_events() in \c linux_evdev.c (skip unmapped indices). */
 static const unsigned int expect_kb_codes[] = {
     KEY_A, KEY_B, KEY_C, KEY_D, KEY_E, KEY_F, KEY_G, KEY_H, KEY_I, KEY_J, KEY_K, KEY_L, KEY_M,
     KEY_N, KEY_O, KEY_P, KEY_Q, KEY_R, KEY_S, KEY_T, KEY_U, KEY_V, KEY_W, KEY_X, KEY_Y, KEY_Z,

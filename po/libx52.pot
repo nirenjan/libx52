@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libx52/strerror.c:23 libx52io/strings.c:196 vkm/vkm_common.c:25
+#: libx52/strerror.c:23 libx52io/strings.c:196 vkm/common.c:25
 msgid "Success"
 msgstr ""
 
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Insufficient memory"
 msgstr ""
 
-#: libx52/strerror.c:26 vkm/vkm_common.c:29
+#: libx52/strerror.c:26 vkm/common.c:29
 msgid "Invalid parameter"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "System call interrupted"
 msgstr ""
 
-#: libx52/strerror.c:66 libx52io/strings.c:220 vkm/vkm_common.c:52
+#: libx52/strerror.c:66 libx52io/strings.c:220 vkm/common.c:52
 #, c-format
 msgid "Unknown error %d"
 msgstr ""
@@ -233,31 +233,31 @@ msgstr ""
 msgid "Read timeout"
 msgstr ""
 
-#: vkm/vkm_common.c:26
+#: vkm/common.c:26
 msgid "Unknown error"
 msgstr ""
 
-#: vkm/vkm_common.c:27
+#: vkm/common.c:27
 msgid "Not ready"
 msgstr ""
 
-#: vkm/vkm_common.c:28
+#: vkm/common.c:28
 msgid "Out of memory"
 msgstr ""
 
-#: vkm/vkm_common.c:30
+#: vkm/common.c:30
 msgid "Not supported"
 msgstr ""
 
-#: vkm/vkm_common.c:31
+#: vkm/common.c:31
 msgid "Virtual device failure"
 msgstr ""
 
-#: vkm/vkm_common.c:32
+#: vkm/common.c:32
 msgid "Unable to write event"
 msgstr ""
 
-#: vkm/vkm_common.c:33
+#: vkm/common.c:33
 msgid "No state change"
 msgstr ""
 

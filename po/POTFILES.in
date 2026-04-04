@@ -4,7 +4,7 @@ libx52/stringify.c
 
 libx52io/strings.c
 
-vkm/vkm_common.c
+vkm/common.c
 
 evtest/ev_test.c
 

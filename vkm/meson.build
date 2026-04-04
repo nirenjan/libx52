@@ -1,18 +1,18 @@
 vkm_version = '0.1.0'
 
 vkm_files = files(
-  'vkm_common.c'
+  'common.c'
 )
 
 vkm_stub_files = files(
-  'vkm_stub.c'
+  'stub.c'
 )
 
 if host_machine.system() == 'linux'
   vkm_dep = dep_evdev
   if dep_evdev.found()
     vkm_platform_files = files(
-      'vkm_linux_evdev.c'
+      'linux_evdev.c'
     )    
   else
     vkm_platform_files = vkm_stub_files
@@ -31,7 +31,7 @@ lib_vkm = library('vkm', vkm_files + vkm_platform_files,
 
 vkm_strerror_test = executable('vkm-strerror-test',
   'test_strerror.c',
-  'vkm_common.c',
+  'common.c',
   build_by_default: false,
   dependencies: [dep_cmocka, dep_intl],
   include_directories: [includes],
@@ -43,9 +43,9 @@ if host_machine.system() == 'linux' and dep_evdev.found()
   dep_evdev_headers = dep_evdev.partial_dependency(compile_args: true, link_args: false)
   vkm_linux_evdev_test = executable('vkm_linux_evdev_test',
     files(
-      'vkm_linux_evdev_test.c',
-      'vkm_linux_evdev.c',
-      'vkm_common.c',
+      'linux_evdev_test.c',
+      'linux_evdev.c',
+      'common.c',
     ),
     include_directories: [includes],
     dependencies: [dep_cmocka, dep_evdev_headers, dep_intl],

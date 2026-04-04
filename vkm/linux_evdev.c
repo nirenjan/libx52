@@ -25,7 +25,7 @@ static const int vkm_key_to_evdev[VKM_KEY_MAX] = {
 #if defined(__GNUC__) || defined(__clang__)
     [0 ...(VKM_KEY_MAX - 1)] = -1,
 #else
-#error "vkm_linux_evdev.c requires GCC or Clang (sparse vkm_key_to_evdev initializer)"
+#error "linux_evdev.c requires GCC or Clang (sparse vkm_key_to_evdev initializer)"
 #endif
 
     [VKM_KEY_NONE] = -1,
