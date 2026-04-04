@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "vkm.h"
+#include <vkm/vkm.h>
 
 struct vkm_context {
     bool started;

@@ -16,7 +16,7 @@
 #include "x52d_const.h"
 #include "x52d_notify.h"
 #include "x52d_client.h"
-#include "x52dcomm.h"
+#include <libx52/x52dcomm.h>
 #include "x52dcomm-internal.h"
 
 static pthread_t notify_thr;

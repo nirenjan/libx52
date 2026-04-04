@@ -12,7 +12,7 @@
 #include "config.h"
 #include <stdio.h>
 #include <stdbool.h>
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "gettext.h"
 
 extern libx52_device *dev;

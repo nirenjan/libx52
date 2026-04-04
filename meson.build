@@ -120,7 +120,7 @@ dep_inih = dependency('inih')
 # Shared libraries and programs
 #######################################################################
 # Includes
-includes = include_directories('.', 'libx52', 'libx52io', 'libx52util', 'vkm')
+includes = include_directories('.')
 
 subdir('libx52')
 subdir('libx52io')

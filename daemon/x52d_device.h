@@ -9,7 +9,7 @@
 #ifndef X52D_DEVICE_H
 #define X52D_DEVICE_H
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 
 void x52d_dev_init(void);
 void x52d_dev_exit(void);

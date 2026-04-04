@@ -16,7 +16,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "libx52util.h"
+#include <libx52/libx52util.h>
 
 // Fix this if we ever hit longer sequences
 #define RECORD_SIZE 8

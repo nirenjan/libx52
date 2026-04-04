@@ -10,7 +10,7 @@
 #define X52D_MOUSE_H
 
 #include <stdbool.h>
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 
 extern volatile bool mouse_isometric_mode;
 extern volatile int mouse_scroll_dir;

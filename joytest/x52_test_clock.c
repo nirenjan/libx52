@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "x52_test_common.h"
 
 int test_clock(void)

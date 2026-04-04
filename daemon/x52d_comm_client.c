@@ -15,7 +15,7 @@
 #include <sys/un.h>
 #include <unistd.h>
 
-#include "x52dcomm.h"
+#include <libx52/x52dcomm.h>
 #include "x52dcomm-internal.h"
 
 static int _setup_socket(struct sockaddr_un *remote, int len)

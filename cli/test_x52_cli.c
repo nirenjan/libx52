@@ -12,7 +12,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 
 extern int run_main(int argc, char **argv);
 

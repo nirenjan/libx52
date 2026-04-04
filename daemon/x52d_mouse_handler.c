@@ -13,8 +13,8 @@
 #include <unistd.h>
 #include <math.h>
 
-#include "libx52io.h"
-#include "vkm.h"
+#include <libx52/libx52io.h>
+#include <vkm/vkm.h>
 
 #define PINELOG_MODULE X52D_MOD_MOUSE
 #include "pinelog.h"

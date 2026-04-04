@@ -14,7 +14,7 @@
 
 #include "libusb.h"
 #include "hidapi.h"
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 #include "version-info.h"
 
 static void print_sysinfo(void)

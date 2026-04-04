@@ -14,7 +14,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "libx52util.h"
+#include <libx52/libx52util.h>
 #include "x52_char_map.h"
 
 /**

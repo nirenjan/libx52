@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <libusb.h>
-#include "libx52.h"
+#include <libx52/libx52.h>
 
 /*
  * The X52 MFD supports the following:

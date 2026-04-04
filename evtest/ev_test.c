@@ -17,7 +17,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 #include "gettext.h"
 
 /*

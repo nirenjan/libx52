@@ -14,6 +14,7 @@ libx52util/util_char_map.c
 udev/*.rules
 x52d*
 !daemon/x52d*.*
+!libx52/x52dcomm.h
 test-*
 libx52-*.tar.gz
 

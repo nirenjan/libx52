@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <limits.h>
-#include "libx52.h"
+#include <libx52/libx52.h>
 
 /**
  * @brief Configuration structure

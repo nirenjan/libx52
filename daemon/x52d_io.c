@@ -15,7 +15,7 @@
 #include "x52d_config.h"
 #include "x52d_io.h"
 #include "x52d_mouse.h"
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 
 #define PINELOG_MODULE X52D_MOD_IO
 #include "pinelog.h"

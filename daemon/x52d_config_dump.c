@@ -16,7 +16,7 @@
 
 #define PINELOG_MODULE X52D_MOD_CONFIG
 #include "pinelog.h"
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "x52d_config.h"
 #include "x52d_const.h"
 

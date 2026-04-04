@@ -49,7 +49,7 @@ string "quit", or terminates input by using Ctrl+D.
 #include <errno.h>
 
 #include "x52d_const.h"
-#include "x52dcomm.h"
+#include <libx52/x52dcomm.h>
 
 #define APP_NAME "x52ctl"
 #if HAVE_FUNC_ATTRIBUTE_NORETURN

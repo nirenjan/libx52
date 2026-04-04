@@ -7,7 +7,7 @@
  */
 
 #include <stdbool.h>
-#include "vkm.h"
+#include <vkm/vkm.h>
 
 #ifndef VKM_INTERNAL_H
 #define VKM_INTERNAL_H

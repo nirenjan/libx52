@@ -9,7 +9,7 @@
 #include "config.h"
 #include <stdio.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "gettext.h"
 
 #define N_(str) gettext_noop(str)

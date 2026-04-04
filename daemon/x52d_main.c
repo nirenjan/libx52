@@ -26,7 +26,7 @@
 #include "x52d_command.h"
 #include "x52d_notify.h"
 #include "x52dcomm-internal.h"
-#include "x52dcomm.h"
+#include <libx52/x52dcomm.h>
 #include "pinelog.h"
 
 static volatile int flag_quit;

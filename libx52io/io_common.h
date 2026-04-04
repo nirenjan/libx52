@@ -10,7 +10,7 @@
 #define IO_COMMON_H
 
 #include <stdint.h>
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 #include "hidapi.h"
 
 // Function handler for parsing reports

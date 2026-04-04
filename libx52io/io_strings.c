@@ -9,7 +9,7 @@
 #include "config.h"
 #include <stdio.h>
 #include <string.h>
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 #include "gettext.h"
 
 /* The strings corresponding to the axis and button enumerations are

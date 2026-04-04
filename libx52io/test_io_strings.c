@@ -11,7 +11,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 
 static void lower_ascii_only(char *dst, const char *src)
 {
