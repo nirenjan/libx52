@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "vkm.h"
+#include <vkm/vkm.h>
 
 static void test_strerror(void **state)
 {

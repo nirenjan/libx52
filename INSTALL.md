@@ -30,7 +30,7 @@ Build has been tested on the following operating systems (x86-64 only):
 | Platform | Install instructions |
 | -------- | -------------------- |
 | Ubuntu   | `sudo apt-get install meson gettext libhidapi-dev libevdev-dev libusb-1.0-0-dev libinih-dev pkg-config python3 git` |
-| MacOS + Homebrew  | `brew install meson gettext hidapi libtool libusb pkg-config python3 git` |
+| MacOS + Homebrew  | `brew install meson gettext hidapi libusb pkg-config python3 git` |
 | Arch Linux | `pacman -S base-devel meson libusb hidapi libevdev libinih python git` |
 | Fedora | `sudo dnf install meson gettext-devel findutils hidapi-devel libusb-devel libevdev-devel inih-devel pkg-config python3 git` |
 
@@ -47,13 +47,13 @@ Build has been tested on the following operating systems (x86-64 only):
 git clone https://github.com/nirenjan/libx52.git
 ```
 
-2. Run autogen.sh
+2. Configure the build (from the repository root)
 ```
-cd ./libx52
+cd libx52
 meson setup build -Dprefix=/usr
 ```
 
-3. Run the following commands:
+3. Compile and install:
 ```
 meson compile -C build && meson install -C build
 ```

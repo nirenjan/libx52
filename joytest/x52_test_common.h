@@ -9,10 +9,10 @@
 #ifndef X52_TEST_COMMON_H
 #define X52_TEST_COMMON_H
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdbool.h>
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "gettext.h"
 
 extern libx52_device *dev;

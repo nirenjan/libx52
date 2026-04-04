@@ -7,7 +7,7 @@
  */
 
 #define _GNU_SOURCE
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -15,7 +15,7 @@
 #include <locale.h>
 #include <time.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "x52_test_common.h"
 libx52_device *dev;
 int test_exit;

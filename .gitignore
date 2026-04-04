@@ -10,10 +10,13 @@ x52test*
 x52evtest*
 libx52/test_*
 libx52test*
-libx52util/util_char_map.c
+libx52util/char_map.c
 udev/*.rules
+# Built artifacts / local installs named x52d*; daemon sources use short names.
+# Keep tracked daemon files that still use the x52d prefix (headers, configs).
 x52d*
 !daemon/x52d*.*
+!libx52/x52dcomm.h
 test-*
 libx52-*.tar.gz
 

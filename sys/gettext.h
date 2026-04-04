@@ -22,7 +22,7 @@
 #define ENABLE_NLS 0
 #endif
 
-/* NLS can be disabled through the configure --disable-nls option.  */
+/* NLS can be disabled at build time (e.g. Meson option -Dnls=disabled).  */
 #if ENABLE_NLS
 
 /* Get declarations of GNU message catalog functions.  */

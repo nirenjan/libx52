@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 
 #define TEST_STRINGIFY(name) do { \
     char expected[256]; \

@@ -103,22 +103,23 @@ static int test_setup(int module, int level, int filter, const char *file, int l
         }
 
         if (PINELOG_SHOW_BACKTRACE) {
-            char * basename = NULL;
-            #if defined __has_builtin
-            #if __has_builtin(__builtin_strrchr)
-            basename = strrchr(file, '/');
-            #endif
-            #endif
-
-            if (basename != NULL) {
-                basename++;
-            } else {
-                // Override the const
-                basename = (char *)file;
+            /* Match pinelog.h PINELOG_FILE (basename only when strip + __builtin_strrchr). */
+            const char *display_file = file;
+#if PINELOG_STRIP_FILE_PATH
+#   if defined __has_builtin
+#       if __has_builtin(__builtin_strrchr)
+            {
+                const char *slash = strrchr(file, '/');
+                if (slash != NULL) {
+                    display_file = slash + 1;
+                }
             }
+#       endif
+#   endif
+#endif
             expected_len += snprintf(&expected_output[expected_len],
                                      sizeof(expected_output) - expected_len,
-                                     "%s:%d ", basename, line);
+                                     "%s:%d ", display_file, line);
         }
 
         if (module >= 0) {

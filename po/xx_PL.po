@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-03 18:06-0700\n"
+"POT-Creation-Date: 2026-04-03 23:44-0700\n"
 "PO-Revision-Date: 2026-04-01 20:50-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -17,247 +17,247 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: libx52/x52_strerror.c:23 libx52io/io_strings.c:196 vkm/vkm_common.c:25
+#: libx52/strerror.c:23 libx52io/strings.c:196 vkm/common.c:25
 msgid "Success"
 msgstr "Uccesssay"
 
-#: libx52/x52_strerror.c:24 libx52io/io_strings.c:197
+#: libx52/strerror.c:24 libx52io/strings.c:197
 msgid "Initialization failure"
 msgstr "Initializationay ailurefay"
 
-#: libx52/x52_strerror.c:25
+#: libx52/strerror.c:25
 msgid "Insufficient memory"
 msgstr "Insufficientay emorymay"
 
-#: libx52/x52_strerror.c:26 vkm/vkm_common.c:29
+#: libx52/strerror.c:26 vkm/common.c:29
 msgid "Invalid parameter"
 msgstr "Invaliday arameterpay"
 
-#: libx52/x52_strerror.c:27
+#: libx52/strerror.c:27
 msgid "Operation not supported"
 msgstr "Operationay otnay upportedsay"
 
-#: libx52/x52_strerror.c:28
+#: libx52/strerror.c:28
 msgid "Try again"
 msgstr "Ytray againay"
 
-#: libx52/x52_strerror.c:29
+#: libx52/strerror.c:29
 msgid "Input parameter out of range"
 msgstr "Inputay arameterpay outay ofay angeray"
 
-#: libx52/x52_strerror.c:30
+#: libx52/strerror.c:30
 msgid "USB transaction failure"
 msgstr "USBay ansactiontray ailurefay"
 
-#: libx52/x52_strerror.c:31
+#: libx52/strerror.c:31
 msgid "USB input/output error"
 msgstr "USBay inputay/outputay erroray"
 
-#: libx52/x52_strerror.c:32
+#: libx52/strerror.c:32
 msgid "Access denied"
 msgstr "Accessay eniedday"
 
-#: libx52/x52_strerror.c:33
+#: libx52/strerror.c:33
 msgid "No such device"
 msgstr "Onay uchsay eviceday"
 
-#: libx52/x52_strerror.c:34
+#: libx52/strerror.c:34
 msgid "Entity not found"
 msgstr "Entityay otnay oundfay"
 
-#: libx52/x52_strerror.c:35
+#: libx52/strerror.c:35
 msgid "Resource busy"
 msgstr "Esourceray usybay"
 
-#: libx52/x52_strerror.c:36
+#: libx52/strerror.c:36
 msgid "Operation timeout"
 msgstr "Operationay imeouttay"
 
-#: libx52/x52_strerror.c:37
+#: libx52/strerror.c:37
 msgid "Overflow"
 msgstr "Overfloway"
 
-#: libx52/x52_strerror.c:38
+#: libx52/strerror.c:38
 msgid "Pipe error"
 msgstr "Ipepay erroray"
 
-#: libx52/x52_strerror.c:39
+#: libx52/strerror.c:39
 msgid "System call interrupted"
 msgstr "Ystemsay allcay interrupteday"
 
-#: libx52/x52_strerror.c:66 libx52io/io_strings.c:220 vkm/vkm_common.c:52
+#: libx52/strerror.c:66 libx52io/strings.c:220 vkm/common.c:52
 #, c-format
 msgid "Unknown error %d"
 msgstr "Unknownay erroray %d"
 
-#: libx52/x52_stringify.c:29
+#: libx52/stringify.c:29
 #, c-format
 msgid "Unknown clock ID %d"
 msgstr "Unknownay ockclay IDay %d"
 
-#: libx52/x52_stringify.c:30
+#: libx52/stringify.c:30
 msgid "primary"
 msgstr "imarypray"
 
-#: libx52/x52_stringify.c:31
+#: libx52/stringify.c:31
 msgid "secondary"
 msgstr "econdarysay"
 
-#: libx52/x52_stringify.c:32
+#: libx52/stringify.c:32
 msgid "tertiary"
 msgstr "ertiarytay"
 
-#: libx52/x52_stringify.c:35
+#: libx52/stringify.c:35
 #, c-format
 msgid "Unknown clock format %d"
 msgstr "Unknownay ockclay ormatfay %d"
 
-#: libx52/x52_stringify.c:36
+#: libx52/stringify.c:36
 msgid "12 hour"
 msgstr "12 ourhay"
 
-#: libx52/x52_stringify.c:37
+#: libx52/stringify.c:37
 msgid "24 hour"
 msgstr "24 ourhay"
 
-#: libx52/x52_stringify.c:40
+#: libx52/stringify.c:40
 #, c-format
 msgid "Unknown date format %d"
 msgstr "Unknownay ateday ormatfay %d"
 
-#: libx52/x52_stringify.c:41
+#: libx52/stringify.c:41
 msgid "DD-MM-YY"
 msgstr "DDay-MMay-YYay"
 
-#: libx52/x52_stringify.c:42
+#: libx52/stringify.c:42
 msgid "MM-DD-YY"
 msgstr "MMay-DDay-YYay"
 
-#: libx52/x52_stringify.c:43
+#: libx52/stringify.c:43
 msgid "YY-MM-DD"
 msgstr "YYay-MMay-DDay"
 
-#: libx52/x52_stringify.c:46
+#: libx52/stringify.c:46
 #, c-format
 msgid "Unknown LED state %d"
 msgstr "Unknownay EDLay atestay %d"
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
-#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
+#: libx52/stringify.c:47 daemon/clock.c:29 daemon/mouse.c:55 daemon/mouse.c:95
+#: daemon/mouse.c:107
 msgid "off"
 msgstr "offay"
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
-#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
+#: libx52/stringify.c:48 daemon/clock.c:29 daemon/mouse.c:55 daemon/mouse.c:95
+#: daemon/mouse.c:107
 msgid "on"
 msgstr "onay"
 
-#: libx52/x52_stringify.c:49
+#: libx52/stringify.c:49
 msgid "red"
 msgstr "edray"
 
-#: libx52/x52_stringify.c:50
+#: libx52/stringify.c:50
 msgid "amber"
 msgstr "amberay"
 
-#: libx52/x52_stringify.c:51
+#: libx52/stringify.c:51
 msgid "green"
 msgstr "eengray"
 
-#: libx52/x52_stringify.c:60
+#: libx52/stringify.c:60
 msgid "Fire"
 msgstr "Irefay"
 
-#: libx52/x52_stringify.c:63
+#: libx52/stringify.c:63
 msgid "A"
 msgstr "Ay"
 
-#: libx52/x52_stringify.c:66
+#: libx52/stringify.c:66
 msgid "B"
 msgstr "Bay"
 
-#: libx52/x52_stringify.c:69
+#: libx52/stringify.c:69
 msgid "D"
 msgstr "Day"
 
-#: libx52/x52_stringify.c:72
+#: libx52/stringify.c:72
 msgid "E"
 msgstr "Eay"
 
-#: libx52/x52_stringify.c:75
+#: libx52/stringify.c:75
 msgid "T1"
 msgstr "Tay1"
 
-#: libx52/x52_stringify.c:78
+#: libx52/stringify.c:78
 msgid "T2"
 msgstr "Tay2"
 
-#: libx52/x52_stringify.c:81
+#: libx52/stringify.c:81
 msgid "T3"
 msgstr "Tay3"
 
-#: libx52/x52_stringify.c:84
+#: libx52/stringify.c:84
 msgid "POV"
 msgstr "OVPay"
 
-#: libx52/x52_stringify.c:87
+#: libx52/stringify.c:87
 msgid "Clutch"
 msgstr "Utchclay"
 
-#: libx52/x52_stringify.c:90
+#: libx52/stringify.c:90
 msgid "Throttle"
 msgstr "Ottlethray"
 
-#: libx52/x52_stringify.c:93
+#: libx52/stringify.c:93
 #, c-format
 msgid "Unknown LED ID %d"
 msgstr "Unknownay EDLay IDay %d"
 
-#: libx52io/io_strings.c:198
+#: libx52io/strings.c:198
 msgid "No device"
 msgstr "Onay eviceday"
 
-#: libx52io/io_strings.c:199
+#: libx52io/strings.c:199
 msgid "Invalid arguments"
 msgstr "Invaliday argumentsay"
 
-#: libx52io/io_strings.c:200
+#: libx52io/strings.c:200
 msgid "Connection failure"
 msgstr "Onnectioncay ailurefay"
 
-#: libx52io/io_strings.c:201
+#: libx52io/strings.c:201
 msgid "I/O error"
 msgstr "I/O erroray"
 
-#: libx52io/io_strings.c:202
+#: libx52io/strings.c:202
 msgid "Read timeout"
 msgstr "Eadray imeouttay"
 
-#: vkm/vkm_common.c:26
+#: vkm/common.c:26
 msgid "Unknown error"
 msgstr "Unknownay erroray"
 
-#: vkm/vkm_common.c:27
+#: vkm/common.c:27
 msgid "Not ready"
 msgstr "Otnay eadyray"
 
-#: vkm/vkm_common.c:28
+#: vkm/common.c:28
 msgid "Out of memory"
 msgstr "Outay ofay emorymay"
 
-#: vkm/vkm_common.c:30
+#: vkm/common.c:30
 msgid "Not supported"
 msgstr "Otnay upportedsay"
 
-#: vkm/vkm_common.c:31
+#: vkm/common.c:31
 msgid "Virtual device failure"
 msgstr "Irtualvay eviceday ailurefay"
 
-#: vkm/vkm_common.c:32
+#: vkm/common.c:32
 msgid "Unable to write event"
 msgstr "Unableay otay itewray eventay"
 
-#: vkm/vkm_common.c:33
+#: vkm/common.c:33
 msgid "No state change"
 msgstr "Onay atestay angechay"
 
@@ -564,17 +564,274 @@ msgstr "Estingtay aracterchay 0x%02x..."
 msgid "OK"
 msgstr "OKay"
 
-#: daemon/x52d_main.c:67
+#: daemon/client.c:37
+#, c-format
+msgid "Error accepting client connection on socket fd %d: %s"
+msgstr "Erroray acceptingay ientclay onnectioncay onay ocketsay fday %d: %s"
+
+#: daemon/client.c:43
+#, c-format
+msgid "Error marking client fd %d as nonblocking: %s"
+msgstr "Erroray arkingmay ientclay fday %d asay onblockingnay: %s"
+
+#: daemon/client.c:97
+#, c-format
+msgid "Error when polling socket: FD %d, error %d, len %lu"
+msgstr "Erroray enwhay ollingpay ocketsay: FDay %d, erroray %d, enlay %lu"
+
+#: daemon/client.c:127
+#, c-format
+msgid "Error %d when polling %d descriptors: %s"
+msgstr "Erroray %d enwhay ollingpay %d escriptorsday: %s"
+
+#: daemon/client.c:130
+msgid "Timed out when polling"
+msgstr "Imedtay outay enwhay ollingpay"
+
+#: daemon/clock.c:28
+#, c-format
+msgid "Setting clock enable to %s"
+msgstr "Ettingsay ockclay enableay otay %s"
+
+#: daemon/clock.c:35 daemon/clock.c:119
+#, c-format
+msgid "Setting %s clock timezone to %s"
+msgstr "Ettingsay %s ockclay imezonetay otay %s"
+
+#: daemon/clock.c:37
+msgid "local"
+msgstr "ocallay"
+
+#: daemon/clock.c:37
+msgid "UTC"
+msgstr "UTCay"
+
+#: daemon/clock.c:55
+msgid "Unable to allocate memory for timezone. Falling back to UTC"
+msgstr ""
+"Unableay otay allocateay emorymay orfay imezonetay. Allingfay ackbay otay "
+"UTCay"
+
+#: daemon/clock.c:65
+msgid "Unable to backup timezone environment. Falling back to UTC"
+msgstr ""
+"Unableay otay ackupbay imezonetay environmentay. Allingfay ackbay otay UTCay"
+
+#: daemon/clock.c:138
+#, c-format
+msgid "Setting %s clock format to %s"
+msgstr "Ettingsay %s ockclay ormatfay otay %s"
+
+#: daemon/clock.c:162
+#, c-format
+msgid "Setting date format to %s"
+msgstr "Ettingsay ateday ormatfay otay %s"
+
+#: daemon/clock.c:174
+msgid "Starting X52 clock manager thread"
+msgstr "Artingstay X52 ockclay anagermay eadthray"
+
+#: daemon/clock.c:185
+#, c-format
+msgid "Error %d retrieving current time: %s"
+msgstr "Erroray %d etrievingray urrentcay imetay: %s"
+
+#: daemon/clock.c:206
+#, c-format
+msgid "Error %d initializing clock thread: %s"
+msgstr "Erroray %d initializingay ockclay eadthray: %s"
+
+#: daemon/clock.c:213
+msgid "Shutting down X52 clock manager thread"
+msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
+
+#: daemon/command.c:379
+#, c-format
+msgid "Error reading from client %d: %s"
+msgstr "Erroray eadingray omfray ientclay %d: %s"
+
+#: daemon/command.c:390
+#, c-format
+msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
+msgstr ""
+"Ortshay itewray otay ientclay %d; expecteday %d ytesbay, otewray %d ytesbay"
+
+#: daemon/command.c:415
+#, c-format
+msgid "Error %d during command loop: %s"
+msgstr "Erroray %d uringday ommandcay ooplay: %s"
+
+#: daemon/command.c:442
+#, c-format
+msgid "Error creating command socket: %s"
+msgstr "Erroray eatingcray ommandcay ocketsay: %s"
+
+#: daemon/command.c:450
+#, c-format
+msgid "Error marking command socket as nonblocking: %s"
+msgstr "Erroray arkingmay ommandcay ocketsay asay onblockingnay: %s"
+
+#: daemon/command.c:456
+#, c-format
+msgid "Error listening on command socket: %s"
+msgstr "Erroray isteninglay onay ommandcay ocketsay: %s"
+
+#: daemon/command.c:460
+msgid "Starting command processing thread"
+msgstr "Artingstay ommandcay ocessingpray eadthray"
+
+#: daemon/command.c:478
+msgid "Shutting down command processing thread"
+msgstr "Uttingshay ownday ommandcay ocessingpray eadthray"
+
+#: daemon/config.c:29
+#, c-format
+msgid "Error %d setting configuration defaults: %s"
+msgstr "Erroray %d ettingsay onfigurationcay efaultsday: %s"
+
+#: daemon/config.c:56
+#, c-format
+msgid "Error %d saving configuration file: %s"
+msgstr "Erroray %d avingsay onfigurationcay ilefay: %s"
+
+#: daemon/config_dump.c:108
+#, c-format
+msgid "Unable to save config file %s - code %d: %s"
+msgstr "Unableay otay avesay onfigcay ilefay %s - odecay %d: %s"
+
+#: daemon/config_dump.c:126
+#, c-format
+msgid "Failed to dump %s.%s to config file %s"
+msgstr "Ailedfay otay umpday %s.%s otay onfigcay ilefay %s"
+
+#: daemon/config_parser.c:172
+#, c-format
+msgid "Ignoring unknown key '%s.%s'"
+msgstr "Ignoringay unknownay eykay '%s.%s'"
+
+#: daemon/config_parser.c:213
+#, c-format
+msgid "Failed processing configuration file %s - code %d"
+msgstr "Ailedfay ocessingpray onfigurationcay ilefay %s - odecay %d"
+
+#: daemon/config_parser.c:243
+msgid "Failed to allocate memory for override structure"
+msgstr "Ailedfay otay allocateay emorymay orfay overrideay ucturestray"
+
+#: daemon/config_parser.c:252
+msgid "Failed to allocate memory for override string"
+msgstr "Ailedfay otay allocateay emorymay orfay overrideay ingstray"
+
+#: daemon/config_parser.c:263
+#, c-format
+msgid "No section found in override string '%s'"
+msgstr "Onay ectionsay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/config_parser.c:277
+#, c-format
+msgid "No key found in override string '%s'"
+msgstr "Onay eykay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/config_parser.c:288
+#, c-format
+msgid "No value found in override string '%s'"
+msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
+
+#: daemon/config_parser.c:339
+#, c-format
+msgid "Error processing override '%s.%s=%s'"
+msgstr "Erroray ocessingpray overriday '%s.%s=%s'"
+
+#: daemon/daemon_control.c:60
+#, c-format
+msgid "Usage: %s [-i] [-s socket-path] [command]\n"
+msgstr "Usageay: %s [-i] [-s ocketsay-athpay] [ommandcay]\n"
+
+#: daemon/daemon_control.c:73
+#, c-format
+msgid "Argument length too long\n"
+msgstr "Argumentay engthlay ootay onglay\n"
+
+#: daemon/daemon_control.c:180
+#, c-format
+msgid "Running in interactive mode, ignoring extra arguments\n"
+msgstr "Unningray inay interactiveay odemay, ignoringay extraay argumentsay\n"
+
+#: daemon/device.c:37
+msgid "Starting X52 device manager thread"
+msgstr "Artingstay X52 eviceday anagermay eadthray"
+
+#: daemon/device.c:44
+#, c-format
+msgid "Error %d connecting to device: %s"
+msgstr "Erroray %d onnectingcay otay eviceday: %s"
+
+#: daemon/device.c:53
+msgid "Device connected, writing configuration"
+msgstr "Eviceday onnectedcay, itingwray onfigurationcay"
+
+#: daemon/device.c:76
+msgid "Initializing libx52"
+msgstr "Initializingay libx52"
+
+#: daemon/device.c:80
+#, c-format
+msgid "Failure %d initializing libx52: %s"
+msgstr "Ailurefay %d initializeay libx52: %s"
+
+#: daemon/device.c:91
+msgid "Shutting down X52 device manager thread"
+msgstr "Uttingshay ownday X52 eviceday anagermay eadthray"
+
+#: daemon/device.c:104
+#, c-format
+msgid "Error %d when updating X52 parameter: %s"
+msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
+
+#: daemon/device.c:180
+#, c-format
+msgid "Error %d when updating X52 device: %s"
+msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
+
+#: daemon/io.c:43
+msgid "Starting X52 I/O thread"
+msgstr "Artingstay X52 I/O eadthray"
+
+#: daemon/io.c:65
+#, c-format
+msgid "Error %d opening X52 I/O device: %s"
+msgstr "Erroray %d openingay X52 I/O eviceday: %s"
+
+#: daemon/io.c:76
+#, c-format
+msgid "Error %d reading from X52 I/O device: %s"
+msgstr "Erroray %d eadingray omfray X52 I/O eviceday: %s"
+
+#: daemon/io.c:103
+#, c-format
+msgid "Error %d initializing X52 I/O library: %s"
+msgstr "Erroray %d initializingay X52 ibrarylay: %s"
+
+#: daemon/io.c:109
+#, c-format
+msgid "Error %d initializing I/O driver thread: %s"
+msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
+
+#: daemon/io.c:116
+msgid "Shutting down X52 I/O driver thread"
+msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
+
+#: daemon/main.c:67
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
 
-#: daemon/x52d_main.c:83
+#: daemon/main.c:83
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr "Erroray %d installingay andlerhay orfay ignalsay %d: %s"
 
-#: daemon/x52d_main.c:94
+#: daemon/main.c:94
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -590,344 +847,102 @@ msgstr ""
 "\t[-b otifynay-ocketsay-athpay]\n"
 "\n"
 
-#: daemon/x52d_main.c:129
+#: daemon/main.c:129
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr "Aemonday isay alreadyay unningray asay IDPay %u"
 
-#: daemon/x52d_main.c:271
+#: daemon/main.c:271
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
 
-#: daemon/x52d_main.c:303
+#: daemon/main.c:303
 #, c-format
 msgid "Foreground = %s"
 msgstr "Oregroundfay = %s"
 
-#: daemon/x52d_main.c:303 daemon/x52d_main.c:304
+#: daemon/main.c:303 daemon/main.c:304
 msgid "true"
 msgstr "uetray"
 
-#: daemon/x52d_main.c:303 daemon/x52d_main.c:304
+#: daemon/main.c:303 daemon/main.c:304
 msgid "false"
 msgstr "alsefay"
 
-#: daemon/x52d_main.c:304
+#: daemon/main.c:304
 #, c-format
 msgid "Quiet = %s"
 msgstr "Uietqay = %s"
 
-#: daemon/x52d_main.c:305
+#: daemon/main.c:305
 #, c-format
 msgid "Verbosity = %d"
 msgstr "Erbosityvay = %d"
 
-#: daemon/x52d_main.c:306
+#: daemon/main.c:306
 #, c-format
 msgid "Log file = %s"
 msgstr "Oglay ilefay = %s"
 
-#: daemon/x52d_main.c:307
+#: daemon/main.c:307
 #, c-format
 msgid "Config file = %s"
 msgstr "Onfigcay ilefay = %s"
 
-#: daemon/x52d_main.c:308
+#: daemon/main.c:308
 #, c-format
 msgid "PID file = %s"
 msgstr "IDPay ilefay = %s"
 
-#: daemon/x52d_main.c:309
+#: daemon/main.c:309
 #, c-format
 msgid "Command socket = %s"
 msgstr "Ommandcay ocketsay = %s"
 
-#: daemon/x52d_main.c:310
+#: daemon/main.c:310
 #, c-format
 msgid "Notify socket = %s"
 msgstr "Otifynay ocketsay = %s"
 
-#: daemon/x52d_main.c:321
+#: daemon/main.c:321
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr "Erroray %d ockingblay ignalssay onay ildchay eadsthray: %s"
 
-#: daemon/x52d_main.c:338
+#: daemon/main.c:338
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr "Erroray %d unblockingay ignalssay onay ildchay eadsthray: %s"
 
-#: daemon/x52d_main.c:351
+#: daemon/main.c:351
 msgid "Reloading X52 configuration"
 msgstr "Eloadingray X52 onfigurationcay"
 
-#: daemon/x52d_main.c:358
+#: daemon/main.c:358
 msgid "Saving X52 configuration to disk"
 msgstr "Avingsay X52 onfigurationcay otay iskday"
 
-#: daemon/x52d_main.c:364
+#: daemon/main.c:364
 #, c-format
 msgid "Received termination signal %s"
 msgstr "Eceivedray erminationtay ignalsay %s"
 
-#: daemon/x52d_main.c:379
+#: daemon/main.c:379
 msgid "Shutting down X52 daemon"
 msgstr "Uttingshay ownday X52 aemonday"
 
-#: daemon/x52d_client.c:37
-#, c-format
-msgid "Error accepting client connection on socket fd %d: %s"
-msgstr "Erroray acceptingay ientclay onnectioncay onay ocketsay fday %d: %s"
-
-#: daemon/x52d_client.c:43
-#, c-format
-msgid "Error marking client fd %d as nonblocking: %s"
-msgstr "Erroray arkingmay ientclay fday %d asay onblockingnay: %s"
-
-#: daemon/x52d_client.c:97
-#, c-format
-msgid "Error when polling socket: FD %d, error %d, len %lu"
-msgstr "Erroray enwhay ollingpay ocketsay: FDay %d, erroray %d, enlay %lu"
-
-#: daemon/x52d_client.c:127
-#, c-format
-msgid "Error %d when polling %d descriptors: %s"
-msgstr "Erroray %d enwhay ollingpay %d escriptorsday: %s"
-
-#: daemon/x52d_client.c:130
-msgid "Timed out when polling"
-msgstr "Imedtay outay enwhay ollingpay"
-
-#: daemon/x52d_clock.c:28
-#, c-format
-msgid "Setting clock enable to %s"
-msgstr "Ettingsay ockclay enableay otay %s"
-
-#: daemon/x52d_clock.c:35 daemon/x52d_clock.c:119
-#, c-format
-msgid "Setting %s clock timezone to %s"
-msgstr "Ettingsay %s ockclay imezonetay otay %s"
-
-#: daemon/x52d_clock.c:37
-msgid "local"
-msgstr "ocallay"
-
-#: daemon/x52d_clock.c:37
-msgid "UTC"
-msgstr "UTCay"
-
-#: daemon/x52d_clock.c:55
-msgid "Unable to allocate memory for timezone. Falling back to UTC"
-msgstr ""
-"Unableay otay allocateay emorymay orfay imezonetay. Allingfay ackbay otay "
-"UTCay"
-
-#: daemon/x52d_clock.c:65
-msgid "Unable to backup timezone environment. Falling back to UTC"
-msgstr ""
-"Unableay otay ackupbay imezonetay environmentay. Allingfay ackbay otay UTCay"
-
-#: daemon/x52d_clock.c:138
-#, c-format
-msgid "Setting %s clock format to %s"
-msgstr "Ettingsay %s ockclay ormatfay otay %s"
-
-#: daemon/x52d_clock.c:162
-#, c-format
-msgid "Setting date format to %s"
-msgstr "Ettingsay ateday ormatfay otay %s"
-
-#: daemon/x52d_clock.c:174
-msgid "Starting X52 clock manager thread"
-msgstr "Artingstay X52 ockclay anagermay eadthray"
-
-#: daemon/x52d_clock.c:185
-#, c-format
-msgid "Error %d retrieving current time: %s"
-msgstr "Erroray %d etrievingray urrentcay imetay: %s"
-
-#: daemon/x52d_clock.c:206
-#, c-format
-msgid "Error %d initializing clock thread: %s"
-msgstr "Erroray %d initializingay ockclay eadthray: %s"
-
-#: daemon/x52d_clock.c:213
-msgid "Shutting down X52 clock manager thread"
-msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
-
-#: daemon/x52d_command.c:379
-#, c-format
-msgid "Error reading from client %d: %s"
-msgstr "Erroray eadingray omfray ientclay %d: %s"
-
-#: daemon/x52d_command.c:390
-#, c-format
-msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
-msgstr ""
-"Ortshay itewray otay ientclay %d; expecteday %d ytesbay, otewray %d ytesbay"
-
-#: daemon/x52d_command.c:415
-#, c-format
-msgid "Error %d during command loop: %s"
-msgstr "Erroray %d uringday ommandcay ooplay: %s"
-
-#: daemon/x52d_command.c:442
-#, c-format
-msgid "Error creating command socket: %s"
-msgstr "Erroray eatingcray ommandcay ocketsay: %s"
-
-#: daemon/x52d_command.c:450
-#, c-format
-msgid "Error marking command socket as nonblocking: %s"
-msgstr "Erroray arkingmay ommandcay ocketsay asay onblockingnay: %s"
-
-#: daemon/x52d_command.c:456
-#, c-format
-msgid "Error listening on command socket: %s"
-msgstr "Erroray isteninglay onay ommandcay ocketsay: %s"
-
-#: daemon/x52d_command.c:460
-msgid "Starting command processing thread"
-msgstr "Artingstay ommandcay ocessingpray eadthray"
-
-#: daemon/x52d_command.c:478
-msgid "Shutting down command processing thread"
-msgstr "Uttingshay ownday ommandcay ocessingpray eadthray"
-
-#: daemon/x52d_config.c:29
-#, c-format
-msgid "Error %d setting configuration defaults: %s"
-msgstr "Erroray %d ettingsay onfigurationcay efaultsday: %s"
-
-#: daemon/x52d_config.c:56
-#, c-format
-msgid "Error %d saving configuration file: %s"
-msgstr "Erroray %d avingsay onfigurationcay ilefay: %s"
-
-#: daemon/x52d_config_dump.c:108
-#, c-format
-msgid "Unable to save config file %s - code %d: %s"
-msgstr "Unableay otay avesay onfigcay ilefay %s - odecay %d: %s"
-
-#: daemon/x52d_config_dump.c:126
-#, c-format
-msgid "Failed to dump %s.%s to config file %s"
-msgstr "Ailedfay otay umpday %s.%s otay onfigcay ilefay %s"
-
-#: daemon/x52d_config_parser.c:172
-#, c-format
-msgid "Ignoring unknown key '%s.%s'"
-msgstr "Ignoringay unknownay eykay '%s.%s'"
-
-#: daemon/x52d_config_parser.c:213
-#, c-format
-msgid "Failed processing configuration file %s - code %d"
-msgstr "Ailedfay ocessingpray onfigurationcay ilefay %s - odecay %d"
-
-#: daemon/x52d_config_parser.c:243
-msgid "Failed to allocate memory for override structure"
-msgstr "Ailedfay otay allocateay emorymay orfay overrideay ucturestray"
-
-#: daemon/x52d_config_parser.c:252
-msgid "Failed to allocate memory for override string"
-msgstr "Ailedfay otay allocateay emorymay orfay overrideay ingstray"
-
-#: daemon/x52d_config_parser.c:263
-#, c-format
-msgid "No section found in override string '%s'"
-msgstr "Onay ectionsay oundfay inay overrideay ingstray '%s'"
-
-#: daemon/x52d_config_parser.c:277
-#, c-format
-msgid "No key found in override string '%s'"
-msgstr "Onay eykay oundfay inay overrideay ingstray '%s'"
-
-#: daemon/x52d_config_parser.c:288
-#, c-format
-msgid "No value found in override string '%s'"
-msgstr "Onay aluevay oundfay inay overrideay ingstray '%s'"
-
-#: daemon/x52d_config_parser.c:339
-#, c-format
-msgid "Error processing override '%s.%s=%s'"
-msgstr "Erroray ocessingpray overriday '%s.%s=%s'"
-
-#: daemon/x52d_device.c:37
-msgid "Starting X52 device manager thread"
-msgstr "Artingstay X52 eviceday anagermay eadthray"
-
-#: daemon/x52d_device.c:44
-#, c-format
-msgid "Error %d connecting to device: %s"
-msgstr "Erroray %d onnectingcay otay eviceday: %s"
-
-#: daemon/x52d_device.c:53
-msgid "Device connected, writing configuration"
-msgstr "Eviceday onnectedcay, itingwray onfigurationcay"
-
-#: daemon/x52d_device.c:76
-msgid "Initializing libx52"
-msgstr "Initializingay libx52"
-
-#: daemon/x52d_device.c:80
-#, c-format
-msgid "Failure %d initializing libx52: %s"
-msgstr "Ailurefay %d initializeay libx52: %s"
-
-#: daemon/x52d_device.c:91
-msgid "Shutting down X52 device manager thread"
-msgstr "Uttingshay ownday X52 eviceday anagermay eadthray"
-
-#: daemon/x52d_device.c:104
-#, c-format
-msgid "Error %d when updating X52 parameter: %s"
-msgstr "Erroray %d enwhay updatingay X52 arameterpay: %s"
-
-#: daemon/x52d_device.c:180
-#, c-format
-msgid "Error %d when updating X52 device: %s"
-msgstr "Erroray %d enwhay updatingay X52 eviceday: %s"
-
-#: daemon/x52d_io.c:43
-msgid "Starting X52 I/O thread"
-msgstr "Artingstay X52 I/O eadthray"
-
-#: daemon/x52d_io.c:65
-#, c-format
-msgid "Error %d opening X52 I/O device: %s"
-msgstr "Erroray %d openingay X52 I/O eviceday: %s"
-
-#: daemon/x52d_io.c:76
-#, c-format
-msgid "Error %d reading from X52 I/O device: %s"
-msgstr "Erroray %d eadingray omfray X52 I/O eviceday: %s"
-
-#: daemon/x52d_io.c:103
-#, c-format
-msgid "Error %d initializing X52 I/O library: %s"
-msgstr "Erroray %d initializingay X52 ibrarylay: %s"
-
-#: daemon/x52d_io.c:109
-#, c-format
-msgid "Error %d initializing I/O driver thread: %s"
-msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
-
-#: daemon/x52d_io.c:116
-msgid "Shutting down X52 I/O driver thread"
-msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
-
-#: daemon/x52d_mouse.c:38 daemon/x52d_mouse.c:44
+#: daemon/mouse.c:38 daemon/mouse.c:44
 #, c-format
 msgid "Clamping %s value %d to range [%d..%d]"
 msgstr "Ampingclay %s aluevay %d otay angeray [%d..%d]"
 
-#: daemon/x52d_mouse.c:54
+#: daemon/mouse.c:54
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr "Ettingsay ousemay enableay otay %s"
 
-#: daemon/x52d_mouse.c:71
+#: daemon/mouse.c:71
 msgid ""
 "Config option 'mouse.speed' is DEPRECATED. Please use 'mouse.sensitivity' "
 "instead"
@@ -935,154 +950,139 @@ msgstr ""
 "Onfigcay optionay 'mouse.speed' isay EPRECATEDDAY. Easeplay useay 'mouse."
 "sensitivity' insteaday"
 
-#: daemon/x52d_mouse.c:86
+#: daemon/mouse.c:86
 #, c-format
 msgid "Migrating legacy mouse speed '%d' to sensitivity '%d' (percentage)"
 msgstr ""
 "Igratingmay egacylay ousemay eedspay '%d' otay ensitivitysay "
 "'%d' (ercentagepay)"
 
-#: daemon/x52d_mouse.c:88
+#: daemon/mouse.c:88
 msgid "speed -> sensitivity"
 msgstr "eedspay -> ensitivitysay"
 
-#: daemon/x52d_mouse.c:94
+#: daemon/mouse.c:94
 #, c-format
 msgid "Setting mouse reverse scroll to %s"
 msgstr "Ettingsay ousemay everseray ollscray otay %s"
 
-#: daemon/x52d_mouse.c:106
+#: daemon/mouse.c:106
 #, c-format
 msgid "Setting mouse isometric mode to %s"
 msgstr "Ettingsay ousemay isometricay odemay otay %s"
 
-#: daemon/x52d_mouse.c:113
+#: daemon/mouse.c:113
 msgid "sensitivity"
 msgstr "ensitivitysay"
 
-#: daemon/x52d_mouse.c:116
+#: daemon/mouse.c:116
 #, c-format
 msgid "Setting mouse sensitivity to %d%%"
 msgstr "Ettingsay ousemay ensitivitysay otay %d"
 
-#: daemon/x52d_mouse.c:123
+#: daemon/mouse.c:123
 msgid "curve factor"
 msgstr "urvecay actorfay"
 
-#: daemon/x52d_mouse.c:124
+#: daemon/mouse.c:124
 #, c-format
 msgid "Setting mouse curve factor to %d"
 msgstr "Ettingsay ousemay urvecay actorfay otay %d"
 
-#: daemon/x52d_mouse.c:130
+#: daemon/mouse.c:130
 msgid "deadzone factor"
 msgstr "eadzoneday actorfay"
 
-#: daemon/x52d_mouse.c:131
+#: daemon/mouse.c:131
 #, c-format
 msgid "Setting mouse deadzone to %d"
 msgstr "Ettingsay ousemay eadzoneday otay %d"
 
-#: daemon/x52d_mouse_handler.c:44
+#: daemon/mouse_handler.c:44
 #, c-format
 msgid "Error %d writing mouse button event (button %d, state %d)"
 msgstr ""
 "Erroray %d itingwray ousemay uttonbay eventay (uttonbay %d, atestay %d)"
 
-#: daemon/x52d_mouse_handler.c:82
+#: daemon/mouse_handler.c:82
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr "Erroray itingwray ousemay eelwhay eventay %d"
 
-#: daemon/x52d_mouse_handler.c:185
+#: daemon/mouse_handler.c:185
 #, c-format
 msgid "Error %d writing mouse axis event (dx %d, dy %d)"
 msgstr "Erroray %d itingwray ousemay axisay eventay (xday %d, yday %d)"
 
-#: daemon/x52d_mouse_handler.c:197
+#: daemon/mouse_handler.c:197
 msgid "Error writing mouse sync event"
 msgstr "Erroray itingwray ousemay yncsay eventay"
 
-#: daemon/x52d_mouse_handler.c:216
+#: daemon/mouse_handler.c:216
 msgid "Starting X52 virtual mouse driver thread"
 msgstr "Artingstay X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_handler.c:235
+#: daemon/mouse_handler.c:235
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr "Erroray %d initializingay ousemay eadthray: %s"
 
-#: daemon/x52d_mouse_handler.c:242
+#: daemon/mouse_handler.c:242
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr "Uttingshay ownday X52 irtualvay ousemay iverdray eadthray"
 
-#: daemon/x52d_mouse_handler.c:249
+#: daemon/mouse_handler.c:249
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr "Irtualvay ousemay otnay eatedcray. Ignoringa eadthray atestay angechay"
 
-#: daemon/x52d_mouse_handler.c:301 daemon/x52d_mouse_handler.c:309
+#: daemon/mouse_handler.c:301 daemon/mouse_handler.c:309
 #, c-format
 msgid "Error %d creating X52 virtual mouse"
 msgstr "Erroray %d eatingcray X52 irtualvay ousemay"
 
-#: daemon/x52d_notify.c:46
+#: daemon/notify.c:46
 #, c-format
 msgid "Error creating notification socket: %s"
 msgstr "Erroray eatingcray otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:51
+#: daemon/notify.c:51
 #, c-format
 msgid "Error marking notification socket as nonblocking: %s"
 msgstr "Erroray arkingmay otificationnay ocketsay asay onblockingnay: %s"
 
-#: daemon/x52d_notify.c:56
+#: daemon/notify.c:56
 #, c-format
 msgid "Error listening on notification socket: %s"
 msgstr "Erroray isteninglay onay otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:65
+#: daemon/notify.c:65
 msgid "Error setting up notification socket"
 msgstr "Erroray ettingsay upay otificationnay ocketsay: %s"
 
-#: daemon/x52d_notify.c:81 daemon/x52d_notify.c:91
+#: daemon/notify.c:81 daemon/notify.c:91
 #, c-format
 msgid "Error %d reading from pipe: %s"
 msgstr "Erroray eadingray omfray ipepay %d: %s"
 
-#: daemon/x52d_notify.c:128
+#: daemon/notify.c:128
 #, c-format
 msgid "Error %d writing notification pipe: %s"
 msgstr "Erroray %d itingwray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:174
+#: daemon/notify.c:174
 #, c-format
 msgid "Error %d creating notification pipe: %s"
 msgstr "Erroray %d eatingcray otificationnay ipepay: %s"
 
-#: daemon/x52d_notify.c:183
+#: daemon/notify.c:183
 #, c-format
 msgid "Error %d initializing notify thread: %s"
 msgstr "Erroray %d initializingay otifynay eadthray: %s"
 
-#: daemon/x52d_notify.c:189
+#: daemon/notify.c:189
 #, c-format
 msgid "Error %d initializing notify listener: %s"
 msgstr "Erroray %d initializingay otifynay istenerlay: %s"
-
-#: daemon/x52ctl.c:60
-#, c-format
-msgid "Usage: %s [-i] [-s socket-path] [command]\n"
-msgstr "Usageay: %s [-i] [-s ocketsay-athpay] [ommandcay]\n"
-
-#: daemon/x52ctl.c:73
-#, c-format
-msgid "Argument length too long\n"
-msgstr "Argumentay engthlay ootay onglay\n"
-
-#: daemon/x52ctl.c:180
-#, c-format
-msgid "Running in interactive mode, ignoring extra arguments\n"
-msgstr "Unningray inay interactiveay odemay, ignoringay extraay argumentsay\n"
 
 #, c-format
 #~ msgid "Ignoring mouse speed %d outside supported range (0-%d)"

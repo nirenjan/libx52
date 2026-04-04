@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
@@ -14,7 +14,7 @@
 
 #include "libusb.h"
 #include "hidapi.h"
-#include "libx52io.h"
+#include <libx52/libx52io.h>
 #include "version-info.h"
 
 static void print_sysinfo(void)

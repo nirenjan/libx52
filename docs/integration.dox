@@ -11,7 +11,7 @@ to a supported joystick. This function must be called after \ref libx52_init
 <b>Example Initialization/Deinitialization Code</b>
 
 @code{.c}
-#include <libx52.h>
+#include <libx52/libx52.h>
 
 libx52_device* init_libx52(void)
 {

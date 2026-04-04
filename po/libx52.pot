@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-03 18:06-0700\n"
+"POT-Creation-Date: 2026-04-03 23:44-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,247 +17,247 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libx52/x52_strerror.c:23 libx52io/io_strings.c:196 vkm/vkm_common.c:25
+#: libx52/strerror.c:23 libx52io/strings.c:196 vkm/common.c:25
 msgid "Success"
 msgstr ""
 
-#: libx52/x52_strerror.c:24 libx52io/io_strings.c:197
+#: libx52/strerror.c:24 libx52io/strings.c:197
 msgid "Initialization failure"
 msgstr ""
 
-#: libx52/x52_strerror.c:25
+#: libx52/strerror.c:25
 msgid "Insufficient memory"
 msgstr ""
 
-#: libx52/x52_strerror.c:26 vkm/vkm_common.c:29
+#: libx52/strerror.c:26 vkm/common.c:29
 msgid "Invalid parameter"
 msgstr ""
 
-#: libx52/x52_strerror.c:27
+#: libx52/strerror.c:27
 msgid "Operation not supported"
 msgstr ""
 
-#: libx52/x52_strerror.c:28
+#: libx52/strerror.c:28
 msgid "Try again"
 msgstr ""
 
-#: libx52/x52_strerror.c:29
+#: libx52/strerror.c:29
 msgid "Input parameter out of range"
 msgstr ""
 
-#: libx52/x52_strerror.c:30
+#: libx52/strerror.c:30
 msgid "USB transaction failure"
 msgstr ""
 
-#: libx52/x52_strerror.c:31
+#: libx52/strerror.c:31
 msgid "USB input/output error"
 msgstr ""
 
-#: libx52/x52_strerror.c:32
+#: libx52/strerror.c:32
 msgid "Access denied"
 msgstr ""
 
-#: libx52/x52_strerror.c:33
+#: libx52/strerror.c:33
 msgid "No such device"
 msgstr ""
 
-#: libx52/x52_strerror.c:34
+#: libx52/strerror.c:34
 msgid "Entity not found"
 msgstr ""
 
-#: libx52/x52_strerror.c:35
+#: libx52/strerror.c:35
 msgid "Resource busy"
 msgstr ""
 
-#: libx52/x52_strerror.c:36
+#: libx52/strerror.c:36
 msgid "Operation timeout"
 msgstr ""
 
-#: libx52/x52_strerror.c:37
+#: libx52/strerror.c:37
 msgid "Overflow"
 msgstr ""
 
-#: libx52/x52_strerror.c:38
+#: libx52/strerror.c:38
 msgid "Pipe error"
 msgstr ""
 
-#: libx52/x52_strerror.c:39
+#: libx52/strerror.c:39
 msgid "System call interrupted"
 msgstr ""
 
-#: libx52/x52_strerror.c:66 libx52io/io_strings.c:220 vkm/vkm_common.c:52
+#: libx52/strerror.c:66 libx52io/strings.c:220 vkm/common.c:52
 #, c-format
 msgid "Unknown error %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:29
+#: libx52/stringify.c:29
 #, c-format
 msgid "Unknown clock ID %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:30
+#: libx52/stringify.c:30
 msgid "primary"
 msgstr ""
 
-#: libx52/x52_stringify.c:31
+#: libx52/stringify.c:31
 msgid "secondary"
 msgstr ""
 
-#: libx52/x52_stringify.c:32
+#: libx52/stringify.c:32
 msgid "tertiary"
 msgstr ""
 
-#: libx52/x52_stringify.c:35
+#: libx52/stringify.c:35
 #, c-format
 msgid "Unknown clock format %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:36
+#: libx52/stringify.c:36
 msgid "12 hour"
 msgstr ""
 
-#: libx52/x52_stringify.c:37
+#: libx52/stringify.c:37
 msgid "24 hour"
 msgstr ""
 
-#: libx52/x52_stringify.c:40
+#: libx52/stringify.c:40
 #, c-format
 msgid "Unknown date format %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:41
+#: libx52/stringify.c:41
 msgid "DD-MM-YY"
 msgstr ""
 
-#: libx52/x52_stringify.c:42
+#: libx52/stringify.c:42
 msgid "MM-DD-YY"
 msgstr ""
 
-#: libx52/x52_stringify.c:43
+#: libx52/stringify.c:43
 msgid "YY-MM-DD"
 msgstr ""
 
-#: libx52/x52_stringify.c:46
+#: libx52/stringify.c:46
 #, c-format
 msgid "Unknown LED state %d"
 msgstr ""
 
-#: libx52/x52_stringify.c:47 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
-#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
+#: libx52/stringify.c:47 daemon/clock.c:29 daemon/mouse.c:55 daemon/mouse.c:95
+#: daemon/mouse.c:107
 msgid "off"
 msgstr ""
 
-#: libx52/x52_stringify.c:48 daemon/x52d_clock.c:29 daemon/x52d_mouse.c:55
-#: daemon/x52d_mouse.c:95 daemon/x52d_mouse.c:107
+#: libx52/stringify.c:48 daemon/clock.c:29 daemon/mouse.c:55 daemon/mouse.c:95
+#: daemon/mouse.c:107
 msgid "on"
 msgstr ""
 
-#: libx52/x52_stringify.c:49
+#: libx52/stringify.c:49
 msgid "red"
 msgstr ""
 
-#: libx52/x52_stringify.c:50
+#: libx52/stringify.c:50
 msgid "amber"
 msgstr ""
 
-#: libx52/x52_stringify.c:51
+#: libx52/stringify.c:51
 msgid "green"
 msgstr ""
 
-#: libx52/x52_stringify.c:60
+#: libx52/stringify.c:60
 msgid "Fire"
 msgstr ""
 
-#: libx52/x52_stringify.c:63
+#: libx52/stringify.c:63
 msgid "A"
 msgstr ""
 
-#: libx52/x52_stringify.c:66
+#: libx52/stringify.c:66
 msgid "B"
 msgstr ""
 
-#: libx52/x52_stringify.c:69
+#: libx52/stringify.c:69
 msgid "D"
 msgstr ""
 
-#: libx52/x52_stringify.c:72
+#: libx52/stringify.c:72
 msgid "E"
 msgstr ""
 
-#: libx52/x52_stringify.c:75
+#: libx52/stringify.c:75
 msgid "T1"
 msgstr ""
 
-#: libx52/x52_stringify.c:78
+#: libx52/stringify.c:78
 msgid "T2"
 msgstr ""
 
-#: libx52/x52_stringify.c:81
+#: libx52/stringify.c:81
 msgid "T3"
 msgstr ""
 
-#: libx52/x52_stringify.c:84
+#: libx52/stringify.c:84
 msgid "POV"
 msgstr ""
 
-#: libx52/x52_stringify.c:87
+#: libx52/stringify.c:87
 msgid "Clutch"
 msgstr ""
 
-#: libx52/x52_stringify.c:90
+#: libx52/stringify.c:90
 msgid "Throttle"
 msgstr ""
 
-#: libx52/x52_stringify.c:93
+#: libx52/stringify.c:93
 #, c-format
 msgid "Unknown LED ID %d"
 msgstr ""
 
-#: libx52io/io_strings.c:198
+#: libx52io/strings.c:198
 msgid "No device"
 msgstr ""
 
-#: libx52io/io_strings.c:199
+#: libx52io/strings.c:199
 msgid "Invalid arguments"
 msgstr ""
 
-#: libx52io/io_strings.c:200
+#: libx52io/strings.c:200
 msgid "Connection failure"
 msgstr ""
 
-#: libx52io/io_strings.c:201
+#: libx52io/strings.c:201
 msgid "I/O error"
 msgstr ""
 
-#: libx52io/io_strings.c:202
+#: libx52io/strings.c:202
 msgid "Read timeout"
 msgstr ""
 
-#: vkm/vkm_common.c:26
+#: vkm/common.c:26
 msgid "Unknown error"
 msgstr ""
 
-#: vkm/vkm_common.c:27
+#: vkm/common.c:27
 msgid "Not ready"
 msgstr ""
 
-#: vkm/vkm_common.c:28
+#: vkm/common.c:28
 msgid "Out of memory"
 msgstr ""
 
-#: vkm/vkm_common.c:30
+#: vkm/common.c:30
 msgid "Not supported"
 msgstr ""
 
-#: vkm/vkm_common.c:31
+#: vkm/common.c:31
 msgid "Virtual device failure"
 msgstr ""
 
-#: vkm/vkm_common.c:32
+#: vkm/common.c:32
 msgid "Unable to write event"
 msgstr ""
 
-#: vkm/vkm_common.c:33
+#: vkm/common.c:33
 msgid "No state change"
 msgstr ""
 
@@ -521,17 +521,270 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: daemon/x52d_main.c:67
+#: daemon/client.c:37
+#, c-format
+msgid "Error accepting client connection on socket fd %d: %s"
+msgstr ""
+
+#: daemon/client.c:43
+#, c-format
+msgid "Error marking client fd %d as nonblocking: %s"
+msgstr ""
+
+#: daemon/client.c:97
+#, c-format
+msgid "Error when polling socket: FD %d, error %d, len %lu"
+msgstr ""
+
+#: daemon/client.c:127
+#, c-format
+msgid "Error %d when polling %d descriptors: %s"
+msgstr ""
+
+#: daemon/client.c:130
+msgid "Timed out when polling"
+msgstr ""
+
+#: daemon/clock.c:28
+#, c-format
+msgid "Setting clock enable to %s"
+msgstr ""
+
+#: daemon/clock.c:35 daemon/clock.c:119
+#, c-format
+msgid "Setting %s clock timezone to %s"
+msgstr ""
+
+#: daemon/clock.c:37
+msgid "local"
+msgstr ""
+
+#: daemon/clock.c:37
+msgid "UTC"
+msgstr ""
+
+#: daemon/clock.c:55
+msgid "Unable to allocate memory for timezone. Falling back to UTC"
+msgstr ""
+
+#: daemon/clock.c:65
+msgid "Unable to backup timezone environment. Falling back to UTC"
+msgstr ""
+
+#: daemon/clock.c:138
+#, c-format
+msgid "Setting %s clock format to %s"
+msgstr ""
+
+#: daemon/clock.c:162
+#, c-format
+msgid "Setting date format to %s"
+msgstr ""
+
+#: daemon/clock.c:174
+msgid "Starting X52 clock manager thread"
+msgstr ""
+
+#: daemon/clock.c:185
+#, c-format
+msgid "Error %d retrieving current time: %s"
+msgstr ""
+
+#: daemon/clock.c:206
+#, c-format
+msgid "Error %d initializing clock thread: %s"
+msgstr ""
+
+#: daemon/clock.c:213
+msgid "Shutting down X52 clock manager thread"
+msgstr ""
+
+#: daemon/command.c:379
+#, c-format
+msgid "Error reading from client %d: %s"
+msgstr ""
+
+#: daemon/command.c:390
+#, c-format
+msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
+msgstr ""
+
+#: daemon/command.c:415
+#, c-format
+msgid "Error %d during command loop: %s"
+msgstr ""
+
+#: daemon/command.c:442
+#, c-format
+msgid "Error creating command socket: %s"
+msgstr ""
+
+#: daemon/command.c:450
+#, c-format
+msgid "Error marking command socket as nonblocking: %s"
+msgstr ""
+
+#: daemon/command.c:456
+#, c-format
+msgid "Error listening on command socket: %s"
+msgstr ""
+
+#: daemon/command.c:460
+msgid "Starting command processing thread"
+msgstr ""
+
+#: daemon/command.c:478
+msgid "Shutting down command processing thread"
+msgstr ""
+
+#: daemon/config.c:29
+#, c-format
+msgid "Error %d setting configuration defaults: %s"
+msgstr ""
+
+#: daemon/config.c:56
+#, c-format
+msgid "Error %d saving configuration file: %s"
+msgstr ""
+
+#: daemon/config_dump.c:108
+#, c-format
+msgid "Unable to save config file %s - code %d: %s"
+msgstr ""
+
+#: daemon/config_dump.c:126
+#, c-format
+msgid "Failed to dump %s.%s to config file %s"
+msgstr ""
+
+#: daemon/config_parser.c:172
+#, c-format
+msgid "Ignoring unknown key '%s.%s'"
+msgstr ""
+
+#: daemon/config_parser.c:213
+#, c-format
+msgid "Failed processing configuration file %s - code %d"
+msgstr ""
+
+#: daemon/config_parser.c:243
+msgid "Failed to allocate memory for override structure"
+msgstr ""
+
+#: daemon/config_parser.c:252
+msgid "Failed to allocate memory for override string"
+msgstr ""
+
+#: daemon/config_parser.c:263
+#, c-format
+msgid "No section found in override string '%s'"
+msgstr ""
+
+#: daemon/config_parser.c:277
+#, c-format
+msgid "No key found in override string '%s'"
+msgstr ""
+
+#: daemon/config_parser.c:288
+#, c-format
+msgid "No value found in override string '%s'"
+msgstr ""
+
+#: daemon/config_parser.c:339
+#, c-format
+msgid "Error processing override '%s.%s=%s'"
+msgstr ""
+
+#: daemon/daemon_control.c:60
+#, c-format
+msgid "Usage: %s [-i] [-s socket-path] [command]\n"
+msgstr ""
+
+#: daemon/daemon_control.c:73
+#, c-format
+msgid "Argument length too long\n"
+msgstr ""
+
+#: daemon/daemon_control.c:180
+#, c-format
+msgid "Running in interactive mode, ignoring extra arguments\n"
+msgstr ""
+
+#: daemon/device.c:37
+msgid "Starting X52 device manager thread"
+msgstr ""
+
+#: daemon/device.c:44
+#, c-format
+msgid "Error %d connecting to device: %s"
+msgstr ""
+
+#: daemon/device.c:53
+msgid "Device connected, writing configuration"
+msgstr ""
+
+#: daemon/device.c:76
+msgid "Initializing libx52"
+msgstr ""
+
+#: daemon/device.c:80
+#, c-format
+msgid "Failure %d initializing libx52: %s"
+msgstr ""
+
+#: daemon/device.c:91
+msgid "Shutting down X52 device manager thread"
+msgstr ""
+
+#: daemon/device.c:104
+#, c-format
+msgid "Error %d when updating X52 parameter: %s"
+msgstr ""
+
+#: daemon/device.c:180
+#, c-format
+msgid "Error %d when updating X52 device: %s"
+msgstr ""
+
+#: daemon/io.c:43
+msgid "Starting X52 I/O thread"
+msgstr ""
+
+#: daemon/io.c:65
+#, c-format
+msgid "Error %d opening X52 I/O device: %s"
+msgstr ""
+
+#: daemon/io.c:76
+#, c-format
+msgid "Error %d reading from X52 I/O device: %s"
+msgstr ""
+
+#: daemon/io.c:103
+#, c-format
+msgid "Error %d initializing X52 I/O library: %s"
+msgstr ""
+
+#: daemon/io.c:109
+#, c-format
+msgid "Error %d initializing I/O driver thread: %s"
+msgstr ""
+
+#: daemon/io.c:116
+msgid "Shutting down X52 I/O driver thread"
+msgstr ""
+
+#: daemon/main.c:67
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/x52d_main.c:83
+#: daemon/main.c:83
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:94
+#: daemon/main.c:94
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -541,487 +794,234 @@ msgid ""
 "\t[-b notify-socket-path]\n"
 msgstr ""
 
-#: daemon/x52d_main.c:129
+#: daemon/main.c:129
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/x52d_main.c:271
+#: daemon/main.c:271
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/x52d_main.c:303
+#: daemon/main.c:303
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:303 daemon/x52d_main.c:304
+#: daemon/main.c:303 daemon/main.c:304
 msgid "true"
 msgstr ""
 
-#: daemon/x52d_main.c:303 daemon/x52d_main.c:304
+#: daemon/main.c:303 daemon/main.c:304
 msgid "false"
 msgstr ""
 
-#: daemon/x52d_main.c:304
+#: daemon/main.c:304
 #, c-format
 msgid "Quiet = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:305
+#: daemon/main.c:305
 #, c-format
 msgid "Verbosity = %d"
 msgstr ""
 
-#: daemon/x52d_main.c:306
+#: daemon/main.c:306
 #, c-format
 msgid "Log file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:307
+#: daemon/main.c:307
 #, c-format
 msgid "Config file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:308
+#: daemon/main.c:308
 #, c-format
 msgid "PID file = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:309
+#: daemon/main.c:309
 #, c-format
 msgid "Command socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:310
+#: daemon/main.c:310
 #, c-format
 msgid "Notify socket = %s"
 msgstr ""
 
-#: daemon/x52d_main.c:321
+#: daemon/main.c:321
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:338
+#: daemon/main.c:338
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/x52d_main.c:351
+#: daemon/main.c:351
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/x52d_main.c:358
+#: daemon/main.c:358
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/x52d_main.c:364
+#: daemon/main.c:364
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/x52d_main.c:379
+#: daemon/main.c:379
 msgid "Shutting down X52 daemon"
 msgstr ""
 
-#: daemon/x52d_client.c:37
-#, c-format
-msgid "Error accepting client connection on socket fd %d: %s"
-msgstr ""
-
-#: daemon/x52d_client.c:43
-#, c-format
-msgid "Error marking client fd %d as nonblocking: %s"
-msgstr ""
-
-#: daemon/x52d_client.c:97
-#, c-format
-msgid "Error when polling socket: FD %d, error %d, len %lu"
-msgstr ""
-
-#: daemon/x52d_client.c:127
-#, c-format
-msgid "Error %d when polling %d descriptors: %s"
-msgstr ""
-
-#: daemon/x52d_client.c:130
-msgid "Timed out when polling"
-msgstr ""
-
-#: daemon/x52d_clock.c:28
-#, c-format
-msgid "Setting clock enable to %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:35 daemon/x52d_clock.c:119
-#, c-format
-msgid "Setting %s clock timezone to %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:37
-msgid "local"
-msgstr ""
-
-#: daemon/x52d_clock.c:37
-msgid "UTC"
-msgstr ""
-
-#: daemon/x52d_clock.c:55
-msgid "Unable to allocate memory for timezone. Falling back to UTC"
-msgstr ""
-
-#: daemon/x52d_clock.c:65
-msgid "Unable to backup timezone environment. Falling back to UTC"
-msgstr ""
-
-#: daemon/x52d_clock.c:138
-#, c-format
-msgid "Setting %s clock format to %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:162
-#, c-format
-msgid "Setting date format to %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:174
-msgid "Starting X52 clock manager thread"
-msgstr ""
-
-#: daemon/x52d_clock.c:185
-#, c-format
-msgid "Error %d retrieving current time: %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:206
-#, c-format
-msgid "Error %d initializing clock thread: %s"
-msgstr ""
-
-#: daemon/x52d_clock.c:213
-msgid "Shutting down X52 clock manager thread"
-msgstr ""
-
-#: daemon/x52d_command.c:379
-#, c-format
-msgid "Error reading from client %d: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:390
-#, c-format
-msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
-msgstr ""
-
-#: daemon/x52d_command.c:415
-#, c-format
-msgid "Error %d during command loop: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:442
-#, c-format
-msgid "Error creating command socket: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:450
-#, c-format
-msgid "Error marking command socket as nonblocking: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:456
-#, c-format
-msgid "Error listening on command socket: %s"
-msgstr ""
-
-#: daemon/x52d_command.c:460
-msgid "Starting command processing thread"
-msgstr ""
-
-#: daemon/x52d_command.c:478
-msgid "Shutting down command processing thread"
-msgstr ""
-
-#: daemon/x52d_config.c:29
-#, c-format
-msgid "Error %d setting configuration defaults: %s"
-msgstr ""
-
-#: daemon/x52d_config.c:56
-#, c-format
-msgid "Error %d saving configuration file: %s"
-msgstr ""
-
-#: daemon/x52d_config_dump.c:108
-#, c-format
-msgid "Unable to save config file %s - code %d: %s"
-msgstr ""
-
-#: daemon/x52d_config_dump.c:126
-#, c-format
-msgid "Failed to dump %s.%s to config file %s"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:172
-#, c-format
-msgid "Ignoring unknown key '%s.%s'"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:213
-#, c-format
-msgid "Failed processing configuration file %s - code %d"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:243
-msgid "Failed to allocate memory for override structure"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:252
-msgid "Failed to allocate memory for override string"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:263
-#, c-format
-msgid "No section found in override string '%s'"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:277
-#, c-format
-msgid "No key found in override string '%s'"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:288
-#, c-format
-msgid "No value found in override string '%s'"
-msgstr ""
-
-#: daemon/x52d_config_parser.c:339
-#, c-format
-msgid "Error processing override '%s.%s=%s'"
-msgstr ""
-
-#: daemon/x52d_device.c:37
-msgid "Starting X52 device manager thread"
-msgstr ""
-
-#: daemon/x52d_device.c:44
-#, c-format
-msgid "Error %d connecting to device: %s"
-msgstr ""
-
-#: daemon/x52d_device.c:53
-msgid "Device connected, writing configuration"
-msgstr ""
-
-#: daemon/x52d_device.c:76
-msgid "Initializing libx52"
-msgstr ""
-
-#: daemon/x52d_device.c:80
-#, c-format
-msgid "Failure %d initializing libx52: %s"
-msgstr ""
-
-#: daemon/x52d_device.c:91
-msgid "Shutting down X52 device manager thread"
-msgstr ""
-
-#: daemon/x52d_device.c:104
-#, c-format
-msgid "Error %d when updating X52 parameter: %s"
-msgstr ""
-
-#: daemon/x52d_device.c:180
-#, c-format
-msgid "Error %d when updating X52 device: %s"
-msgstr ""
-
-#: daemon/x52d_io.c:43
-msgid "Starting X52 I/O thread"
-msgstr ""
-
-#: daemon/x52d_io.c:65
-#, c-format
-msgid "Error %d opening X52 I/O device: %s"
-msgstr ""
-
-#: daemon/x52d_io.c:76
-#, c-format
-msgid "Error %d reading from X52 I/O device: %s"
-msgstr ""
-
-#: daemon/x52d_io.c:103
-#, c-format
-msgid "Error %d initializing X52 I/O library: %s"
-msgstr ""
-
-#: daemon/x52d_io.c:109
-#, c-format
-msgid "Error %d initializing I/O driver thread: %s"
-msgstr ""
-
-#: daemon/x52d_io.c:116
-msgid "Shutting down X52 I/O driver thread"
-msgstr ""
-
-#: daemon/x52d_mouse.c:38 daemon/x52d_mouse.c:44
+#: daemon/mouse.c:38 daemon/mouse.c:44
 #, c-format
 msgid "Clamping %s value %d to range [%d..%d]"
 msgstr ""
 
-#: daemon/x52d_mouse.c:54
+#: daemon/mouse.c:54
 #, c-format
 msgid "Setting mouse enable to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:71
+#: daemon/mouse.c:71
 msgid ""
 "Config option 'mouse.speed' is DEPRECATED. Please use 'mouse.sensitivity' "
 "instead"
 msgstr ""
 
-#: daemon/x52d_mouse.c:86
+#: daemon/mouse.c:86
 #, c-format
 msgid "Migrating legacy mouse speed '%d' to sensitivity '%d' (percentage)"
 msgstr ""
 
-#: daemon/x52d_mouse.c:88
+#: daemon/mouse.c:88
 msgid "speed -> sensitivity"
 msgstr ""
 
-#: daemon/x52d_mouse.c:94
+#: daemon/mouse.c:94
 #, c-format
 msgid "Setting mouse reverse scroll to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:106
+#: daemon/mouse.c:106
 #, c-format
 msgid "Setting mouse isometric mode to %s"
 msgstr ""
 
-#: daemon/x52d_mouse.c:113
+#: daemon/mouse.c:113
 msgid "sensitivity"
 msgstr ""
 
-#: daemon/x52d_mouse.c:116
+#: daemon/mouse.c:116
 #, c-format
 msgid "Setting mouse sensitivity to %d%%"
 msgstr ""
 
-#: daemon/x52d_mouse.c:123
+#: daemon/mouse.c:123
 msgid "curve factor"
 msgstr ""
 
-#: daemon/x52d_mouse.c:124
+#: daemon/mouse.c:124
 #, c-format
 msgid "Setting mouse curve factor to %d"
 msgstr ""
 
-#: daemon/x52d_mouse.c:130
+#: daemon/mouse.c:130
 msgid "deadzone factor"
 msgstr ""
 
-#: daemon/x52d_mouse.c:131
+#: daemon/mouse.c:131
 #, c-format
 msgid "Setting mouse deadzone to %d"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:44
+#: daemon/mouse_handler.c:44
 #, c-format
 msgid "Error %d writing mouse button event (button %d, state %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:82
+#: daemon/mouse_handler.c:82
 #, c-format
 msgid "Error writing mouse wheel event %d"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:185
+#: daemon/mouse_handler.c:185
 #, c-format
 msgid "Error %d writing mouse axis event (dx %d, dy %d)"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:197
+#: daemon/mouse_handler.c:197
 msgid "Error writing mouse sync event"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:216
+#: daemon/mouse_handler.c:216
 msgid "Starting X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:235
+#: daemon/mouse_handler.c:235
 #, c-format
 msgid "Error %d initializing mouse thread: %s"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:242
+#: daemon/mouse_handler.c:242
 msgid "Shutting down X52 virtual mouse driver thread"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:249
+#: daemon/mouse_handler.c:249
 msgid "Virtual mouse not created. Ignoring thread state change"
 msgstr ""
 
-#: daemon/x52d_mouse_handler.c:301 daemon/x52d_mouse_handler.c:309
+#: daemon/mouse_handler.c:301 daemon/mouse_handler.c:309
 #, c-format
 msgid "Error %d creating X52 virtual mouse"
 msgstr ""
 
-#: daemon/x52d_notify.c:46
+#: daemon/notify.c:46
 #, c-format
 msgid "Error creating notification socket: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:51
+#: daemon/notify.c:51
 #, c-format
 msgid "Error marking notification socket as nonblocking: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:56
+#: daemon/notify.c:56
 #, c-format
 msgid "Error listening on notification socket: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:65
+#: daemon/notify.c:65
 msgid "Error setting up notification socket"
 msgstr ""
 
-#: daemon/x52d_notify.c:81 daemon/x52d_notify.c:91
+#: daemon/notify.c:81 daemon/notify.c:91
 #, c-format
 msgid "Error %d reading from pipe: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:128
+#: daemon/notify.c:128
 #, c-format
 msgid "Error %d writing notification pipe: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:174
+#: daemon/notify.c:174
 #, c-format
 msgid "Error %d creating notification pipe: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:183
+#: daemon/notify.c:183
 #, c-format
 msgid "Error %d initializing notify thread: %s"
 msgstr ""
 
-#: daemon/x52d_notify.c:189
+#: daemon/notify.c:189
 #, c-format
 msgid "Error %d initializing notify listener: %s"
-msgstr ""
-
-#: daemon/x52ctl.c:60
-#, c-format
-msgid "Usage: %s [-i] [-s socket-path] [command]\n"
-msgstr ""
-
-#: daemon/x52ctl.c:73
-#, c-format
-msgid "Argument length too long\n"
-msgstr ""
-
-#: daemon/x52ctl.c:180
-#, c-format
-msgid "Running in interactive mode, ignoring extra arguments\n"
 msgstr ""

@@ -150,7 +150,7 @@ possibly through \b sudo(8)
 */
 
 #define _GNU_SOURCE
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -158,7 +158,7 @@ possibly through \b sudo(8)
 #include <unistd.h>
 #include <time.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 
 struct string_map {
     const char *key;

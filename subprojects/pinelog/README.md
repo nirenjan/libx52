@@ -97,8 +97,16 @@ default to `0` (disabled). Set the flag to `1` to enable it.
 * `PINELOG_SHOW_BACKTRACE` - Display the file and line where the message is
   logged.
 
+* `PINELOG_STRIP_FILE_PATH` - If `1` (default), the file in the log line is only
+  the basename. If `0`, the compiler’s `__FILE__` is used instead, which usually
+  keeps a path prefix (for example `libx52/core.c` vs `libx52io/core.c`).
+
 Set these flags by using the `-D` compiler argument, .e.g.
 `-DPINELOG_SHOW_LEVEL=1 -DPINELOG_SHOW_DATE=1`
+
+When using Meson, the pinelog option `strip-file-path` sets
+`-DPINELOG_STRIP_FILE_PATH` for the library and for dependents via
+`declare_dependency(compile_args: ...)`.
 
 ### Level strings
 

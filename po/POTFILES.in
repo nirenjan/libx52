@@ -1,10 +1,10 @@
 # List of source files which contain translatable strings.
-libx52/x52_strerror.c
-libx52/x52_stringify.c
+libx52/strerror.c
+libx52/stringify.c
 
-libx52io/io_strings.c
+libx52io/strings.c
 
-vkm/vkm_common.c
+vkm/common.c
 
 evtest/ev_test.c
 
@@ -14,16 +14,16 @@ joytest/x52_test_common.h
 joytest/x52_test_led.c
 joytest/x52_test_mfd.c
 
-daemon/x52d_main.c
-daemon/x52d_client.c
-daemon/x52d_clock.c
-daemon/x52d_command.c
-daemon/x52d_config.c
-daemon/x52d_config_dump.c
-daemon/x52d_config_parser.c
-daemon/x52d_device.c
-daemon/x52d_io.c
-daemon/x52d_mouse.c
-daemon/x52d_mouse_handler.c
-daemon/x52d_notify.c
-daemon/x52ctl.c
+daemon/client.c
+daemon/clock.c
+daemon/command.c
+daemon/config.c
+daemon/config_dump.c
+daemon/config_parser.c
+daemon/daemon_control.c
+daemon/device.c
+daemon/io.c
+daemon/main.c
+daemon/mouse.c
+daemon/mouse_handler.c
+daemon/notify.c

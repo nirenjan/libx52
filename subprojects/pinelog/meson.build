@@ -1,10 +1,13 @@
 project('pinelog', 'C',
 	default_options: ['show-date=true', 'show-level=true', 'show-backtrace=true'])
 
+pinelog_path_arg = '-DPINELOG_STRIP_FILE_PATH=@0@'.format(get_option('strip-file-path').to_int())
+
 pinelog_cflags = [
 	'-DPINELOG_SHOW_DATE=@0@'.format(get_option('show-date').to_int()),
 	'-DPINELOG_SHOW_LEVEL=@0@'.format(get_option('show-level').to_int()),
 	'-DPINELOG_SHOW_BACKTRACE=@0@'.format(get_option('show-backtrace').to_int()),
+	pinelog_path_arg,
 ]
 
 libpinelog = static_library('pinelog', 'pinelog.c', c_args: pinelog_cflags)
@@ -12,7 +15,8 @@ libpinelog = static_library('pinelog', 'pinelog.c', c_args: pinelog_cflags)
 libpinelog_inc = include_directories('.')
 libpinelog_dep = declare_dependency(
 	include_directories: libpinelog_inc,
-	link_with: libpinelog
+	link_with: libpinelog,
+	compile_args: [pinelog_path_arg],
 )
 
 prog_class = ['bench', 'test']
@@ -44,7 +48,8 @@ foreach date_arg: [0, 1]
 				'-DPINELOG_DEFAULT_LEVEL=PINELOG_LVL_TRACE',
 				'-DPINELOG_DEFAULT_STREAM=stderr',
 				'-DPINELOG_TEST',
-				date_def, level_def, backtrace_def
+				date_def, level_def, backtrace_def,
+				pinelog_path_arg,
 			]
 			test_name = test_name_template.format(
 				date_name, level_name, backtrace_name)

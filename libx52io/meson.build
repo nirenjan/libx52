@@ -1,11 +1,11 @@
 libx52io_version = '1.1.0'
 
 libx52io_files = files(
-  'io_core.c',
-  'io_axis.c',
-  'io_parser.c',
-  'io_strings.c',
-  'io_device.c',
+  'core.c',
+  'axis.c',
+  'parser.c',
+  'strings.c',
+  'device.c',
 )
 
 lib_libx52io = library('x52io', libx52io_files,
@@ -19,7 +19,6 @@ install_headers('libx52io.h', subdir: meson.project_name())
 pkgconfig.generate(lib_libx52io,
   name: 'libx52io',
   description: 'Linux/Unix library to read and parse X52 input',
-  subdirs: meson.project_name(),
   version: libx52io_version,
 )
 

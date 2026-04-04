@@ -7,12 +7,12 @@
  */
 
 #define _GNU_SOURCE
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 
-#include "libx52.h"
+#include <libx52/libx52.h>
 #include "x52_test_common.h"
 
 #define TEST_LED(name, state) do { \

@@ -2,9 +2,6 @@
 # Install dependencies to build and test on Ubuntu runners
 sudo apt-get update
 sudo apt-get install -y \
-    autoconf \
-    automake \
-    libtool \
     pkg-config \
     python3 \
     gettext \
@@ -17,7 +14,6 @@ sudo apt-get install -y \
     libcmocka-dev \
     faketime \
     meson \
-    ninja-build \
-    libinih-dev
+    ninja-build
 
 exit 0

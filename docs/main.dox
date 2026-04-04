@@ -45,10 +45,10 @@ with your application.
 See the documentation for the following files for a complete list of all
 functions.
 
-- libx52.h
-- libx52io.h
-- libx52util.h
-- vkm.h
-- x52dcomm.h
+- libx52/libx52.h
+- libx52/libx52io.h
+- libx52/libx52util.h
+- vkm/vkm.h
+- libx52/x52dcomm.h
 
 */

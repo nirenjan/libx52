@@ -36,7 +36,7 @@ pyversion = python.language_version().split('.')
 assert(pyversion[1].to_int() >= 5, 'Require Python >= 3.5')
 
 #######################################################################
-# config.h
+# build-config.h (Meson configuration; template is config.h.meson)
 #######################################################################
 compiler = meson.get_compiler('c')
 sym_hidden_cargs = []
@@ -59,9 +59,11 @@ cdata.set10('HAVE_STRUCT_TM_TM_GMTOFF',
 
 config_h = configure_file(
   input: 'config.h.meson',
-  output: 'config.h',
+  output: 'build-config.h',
   configuration: cdata
 )
+
+dep_config_h = declare_dependency(sources: config_h)
 
 #######################################################################
 # Internationalization
@@ -101,11 +103,14 @@ dep_math = compiler.find_library('m', required: false)
 #######################################################################
 
 # pinelog
-pinelog_options = []
+pinelog_options = [
+  # Keep directory prefix in __FILE__ for logs (e.g. libx52/core.c vs libx52io/core.c).
+  'strip-file-path=false',
+]
 if dep_systemd.found() and not get_option('systemd-logs').disabled()
   # If systemd logs is enabled or auto, and systemd is found, then hide
   # the timestamps in log messages
-  pinelog_options = ['show-date=false']
+  pinelog_options += ['show-date=false']
 endif
 
 sub_pinelog = subproject('pinelog', required: true,
@@ -120,7 +125,7 @@ dep_inih = dependency('inih')
 # Shared libraries and programs
 #######################################################################
 # Includes
-includes = include_directories('.', 'libx52', 'libx52io', 'libx52util', 'vkm')
+includes = include_directories('.')
 
 subdir('libx52')
 subdir('libx52io')
