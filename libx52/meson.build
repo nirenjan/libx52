@@ -20,7 +20,6 @@ install_headers('libx52.h', subdir: meson.project_name())
 pkgconfig.generate(lib_libx52,
   name: 'libx52',
   description: 'Linux/Unix library to control Saitek X52/X52Pro joystick extended functionality.',
-  subdirs: meson.project_name(),
   version: libx52_version)
 
 # Unit tests for libx52

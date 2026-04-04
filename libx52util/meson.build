@@ -20,7 +20,6 @@ install_headers('libx52util.h', subdir: meson.project_name())
 pkgconfig.generate(lib_libx52util,
   name: 'libx52util',
   description: 'Extra utility functions to manage X52 extended functionality',
-  subdirs: meson.project_name(),
   version: libx52util_version,
 )
 

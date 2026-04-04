@@ -15,6 +15,12 @@ lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
   install: true,
   include_directories: includes)
 
+pkgconfig.generate(lib_libx52dcomm,
+  name: 'x52dcomm',
+  description: 'Client library for communicating with the x52d X52 daemon.',
+  version: libx52dcomm_version,
+)
+
 x52d_sources = [
   'x52d_main.c',
   'x52d_config_parser.c',

@@ -56,6 +56,5 @@ endif
 install_headers('vkm.h', subdir: 'vkm')
 pkgconfig.generate(lib_vkm,
   name: 'vkm',
-  description: 'Linux/Unix library to control Saitek X52/X52Pro joystick extended functionality.',
-  subdirs: meson.project_name(),
+  description: 'Virtual keyboard/mouse interface library for injecting events into the host OS.',
   version: vkm_version)
