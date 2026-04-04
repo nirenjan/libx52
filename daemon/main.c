@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -17,15 +17,15 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include "x52d_clock.h"
-#include "x52d_const.h"
-#include "x52d_config.h"
-#include "x52d_device.h"
-#include "x52d_io.h"
-#include "x52d_mouse.h"
-#include "x52d_command.h"
-#include "x52d_notify.h"
-#include "x52dcomm-internal.h"
+#include <daemon/clock.h>
+#include <daemon/constants.h>
+#include <daemon/config.h>
+#include <daemon/device.h>
+#include <daemon/io.h>
+#include <daemon/mouse.h>
+#include <daemon/command.h>
+#include <daemon/notify.h>
+#include <daemon/x52dcomm-internal.h>
 #include <libx52/x52dcomm.h>
 #include "pinelog.h"
 

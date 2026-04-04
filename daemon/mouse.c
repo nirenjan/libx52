@@ -6,16 +6,16 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
 
 #define PINELOG_MODULE X52D_MOD_MOUSE
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_const.h"
-#include "x52d_mouse.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
+#include <daemon/mouse.h>
 
 // Mouse speed is the delay in microseconds between subsequent mouse reports
 #define DEFAULT_MOUSE_DELAY 70000

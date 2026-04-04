@@ -36,7 +36,7 @@ pyversion = python.language_version().split('.')
 assert(pyversion[1].to_int() >= 5, 'Require Python >= 3.5')
 
 #######################################################################
-# config.h
+# build-config.h (Meson configuration; template is config.h.meson)
 #######################################################################
 compiler = meson.get_compiler('c')
 sym_hidden_cargs = []
@@ -59,9 +59,11 @@ cdata.set10('HAVE_STRUCT_TM_TM_GMTOFF',
 
 config_h = configure_file(
   input: 'config.h.meson',
-  output: 'config.h',
+  output: 'build-config.h',
   configuration: cdata
 )
+
+dep_config_h = declare_dependency(sources: config_h)
 
 #######################################################################
 # Internationalization

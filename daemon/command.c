@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdbool.h>
 #include <string.h>
 #include <stdarg.h>
@@ -21,11 +21,11 @@
 
 #define PINELOG_MODULE X52D_MOD_COMMAND
 #include "pinelog.h"
-#include "x52d_const.h"
-#include "x52d_command.h"
-#include "x52d_config.h"
-#include "x52d_client.h"
-#include "x52dcomm-internal.h"
+#include <daemon/constants.h>
+#include <daemon/command.h>
+#include <daemon/config.h>
+#include <daemon/client.h>
+#include <daemon/x52dcomm-internal.h>
 
 static int client_fd[X52D_MAX_CLIENTS];
 

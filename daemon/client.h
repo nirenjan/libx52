@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <poll.h>
 
-#include "x52d_const.h"
+#include <daemon/constants.h>
 
 #define MAX_CONN    (X52D_MAX_CLIENTS + 1)
 

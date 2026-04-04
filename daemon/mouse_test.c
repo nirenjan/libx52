@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -15,9 +15,9 @@
 
 #define PINELOG_MODULE X52D_MOD_MOUSE
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_const.h"
-#include "x52d_mouse.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
+#include <daemon/mouse.h>
 
 /* Stub for handler */
 void x52d_mouse_thread_control(bool enabled)
@@ -44,7 +44,7 @@ static void test_mouse_thread_disabled(void **state)
     x52d_cfg_set_Mouse_Enabled(false);
 }
 
-/* The following tests are dependent on the values in x52d_mouse.c */
+/* The following tests are dependent on the values in mouse.c */
 static void test_mouse_speed_negative(void **state)
 {
     (void)state;

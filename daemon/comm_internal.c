@@ -6,15 +6,15 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 
 #include <errno.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "x52dcomm-internal.h"
-#include "x52d_const.h"
+#include <daemon/x52dcomm-internal.h>
+#include <daemon/constants.h>
 
 const char * x52d_command_sock_path(const char *sock_path)
 {

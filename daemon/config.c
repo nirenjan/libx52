@@ -6,13 +6,13 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <errno.h>
 
 #define PINELOG_MODULE X52D_MOD_CONFIG
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_const.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
 
 static struct x52d_config x52d_config;
 
@@ -97,7 +97,7 @@ void x52d_config_apply_immediate(const char *section, const char *key)
         x52d_cfg_set_ ## c_sec ## _ ## c_key(x52d_config . name); \
     } else
 
-#include "x52d_config.def"
+#include <daemon/config.def>
     // Dummy to capture the trailing else
     // Wrap it in braces in case tracing has been disabled
     { PINELOG_TRACE("Ignoring apply_immediate(%s.%s)", section, key); }
@@ -108,5 +108,5 @@ void x52d_config_apply(void)
     #define CFG(section, key, name, parser, def) \
         PINELOG_TRACE("Calling configuration callback for " #section "." #key); \
         x52d_cfg_set_ ## section ## _ ## key(x52d_config . name);
-    #include "x52d_config.def"
+    #include <daemon/config.def>
 }

@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <pthread.h>
@@ -18,9 +18,9 @@
 
 #define PINELOG_MODULE X52D_MOD_MOUSE
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_const.h"
-#include "x52d_mouse.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
+#include <daemon/mouse.h>
 
 static pthread_t mouse_thr;
 static bool mouse_thr_enabled = false;

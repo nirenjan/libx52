@@ -13,11 +13,11 @@
 
 #define PINELOG_MODULE X52D_MOD_NOTIFY
 #include "pinelog.h"
-#include "x52d_const.h"
-#include "x52d_notify.h"
-#include "x52d_client.h"
+#include <daemon/constants.h>
+#include <daemon/notify.h>
+#include <daemon/client.h>
 #include <libx52/x52dcomm.h>
-#include "x52dcomm-internal.h"
+#include <daemon/x52dcomm-internal.h>
 
 static pthread_t notify_thr;
 static pthread_t notify_listen;

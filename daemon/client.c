@@ -12,8 +12,8 @@
 #include <unistd.h>
 
 #include "pinelog.h"
-#include "x52d_client.h"
-#include "x52dcomm-internal.h"
+#include <daemon/client.h>
+#include <daemon/x52dcomm-internal.h>
 
 void x52d_client_init(int client_fd[X52D_MAX_CLIENTS])
 {

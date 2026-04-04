@@ -7,7 +7,7 @@
  */
 
 #define _GNU_SOURCE
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

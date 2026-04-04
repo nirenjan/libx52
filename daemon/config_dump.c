@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
@@ -17,8 +17,8 @@
 #define PINELOG_MODULE X52D_MOD_CONFIG
 #include "pinelog.h"
 #include <libx52/libx52.h>
-#include "x52d_config.h"
-#include "x52d_const.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
 
 // Create a pointer "name" of type "type", which stores the value of the
 // corresponding element within the config struct.
@@ -130,7 +130,7 @@ int x52d_config_save_file(struct x52d_config *cfg, const char *cfg_file)
             fprintf(cfg_fp, "%s = %s\n", #key, value); \
         } \
     } while (0);
-    #include "x52d_config.def"
+    #include <daemon/config.def>
 
 exit_dump:
     free(current_section);
@@ -145,7 +145,7 @@ const char *x52d_config_get_param(struct x52d_config *cfg, const char *section, 
             return type ## _dumper(section, key, cfg, offsetof(struct x52d_config, name)); \
         } \
     } while (0);
-    #include "x52d_config.def"
+    #include <daemon/config.def>
 
     return NULL;
 }

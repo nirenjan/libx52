@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
@@ -15,9 +15,9 @@
 
 #define PINELOG_MODULE X52D_MOD_LED
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_const.h"
-#include "x52d_device.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
+#include <daemon/device.h>
 
 #define SET_LED_STATE(led, state) \
     PINELOG_TRACE("Setting LED %s state to %s (%d)", \

@@ -6,16 +6,16 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <stdbool.h>
 
 #define PINELOG_MODULE X52D_MOD_DEVICE
-#include "x52d_const.h"
-#include "x52d_config.h"
-#include "x52d_device.h"
-#include "x52d_notify.h"
+#include <daemon/constants.h>
+#include <daemon/config.h>
+#include <daemon/device.h>
+#include <daemon/notify.h>
 #include <libx52/libx52.h>
 #include "pinelog.h"
 

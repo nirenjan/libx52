@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
@@ -17,8 +17,8 @@
 #define PINELOG_MODULE X52D_MOD_CONFIG
 #include "ini.h"
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_const.h"
+#include <daemon/config.h>
+#include <daemon/constants.h>
 
 /* Parser function typedef */
 typedef int (*parser_fn)(struct x52d_config *, size_t, const char *);
@@ -142,7 +142,7 @@ static const struct config_map {
     parser_fn parser;
     size_t offset;
 } config_map[] = {
-    #include "x52d_config.def"
+    #include <daemon/config.def>
 
     // Terminating entry
     {NULL, NULL, NULL, 0}
@@ -195,7 +195,7 @@ int x52d_config_set_defaults(struct x52d_config *cfg) {
         if (rc != 0) { \
             return rc; \
         }
-    #include "x52d_config.def"
+    #include <daemon/config.def>
 
     return 0;
 }

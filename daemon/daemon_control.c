@@ -40,7 +40,7 @@ string "quit", or terminates input by using Ctrl+D.
   default socket.
 */
 
-#include "config.h"
+#include "build-config.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -48,7 +48,7 @@ string "quit", or terminates input by using Ctrl+D.
 #include <unistd.h>
 #include <errno.h>
 
-#include "x52d_const.h"
+#include <daemon/constants.h>
 #include <libx52/x52dcomm.h>
 
 #define APP_NAME "x52ctl"

@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
 
-#include "config.h"
+#include "build-config.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
@@ -15,10 +15,10 @@
 
 #define PINELOG_MODULE X52D_MOD_CLOCK
 #include "pinelog.h"
-#include "x52d_config.h"
-#include "x52d_clock.h"
-#include "x52d_const.h"
-#include "x52d_device.h"
+#include <daemon/config.h>
+#include <daemon/clock.h>
+#include <daemon/constants.h>
+#include <daemon/device.h>
 
 static bool clock_enabled = false;
 static int clock_primary_is_local = false;
