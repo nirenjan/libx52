@@ -49,6 +49,8 @@ struct x52d_config {
     bool clutch_latched;
 
     char profiles_dir[NAME_MAX];
+
+    char profile_keyboard_layout[NAME_MAX];
 };
 
 /* Callback functions for configuration */
@@ -84,6 +86,7 @@ void x52d_cfg_set_Mouse_Deadzone(int param);
 void x52d_cfg_set_Profiles_Directory(char* param);
 void x52d_cfg_set_Profiles_ClutchEnabled(bool param);
 void x52d_cfg_set_Profiles_ClutchLatched(bool param);
+void x52d_cfg_set_Profiles_KeyboardLayout(char *param);
 
 int x52d_config_process_kv(void *user, const char *section, const char *key, const char *value);
 const char *x52d_config_get_param(struct x52d_config *cfg, const char *section, const char *key);

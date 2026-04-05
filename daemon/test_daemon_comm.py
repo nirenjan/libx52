@@ -134,7 +134,11 @@ class Test:
         with open(daemon_cmdline[4], 'w', encoding='utf-8'):
             pass
 
-        self.daemon = subprocess.Popen(daemon_cmdline) # pylint: disable=consider-using-with
+        env = os.environ.copy()
+        # Uninstalled build: us.x52l lives next to the x52d binary (see daemon/meson.build).
+        env['X52D_LAYOUT_DIR'] = os.path.dirname(self.program)
+
+        self.daemon = subprocess.Popen(daemon_cmdline, env=env) # pylint: disable=consider-using-with
 
         print("# Sleeping 2 seconds for daemon to start")
         time.sleep(2)

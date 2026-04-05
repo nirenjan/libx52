@@ -23,6 +23,7 @@ daemon/config_parser.c
 daemon/daemon_control.c
 daemon/device.c
 daemon/io.c
+daemon/keyboard_layout.c
 daemon/main.c
 daemon/mouse.c
 daemon/mouse_handler.c

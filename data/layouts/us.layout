@@ -1,0 +1,111 @@
+# US QWERTY — main block (letters, digits, punctuation, space, controls)
+name: us
+description: US QWERTY main block
+
+U+0008 BACKSPACE
+U+0009 TAB
+U+000A ENTER
+U+000D ENTER
+U+001B ESCAPE
+U+0020 SPACE
+
+a a
+b b
+c c
+d d
+e e
+f f
+g g
+h h
+i i
+j j
+k k
+l l
+m m
+n n
+o o
+p p
+q q
+r r
+s s
+t t
+u u
+v v
+w w
+x x
+y y
+z z
+
+A SHIFT+a
+B SHIFT+b
+C SHIFT+c
+D SHIFT+d
+E SHIFT+e
+F SHIFT+f
+G SHIFT+g
+H SHIFT+h
+I SHIFT+i
+J SHIFT+j
+K SHIFT+k
+L SHIFT+l
+M SHIFT+m
+N SHIFT+n
+O SHIFT+o
+P SHIFT+p
+Q SHIFT+q
+R SHIFT+r
+S SHIFT+s
+T SHIFT+t
+U SHIFT+u
+V SHIFT+v
+W SHIFT+w
+X SHIFT+x
+Y SHIFT+y
+Z SHIFT+z
+
+1 1
+2 2
+3 3
+4 4
+5 5
+6 6
+7 7
+8 8
+9 9
+0 0
+! SHIFT+1
+@ SHIFT+2
+# SHIFT+3
+$ SHIFT+4
+% SHIFT+5
+^ SHIFT+6
+& SHIFT+7
+* SHIFT+8
+( SHIFT+9
+) SHIFT+0
+_ SHIFT+MINUS
++ SHIFT+EQUAL
+
+[ LEFT_BRACKET
+{ SHIFT+LEFT_BRACKET
+] RIGHT_BRACKET
+} SHIFT+RIGHT_BRACKET
+\ BACKSLASH
+| SHIFT+BACKSLASH
+
+; SEMICOLON
+: SHIFT+SEMICOLON
+' APOSTROPHE
+" SHIFT+APOSTROPHE
+` GRAVE
+~ SHIFT+GRAVE
+
+, COMMA
+< SHIFT+COMMA
+. PERIOD
+> SHIFT+PERIOD
+/ SLASH
+? SHIFT+SLASH
+
+- MINUS
+= EQUAL

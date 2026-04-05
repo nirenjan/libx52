@@ -29,6 +29,10 @@ Module.symvers
 # Vim swap files
 .*.swp
 
+# Python
+__pycache__/
+*.py[cod]
+
 # Autotools objects
 .deps
 .dirstamp

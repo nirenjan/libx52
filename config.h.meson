@@ -32,6 +32,9 @@
 /* Define to the location of the local state directory */
 #mesondefine LOCALSTATEDIR
 
+/* Define to the installation data directory (e.g. $prefix/share) */
+#mesondefine DATADIR
+
 /* Define to the location of the log directory */
 #define LOGDIR LOCALSTATEDIR "/log"
 

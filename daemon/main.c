@@ -26,6 +26,7 @@
 #include <daemon/command.h>
 #include <daemon/notify.h>
 #include <daemon/x52dcomm-internal.h>
+#include <daemon/keyboard_layout.h>
 #include <libx52/x52dcomm.h>
 #include "pinelog.h"
 
@@ -364,6 +365,7 @@ int main(int argc, char **argv)
     PINELOG_INFO(_("Received termination signal %s"), strsignal(flag_quit));
 
 cleanup:
+    x52d_keyboard_layout_fini();
     // Stop device threads
     x52d_clock_exit();
     x52d_dev_exit();

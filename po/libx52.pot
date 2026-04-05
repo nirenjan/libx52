@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-03 23:44-0700\n"
+"POT-Creation-Date: 2026-04-04 23:11-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -599,41 +599,41 @@ msgstr ""
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/command.c:379
+#: daemon/command.c:380
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/command.c:390
+#: daemon/command.c:391
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/command.c:415
+#: daemon/command.c:416
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/command.c:442
+#: daemon/command.c:443
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/command.c:450
+#: daemon/command.c:451
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr ""
 
-#: daemon/command.c:456
+#: daemon/command.c:457
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/command.c:460
+#: daemon/command.c:461
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/command.c:478
+#: daemon/command.c:479
 msgid "Shutting down command processing thread"
 msgstr ""
 
@@ -774,17 +774,41 @@ msgstr ""
 msgid "Shutting down X52 I/O driver thread"
 msgstr ""
 
-#: daemon/main.c:67
+#: daemon/keyboard_layout.c:69
+msgid ""
+"Invalid Profiles.KeyboardLayout value; using default layout basename 'us'"
+msgstr ""
+
+#: daemon/keyboard_layout.c:77
+#, c-format
+msgid "Keyboard layout '%s' could not be loaded (%s); loading default 'us'"
+msgstr ""
+
+#: daemon/keyboard_layout.c:83
+#, c-format
+msgid "Could not load keyboard layout from %s/x52d (%s)"
+msgstr ""
+
+#: daemon/keyboard_layout.c:92
+#, c-format
+msgid "Keyboard layout ready: %s (%s)"
+msgstr ""
+
+#: daemon/keyboard_layout.c:93
+msgid "no description"
+msgstr ""
+
+#: daemon/main.c:68
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr ""
 
-#: daemon/main.c:83
+#: daemon/main.c:84
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr ""
 
-#: daemon/main.c:94
+#: daemon/main.c:95
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -794,88 +818,88 @@ msgid ""
 "\t[-b notify-socket-path]\n"
 msgstr ""
 
-#: daemon/main.c:129
+#: daemon/main.c:130
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr ""
 
-#: daemon/main.c:271
+#: daemon/main.c:272
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr ""
 
-#: daemon/main.c:303
+#: daemon/main.c:304
 #, c-format
 msgid "Foreground = %s"
 msgstr ""
 
-#: daemon/main.c:303 daemon/main.c:304
+#: daemon/main.c:304 daemon/main.c:305
 msgid "true"
 msgstr ""
 
-#: daemon/main.c:303 daemon/main.c:304
+#: daemon/main.c:304 daemon/main.c:305
 msgid "false"
-msgstr ""
-
-#: daemon/main.c:304
-#, c-format
-msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/main.c:305
 #, c-format
-msgid "Verbosity = %d"
+msgid "Quiet = %s"
 msgstr ""
 
 #: daemon/main.c:306
 #, c-format
-msgid "Log file = %s"
+msgid "Verbosity = %d"
 msgstr ""
 
 #: daemon/main.c:307
 #, c-format
-msgid "Config file = %s"
+msgid "Log file = %s"
 msgstr ""
 
 #: daemon/main.c:308
 #, c-format
-msgid "PID file = %s"
+msgid "Config file = %s"
 msgstr ""
 
 #: daemon/main.c:309
 #, c-format
-msgid "Command socket = %s"
+msgid "PID file = %s"
 msgstr ""
 
 #: daemon/main.c:310
 #, c-format
+msgid "Command socket = %s"
+msgstr ""
+
+#: daemon/main.c:311
+#, c-format
 msgid "Notify socket = %s"
 msgstr ""
 
-#: daemon/main.c:321
+#: daemon/main.c:322
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/main.c:338
+#: daemon/main.c:339
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr ""
 
-#: daemon/main.c:351
+#: daemon/main.c:352
 msgid "Reloading X52 configuration"
 msgstr ""
 
-#: daemon/main.c:358
+#: daemon/main.c:359
 msgid "Saving X52 configuration to disk"
 msgstr ""
 
-#: daemon/main.c:364
+#: daemon/main.c:365
 #, c-format
 msgid "Received termination signal %s"
 msgstr ""
 
-#: daemon/main.c:379
+#: daemon/main.c:381
 msgid "Shutting down X52 daemon"
 msgstr ""
 

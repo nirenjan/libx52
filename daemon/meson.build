@@ -35,6 +35,10 @@ x52d_sources = [
   'command.c',
   'io.c',
   'mouse_handler.c',
+  'layout_usage_allowlist.c',
+  'layout_load.c',
+  'keyboard_layout.c',
+  'crc32.c',
   ]
 
 dep_threads = dependency('threads')
@@ -60,6 +64,19 @@ exe_x52ctl = executable('x52ctl', 'daemon_control.c',
 install_data('x52d.conf',
   install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
 
+us_x52l = custom_target(
+  'us-x52l',
+  input: files('../data/layouts/us.layout'),
+  output: 'us.x52l',
+  command: [
+    python,
+    join_paths(meson.project_source_root(), 'tools', 'x52compile_layout.py'),
+    '@INPUT@',
+    '@OUTPUT@',
+  ],
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'x52d'))
+
 test('daemon-communication', files('test_daemon_comm.py')[0],
   depends: [exe_x52d, exe_x52ctl], protocol: 'tap')
 
@@ -69,6 +86,43 @@ x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
   dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math, dep_config_h])
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
+
+layout_usage_allowlist_test = executable('layout-usage-allowlist-test',
+  'layout_usage_allowlist_test.c',
+  'layout_usage_allowlist.c',
+  build_by_default: false,
+  include_directories: includes,
+  dependencies: [dep_cmocka, dep_config_h])
+
+test('layout-usage-allowlist', layout_usage_allowlist_test, protocol: 'tap')
+
+crc32_test = executable('crc32-test', 'crc32_test.c', 'crc32.c',
+  build_by_default: false,
+  include_directories: includes,
+  dependencies: [dep_cmocka, dep_config_h])
+
+test('crc32', crc32_test, protocol: 'tap')
+
+layout_load_test = executable('layout-load-test',
+  'layout_load_test.c',
+  'layout_load.c',
+  'layout_usage_allowlist.c',
+  'crc32.c',
+  build_by_default: false,
+  include_directories: includes,
+  dependencies: [dep_cmocka, dep_config_h])
+
+test('layout-load', layout_load_test, protocol: 'tap')
+
+pymod_daemon = import('python')
+python_layout_test = pymod_daemon.find_installation('python3')
+test('layout-usage-allowlist-sync', python_layout_test,
+  args: [join_paths(meson.project_source_root(), 'tools', 'test_layout_allowlist_sync.py')],
+  protocol: 'tap')
+
+test('layout-compile-py', python_layout_test,
+  args: [join_paths(meson.project_source_root(), 'tools', 'test_x52compile_layout.py')],
+  protocol: 'tap')
 
 # Install service file
 if dep_systemd.found()

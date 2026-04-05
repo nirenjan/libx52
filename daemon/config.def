@@ -105,4 +105,8 @@ CFG(Profiles, ClutchEnabled, clutch_enabled, bool, false)
 // be held down to remain in clutch mode.
 CFG(Profiles, ClutchLatched, clutch_latched, bool, false)
 
+// KeyboardLayout is the default keyboard layout used when mapping
+// profile keys to keyboard events.
+CFG(Profiles, KeyboardLayout, profile_keyboard_layout, string, us)
+
 #undef CFG

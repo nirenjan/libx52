@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libx52 0.2.3\n"
+"Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-03 23:44-0700\n"
-"PO-Revision-Date: 2026-04-01 20:50-0700\n"
+"POT-Creation-Date: 2026-04-04 23:11-0700\n"
+"PO-Revision-Date: 2026-04-04 12:00-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
 "Language: xx_PL\n"
@@ -645,42 +645,42 @@ msgstr "Erroray %d initializingay ockclay eadthray: %s"
 msgid "Shutting down X52 clock manager thread"
 msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
 
-#: daemon/command.c:379
+#: daemon/command.c:380
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr "Erroray eadingray omfray ientclay %d: %s"
 
-#: daemon/command.c:390
+#: daemon/command.c:391
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 "Ortshay itewray otay ientclay %d; expecteday %d ytesbay, otewray %d ytesbay"
 
-#: daemon/command.c:415
+#: daemon/command.c:416
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr "Erroray %d uringday ommandcay ooplay: %s"
 
-#: daemon/command.c:442
+#: daemon/command.c:443
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr "Erroray eatingcray ommandcay ocketsay: %s"
 
-#: daemon/command.c:450
+#: daemon/command.c:451
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr "Erroray arkingmay ommandcay ocketsay asay onblockingnay: %s"
 
-#: daemon/command.c:456
+#: daemon/command.c:457
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr "Erroray isteninglay onay ommandcay ocketsay: %s"
 
-#: daemon/command.c:460
+#: daemon/command.c:461
 msgid "Starting command processing thread"
 msgstr "Artingstay ommandcay ocessingpray eadthray"
 
-#: daemon/command.c:478
+#: daemon/command.c:479
 msgid "Shutting down command processing thread"
 msgstr "Uttingshay ownday ommandcay ocessingpray eadthray"
 
@@ -821,17 +821,46 @@ msgstr "Erroray %d initializingay I/O iverdray eadthray: %s"
 msgid "Shutting down X52 I/O driver thread"
 msgstr "Uttingshay ownday X52 I/O iverdray eadthray"
 
-#: daemon/main.c:67
+#: daemon/keyboard_layout.c:69
+msgid ""
+"Invalid Profiles.KeyboardLayout value; using default layout basename 'us'"
+msgstr ""
+"Invaliday Ofilespray.EyboardKayayoutLay aluevay; usingay efaultday ayoutlay "
+"asenambay 'us'"
+
+#: daemon/keyboard_layout.c:77
+#, c-format
+msgid "Keyboard layout '%s' could not be loaded (%s); loading default 'us'"
+msgstr ""
+"EyboardKay ayoutlay '%s' ouldcay otnay ebay oadedlay (%s); oadinglay "
+"efaultday 'us'"
+
+#: daemon/keyboard_layout.c:83
+#, c-format
+msgid "Could not load keyboard layout from %s/x52d (%s)"
+msgstr ""
+"ouldCay otnay oadlay eyboardkay ayoutlay omfray %s/x52d (%s)"
+
+#: daemon/keyboard_layout.c:92
+#, c-format
+msgid "Keyboard layout ready: %s (%s)"
+msgstr "EyboardKay ayoutlay eadyray: %s (%s)"
+
+#: daemon/keyboard_layout.c:93
+msgid "no description"
+msgstr "onay escriptionday"
+
+#: daemon/main.c:68
 #, c-format
 msgid "Error %d setting log file: %s\n"
 msgstr "Erroray %d ettingsay oglay ilefay: %s\n"
 
-#: daemon/main.c:83
+#: daemon/main.c:84
 #, c-format
 msgid "Error %d installing handler for signal %d: %s"
 msgstr "Erroray %d installingay andlerhay orfay ignalsay %d: %s"
 
-#: daemon/main.c:94
+#: daemon/main.c:95
 #, c-format
 msgid ""
 "Usage: %s [-f] [-v] [-q]\n"
@@ -847,88 +876,88 @@ msgstr ""
 "\t[-b otifynay-ocketsay-athpay]\n"
 "\n"
 
-#: daemon/main.c:129
+#: daemon/main.c:130
 #, c-format
 msgid "Daemon is already running as PID %u"
 msgstr "Aemonday isay alreadyay unningray asay IDPay %u"
 
-#: daemon/main.c:271
+#: daemon/main.c:272
 #, c-format
 msgid "Unable to parse configuration override '%s'\n"
 msgstr "Unableay otay arsepay onfigurationcay overrideay '%s'\n"
 
-#: daemon/main.c:303
+#: daemon/main.c:304
 #, c-format
 msgid "Foreground = %s"
 msgstr "Oregroundfay = %s"
 
-#: daemon/main.c:303 daemon/main.c:304
+#: daemon/main.c:304 daemon/main.c:305
 msgid "true"
 msgstr "uetray"
 
-#: daemon/main.c:303 daemon/main.c:304
+#: daemon/main.c:304 daemon/main.c:305
 msgid "false"
 msgstr "alsefay"
 
-#: daemon/main.c:304
+#: daemon/main.c:305
 #, c-format
 msgid "Quiet = %s"
 msgstr "Uietqay = %s"
 
-#: daemon/main.c:305
+#: daemon/main.c:306
 #, c-format
 msgid "Verbosity = %d"
 msgstr "Erbosityvay = %d"
 
-#: daemon/main.c:306
+#: daemon/main.c:307
 #, c-format
 msgid "Log file = %s"
 msgstr "Oglay ilefay = %s"
 
-#: daemon/main.c:307
+#: daemon/main.c:308
 #, c-format
 msgid "Config file = %s"
 msgstr "Onfigcay ilefay = %s"
 
-#: daemon/main.c:308
+#: daemon/main.c:309
 #, c-format
 msgid "PID file = %s"
 msgstr "IDPay ilefay = %s"
 
-#: daemon/main.c:309
+#: daemon/main.c:310
 #, c-format
 msgid "Command socket = %s"
 msgstr "Ommandcay ocketsay = %s"
 
-#: daemon/main.c:310
+#: daemon/main.c:311
 #, c-format
 msgid "Notify socket = %s"
 msgstr "Otifynay ocketsay = %s"
 
-#: daemon/main.c:321
+#: daemon/main.c:322
 #, c-format
 msgid "Error %d blocking signals on child threads: %s"
 msgstr "Erroray %d ockingblay ignalssay onay ildchay eadsthray: %s"
 
-#: daemon/main.c:338
+#: daemon/main.c:339
 #, c-format
 msgid "Error %d unblocking signals on child threads: %s"
 msgstr "Erroray %d unblockingay ignalssay onay ildchay eadsthray: %s"
 
-#: daemon/main.c:351
+#: daemon/main.c:352
 msgid "Reloading X52 configuration"
 msgstr "Eloadingray X52 onfigurationcay"
 
-#: daemon/main.c:358
+#: daemon/main.c:359
 msgid "Saving X52 configuration to disk"
 msgstr "Avingsay X52 onfigurationcay otay iskday"
 
-#: daemon/main.c:364
+#: daemon/main.c:365
 #, c-format
 msgid "Received termination signal %s"
 msgstr "Eceivedray erminationtay ignalsay %s"
 
-#: daemon/main.c:379
+#: daemon/main.c:381
 msgid "Shutting down X52 daemon"
 msgstr "Uttingshay ownday X52 aemonday"
 
