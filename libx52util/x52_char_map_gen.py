@@ -11,8 +11,17 @@ for the X52/X52 Pro MFD
 
 import sys
 import re
-import json
+import struct
 import unicodedata
+
+# Binary blob written to char_map.bin (shared by libx52util tests and Python tools).
+# v1 header: magic (4) then big-endian version, record_size, num_entries, data_offset.
+# Payload: one fixed record per Unicode code point U+0000..U+FFFF
+# (length byte + payload + zero padding to record_size; see generate_test_tables).
+CHAR_MAP_MAGIC = b"X52M"
+CHAR_MAP_VERSION = 1
+CHAR_MAP_HEADER_STRUCT = struct.Struct(">4sHHII")  # magic, version, record_size, num_entries, data_offset
+
 
 class LineFormatError(ValueError):
     """
@@ -263,7 +272,20 @@ class BMPTable:
         else:
             record_length = 1 << longest.bit_length()
 
+        num_entries = 0x10000
+        header_bytes = CHAR_MAP_HEADER_STRUCT.size
+        data_offset = header_bytes
+
         with open(self.output_map, 'wb') as output_map:
+            output_map.write(
+                CHAR_MAP_HEADER_STRUCT.pack(
+                    CHAR_MAP_MAGIC,
+                    CHAR_MAP_VERSION,
+                    record_length,
+                    num_entries,
+                    data_offset,
+                )
+            )
             pad = [0] * record_length
             for seq in output:
                 record = [len(seq)] + list(seq) + pad
@@ -271,7 +293,9 @@ class BMPTable:
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        sys.stderr.write(f"Usage: {sys.argv[0]} <input-map> <output-c-file> <output-json-map>\n")
+        sys.stderr.write(
+            f"Usage: {sys.argv[0]} <input-map> <output-c-file> <output-char-map.bin>\n"
+        )
         sys.exit(1)
 
     BMPTable(sys.argv[1], sys.argv[2], sys.argv[3])

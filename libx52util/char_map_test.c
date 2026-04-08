@@ -13,13 +13,69 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
 
 #include <libx52/libx52util.h>
 
-// Fix this if we ever hit longer sequences
-#define RECORD_SIZE 8
+#define CHAR_MAP_MAGIC "X52M"
+#define CHAR_MAP_HEADER_V1_BYTES 16
+
+static uint16_t read_be16(const uint8_t *p)
+{
+    return (uint16_t)((uint16_t)p[0] << 8) | p[1];
+}
+
+static uint32_t read_be32(const uint8_t *p)
+{
+    return (uint32_t)p[0] << 24 | (uint32_t)p[1] << 16 |
+            (uint32_t)p[2] << 8 | p[3];
+}
+
+static int parse_char_map_header(const uint8_t *base, size_t filesize,
+                                 size_t *data_offset, uint32_t *num_entries,
+                                 uint16_t *record_size)
+{
+    uint16_t version;
+    uint16_t rec_sz;
+    uint32_t nent;
+    uint32_t off;
+
+    if (filesize < CHAR_MAP_HEADER_V1_BYTES) {
+        puts("# char_map.bin smaller than header");
+        return -1;
+    }
+    if (memcmp(base, CHAR_MAP_MAGIC, 4) != 0) {
+        puts("# char_map.bin missing X52M magic");
+        return -1;
+    }
+    version = read_be16(base + 4);
+    rec_sz = read_be16(base + 6);
+    nent = read_be32(base + 8);
+    off = read_be32(base + 12);
+    if (version != 1) {
+        printf("# char_map.bin unsupported version %u\n", version);
+        return -1;
+    }
+    if (rec_sz < 2 || rec_sz > 256) {
+        printf("# char_map.bin invalid record_size %u\n", rec_sz);
+        return -1;
+    }
+    if (off < CHAR_MAP_HEADER_V1_BYTES || off > filesize) {
+        puts("# char_map.bin invalid data_offset");
+        return -1;
+    }
+    if (off + (size_t)nent * rec_sz > filesize) {
+        puts("# char_map.bin truncated payload");
+        return -1;
+    }
+
+    *data_offset = off;
+    *num_entries = nent;
+    *record_size = rec_sz;
+    return 0;
+}
 
 // Blindly encode a string into it's smallest UTF8 representation
 static void encode_utf8(uint32_t cp, uint8_t *out)
@@ -70,15 +126,21 @@ static double get_time_diff(struct timespec start, struct timespec end)
 int main(int argc, char *argv[])
 {
     uint8_t input[8] = {0};
-    uint8_t output[RECORD_SIZE];
+    uint8_t output[256];
     size_t len;
     int result;
 
     int fd;
-    uint8_t *expected_blob;
+    uint8_t *mapped;
+    size_t filesize;
+    size_t data_offset;
+    uint32_t num_entries;
+    uint16_t record_size;
+    const uint8_t *expected_blob;
     bool smp_pages_ok;
 
     struct timespec start, end;
+    struct stat st;
 
     // Argument check
     if (argc != 2) {
@@ -94,12 +156,37 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    expected_blob = mmap(NULL, 0x10000 * RECORD_SIZE,
-                         PROT_READ, MAP_SHARED, fd, 0);
-    if (expected_blob == MAP_FAILED) {
+    if (fstat(fd, &st) != 0) {
+        printf("Bail out! fstat failed %d: %s\n", errno, strerror(errno));
+        close(fd);
+        return 1;
+    }
+
+    filesize = (size_t)st.st_size;
+    mapped = mmap(NULL, filesize, PROT_READ, MAP_SHARED, fd, 0);
+    if (mapped == MAP_FAILED) {
         printf("Bail out! MMAP failed with error %d: %s\n",
                 errno, strerror(errno));
+        close(fd);
+        return 1;
     }
+
+    if (parse_char_map_header(mapped, filesize,
+            &data_offset, &num_entries, &record_size) != 0) {
+        puts("Bail out! Invalid char_map.bin header");
+        munmap(mapped, filesize);
+        close(fd);
+        return 1;
+    }
+
+    if (num_entries < 0x10000) {
+        printf("Bail out! num_entries %u < 0x10000\n", num_entries);
+        munmap(mapped, filesize);
+        close(fd);
+        return 1;
+    }
+
+    expected_blob = mapped + data_offset;
 
     puts("TAP version 13");
     // Check the 256 BMP Pages, plus the supplementary pages
@@ -112,7 +199,7 @@ int main(int argc, char *argv[])
 
         for (uint32_t offset = 0; offset < 256; offset++) {
             uint32_t cp = page * 256 + offset;
-            const uint8_t *rec = &expected_blob[cp * RECORD_SIZE];
+            const uint8_t *rec = &expected_blob[cp * record_size];
 
             memset(input, 0, sizeof(input));
             memset(output, 0, sizeof(output));
@@ -164,14 +251,14 @@ int main(int argc, char *argv[])
     // Handle the supplementary pages
     smp_pages_ok = true;
     for (uint32_t smp = 0x1; smp <= 0x10; smp++) {
-        const uint8_t *rec = &expected_blob[0xFFFD * RECORD_SIZE];
+        const uint8_t *rec = &expected_blob[0xFFFD * record_size];
         for (uint32_t offset = 0; offset < 0x100; offset += 0xFF) {
             uint32_t cp = smp * 0x10000 + offset;
 
             memset(input, 0, sizeof(input));
             memset(output, 0, sizeof(output));
-            len = sizeof(output);
             encode_utf8(cp, input);
+            len = sizeof(output);
 
             result = libx52util_convert_utf8_string(input, output, &len);
             if (result != 0) {
@@ -209,7 +296,7 @@ int main(int argc, char *argv[])
     printf("%sok - 257 SMP tests\n", smp_pages_ok ? "" : "not ");
 
     // Cleanup
-    munmap(expected_blob, 0x10000 * RECORD_SIZE);
+    munmap(mapped, filesize);
     close(fd);
     return 0;
 }

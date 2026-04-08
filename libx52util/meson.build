@@ -7,7 +7,9 @@ util_char_map = custom_target('util-char-map',
   depend_files: ['x52_char_map_gen.py', 'x52_char_map.cfg'],
   command: [python, gen_script, '@INPUT@', '@OUTPUT0@', '@OUTPUT1@'],
   input: 'x52_char_map.cfg',
-  output: ['char_map.c', 'char_map.bin'])
+  output: ['char_map.c', 'char_map.bin'],
+  install: true,
+  install_dir: [false, get_option('datadir') / 'x52d'])
 
 lib_libx52util = library('x52util', util_char_map, 'char_map_lookup.c',
   install: true,
