@@ -32,7 +32,7 @@ jobs:
       run: find ./build -type f -print
 
     - name: Upload built pages
-      uses: actions/upload-pages-artifact@v4
+      uses: actions/upload-pages-artifact@v5
       with:
         path: './build/docs/html'
 
