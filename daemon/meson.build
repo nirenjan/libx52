@@ -6,14 +6,14 @@ libx52dcomm_sources = [
   'comm_internal.c'
   ]
 
-install_headers('x52dcomm.h', subdir: meson.project_name())
+root_includes = include_directories('..')
 
 lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
   dependencies: [dep_intl, dep_config_h],
   version: libx52dcomm_version,
   c_args: sym_hidden_cargs,
   install: true,
-  include_directories: includes)
+  include_directories: [includes, root_includes])
 
 pkgconfig.generate(lib_libx52dcomm,
   name: 'x52dcomm',
@@ -50,7 +50,7 @@ x52d_cflags = []
 
 exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
   install: true,
-  include_directories: includes,
+  include_directories: [includes, root_includes],
   c_args: sym_hidden_cargs + x52d_cflags,
   dependencies: x52d_deps,
   link_with: x52d_linkwith)
@@ -58,7 +58,7 @@ exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
 exe_x52ctl = executable('x52ctl', 'daemon_control.c',
   install: true,
   dependencies: [dep_intl, dep_config_h],
-  include_directories: includes,
+  include_directories: [includes, root_includes],
   link_with: lib_libx52dcomm)
 
 install_data('x52d.conf',
@@ -82,7 +82,7 @@ test('daemon-communication', files('test_daemon_comm.py')[0],
 
 x52d_mouse_test_sources = ['mouse_test.c', 'mouse.c']
 x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
-  include_directories: includes,
+  include_directories: [includes, root_includes],
   dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math, dep_config_h])
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
@@ -91,14 +91,14 @@ layout_usage_allowlist_test = executable('layout-usage-allowlist-test',
   'layout_usage_allowlist_test.c',
   'layout_usage_allowlist.c',
   build_by_default: false,
-  include_directories: includes,
+  include_directories: [includes, root_includes],
   dependencies: [dep_cmocka, dep_config_h])
 
 test('layout-usage-allowlist', layout_usage_allowlist_test, protocol: 'tap')
 
 crc32_test = executable('crc32-test', 'crc32_test.c', 'crc32.c',
   build_by_default: false,
-  include_directories: includes,
+  include_directories: [includes, root_includes],
   dependencies: [dep_cmocka, dep_config_h])
 
 test('crc32', crc32_test, protocol: 'tap')
@@ -109,7 +109,7 @@ layout_load_test = executable('layout-load-test',
   'layout_usage_allowlist.c',
   'crc32.c',
   build_by_default: false,
-  include_directories: includes,
+  include_directories: [includes, root_includes],
   dependencies: [dep_cmocka, dep_config_h])
 
 test('layout-load', layout_load_test, protocol: 'tap')

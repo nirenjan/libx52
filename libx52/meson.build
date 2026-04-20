@@ -16,7 +16,6 @@ lib_libx52 = library('x52', libx52_files,
   dependencies: [dep_libusb, dep_intl],
   include_directories: [includes])
 
-install_headers('libx52.h', subdir: meson.project_name())
 pkgconfig.generate(lib_libx52,
   name: 'libx52',
   description: 'Linux/Unix library to control Saitek X52/X52Pro joystick extended functionality.',

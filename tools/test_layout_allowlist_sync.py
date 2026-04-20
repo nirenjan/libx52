@@ -52,7 +52,7 @@ def main():
         )
 
     def check_vkm_modifier_symbols():
-        vkm = (root / "vkm" / "vkm.h").read_text(encoding="utf-8")
+        vkm = (root / "include" / "vkm" / "vkm.h").read_text(encoding="utf-8")
         for name in (
             "VKM_KEY_MOD_LCTRL",
             "VKM_KEY_MOD_LSHIFT",
