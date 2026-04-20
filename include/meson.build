@@ -37,3 +37,7 @@ install_headers(
   subdir: 'libx52'
 )
 
+install_headers(
+  'vkm/vkm.h',
+  subdir: 'vkm'
+)
