@@ -53,7 +53,6 @@ if host_machine.system() == 'linux' and dep_evdev.found()
   test('vkm_linux_evdev', vkm_linux_evdev_test)
 endif
 
-install_headers('vkm.h', subdir: 'vkm')
 pkgconfig.generate(lib_vkm,
   name: 'vkm',
   description: 'Virtual keyboard/mouse interface library for injecting events into the host OS.',
