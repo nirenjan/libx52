@@ -18,6 +18,7 @@
 #include <sys/time.h>
 
 #include <libx52/libx52io.h>
+#include "ev_denoise.h"
 #include "gettext.h"
 
 /*
@@ -97,7 +98,7 @@ int main(void)
              * ~(max >> 6) which will do nothing for the axis with a small
              * range, but reduce the noise on those with a larger range.
              */
-            denoise_mask[i] = ~(max >> 6);
+            denoise_mask[i] = evtest_axis_denoise_mask(max);
         }
     }
 
@@ -143,18 +144,8 @@ int main(void)
         /* Get the current timeval - we don't need a timezone */
         gettimeofday(&tv, NULL);
         for (int axis = 0; axis < LIBX52IO_AXIS_MAX; axis++) {
-            if (last.axis[axis] != curr.axis[axis]) {
-                /* Account for denoising */
-                if (denoise) {
-                    int32_t last_v = last.axis[axis] & denoise_mask[axis];
-                    int32_t curr_v = curr.axis[axis] & denoise_mask[axis];
-
-                    if (last_v == curr_v) {
-                        /* Within the noise threshold */
-                        continue;
-                    }
-                }
-
+            if (evtest_axis_changed(last.axis[axis], curr.axis[axis],
+                                    denoise_mask[axis], denoise)) {
                 printf(_("Event @ %ld.%06ld: %s, value %d\n"),
                     (long int)tv.tv_sec, (long int)tv.tv_usec,
                     libx52io_axis_to_str(axis), curr.axis[axis]);

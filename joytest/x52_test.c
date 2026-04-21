@@ -1,7 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver
  *
- * Copyright (C) 2012-2015 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2012-2026 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
@@ -17,6 +17,8 @@
 
 #include <libx52/libx52.h>
 #include "x52_test_common.h"
+#include "x52_test_args.h"
+
 libx52_device *dev;
 int test_exit;
 bool nodelay;
@@ -186,11 +188,7 @@ static void usage(void)
     puts("");
 }
 
-struct test_map {
-    const char *cmd;
-    int  test_bitmap;
-};
-const struct test_map tests[] = {
+const struct x52test_cmd tests[] = {
 #define X(en, cmd, desc) { #cmd, TEST_ ##en },
     TESTS
 #undef X
@@ -199,10 +197,8 @@ const struct test_map tests[] = {
 
 int main(int argc, char **argv)
 {
-    int test_list;
-    int i;
-    const struct test_map *test;
-    int found;
+    struct x52test_argv_result parsed;
+    int ret = 0;
 
     /* Initialize gettext */
     #if ENABLE_NLS
@@ -212,50 +208,28 @@ int main(int argc, char **argv)
     #endif
 
     /* Usage: x52test [list of tests] */
-    if (argc == 1) {
-        /* Run all tests, if none specified */
-        test_list = TEST_ALL;
-    } else {
-        /* Initialize the test list to run no tests, the commands
-         * will enable the selective tests
-         */
-        test_list = 0;
+    x52test_parse_argv(argc, argv, tests, TEST_ALL, &parsed);
+
+    if (parsed.status == X52TEST_ARGV_HELP) {
+        printf(_("Usage: %s [list of tests]\n\n"), argv[0]);
+        usage();
+        return 0;
     }
 
-    for (i = 1; i < argc; i++) {
-        if (!strcmp(argv[i], "help") ||
-            !strcmp(argv[i], "--help")) {
-
-            /* Display help string and exit */
-            printf(_("Usage: %s [list of tests]\n\n"), argv[0]);
-            usage();
-            return 0;
-        } else {
-            found = 0;
-            for (test = tests; test->cmd; test++) {
-                if (!strcmp(argv[i], test->cmd)) {
-                    test_list |= test->test_bitmap;
-                    found = 1;
-                    break;
-                }
-            }
-
-            if (found == 0) {
-                printf(_("Unrecognized test identifier: %s\n\n"), argv[i]);
-                usage();
-                return 1;
-            }
-        }
+    if (parsed.status == X52TEST_ARGV_UNKNOWN) {
+        printf(_("Unrecognized test identifier: %s\n\n"), argv[parsed.bad_arg_index]);
+        usage();
+        return 1;
     }
 
     /* Initialize the nodelay variable */
     nodelay = (getenv("LD_PRELOAD") != NULL || getenv("NO_DELAY") != NULL);
 
-    if (test_list) {
-        i = run_tests(test_list);
+    if (parsed.test_bitmap) {
+        ret = run_tests(parsed.test_bitmap);
     } else {
         puts(_("Not running any tests"));
     }
 
-    return i;
+    return ret;
 }

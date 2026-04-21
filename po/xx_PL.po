@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-04 23:11-0700\n"
+"POT-Creation-Date: 2026-04-20 21:55-0700\n"
 "PO-Revision-Date: 2026-04-04 12:00-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -261,26 +261,26 @@ msgstr "Unableay otay itewray eventay"
 msgid "No state change"
 msgstr "Onay atestay angechay"
 
-#: evtest/ev_test.c:110
+#: evtest/ev_test.c:111
 #, c-format
 msgid "Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"
 msgstr "Eviceday IDay: endorvay 0x%04x oductpray 0x%04x ersionvay 0x%04x\n"
 
-#: evtest/ev_test.c:114
+#: evtest/ev_test.c:115
 #, c-format
 msgid "Device name: \"%s %s\"\n"
 msgstr "Eviceday amenay: \"%s %s\"\n"
 
-#: evtest/ev_test.c:117
+#: evtest/ev_test.c:118
 #, c-format
 msgid "Serial number: \"%s\"\n"
 msgstr "Erialsay umbernay: \"%s\"\n"
 
-#: evtest/ev_test.c:118
+#: evtest/ev_test.c:119
 msgid "Testing (interrupt to exit)\n"
 msgstr "Estingtay (interruptay otay exitay)\n"
 
-#: evtest/ev_test.c:158 evtest/ev_test.c:166
+#: evtest/ev_test.c:149 evtest/ev_test.c:157
 #, c-format
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr "Eventay @ %ld.%06ld: %s, aluevay %d\n"
@@ -838,8 +838,7 @@ msgstr ""
 #: daemon/keyboard_layout.c:83
 #, c-format
 msgid "Could not load keyboard layout from %s/x52d (%s)"
-msgstr ""
-"ouldCay otnay oadlay eyboardkay ayoutlay omfray %s/x52d (%s)"
+msgstr "ouldCay otnay oadlay eyboardkay ayoutlay omfray %s/x52d (%s)"
 
 #: daemon/keyboard_layout.c:92
 #, c-format

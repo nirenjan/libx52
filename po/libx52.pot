@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-04 23:11-0700\n"
+"POT-Creation-Date: 2026-04-20 21:55-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,26 +261,26 @@ msgstr ""
 msgid "No state change"
 msgstr ""
 
-#: evtest/ev_test.c:110
+#: evtest/ev_test.c:111
 #, c-format
 msgid "Device ID: vendor 0x%04x product 0x%04x version 0x%04x\n"
 msgstr ""
 
-#: evtest/ev_test.c:114
+#: evtest/ev_test.c:115
 #, c-format
 msgid "Device name: \"%s %s\"\n"
 msgstr ""
 
-#: evtest/ev_test.c:117
+#: evtest/ev_test.c:118
 #, c-format
 msgid "Serial number: \"%s\"\n"
 msgstr ""
 
-#: evtest/ev_test.c:118
+#: evtest/ev_test.c:119
 msgid "Testing (interrupt to exit)\n"
 msgstr ""
 
-#: evtest/ev_test.c:158 evtest/ev_test.c:166
+#: evtest/ev_test.c:149 evtest/ev_test.c:157
 #, c-format
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr ""
