@@ -22,11 +22,15 @@ module_defs = custom_target('module-defs',
   command: [python, meson.current_source_dir() / 'x52d_gen_module.py',
     '@OUTPUT0@', '@OUTPUT1@'])
 
+# Header only: ordering on module-map.h without compiling module-map.c per target.
+dep_module_map_gen = declare_dependency(sources: module_defs[0])
+
+# Full module_defs: name-id-map.c includes module-map.h (generated with the .c).
 slib_comm_defs = static_library('x52dcommdefs',
-  [config_defs[1],
-  module_defs[1],
+  config_defs[1],
+  module_defs,
   'name-id-map.c',
-  ])
+  )
 
 libx52dcomm_version = '1.0.0'
 
@@ -38,7 +42,7 @@ libx52dcomm_sources = [
 root_includes = include_directories('..')
 
 lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
-  dependencies: [dep_intl, dep_config_h],
+  dependencies: [dep_intl, dep_config_h, dep_module_map_gen],
   version: libx52dcomm_version,
   c_args: sym_hidden_cargs,
   install: true,
@@ -74,7 +78,8 @@ dep_threads = dependency('threads')
 
 # Comm sources are compiled into x52d (same as Autotools); libx52dcomm is only for x52ctl.
 x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io, slib_comm_defs]
-x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_math, dep_intl, dep_config_h]
+x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_math, dep_intl, dep_config_h,
+  dep_module_map_gen]
 x52d_cflags = []
 
 exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
@@ -86,7 +91,7 @@ exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
 
 exe_x52ctl = executable('x52ctl', 'daemon_control.c',
   install: true,
-  dependencies: [dep_intl, dep_config_h],
+  dependencies: [dep_intl, dep_config_h, dep_module_map_gen],
   include_directories: [includes, root_includes],
   link_with: lib_libx52dcomm)
 
@@ -112,7 +117,8 @@ test('daemon-communication', files('test_daemon_comm.py')[0],
 x52d_mouse_test_sources = ['mouse_test.c', 'mouse.c']
 x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,
   include_directories: [includes, root_includes],
-  dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math, dep_config_h])
+  dependencies: [dep_pinelog, dep_cmocka, dep_intl, dep_math, dep_config_h,
+    dep_module_map_gen])
 
 test('x52d-mouse-test', x52d_mouse_test, protocol: 'tap')
 
