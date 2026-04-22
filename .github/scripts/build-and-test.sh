@@ -18,7 +18,13 @@ meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled "
 cd "$BUILDDIR"
 meson compile
 meson test
-meson dist --allow-dirty # Required to fix CI build
+
+if [[ $(printf "%s\n" "0.62.0" "$(meson --version)" | sort -V | head -1) == "0.62.0" ]]
+then
+    meson dist --allow-dirty # Required to fix CI build
+else
+    meson dist
+fi
 
 # Print bugreport output
 ./bugreport/x52bugreport
