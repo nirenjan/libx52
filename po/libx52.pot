@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-20 21:55-0700\n"
+"POT-Creation-Date: 2026-04-22 09:02-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -285,89 +285,89 @@ msgstr ""
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr ""
 
-#: joytest/x52_test.c:97
+#: joytest/x52_test.c:99
 msgid "Test brightness scale (~ 1m)"
 msgstr ""
 
-#: joytest/x52_test.c:98
+#: joytest/x52_test.c:100
 msgid "Test LED states (~ 45s)"
 msgstr ""
 
-#: joytest/x52_test.c:99
+#: joytest/x52_test.c:101
 msgid "Test MFD string display (~ 30s)"
 msgstr ""
 
-#: joytest/x52_test.c:100
+#: joytest/x52_test.c:102
 msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr ""
 
-#: joytest/x52_test.c:101
+#: joytest/x52_test.c:103
 msgid "Test the blink and shift commands (< 10s)"
 msgstr ""
 
-#: joytest/x52_test.c:102
+#: joytest/x52_test.c:104
 msgid "Test the clock commands (~1m)"
 msgstr ""
 
-#: joytest/x52_test.c:126
+#: joytest/x52_test.c:128
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
 msgstr ""
 
-#: joytest/x52_test.c:130
+#: joytest/x52_test.c:132
 msgid "These tests take roughly 6 minutes to run"
 msgstr ""
 
-#: joytest/x52_test.c:132
+#: joytest/x52_test.c:134
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
 
-#: joytest/x52_test.c:138
+#: joytest/x52_test.c:140
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
 msgstr ""
 
-#: joytest/x52_test.c:153
-msgid "All tests completed successfully"
-msgstr ""
-
 #: joytest/x52_test.c:155
-#, c-format
-msgid "Got error %s\n"
+msgid "All tests completed successfully"
 msgstr ""
 
 #: joytest/x52_test.c:157
 #, c-format
+msgid "Got error %s\n"
+msgstr ""
+
+#: joytest/x52_test.c:159
+#, c-format
 msgid "Received %s signal, quitting...\n"
 msgstr ""
 
-#: joytest/x52_test.c:176
+#: joytest/x52_test.c:178
 msgid ""
 "These are the available tests with a description and\n"
 "approximate runtime. Not specifying any tests will run\n"
 "all the tests\n"
 msgstr ""
 
-#: joytest/x52_test.c:180
+#: joytest/x52_test.c:182
 msgid "List of tests:"
 msgstr ""
 
-#: joytest/x52_test.c:230
+#: joytest/x52_test.c:214
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
 msgstr ""
 
-#: joytest/x52_test.c:244
+#: joytest/x52_test.c:220
 #, c-format
 msgid ""
 "Unrecognized test identifier: %s\n"
 "\n"
 msgstr ""
 
-#: joytest/x52_test.c:257
+#: joytest/x52_test.c:231
 msgid "Not running any tests"
 msgstr ""
 
@@ -599,41 +599,41 @@ msgstr ""
 msgid "Shutting down X52 clock manager thread"
 msgstr ""
 
-#: daemon/command.c:380
+#: daemon/command.c:310
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr ""
 
-#: daemon/command.c:391
+#: daemon/command.c:321
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 
-#: daemon/command.c:416
+#: daemon/command.c:346
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr ""
 
-#: daemon/command.c:443
+#: daemon/command.c:373
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr ""
 
-#: daemon/command.c:451
+#: daemon/command.c:381
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr ""
 
-#: daemon/command.c:457
+#: daemon/command.c:387
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr ""
 
-#: daemon/command.c:461
+#: daemon/command.c:391
 msgid "Starting command processing thread"
 msgstr ""
 
-#: daemon/command.c:479
+#: daemon/command.c:409
 msgid "Shutting down command processing thread"
 msgstr ""
 

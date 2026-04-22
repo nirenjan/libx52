@@ -1,4 +1,33 @@
 # x52d (dep_config_h: Meson build-config.h; private API is daemon/config.h)
+config_defs = custom_target('config-defs',
+  depend_files: ['x52d_map_config.py', 'x52d.conf'],
+  input: [
+    'x52d.conf',
+    'config_registry.json'
+  ],
+  output: [
+    'config-defs.h',
+    'config-defs.c',
+    'config_defs.py'
+  ],
+  command: [
+    python, meson.current_source_dir() / 'x52d_map_config.py',
+    '@INPUT0@', '@INPUT1@',
+    '@OUTPUT0@', '@OUTPUT1@', '@OUTPUT2@'
+  ])
+
+module_defs = custom_target('module-defs',
+  depend_files: ['x52d_gen_module.py', 'module_defs.py'],
+  output: ['module-map.h', 'module-map.c'],
+  command: [python, meson.current_source_dir() / 'x52d_gen_module.py',
+    '@OUTPUT0@', '@OUTPUT1@'])
+
+slib_comm_defs = static_library('x52dcommdefs',
+  [config_defs[1],
+  module_defs[1],
+  'name-id-map.c',
+  ])
+
 libx52dcomm_version = '1.0.0'
 
 libx52dcomm_sources = [
@@ -44,7 +73,7 @@ x52d_sources = [
 dep_threads = dependency('threads')
 
 # Comm sources are compiled into x52d (same as Autotools); libx52dcomm is only for x52ctl.
-x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io]
+x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io, slib_comm_defs]
 x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_math, dep_intl, dep_config_h]
 x52d_cflags = []
 

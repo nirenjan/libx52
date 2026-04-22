@@ -208,40 +208,9 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
     ERR_fmt("Unknown subcommand '%s' for 'config' command", argv[1]);
 }
 
-struct level_map {
-    int level;
-    const char *string;
-};
-
-static int lmap_get_level(const struct level_map *map, const char *string, int notfound)
-{
-    int i;
-
-    for (i = 0; map[i].string != NULL; i++) {
-        if (strcasecmp(map[i].string, string) == 0) {
-            return map[i].level;
-        }
-    }
-
-    return notfound;
-}
-
-static const char *lmap_get_string(const struct level_map *map, int level)
-{
-    int i;
-
-    for (i = 0; map[i].string != NULL; i++) {
-        if (map[i].level == level) {
-            return map[i].string;
-        }
-    }
-
-    return NULL;
-}
-
-#define DATA_LMAP(map, level, resp) do {\
+#define DATA_LMAP(level, resp) do {\
     int input_level_ ## __LINE__ = level; \
-    const char *lmap_level_ ## __LINE__ = lmap_get_string(map, input_level_ ## __LINE__); \
+    const char *lmap_level_ ## __LINE__ = lookup_level_by_id(input_level_ ## __LINE__); \
     char lmap_unknown_level ## __LINE__[32] = {0}; \
     if (lmap_level_ ## __LINE__ == NULL) { \
         snprintf(lmap_unknown_level ## __LINE__, sizeof(lmap_unknown_level ## __LINE__), \
@@ -252,47 +221,8 @@ static const char *lmap_get_string(const struct level_map *map, int level)
 } while(0)
 
 
-static int array_find_index(const char **array, int nmemb, const char *string)
-{
-    int i;
-
-    for (i = 0; i < nmemb; i++) {
-        if (strcasecmp(array[i], string) == 0) {
-            return i;
-        }
-    }
-
-    return nmemb;
-}
-
 static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
 {
-    static const char *modules[X52D_MOD_MAX] = {
-        [X52D_MOD_CONFIG] = "config",
-        [X52D_MOD_CLOCK] = "clock",
-        [X52D_MOD_DEVICE] = "device",
-        [X52D_MOD_IO] = "io",
-        [X52D_MOD_LED] = "led",
-        [X52D_MOD_MOUSE] = "mouse",
-        [X52D_MOD_COMMAND] = "command",
-        [X52D_MOD_CLIENT] = "client",
-        [X52D_MOD_NOTIFY] = "notify",
-        [X52D_MOD_KEYBOARD_LAYOUT] = "keyboard_layout",
-    };
-
-    // This corresponds to the levels in pinelog
-    static const struct level_map loglevels[] = {
-        {PINELOG_LVL_NOTSET, "default"},
-        {PINELOG_LVL_NONE, "none"},
-        {PINELOG_LVL_FATAL, "fatal"},
-        {PINELOG_LVL_ERROR, "error"},
-        {PINELOG_LVL_WARNING, "warning"},
-        {PINELOG_LVL_INFO, "info"},
-        {PINELOG_LVL_DEBUG, "debug"},
-        {PINELOG_LVL_TRACE, "trace"},
-        {0, NULL},
-    };
-
     if (argc < 2) {
         ERR("Insufficient arguments for 'logging' command");
         return;
@@ -301,13 +231,13 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
     // logging show [module]
     MATCH(1, "show") {
         if (argc == 2) {
-            DATA_LMAP(loglevels, pinelog_get_level(), "global");
+            DATA_LMAP(pinelog_get_level(), "global");
         } else if (argc == 3) {
-            int module = array_find_index(modules, X52D_MOD_MAX, argv[2]);
-            if (module == X52D_MOD_MAX) {
+            int module = lookup_module_by_name(argv[2]);
+            if (module == INT_MAX) {
                 ERR_fmt("Invalid module '%s'", argv[2]);
             } else {
-                DATA_LMAP(loglevels, pinelog_get_module_level(module), argv[2]);
+                DATA_LMAP(pinelog_get_module_level(module), argv[2]);
             }
         } else {
             ERR_fmt("Unexpected arguments for 'logging show' command; got %d, expected 2 or 3", argc);
@@ -319,7 +249,7 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
     // logging set [module] <level>
     MATCH(1, "set") {
         if (argc == 3) {
-            int level = lmap_get_level(loglevels, argv[2], INT_MAX);
+            int level = lookup_level_by_name(argv[2]);
             if (level == INT_MAX) {
                 ERR_fmt("Unknown level '%s' for 'logging set' command", argv[2]);
             } else if (level == PINELOG_LVL_NOTSET) {
@@ -329,10 +259,10 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
                 OK("logging", "set", argv[2]);
             }
         } else if (argc == 4) {
-            int level = lmap_get_level(loglevels, argv[3], INT_MAX);
-            int module = array_find_index(modules, X52D_MOD_MAX, argv[2]);
+            int level = lookup_level_by_name(argv[3]);
+            int module = lookup_module_by_name(argv[2]);
 
-            if (module == X52D_MOD_MAX) {
+            if (module == INT_MAX) {
                 ERR_fmt("Invalid module '%s'", argv[2]);
                 return;
             }

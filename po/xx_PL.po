@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libx52 0.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/nirenjan/libx52/issues\n"
-"POT-Creation-Date: 2026-04-20 21:55-0700\n"
+"POT-Creation-Date: 2026-04-22 09:02-0700\n"
 "PO-Revision-Date: 2026-04-04 12:00-0700\n"
 "Last-Translator: Nirenjan Krishnan <nirenjan@gmail.com>\n"
 "Language-Team: Dummy Language for testing i18n\n"
@@ -285,31 +285,31 @@ msgstr "Estingtay (interruptay otay exitay)\n"
 msgid "Event @ %ld.%06ld: %s, value %d\n"
 msgstr "Eventay @ %ld.%06ld: %s, aluevay %d\n"
 
-#: joytest/x52_test.c:97
+#: joytest/x52_test.c:99
 msgid "Test brightness scale (~ 1m)"
 msgstr "Esttay ightnessbray alescay (~ 1m)"
 
-#: joytest/x52_test.c:98
+#: joytest/x52_test.c:100
 msgid "Test LED states (~ 45s)"
 msgstr "Esstay EDLay atesstay (~ 45s)"
 
-#: joytest/x52_test.c:99
+#: joytest/x52_test.c:101
 msgid "Test MFD string display (~ 30s)"
 msgstr "Esttay MFDay ingstray isplayday (~ 30s)"
 
-#: joytest/x52_test.c:100
+#: joytest/x52_test.c:102
 msgid "Test MFD displays all characters (~ 2m 15s)"
 msgstr "Esttay MFDay isplaysday allay aracterschay (~ 2m 15s)"
 
-#: joytest/x52_test.c:101
+#: joytest/x52_test.c:103
 msgid "Test the blink and shift commands (< 10s)"
 msgstr "Esttay ethay inkblay anday iftshay ommandscay (< 10s)"
 
-#: joytest/x52_test.c:102
+#: joytest/x52_test.c:104
 msgid "Test the clock commands (~1m)"
 msgstr "Esttay ethay ockclay ommandscay (~1m)"
 
-#: joytest/x52_test.c:126
+#: joytest/x52_test.c:128
 msgid ""
 "x52test is a suite of tests to write to the X52 Pro device\n"
 "and test the extra functionality available in the LEDs and MFD\n"
@@ -318,36 +318,36 @@ msgstr ""
 "X52 Pro eviceday anday esttay ethay extray unctionalityfay\n"
 "availableay inay ethay EDsLay anday FDMay\n"
 
-#: joytest/x52_test.c:130
+#: joytest/x52_test.c:132
 msgid "These tests take roughly 6 minutes to run"
 msgstr "Esethay eststay aketay oughlyray 6 inutesmay otay unray"
 
-#: joytest/x52_test.c:132
+#: joytest/x52_test.c:134
 msgid "Press Enter to begin the tests, press Ctrl-C to abort anytime"
 msgstr ""
 "Esspray Enteray otay eginbay ethay eststay, esspray Ctrl-C otay abortay "
 "anytimeay"
 
-#: joytest/x52_test.c:138
+#: joytest/x52_test.c:140
 #, c-format
 msgid "Unable to initialize X52 library: %s\n"
 msgstr "Unableay otay initializeay X52 ibrarylay: %s\n"
 
-#: joytest/x52_test.c:153
+#: joytest/x52_test.c:155
 msgid "All tests completed successfully"
 msgstr "Allay eststay ompletedcay uccessfullysay"
 
-#: joytest/x52_test.c:155
+#: joytest/x52_test.c:157
 #, c-format
 msgid "Got error %s\n"
 msgstr "Otgay erroray %s\n"
 
-#: joytest/x52_test.c:157
+#: joytest/x52_test.c:159
 #, c-format
 msgid "Received %s signal, quitting...\n"
 msgstr "Eceivedray %s ignalsay, uittingqay...\n"
 
-#: joytest/x52_test.c:176
+#: joytest/x52_test.c:178
 msgid ""
 "These are the available tests with a description and\n"
 "approximate runtime. Not specifying any tests will run\n"
@@ -358,18 +358,18 @@ msgstr ""
 "ecifyingspay anyay eststay illway unray allay ethay\n"
 "eststay\n"
 
-#: joytest/x52_test.c:180
+#: joytest/x52_test.c:182
 msgid "List of tests:"
 msgstr "Istlay ofay eststay:"
 
-#: joytest/x52_test.c:230
+#: joytest/x52_test.c:214
 #, c-format
 msgid ""
 "Usage: %s [list of tests]\n"
 "\n"
 msgstr "Usageay: %s [istlay ofay eststay]\n"
 
-#: joytest/x52_test.c:244
+#: joytest/x52_test.c:220
 #, c-format
 msgid ""
 "Unrecognized test identifier: %s\n"
@@ -378,7 +378,7 @@ msgstr ""
 "Unrecognizeday esttay identifieray: %s\n"
 "\n"
 
-#: joytest/x52_test.c:257
+#: joytest/x52_test.c:231
 msgid "Not running any tests"
 msgstr "Otnay unningray anyay eststay"
 
@@ -645,42 +645,42 @@ msgstr "Erroray %d initializingay ockclay eadthray: %s"
 msgid "Shutting down X52 clock manager thread"
 msgstr "Uttingshay ownday X52 ockclay anagermay eadthray"
 
-#: daemon/command.c:380
+#: daemon/command.c:310
 #, c-format
 msgid "Error reading from client %d: %s"
 msgstr "Erroray eadingray omfray ientclay %d: %s"
 
-#: daemon/command.c:391
+#: daemon/command.c:321
 #, c-format
 msgid "Short write to client %d; expected %d bytes, wrote %d bytes"
 msgstr ""
 "Ortshay itewray otay ientclay %d; expecteday %d ytesbay, otewray %d ytesbay"
 
-#: daemon/command.c:416
+#: daemon/command.c:346
 #, c-format
 msgid "Error %d during command loop: %s"
 msgstr "Erroray %d uringday ommandcay ooplay: %s"
 
-#: daemon/command.c:443
+#: daemon/command.c:373
 #, c-format
 msgid "Error creating command socket: %s"
 msgstr "Erroray eatingcray ommandcay ocketsay: %s"
 
-#: daemon/command.c:451
+#: daemon/command.c:381
 #, c-format
 msgid "Error marking command socket as nonblocking: %s"
 msgstr "Erroray arkingmay ommandcay ocketsay asay onblockingnay: %s"
 
-#: daemon/command.c:457
+#: daemon/command.c:387
 #, c-format
 msgid "Error listening on command socket: %s"
 msgstr "Erroray isteninglay onay ommandcay ocketsay: %s"
 
-#: daemon/command.c:461
+#: daemon/command.c:391
 msgid "Starting command processing thread"
 msgstr "Artingstay ommandcay ocessingpray eadthray"
 
-#: daemon/command.c:479
+#: daemon/command.c:409
 msgid "Shutting down command processing thread"
 msgstr "Uttingshay ownday ommandcay ocessingpray eadthray"
 
