@@ -9,7 +9,9 @@ rm -rf "$BUILDDIR"
 # Handle the meson dist failure in CI
 if [[ "$GITHUB_ACTIONS" == "true" ]]
 then
-    git config --global --add safe.directory '*'
+    # If in a container, then use the system directory
+    git config --system --add safe.directory '*' || \
+        git config --global --add safe.directory '*'
 fi
 
 meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled "$BUILDDIR"
