@@ -102,6 +102,7 @@ dep_inih = dependency('inih')
 includes = include_directories('include')
 
 subdir('include')
+subdir('python')
 subdir('libx52')
 subdir('libx52io')
 subdir('libx52util')

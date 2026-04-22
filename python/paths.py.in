@@ -1,0 +1,7 @@
+"""System paths defined at build time"""
+
+PREFIX = "@PREFIX@"
+SYSCONFDIR = "@SYSCONFDIR@"
+LOCALSTATEDIR = "@LOCALSTATEDIR@"
+DATADIR = "@DATADIR@"
+SOCK_PATH = "@SOCK_PATH@"
