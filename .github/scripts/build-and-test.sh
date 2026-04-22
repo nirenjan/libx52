@@ -18,7 +18,7 @@ meson setup -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dnls=enabled "
 cd "$BUILDDIR"
 meson compile
 meson test
-meson dist
+meson dist --allow-dirty # Required to fix CI build
 
 # Print bugreport output
 ./bugreport/x52bugreport
