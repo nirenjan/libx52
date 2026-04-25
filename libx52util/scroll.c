@@ -46,10 +46,7 @@ static uint8_t tape_byte(const struct libx52util_scroll *st, size_t index)
     if (index < st->text_len) {
         return st->text[index];
     }
-    index -= st->text_len;
-    if (index < st->suffix) {
-        return (uint8_t)' ';
-    }
+    /* Remaining tape cells: suffix-width trailing pad (spaces). */
     return (uint8_t)' ';
 }
 
