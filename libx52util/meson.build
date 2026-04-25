@@ -12,6 +12,7 @@ util_char_map = custom_target('util-char-map',
   install_dir: [false, get_option('datadir') / 'x52d'])
 
 lib_libx52util = library('x52util', util_char_map, 'char_map_lookup.c',
+  'scroll.c',
   install: true,
   version: libx52util_version,
   c_args: sym_hidden_cargs,
@@ -35,6 +36,18 @@ libx52util_bmp_test = executable(
 test('libx52util-bmp-test', libx52util_bmp_test,
   protocol: 'tap',
   args: [util_char_map[1]])
+
+libx52util_scroll_test = executable(
+  'libx52util-scroll-test',
+  'scroll_test.c',
+  build_by_default: false,
+  include_directories: [includes, lib_libx52util.private_dir_include()],
+  link_with: [lib_libx52util],
+  dependencies: [dep_cmocka],
+)
+
+test('libx52util-scroll-test', libx52util_scroll_test,
+  protocol: 'tap')
 
 benchmark('libx52util-bmp-bench', libx52util_bmp_test,
   protocol: 'tap',
