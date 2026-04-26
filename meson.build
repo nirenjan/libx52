@@ -89,6 +89,15 @@ sub_pinelog = subproject('pinelog', required: true,
   default_options: pinelog_options)
 dep_pinelog = sub_pinelog.get_variable('libpinelog_dep')
 
+localipc_options = ['lipc_examples=false']
+if get_option('lipc_examples')
+  localipc_options = ['lipc_examples=true']
+endif
+
+sub_localipc = subproject('localipc', required: true,
+  default_options: localipc_options)
+dep_localipc = sub_localipc.get_variable('liblocalipc_dep')
+
 # inih
 # Use system inih
 dep_inih = dependency('inih')
