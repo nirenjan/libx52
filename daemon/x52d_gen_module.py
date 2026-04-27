@@ -20,6 +20,8 @@ def main():
         include_guard = os.path.basename(sys.argv[1]).replace('-', '_').replace('.', '_').upper()
         print(f"#ifndef {include_guard}", file=out_fd)
         print(f"#define {include_guard}\n", file=out_fd)
+        print("#include <stdbool.h>", file=out_fd)
+        print("#include <stdint.h>\n", file=out_fd)
 
         for mod in module_defs.Module:
             print(f"#define X52D_MOD_{mod.name} {mod.value}", file=out_fd)
@@ -31,6 +33,35 @@ def main():
         print(f"const char * lookup_module_by_id(int id);", file=out_fd)
         print(f"int lookup_level_by_name(const char *name);", file=out_fd)
         print(f"const char * lookup_level_by_id(int id);", file=out_fd)
+
+        print(
+            """
+/** True if @p mod is a valid LIPC logging module selector: @c X52D_MOD_GLOBAL or @c 0 … @c X52D_MOD_MAX - 1. */
+static inline bool x52d_module_wire_valid(uint16_t mod)
+{
+    if (mod == X52D_MOD_GLOBAL) {
+        return true;
+    }
+    return mod < X52D_MOD_MAX;
+}
+
+/**
+ * True if @p wire_u is a valid log level id for LIPC @c LOGGING_SET (same numeric space as @c loglevel_map / @c lookup_level_by_id).
+ * The wire field is unsigned; values such as @c FATAL (@c 0) and @c NOTSET (negative) are carried as two's-complement in @c uint64_t.
+ */
+static inline bool x52d_log_level_wire_valid(uint64_t wire_u)
+{
+    int64_t wire = (int64_t)wire_u;
+    int v = (int)wire;
+
+    if ((int64_t)v != wire) {
+        return false;
+    }
+    return lookup_level_by_id(v) != NULL;
+}
+""",
+            file=out_fd,
+        )
 
         print(f"\n#endif // !defined {include_guard}", file=out_fd)
 

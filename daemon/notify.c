@@ -14,9 +14,13 @@
 #define PINELOG_MODULE X52D_MOD_NOTIFY
 #include "pinelog.h"
 #include <daemon/constants.h>
+#include <daemon/ipc_service.h>
 #include <daemon/notify.h>
 #include <daemon/client.h>
+#include <libx52/x52d_ipc.h>
+#define X52DCOMM_NO_DEPRECATED_ATTR 1
 #include <libx52/x52dcomm.h>
+#undef X52DCOMM_NO_DEPRECATED_ATTR
 #include <daemon/x52dcomm-internal.h>
 
 static pthread_t notify_thr;
@@ -105,6 +109,23 @@ static void * x52_notify_thr(void * param)
     }
 
     return NULL;
+}
+
+void x52d_notify_device_state(int connected, uint16_t vid, uint16_t pid, const char *product_utf8,
+    size_t product_len)
+{
+    uint64_t val = x52d_ipc_device_state_pack_usb(vid, pid);
+
+    if (connected) {
+        X52D_NOTIFY("CONNECTED");
+    } else {
+        X52D_NOTIFY("DISCONNECTED");
+    }
+
+    if (product_utf8 == NULL) {
+        product_len = 0;
+    }
+    x52d_ipc_push_device_state(connected ? 1u : 0u, val, product_utf8, product_len);
 }
 
 void x52d_notify_send(int argc, const char **argv)

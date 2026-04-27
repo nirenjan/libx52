@@ -639,6 +639,26 @@ LIBX52_API int libx52_set_blink(libx52_device *x52, uint8_t state);
  */
 
 /**
+ * @brief Read USB vendor and product id of the connected device
+ *
+ * @param[out]  vid     Filled with USB idVendor when connected
+ * @param[out]  pid     Filled with USB idProduct when connected
+ *
+ * @returns \ref LIBX52_SUCCESS, or \ref LIBX52_ERROR_NO_DEVICE if not connected,
+ *          or another \ref libx52_error_code on failure
+ */
+LIBX52_API int libx52_get_usb_ids(libx52_device *x52, uint16_t *vid, uint16_t *pid);
+
+/**
+ * @brief USB product string for the connected device
+ *
+ * The string is ASCII as returned by libusb. The pointer is valid until the
+ * device disconnects or @ref libx52_exit; it must not be freed. Returns an
+ * empty string when not connected or when the device has no product string.
+ */
+LIBX52_API const char *libx52_get_product_string(libx52_device *x52);
+
+/**
  * @brief Update the X52
  *
  * All the libx52_set functions only set the internal data structures, but do

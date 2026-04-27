@@ -33,6 +33,7 @@ install_headers(
   'libx52/libx52.h',
   'libx52/libx52io.h',
   'libx52/libx52util.h',
+  'libx52/x52d_ipc.h',
   'libx52/x52dcomm.h',
   subdir: 'libx52'
 )

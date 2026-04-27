@@ -34,6 +34,15 @@ const char * x52d_notify_sock_path(const char *sock_path)
     return sock_path;
 }
 
+const char *x52d_ipc_sock_path(const char *sock_path)
+{
+    if (sock_path == NULL) {
+        sock_path = X52D_SOCK_IPC;
+    }
+
+    return sock_path;
+}
+
 static int _setup_sockaddr(struct sockaddr_un *remote, const char *sock_path)
 {
     int len;

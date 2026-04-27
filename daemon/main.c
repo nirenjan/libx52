@@ -25,9 +25,9 @@
 #include <daemon/mouse.h>
 #include <daemon/command.h>
 #include <daemon/notify.h>
+#include <daemon/ipc_service.h>
 #include <daemon/x52dcomm-internal.h>
 #include <daemon/keyboard_layout.h>
-#include <libx52/x52dcomm.h>
 #include "pinelog.h"
 
 static volatile int flag_quit;
@@ -96,7 +96,8 @@ static void usage(int exit_code)
               "\t[-l log-file] [-o override]\n"
               "\t[-c config-file] [-p pid-file]\n"
               "\t[-s command-socket-path]\n"
-              "\t[-b notify-socket-path]\n"),
+              "\t[-b notify-socket-path]\n"
+              "\t[-S framed-ipc-socket-path]\n"),
             X52D_APP_NAME);
     exit(exit_code);
 }
@@ -214,6 +215,7 @@ int main(int argc, char **argv)
     const char *pid_file = NULL;
     const char *command_sock = NULL;
     const char *notify_sock = NULL;
+    const char *ipc_sock = NULL;
     int opt;
     int rc;
     sigset_t sigblockset;
@@ -241,8 +243,9 @@ int main(int argc, char **argv)
      * -p   path to PID file (only used if running in background)
      * -s   path to command socket
      * -b   path to notify socket
+     * -S   path to framed IPC socket (commands and notifications)
      */
-    while ((opt = getopt(argc, argv, "fvql:o:c:p:s:b:h")) != -1) {
+    while ((opt = getopt(argc, argv, "fvql:o:c:p:s:b:S:h")) != -1) {
         switch (opt) {
         case 'f':
             foreground = true;
@@ -291,6 +294,10 @@ int main(int argc, char **argv)
             notify_sock = optarg;
             break;
 
+        case 'S':
+            ipc_sock = optarg;
+            break;
+
         case 'h':
             usage(EXIT_SUCCESS);
             break;
@@ -301,6 +308,8 @@ int main(int argc, char **argv)
         }
     }
 
+    x52d_config_set_ipc_save_path(conf_file);
+
     PINELOG_DEBUG(_("Foreground = %s"), foreground ? _("true") : _("false"));
     PINELOG_DEBUG(_("Quiet = %s"), quiet ? _("true") : _("false"));
     PINELOG_DEBUG(_("Verbosity = %d"), verbosity);
@@ -309,6 +318,7 @@ int main(int argc, char **argv)
     PINELOG_DEBUG(_("PID file = %s"), pid_file);
     PINELOG_DEBUG(_("Command socket = %s"), command_sock);
     PINELOG_DEBUG(_("Notify socket = %s"), notify_sock);
+    PINELOG_DEBUG(_("Framed IPC socket = %s"), ipc_sock);
 
     start_daemon(foreground, pid_file);
 
@@ -330,6 +340,9 @@ int main(int argc, char **argv)
         goto cleanup;
     }
     x52d_notify_init(notify_sock);
+    if (x52d_ipc_init(ipc_sock) < 0) {
+        goto cleanup;
+    }
     x52d_io_init();
     x52d_mouse_handler_init();
 
@@ -350,14 +363,22 @@ int main(int argc, char **argv)
         /* Check if we need to reload configuration */
         if (flag_reload) {
             PINELOG_INFO(_("Reloading X52 configuration"));
-            x52d_config_load(conf_file);
+            if (x52d_config_reload_canonical() != 0) {
+                PINELOG_ERROR(_("Canonical configuration reload failed"));
+            }
             x52d_config_apply();
             flag_reload = false;
         }
 
         if (flag_save_cfg) {
             PINELOG_INFO(_("Saving X52 configuration to disk"));
-            x52d_config_save(conf_file);
+            {
+                int save_rc = x52d_config_save_session();
+
+                if (save_rc != 0) {
+                    PINELOG_ERROR(_("Error saving configuration: %s"), strerror(save_rc));
+                }
+            }
             flag_save_cfg = false;
         }
     }
@@ -369,6 +390,7 @@ cleanup:
     // Stop device threads
     x52d_clock_exit();
     x52d_dev_exit();
+    x52d_ipc_exit();
     x52d_command_exit();
     x52d_notify_exit();
     x52d_mouse_handler_exit();

@@ -49,6 +49,7 @@ functions.
 - libx52/libx52io.h
 - libx52/libx52util.h
 - vkm/vkm.h
+- libx52/x52d_ipc.h
 - libx52/x52dcomm.h
 
 */

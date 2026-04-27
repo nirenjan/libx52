@@ -22,6 +22,9 @@ module_defs = custom_target('module-defs',
   command: [python, meson.current_source_dir() / 'x52d_gen_module.py',
     '@OUTPUT0@', '@OUTPUT1@'])
 
+# Header for generated config section/option ids (build tree).
+dep_config_defs_gen = declare_dependency(sources: config_defs[0])
+
 # Header only: ordering on module-map.h without compiling module-map.c per target.
 dep_module_map_gen = declare_dependency(sources: module_defs[0])
 
@@ -31,6 +34,8 @@ slib_comm_defs = static_library('x52dcommdefs',
   module_defs,
   'name-id-map.c',
   )
+
+dep_threads = dependency('threads')
 
 libx52dcomm_version = '1.0.0'
 
@@ -42,7 +47,7 @@ libx52dcomm_sources = [
 root_includes = include_directories('..')
 
 lib_libx52dcomm = library('x52dcomm', libx52dcomm_sources,
-  dependencies: [dep_intl, dep_config_h, dep_module_map_gen],
+  dependencies: [dep_intl, dep_config_h, dep_module_map_gen, dep_localipc, dep_threads],
   version: libx52dcomm_version,
   c_args: sym_hidden_cargs,
   install: true,
@@ -52,10 +57,13 @@ pkgconfig.generate(lib_libx52dcomm,
   name: 'x52dcomm',
   description: 'Client library for communicating with the x52d X52 daemon.',
   version: libx52dcomm_version,
+  requires: ['localipc'],
 )
 
 x52d_sources = [
   'main.c',
+  'ipc_service.c',
+  'ipc_lipc_handlers.c',
   'config_parser.c',
   'config_dump.c',
   'config.c',
@@ -74,12 +82,10 @@ x52d_sources = [
   'crc32.c',
   ]
 
-dep_threads = dependency('threads')
-
-# Comm sources are compiled into x52d (same as Autotools); libx52dcomm is only for x52ctl.
+# Comm sources are compiled into x52d (same as Autotools); libx52dcomm is for external clients and x52ctl (Python + ctypes).
 x52d_linkwith = [lib_libx52, lib_vkm, lib_libx52io, slib_comm_defs]
 x52d_deps = [dep_pinelog, dep_inih, dep_threads, dep_math, dep_intl, dep_config_h,
-  dep_module_map_gen]
+  dep_module_map_gen, dep_config_defs_gen, dep_localipc]
 x52d_cflags = []
 
 exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
@@ -89,11 +95,58 @@ exe_x52d = executable('x52d', x52d_sources + libx52dcomm_sources,
   dependencies: x52d_deps,
   link_with: x52d_linkwith)
 
-exe_x52ctl = executable('x52ctl', 'daemon_control.c',
-  install: true,
-  dependencies: [dep_intl, dep_config_h, dep_module_map_gen],
-  include_directories: [includes, root_includes],
-  link_with: lib_libx52dcomm)
+x52ctl_script = configure_file(
+  input: 'x52ctl.in',
+  output: 'x52ctl',
+  configuration: {
+    'PYTHON': python.full_path(),
+    'X52D_PY_PKG': meson.current_build_dir(),
+  },
+  install: false,
+)
+
+x52d_python_install_dir = join_paths(get_option('datadir'), 'x52d', 'python')
+x52ctl_pymain_abs = join_paths(get_option('prefix'), x52d_python_install_dir, 'x52ctl_main.py')
+
+x52ctl_installed_sh = configure_file(
+  input: 'x52ctl-installed.in',
+  output: 'x52ctl.inst',
+  configuration: {
+    'PYTHON': '/usr/bin/env python3',
+    'X52CTL_PYMAIN': x52ctl_pymain_abs,
+  },
+  install: false,
+)
+
+x52ctl_buildpath = join_paths(meson.current_build_dir(), 'x52ctl')
+x52ctl_test_dep = custom_target(
+  'x52ctl-test-dep',
+  command: [
+    find_program('sh'), '-c', 'chmod 755 "$1" && touch "$2"',
+    '_', x52ctl_buildpath, '@OUTPUT@',
+  ],
+  output: 'x52ctl-test.stamp',
+  depend_files: [x52ctl_script],
+)
+
+install_data(
+  x52ctl_installed_sh,
+  install_dir: get_option('bindir'),
+  install_mode: 'rwxr-xr-x',
+  rename: 'x52ctl',
+)
+
+install_data(
+  files('command_defs.py', 'module_defs.py', 'x52ctl_main.py'),
+  install_dir: x52d_python_install_dir,
+)
+
+meson.add_install_script(
+  python,
+  files('install_copy_file.py'),
+  join_paths(meson.current_build_dir(), 'config_defs.py'),
+  join_paths(get_option('prefix'), x52d_python_install_dir, 'config_defs.py'),
+)
 
 install_data('x52d.conf',
   install_dir: join_paths(get_option('sysconfdir'), 'x52d'))
@@ -112,7 +165,7 @@ us_x52l = custom_target(
   install_dir: join_paths(get_option('datadir'), 'x52d'))
 
 test('daemon-communication', files('test_daemon_comm.py')[0],
-  depends: [exe_x52d, exe_x52ctl], protocol: 'tap')
+  depends: [exe_x52d, config_defs, x52ctl_test_dep], protocol: 'tap')
 
 x52d_mouse_test_sources = ['mouse_test.c', 'mouse.c']
 x52d_mouse_test = executable('x52d-mouse-test', x52d_mouse_test_sources,

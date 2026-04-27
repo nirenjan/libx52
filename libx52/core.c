@@ -96,6 +96,38 @@ bool libx52_is_connected(libx52_device *dev)
     return false;
 }
 
+int libx52_get_usb_ids(libx52_device *dev, uint16_t *vid, uint16_t *pid)
+{
+    struct libusb_device_descriptor desc;
+    libusb_device *udev;
+
+    if (!dev || !vid || !pid) {
+        return LIBX52_ERROR_INVALID_PARAM;
+    }
+    if (!dev->hdl) {
+        *vid = 0;
+        *pid = 0;
+        return LIBX52_ERROR_NO_DEVICE;
+    }
+    udev = libusb_get_device(dev->hdl);
+    if (!udev || libusb_get_device_descriptor(udev, &desc) != 0) {
+        *vid = 0;
+        *pid = 0;
+        return LIBX52_ERROR_USB_FAILURE;
+    }
+    *vid = desc.idVendor;
+    *pid = desc.idProduct;
+    return LIBX52_SUCCESS;
+}
+
+const char *libx52_get_product_string(libx52_device *dev)
+{
+    if (!dev || !dev->hdl) {
+        return "";
+    }
+    return dev->usb_product;
+}
+
 int libx52_disconnect(libx52_device *dev)
 {
     if (!dev) {
@@ -107,6 +139,7 @@ int libx52_disconnect(libx52_device *dev)
         dev->hdl = NULL;
         dev->flags = 0;
         dev->handle_registered = 0;
+        dev->usb_product[0] = '\0';
     }
 
     return LIBX52_SUCCESS;
@@ -147,6 +180,14 @@ int libx52_connect(libx52_device *dev)
                 }
 
                 dev->hdl = hdl;
+                dev->usb_product[0] = '\0';
+                if (desc.iProduct != 0) {
+                    int plen = libusb_get_string_descriptor_ascii(hdl, desc.iProduct,
+                        (unsigned char *)dev->usb_product, (int)sizeof(dev->usb_product));
+                    if (plen < 0) {
+                        dev->usb_product[0] = '\0';
+                    }
+                }
 
                 if (libx52_device_is_x52pro(desc.idProduct)) {
                     set_bit(&(dev->flags), X52_FLAG_IS_PRO);

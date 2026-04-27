@@ -988,8 +988,9 @@ FILE_PATTERNS          = libx52.h \
                          libx52util.h \
                          vkm.h \
                          x52_cli.c \
-                         daemon_control.c \
+                         daemon/x52ctl.dox \
                          x52dcomm.h \
+                         x52d_ipc.h \
                          *.dox
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should

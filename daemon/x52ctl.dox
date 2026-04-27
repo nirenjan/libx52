@@ -1,0 +1,42 @@
+/**
+@page x52ctl Command line controller to X52 daemon (Python)
+
+\htmlonly
+<b>x52ctl</b> - Command line controller to X52 daemon
+\endhtmlonly
+
+# SYNOPSIS
+<tt>\b x52ctl [\a -i] [\a -s PATH] \b config \a ...</tt>
+<br/>
+<tt>\b x52ctl [\a -i] [\a -s PATH] \b logging \a ...</tt>
+
+# DESCRIPTION
+
+x52ctl sends framed LIPC requests to the running x52d daemon on its unified
+control socket (see @ref x52d_ipc.h and @ref proto_lipc_framed). It can be used
+as a one-shot program from scripts or interactively.
+
+Responses are written to standard output in the same NUL-separated form as the
+legacy command socket used historically (\c OK / \c ERR / \c DATA followed by
+NUL-terminated string fields), so existing parsers can keep working.
+
+If not running interactively, a full command (e.g. \c config reload) is required
+or the program exits with a non-zero status. In interactive mode (\c -i),
+lines are read from standard input and executed until \c quit or end-of-file.
+
+# OPTIONS
+
+- <tt>\b -i</tt>, <tt>\b --interactive</tt>
+  Run in interactive mode. Extra non-option arguments are ignored.
+
+- <tt>\b -s \a PATH</tt>, <tt>\b --socket \a PATH</tt>
+  Use the daemon framed IPC socket at \a PATH. If omitted, the default path
+  compiled into libx52dcomm is used (same layout as the x52d \c RUNDIR socket).
+
+# COMMANDS
+
+Subcommands are grouped under \b config and \b logging (see \c x52ctl --help).
+
+# SEE ALSO
+@ref x52d, @ref x52dcomm, @ref proto_lipc_framed
+*/

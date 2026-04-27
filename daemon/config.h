@@ -9,6 +9,7 @@
 #ifndef X52D_CONFIG_H
 #define X52D_CONFIG_H
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <limits.h>
@@ -106,9 +107,78 @@ void x52d_config_apply_immediate(const char *section, const char *key);
 void x52d_config_apply(void);
 
 int x52d_config_save_file(struct x52d_config *cfg, const char *cfg_file);
+
+/** Write the full active configuration as INI to @p cfg_fp (for save or in-memory dump). */
+int x52d_config_write_ini(struct x52d_config *cfg, FILE *cfg_fp, const char *path_label);
+
 void x52d_config_save(const char *cfg_file);
 
 int x52d_config_set(const char *section, const char *key, const char *value);
 const char *x52d_config_get(const char *section, const char *key);
+
+/**
+ * Reload configuration using the canonical order: state file if present and readable,
+ * else system config if present, else in-memory defaults (plus CLI overrides once).
+ *
+ * @return 0 on success, or a positive errno-style code on failure.
+ */
+int x52d_config_reload_canonical(void);
+
+/**
+ * Load defaults, then load @p path (must be readable). Applies CLI overrides.
+ *
+ * @return 0 on success, or a positive errno-style code on failure.
+ */
+int x52d_config_load_from_path(const char *path);
+
+/**
+ * Reset active configuration to defaults and re-apply CLI overrides.
+ *
+ * @return 0 on success, or a positive errno-style code on failure.
+ */
+int x52d_config_reset_to_defaults(void);
+
+/**
+ * Serialize the active configuration as INI text into a heap buffer.
+ * On success, @p *out is NUL-terminated (length includes the final NUL in @p *out_len).
+ *
+ * @return 0 on success, or a positive errno-style code on failure (@p *out undefined).
+ */
+int x52d_config_dump_to_alloc(char **out, size_t *out_len);
+
+/**
+ * Atomically write the active configuration to @ref X52D_STATE_CFG_FILE
+ * (temp file in the same directory + rename).
+ *
+ * @return 0 on success, or a positive errno-style code on failure.
+ */
+int x52d_config_save_state_atomic(void);
+
+/**
+ * When non-NULL, @ref x52d_config_save_session writes to this path (same file as @c x52d -c).
+ * When NULL, @ref x52d_config_save_state_atomic is used.
+ */
+void x52d_config_set_ipc_save_path(const char *path);
+
+/**
+ * Save active configuration: session path if set, otherwise @ref x52d_config_save_state_atomic.
+ *
+ * @return 0 on success, or a positive errno-style code on failure.
+ */
+int x52d_config_save_session(void);
+
+/**
+ * Delete on-disk configuration selected by LIPC @c CONFIG_CLEAR index, then run
+ * @ref x52d_config_reload_canonical. @p target is @ref X52D_CONFIG_CLEAR_TARGET_STATE or
+ * @ref X52D_CONFIG_CLEAR_TARGET_SYSCONF.
+ *
+ * Unlink uses @c ENOENT as success (nothing to remove). If removal fails (e.g. read-only
+ * sysconf), the errno is stored in @p out_unlink_errno when non-@c NULL and reload still runs.
+ *
+ * @return @c 0 if reload succeeded, else a positive errno-style code from reload.
+ * @param out_unlink_errno optional; set to @c 0 if unlink succeeded or file was absent;
+ *   otherwise set to errno from @c unlink (2); reload is still attempted.
+ */
+int x52d_config_clear_disk_then_reload(uint16_t target, int *out_unlink_errno);
 
 #endif // !defined X52D_CONFIG_H

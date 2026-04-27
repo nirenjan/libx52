@@ -9,6 +9,18 @@ the Windows X52 driver. It currently manages the following:
 - MFD brightness
 - Clock display on MFD
 
+# Control and notification sockets
+
+The \b supported control plane and event stream use \b liblocalipc framing on a
+single UNIX stream socket (default basename \c x52d.socket under the runtime
+directory). See \ref x52d_protocol and \ref proto_lipc_framed. Use \c -S to
+override the socket path.
+
+The historical \b NUL-separated command socket (\c x52d.cmd) and notify socket
+(\c x52d.notify) remain for transitional callers; they are \b deprecated and
+\b will be removed in a future release. Overrides use \c -s and \c -b. See
+\ref x52d_protocol.
+
 # Command line arguments
 
 - \c -f - Run daemon in foreground (default: no)
@@ -18,8 +30,9 @@ the Windows X52 driver. It currently manages the following:
 - \c -c - Path to configuration file
 - \c -p - Path to PID file
 - \c -o - Configuration override - only applied during startup
-- \c -s - Path to command socket (see \ref x52d_protocol)
-- \c -b - Path to notify socket
+- \c -S - Path to the \b unified framed-IPC socket (RPC and \c tid==0 push notifications such as \c DEVICE_STATE; default \c x52d.socket under the runtime directory). \b This is the supported integration path (see \ref x52d_protocol).
+- \c -s - Path to the \b deprecated legacy NUL command socket (default \c x52d.cmd); \b will be removed once callers migrate to \c -S / LIPC.
+- \c -b - Path to the \b deprecated legacy notify socket (default \c x52d.notify); \b will be removed in the same way.
 
 # Configuration file
 

@@ -7,6 +7,7 @@
  */
 
 #include "build-config.h"
+#include <string.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <stdbool.h>
@@ -50,8 +51,14 @@ static void *x52_dev_thr(void *param)
                 sleep(DEV_ACQ_DELAY);
             } else {
                 /* Successfully connected */
+                uint16_t vid = 0;
+                uint16_t pid = 0;
+                const char *prod = "";
+
                 PINELOG_INFO(_("Device connected, writing configuration"));
-                X52D_NOTIFY("CONNECTED");
+                (void)libx52_get_usb_ids(x52_dev, &vid, &pid);
+                prod = libx52_get_product_string(x52_dev);
+                x52d_notify_device_state(1, vid, pid, prod, strlen(prod));
                 x52d_config_apply();
             }
         } else {
@@ -171,11 +178,15 @@ int x52d_dev_update(void)
 
     if (rc != LIBX52_SUCCESS) {
         if (rc == LIBX52_ERROR_NO_DEVICE) {
+            uint16_t vid = 0;
+            uint16_t pid = 0;
+
             // Detach from the existing device, the next thread run will
             // pick it up.
             PINELOG_TRACE("Disconnecting detached device");
+            (void)libx52_get_usb_ids(x52_dev, &vid, &pid);
             libx52_disconnect(x52_dev);
-            X52D_NOTIFY("DISCONNECTED");
+            x52d_notify_device_state(0, vid, pid, NULL, 0);
         } else {
             PINELOG_ERROR(_("Error %d when updating X52 device: %s"),
                           rc, libx52_strerror(rc));

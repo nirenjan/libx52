@@ -54,6 +54,9 @@ struct libx52_device {
 
     libusb_hotplug_callback_handle hotplug_handle;
     int handle_registered;
+
+    /** USB product string (ASCII from libusb), valid while @c hdl is non-NULL */
+    char usb_product[256];
 };
 
 /** Flag bits */

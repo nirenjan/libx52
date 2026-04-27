@@ -15,7 +15,9 @@
 #include <sys/un.h>
 #include <unistd.h>
 
+#include <localipc/lipc.h>
 #include <libx52/x52dcomm.h>
+#include <libx52/x52d_ipc.h>
 #include <daemon/x52dcomm-internal.h>
 
 static int _setup_socket(struct sockaddr_un *remote, int len)
@@ -69,6 +71,71 @@ int x52d_dial_notify(const char *sock_path)
     }
 
     return _setup_socket(&remote, len);
+}
+
+const char *x52d_ipc_socket_path(const char *sock_path)
+{
+    return x52d_ipc_sock_path(sock_path);
+}
+
+int x52d_dial_ipc(const char *sock_path)
+{
+    const char *path = x52d_ipc_sock_path(sock_path);
+    int fd;
+
+    fd = lipc_socket_connect(path, LIPC_SOCKET_CLOEXEC);
+    return fd;
+}
+
+int x52d_ipc_device_state_decode(const lipc_header *hdr, const void *payload, size_t payload_len,
+    int *connected, uint16_t *vid, uint16_t *pid, const char **name_utf8, size_t *name_len)
+{
+    if (!hdr) {
+        return -1;
+    }
+    if (payload_len > 0 && !payload) {
+        return -1;
+    }
+    if (hdr->tid != 0 || hdr->request != X52D_IPC_PUSH_DEVICE_STATE) {
+        return -1;
+    }
+    if (hdr->index > 1u) {
+        return -1;
+    }
+    if (hdr->length != (uint32_t)payload_len) {
+        return -1;
+    }
+    if (connected) {
+        *connected = (hdr->index == 1u) ? 1 : 0;
+    }
+    if (vid || pid) {
+        x52d_ipc_device_state_unpack_usb(hdr->value, vid, pid);
+    }
+    if (name_utf8) {
+        *name_utf8 = (payload_len > 0) ? (const char *)payload : NULL;
+    }
+    if (name_len) {
+        *name_len = payload_len;
+    }
+    return 0;
+}
+
+lipc_status x52d_ipc_call(int fd, uint16_t request_id, uint16_t index, uint64_t value,
+    const void *payload, size_t payload_len,
+    lipc_header *reply_hdr, void *reply_payload, size_t reply_payload_cap, size_t *reply_len)
+{
+    lipc_client *client;
+    lipc_status st;
+
+    client = lipc_client_create(0, NULL, NULL);
+    if (!client) {
+        return LIPC_INTERNAL_ERROR;
+    }
+
+    st = lipc_client_call(client, fd, request_id, index, value, payload, payload_len,
+        reply_hdr, reply_payload, reply_payload_cap, reply_len);
+    lipc_client_destroy(client);
+    return st;
 }
 
 int x52d_format_command(int argc, const char **argv, char *buffer, size_t buflen)

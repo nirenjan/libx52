@@ -378,6 +378,48 @@ static lipc_status lipc_server_drain_client_frames(lipc_server *server, size_t i
     }
 }
 
+enum { LIPC_BROADCAST_MAX_FDS = 256 };
+
+lipc_status lipc_server_broadcast_notify(lipc_server *server, uint16_t request, uint16_t status,
+    uint16_t index, uint64_t value, const void *payload, size_t payload_len)
+{
+    int fds[LIPC_BROADCAST_MAX_FDS];
+    size_t nfds;
+    size_t i;
+
+    if (!server) {
+        return LIPC_BAD_HEADER;
+    }
+    if (payload_len > UINT32_MAX) {
+        return LIPC_BAD_LENGTH;
+    }
+
+    pthread_mutex_lock(&server->lock);
+    nfds = server->nclients;
+    if (nfds > sizeof fds / sizeof fds[0]) {
+        pthread_mutex_unlock(&server->lock);
+        return LIPC_BAD_LENGTH;
+    }
+    for (i = 0; i < nfds; i++) {
+        fds[i] = server->clients[i].fd;
+    }
+    pthread_mutex_unlock(&server->lock);
+
+    lipc_header h = {
+        .request = request,
+        .status = status,
+        .index = index,
+        .tid = 0,
+        .length = (uint32_t)payload_len,
+        .value = value,
+    };
+
+    for (i = 0; i < nfds; i++) {
+        (void)lipc_frame_write(fds[i], &h, payload, payload_len);
+    }
+    return LIPC_OK;
+}
+
 lipc_status lipc_server_run(lipc_server *server)
 {
     int listen_fd;

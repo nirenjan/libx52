@@ -6,7 +6,8 @@ set -e
 doc_html="$1"
 mandir="$2"
 
-WANTED_PAGES="man1/x52cli.1 man1/x52bugreport.1"
+# Installed manual pages from the Doxygen man tree (see GENERATE_MAN in Doxyfile.in).
+WANTED_PAGES="man1/x52cli.1 man1/x52bugreport.1 man1/x52d.1 man1/x52d_protocol.1 man1/x52dcomm.1 man1/proto_lipc_framed.1 man1/x52ctl.1"
 
 if [ -d "$MESON_BUILD_ROOT/docs/html" ]; then
   mkdir -p "$MESON_INSTALL_DESTDIR_PREFIX/$doc_html"

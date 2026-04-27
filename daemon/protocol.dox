@@ -1,24 +1,56 @@
 /**
-@page x52d_protocol X52 daemon socket communication protocol
+@page x52d_protocol X52 daemon control and notification protocols
 
-The X52 daemon creates a Unix domain stream socket, by default at
-`$(LOCALSTATEDIR)/run/x52d.cmd` and listens for connection requests from
-clients at this location. This can be overridden by passing the -s flag when
-starting the daemon.
+@section proto_supported Primary path: framed LIPC (liblocalipc)
 
-# Protocol Overview
+The **supported** integration surface for daemon control and for **push**
+notifications is **liblocalipc** on a single UNIX **stream** socket. By default
+the daemon listens at `$(LOCALSTATEDIR)/run/x52d.socket` (same layout as other
+runtime files under the configured runtime directory). The path is overridden
+with the daemon’s \c -S option.
 
-\b x52d requires that clients send it commands as a series of NUL terminated
+Clients should use \ref x52d_dial_ipc and \ref x52d_ipc_call from
+\ref x52dcomm.h (and opcode / field definitions in \ref x52d_ipc.h). RPC
+replies carry a non-zero transaction id (\c lipc_header.tid) matching the
+request. **Server push** frames use \c tid == \c 0; see \ref proto_lipc_framed
+and especially \ref lipc_push_device_state.
+
+For a full description of opcodes, configuration save paths, reload order, and
+logging wire ids, see @subpage proto_lipc_framed.
+
+@section proto_deprecated Legacy NUL-separated sockets (deprecated)
+
+The **legacy command** socket (\c x52d.cmd) and **legacy notify** socket
+(\c x52d.notify) use a NUL-terminated “argv” style wire format. They remain
+available **only during migration** of existing tools and scripts.
+
+\b These legacy sockets and their wire format are \b deprecated and \b will be
+\b removed in a future release. New code must use the framed LIPC socket
+described above.
+
+Default paths are under `$(LOCALSTATEDIR)/run/` (see \c X52D_SOCK_COMMAND and
+\c X52D_SOCK_NOTIFY in the daemon). The daemon overrides them with \c -s
+(command) and \c -b (notify).
+
+The legacy client helpers in \ref x52dcomm.h (\c x52d_dial_command,
+\c x52d_format_command, \c x52d_send_command, \c x52d_dial_notify,
+\c x52d_recv_notification) are deprecated with the **same removal policy** as
+the sockets. Use \c x52d_ipc_socket_path, \c x52d_dial_ipc, and \c x52d_ipc_call
+instead.
+
+@subsection proto_legacy_cmd Legacy NUL command protocol
+
+\b x52d requires that clients send commands as a series of NUL terminated
 strings, without any interleaving space. The command should be sent in a
-single `send` call, and the client may expect a response in a single `recv`
+single \c send call, and the client may expect a response in a single \c recv
 call.
 
-The `send` call must send exactly the number of bytes in the command text.
+The \c send call must send exactly the number of bytes in the command text.
 Extra bytes will be treated as additional arguments, which would cause the
-command to fail. It is recommended that the `recv` call uses a 1024 byte buffer
+command to fail. It is recommended that the \c recv call uses a 1024 byte buffer
 to read the data. Responses will never exceed this length.
 
-# Responses
+@subsubsection proto_legacy_resp Responses
 
 The daemon sends the response as a series of NUL terminated strings, without
 any interleaving space. The first string is always one of the following:
@@ -30,40 +62,52 @@ any interleaving space. The first string is always one of the following:
 This determines whether the request was successful or not, and subsequent
 strings describe the action, error or requested data.
 
-# Examples
+@subsubsection proto_legacy_ex Examples
 
-## Reloading configuration
-
+@par Reloading configuration
 - \b send <tt>config\0reload\0</tt>
 - \b recv <tt>OK\0config\0reload\0</tt>
 
-## Reading mouse speed
-
+@par Reading mouse speed
 - \b send <tt>config\0get\0mouse\0speed\0</tt>
 - \b recv <tt>DATA\0mouse\0speed\010\0</tt>
 
-## Sending an invalid command
-
+@par Sending an invalid command
 - \b send <tt>config reload</tt>
 - \b recv <tt>ERR\0Unknown command 'config reload'\0</tt>
 
-# Commands
+@subsection proto_legacy_vocab Legacy command vocabulary
 
 \b x52d commands are arranged in a hierarchical fashion as follows:
 
-```
+@code{.unparsed}
 <command-group> [<sub-command-group> [<sub-command-group> [...]]] <command> [<arguments>]
-```
+@endcode
 
-The list of supported commands are shown below:
+The list of supported **legacy NUL** commands are shown below (superseded on
+the wire by @ref proto_lipc_framed where an opcode exists):
 
 - @subpage proto_config
 - @subpage proto_logging
 
+@subsection proto_legacy_notify Legacy notify socket (deprecated)
+
+Subscribers connect to the legacy notify socket (\c x52d.notify by default).
+The daemon broadcasts short NUL-framed messages (same packing style as the
+legacy command responses) when internal events occur. Notably, device connect
+and disconnect were historically reported as string events such as
+\c CONNECTED and \c DISCONNECTED.
+
+On the **framed LIPC** socket, the same information is carried by the
+\c DEVICE_STATE push; see @ref lipc_push_device_state. Prefer subscribing on
+the unified LIPC path before legacy removal.
 */
 
 /**
-@page proto_config Configuration management
+@page proto_config Configuration management (legacy NUL command socket)
+
+@note This page documents the **deprecated** NUL-separated \c x52d.cmd protocol.
+      For new integrations use @ref proto_lipc_framed (\c CONFIG_* opcodes).
 
 The \c config commands deal with \b x52d configuration subsystem, and have the
 following subcommands.
@@ -223,7 +267,10 @@ ERR\0Error 22 setting 'led.fire'='none': Invalid argument\0
 */
 
 /**
-@page proto_logging Logging management
+@page proto_logging Logging management (legacy NUL command socket)
+
+@note This page documents the **deprecated** NUL-separated \c x52d.cmd protocol.
+      For new integrations use @ref proto_lipc_framed (\c LOGGING_SHOW / \c LOGGING_SET).
 
 The \c logging commands allow the user to fine tune the logging configuration
 of \c x52d as well as adjust the log levels for either all the modules, or for
@@ -305,4 +352,111 @@ otherwise.
 - `set`
 - <tt>\a module-name</tt> (if specified)
 - \a log-level
+*/
+
+/**
+@page proto_lipc_framed Framed LIPC control and notify (x52d.socket)
+
+The daemon exposes **liblocalipc** on a UNIX stream socket (default under
+`$(LOCALSTATEDIR)/run/`, basename \c x52d.socket, overridable with \c -S). This
+is the **only** supported long-term path for control-plane RPC and for **push**
+notifications. Request opcodes for configuration and logging match
+\ref x52d_ipc.h; field semantics and on-disk layout are summarized here.
+
+@section lipc_push_device_state LIPC push: DEVICE_STATE (\c tid == 0)
+
+When the USB device connects or disconnects, the daemon may emit a **push**
+frame: \c lipc_header.tid is **zero**, and \c lipc_header.request identifies the
+push type \c DEVICE_STATE, wire id \c X52D_IPC_PUSH_DEVICE_STATE (\c 0x8001) in
+\ref x52d_ipc.h — distinct from RPC opcodes \c 0x01–\c 0x08 and \c 0x11–\c 0x12.
+
+Semantics:
+
+- \c lipc_header.index — **connection state**: \c 0 = disconnected, \c 1 = connected.
+- \c lipc_header.value — USB identity in the **lower 32 bits**:
+  \c (uint32_t)((idVendor << 16) | idProduct) with 16-bit USB \c idVendor and
+  \c idProduct (upper bits reserved, zero unless extended later). On **connect**
+  (\c index == 1), this reflects the **current** device. On **disconnect**
+  (\c index == 0), the daemon **preserves the last connected** vendor/product id
+  so clients know **which** device dropped; if no device was ever connected in
+  this process lifetime, the lower 32 bits are \c 0.
+- **Payload** — optional UTF-8. When **connected** (\c index == 1), the daemon
+  **may** include the USB **product** string (\c lipc_header.length > 0). Clients
+  must accept **zero-length** payload. When **disconnected**, payload is
+  normally empty.
+- \c lipc_header.status — typically \c LIPC_OK for a well-formed push.
+
+This push supersedes the legacy notify strings \c CONNECTED / \c DISCONNECTED
+on the deprecated \c x52d.notify socket.
+
+@section lipc_state_path Runtime configuration file
+
+Persistent settings written by @c CONFIG_SAVE (and removed by @c CONFIG_CLEAR
+when targeting state) live at:
+
+@code
+$(LOCALSTATEDIR)/lib/x52d/x52d.conf
+@endcode
+
+(\c X52D_STATE_CFG_FILE in daemon sources). The daemon writes this path with a temporary file in
+the same directory followed by @c rename(2) so readers never see a torn file.
+Static defaults shipped by the distribution use \c X52D_SYS_CFG_FILE under
+@c $(SYSCONFDIR).
+
+@section lipc_config_get_set CONFIG_GET and CONFIG_SET (registry ids)
+
+@c CONFIG_SET (@c 0x07) and @c CONFIG_GET (@c 0x08) address a single configuration key using
+numeric identifiers from the build-time registry (@c config_registry.json → @c config-defs.h /
+@c config-defs.c), not free-form section/option strings on the wire:
+
+- @c lipc_header.index — section id (e.g. @c CFG_SECTION_CLOCK, @c CFG_SECTION_LED, ...).
+- @c lipc_header.value — option id within that section (e.g. @c CFG_OPTION_CLOCK_ENABLED).
+  The value must fit in 16 bits; garbage in the upper bits of the 64-bit wire field is rejected.
+
+@c CONFIG_SET request payload is the new value as a UTF-8 string (length = @c lipc_header.length).
+The daemon validates @c (index, value) with @c x52d_config_registry_pair_valid(), resolves names
+via @c section_names / @c option_names, then applies the same parsing as file-based configuration
+(@c x52d_config_set + @c x52d_config_apply_immediate).
+
+@c CONFIG_GET uses the same @c index / @c value selection; the reply payload is a single string,
+the same logical text as other dump paths (@c x52d_config_get / dumpers), not the legacy
+NUL-separated @c DATA argv shape.
+
+@section lipc_config_clear CONFIG_CLEAR targets
+
+The LIPC @c CONFIG_CLEAR request selects a file via @c lipc_header.index:
+
+- @c X52D_IPC_CONFIG_CLEAR_TARGET_STATE (@c 1): delete the runtime state file
+  (\ref lipc_state_path).
+- @c X52D_IPC_CONFIG_CLEAR_TARGET_SYSCONF (@c 2): delete the system configuration file
+  (\c X52D_SYS_CFG_FILE under \c $(SYSCONFDIR)).
+
+After attempting @c unlink(2), the daemon always runs the same reload sequence
+as @c CONFIG_RELOAD: load the state file if it exists, else the sysconf file if
+it exists, else defaults (then apply CLI overrides). If deleting the sysconf file
+fails (e.g. read-only filesystem), the reply uses a non-success status with the
+unlink error in the payload, but reload and apply still run so runtime state
+stays consistent.
+
+@section lipc_config_reload_order Canonical reload order
+
+@c CONFIG_RELOAD and the post-@c CONFIG_CLEAR reload both prefer the state file
+when present and readable, then the system configuration file, otherwise
+in-memory defaults.
+
+@section lipc_logging_show_set LOGGING_SHOW (@c 0x11) and LOGGING_SET (@c 0x12)
+
+Logging control uses numeric ids from the same build-time tables as the legacy
+NUL command path (@c module_defs.py → @c module-map.h / @c module-map.c and
+@c loglevel_map / @c lookup_level_by_id). There are no module or level names on the LIPC wire.
+
+- @c lipc_header.index — module id (@c X52D_MOD_* values, @c 0 … @c X52D_MOD_MAX - 1), or
+  @c X52D_MOD_GLOBAL (@c 0xFF) for the global log level. Clients must use @c x52d_module_wire_valid()
+  semantics (or the equivalent): any other @c index is invalid.
+- @c lipc_header.value — for @c LOGGING_SET only, the log level id in the same numeric space as
+  @c lookup_level_by_id (including @c FATAL as @c 0 and negative ids such as @c NOTSET where present
+  in the map, encoded in the 64-bit field as two's-complement). Validated with @c x52d_log_level_wire_valid().
+  For @c LOGGING_SHOW, @c value must be zero (@c LIPC_FIELD_FORBIDDEN); the current level is read from pinelog.
+
+@c LOGGING_SHOW reply payload is a single string (the level label, e.g. @c info), not the legacy @c DATA argv shape.
 */

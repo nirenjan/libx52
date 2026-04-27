@@ -49,7 +49,7 @@ class TestCase:
             print(out)
 
         cmd = [suite.find_control_program(),
-               '-s', suite.command, '--',
+               '-s', suite.ipc_socket,
                *self.in_cmd]
 
         testcase = subprocess.run(cmd, stdout=subprocess.PIPE, check=False)
@@ -75,6 +75,7 @@ class Test:
         self.tmpdir = tempfile.TemporaryDirectory() # pylint: disable=consider-using-with
         self.command = os.path.join(self.tmpdir.name, "x52d.cmd")
         self.notify = os.path.join(self.tmpdir.name, "x52d.notify")
+        self.ipc_socket = os.path.join(self.tmpdir.name, "x52d.socket")
         self.daemon = None
         self.testcases = []
 
@@ -128,6 +129,7 @@ class Test:
             "-p", os.path.join(self.tmpdir.name, "x52d.pid"), # PID file
             "-s", self.command, # Command socket path
             "-b", self.notify, # Notification socket path
+            "-S", self.ipc_socket, # Unified framed IPC socket path
         ]
 
         # Create empty config file

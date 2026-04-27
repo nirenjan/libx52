@@ -450,6 +450,25 @@ LIPC_API lipc_status lipc_server_stop(lipc_server *server);
 LIPC_API lipc_status lipc_server_run(lipc_server *server);
 
 /**
+ * Broadcast one server-initiated notify frame (\c tid == 0) to every connected client.
+ *
+ * Threading: safe to call from threads other than @ref lipc_server_run while the server
+ * is active. Snapshots client file descriptors under the server mutex; framed writes run
+ * without holding the mutex.
+ *
+ * @param request @c lipc_header.request for subscribers (match client notify route id).
+ * @param status  Wire status (often @ref LIPC_OK for application pushes).
+ * @param index   Method-specific 16-bit field.
+ * @param value   Method-specific 64-bit field.
+ * @param payload Optional payload (NULL allowed when @p payload_len is 0).
+ * @return @ref LIPC_BAD_HEADER if @p server is NULL, @ref LIPC_BAD_LENGTH if @p payload_len
+ *         is not representable as @c uint32_t, else @ref LIPC_OK (per-client write failures
+ *         such as @ref LIPC_WOULD_BLOCK are ignored).
+ */
+LIPC_API lipc_status lipc_server_broadcast_notify(lipc_server *server, uint16_t request,
+    uint16_t status, uint16_t index, uint64_t value, const void *payload, size_t payload_len);
+
+/**
  * Send one response frame echoing request @c tid and @c request from @p reply->request_hdr.
  *
  * Ownership:
