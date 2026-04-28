@@ -1,4 +1,0 @@
-option('lipc_examples',
-  type: 'boolean',
-  value: false,
-  description: 'Build localipc example programs')

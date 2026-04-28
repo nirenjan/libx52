@@ -19,8 +19,3 @@ option('udev-rules-dir',
 option('input-group',
   type: 'string', value: 'plugdev',
   description: 'Group for input devices')
-
-option('lipc_examples',
-  type: 'boolean',
-  value: false,
-  description: 'Build localipc example programs')
