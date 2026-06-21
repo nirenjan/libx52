@@ -20,7 +20,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id: set-matrix
         run: .github/scripts/generate_build_matrix.py ghcr.io/${{ github.repository }} >> $GITHUB_OUTPUT
 
@@ -43,7 +43,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Install dependencies (MacOS)
       run: ./.github/scripts/install-dependencies-macos.sh
