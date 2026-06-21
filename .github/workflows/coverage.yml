@@ -38,7 +38,7 @@ jobs:
           ninja -C build coverage-xml
 
       - name: Upload Report to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           files: buildd/meson-logs/coverage.xml
           fail_ci_if_error: true
