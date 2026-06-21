@@ -52,8 +52,8 @@ static int _setup_sockaddr(struct sockaddr_un *remote, const char *sock_path)
     /* Setup the sockaddr structure */
     memset(remote, 0, sizeof(*remote));
     remote->sun_family = AF_UNIX;
-    /* We've already verified that sock_path will fit, so we don't need strncpy */
-    strcpy(remote->sun_path, sock_path);
+    /* We've already verified that sock_path will fit, copy including null terminator */
+    memcpy(remote->sun_path, sock_path, len + 1);
     len += sizeof(*remote) - sizeof(remote->sun_path);
 
     return len;
