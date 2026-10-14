@@ -212,9 +212,9 @@ def parse_chord(
     return mod & 0xFF, usage & 0xFF
 
 
-_U_LINE = re.compile(r"^[Uu]\+([0-9A-Fa-f]{1,6})\s+(.+)$")
-_META_NAME = re.compile(r"(?i)^name:\s*(.*)$")
-_META_DESC = re.compile(r"(?i)^description:\s*(.*)$")
+_U_LINE = re.compile(r"^[Uu]\+([0-9A-Fa-f]{1,6})\s+(\S+)$")
+_META_NAME = 'name:'
+_META_DESC = 'description:'
 
 
 def _parse_layout_source(
@@ -229,13 +229,13 @@ def _parse_layout_source(
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
             continue
-        mn = _META_NAME.match(stripped)
-        if mn:
-            name = mn.group(1).strip()
+
+        key, data = stripped.split(maxsplit=1)
+        if key == _META_NAME:
+            name = data
             continue
-        md = _META_DESC.match(stripped)
-        if md:
-            description = md.group(1).strip()
+        if key == _META_DESC:
+            description = data
             continue
         cp, chord = _parse_mapping_line(path, lineno, stripped)
         raw_maps.append((cp, lineno, chord))
