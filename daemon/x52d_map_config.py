@@ -121,8 +121,8 @@ communication protocol may break."""
                 max_opt_val = max(self.options[section].values()) + 1
                 max_opt_val_global = max(max_opt_val, max_opt_val_global)
 
-                for option, value in self.options[section].items():
-                    print(f"#define CFG_OPTION_{section}_{option} {value}", file=out_fd)
+                for option, opt_val in self.options[section].items():
+                    print(f"#define CFG_OPTION_{section}_{option} {opt_val}", file=out_fd)
 
                 print(f"#define CFG_OPTION_{section}_MAX_OPTIONS {max_opt_val}\n", file=out_fd)
 
@@ -146,8 +146,8 @@ communication protocol may break."""
             print("const char * options_names[CFG_SECTION_MAX][CFG_SECTION_MAX_OPT_VAL] = {", file=out_fd)
             for section, value in self.sections.items():
                 print(f'    [{value}] =', '{', file=out_fd)
-                for option, value in self.options[section].items():
-                    print(f'        [{value}] = "{option.lower()}",', file=out_fd)
+                for option, opt_val in self.options[section].items():
+                    print(f'        [{opt_val}] = "{option.lower()}",', file=out_fd)
                 print('    },', file=out_fd)
             print("};\n", file=out_fd)
 
