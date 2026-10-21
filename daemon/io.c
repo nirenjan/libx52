@@ -60,14 +60,12 @@ static void *x52_io_thr(void *param)
         case LIBX52IO_ERROR_NO_DEVICE:
             PINELOG_TRACE("Device disconnected, trying to connect");
             rc = libx52io_open(io_ctx);
-            if (rc != LIBX52IO_SUCCESS) {
-                if (rc != LIBX52IO_ERROR_NO_DEVICE) {
-                    PINELOG_ERROR(_("Error %d opening X52 I/O device: %s"),
-                                  rc, libx52io_strerror(rc));
-                } else {
-                    PINELOG_TRACE("No compatible X52 I/O device found. Sleeping %d seconds before trying again.",
-                                  IO_ACQ_TIMEOUT);
-                }
+            if (rc == LIBX52IO_ERROR_NO_DEVICE) {
+                PINELOG_TRACE("No compatible X52 I/O device found. Sleeping %d seconds before trying again.",
+                              IO_ACQ_TIMEOUT);
+            } else if (rc != LIBX52IO_SUCCESS) {
+                PINELOG_ERROR(_("Error %d opening X52 I/O device: %s"),
+                              rc, libx52io_strerror(rc));
                 sleep(IO_ACQ_TIMEOUT);
             }
             break;
