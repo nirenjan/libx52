@@ -39,13 +39,12 @@ static void *x52_dev_thr(void *param)
         if (!libx52_is_connected(x52_dev)) {
             PINELOG_TRACE("Attempting to connect to X52 device");
             rc = libx52_connect(x52_dev);
-            if (rc != LIBX52_SUCCESS) {
-                if (rc != LIBX52_ERROR_NO_DEVICE) {
-                    PINELOG_ERROR(_("Error %d connecting to device: %s"),
-                                  rc, libx52_strerror(rc));
-                } else {
-                    PINELOG_TRACE("No compatible X52 device found");
-                }
+            if (rc == LIBX52_ERROR_NO_DEVICE) {
+                PINELOG_TRACE("No compatible X52 device found");
+                PINELOG_TRACE("Sleeping for %d seconds before trying to acquire device again", DEV_ACQ_DELAY);
+                sleep(DEV_ACQ_DELAY);
+            } else if (rc != LIBX52_SUCCESS) {
+                PINELOG_ERROR(_("Error %d connecting to device: %s"), rc, libx52_strerror(rc));
                 PINELOG_TRACE("Sleeping for %d seconds before trying to acquire device again", DEV_ACQ_DELAY);
                 sleep(DEV_ACQ_DELAY);
             } else {
