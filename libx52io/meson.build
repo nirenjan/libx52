@@ -6,6 +6,8 @@ libx52io_files = files(
   'parser.c',
   'strings.c',
   'device.c',
+  'validation.c',
+  'compare.c',
 )
 
 lib_libx52io = library('x52io', libx52io_files,
@@ -42,4 +44,10 @@ test_io_strings = executable('test-io-strings', 'test_io_strings.c', libx52io_fi
 )
 test('test-io-strings', test_io_strings, protocol: 'tap')
 
+test_compare = executable('test-io-compare', 'test_compare.c', libx52io_files,
+  build_by_default: false,
+  dependencies: [dep_cmocka, dep_hidapi, dep_intl],
+  include_directories: [includes],
+)
+test('test-io-compare', test_compare, protocol: 'tap')
 

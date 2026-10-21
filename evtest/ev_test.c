@@ -1,7 +1,7 @@
 /*
  * Saitek X52 Pro MFD & LED driver - Event test utility
  *
- * Copyright (C) 2012-2020 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2012-2026 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
@@ -136,7 +136,7 @@ int main(void)
          * Successful read, compare the current report against the previous
          * one and display the result
          */
-        if (memcmp(&last, &curr, sizeof(curr)) == 0) {
+        if (libx52io_compare_reports(&last, &curr) == 0) {
             /* No change, ignore the output */
             continue;
         }

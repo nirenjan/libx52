@@ -1,7 +1,7 @@
 /*
  * Saitek X52 IO driver
  *
- * Copyright (C) 2012-2020 Nirenjan Krishnan (nirenjan@nirenjan.org)
+ * Copyright (C) 2012-2026 Nirenjan Krishnan (nirenjan@nirenjan.org)
  *
  * SPDX-License-Identifier: GPL-2.0-only WITH Classpath-exception-2.0
  */
@@ -277,6 +277,66 @@ struct libx52io_report {
  * This structure holds a parsed HID report
  */
 typedef struct libx52io_report libx52io_report;
+
+/**
+ * @name Bitmask Definitions
+ * @anchor libx52io_report_bitmask
+ * @brief These bitmasks correspond to the individual bits that changed
+ * @{
+ */
+#define LIBX52IO_REPORT_AXIS_X              (1ULL << (LIBX52IO_AXIS_X))
+#define LIBX52IO_REPORT_AXIS_Y              (1ULL << (LIBX52IO_AXIS_Y))
+#define LIBX52IO_REPORT_AXIS_RZ             (1ULL << (LIBX52IO_AXIS_RZ))
+#define LIBX52IO_REPORT_AXIS_Z              (1ULL << (LIBX52IO_AXIS_Z))
+#define LIBX52IO_REPORT_AXIS_RX             (1ULL << (LIBX52IO_AXIS_RX))
+#define LIBX52IO_REPORT_AXIS_RY             (1ULL << (LIBX52IO_AXIS_RY))
+#define LIBX52IO_REPORT_AXIS_SLIDER         (1ULL << (LIBX52IO_AXIS_SLIDER))
+#define LIBX52IO_REPORT_AXIS_THUMBX         (1ULL << (LIBX52IO_AXIS_THUMBX))
+#define LIBX52IO_REPORT_AXIS_THUMBY         (1ULL << (LIBX52IO_AXIS_THUMBY))
+#define LIBX52IO_REPORT_AXIS_HATX           (1ULL << (LIBX52IO_AXIS_HATX))
+#define LIBX52IO_REPORT_AXIS_HATY           (1ULL << (LIBX52IO_AXIS_HATY))
+#define LIBX52IO_REPORT_BTN_TRIGGER         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_TRIGGER))
+#define LIBX52IO_REPORT_BTN_TRIGGER_2       (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_TRIGGER_2))
+#define LIBX52IO_REPORT_BTN_FIRE            (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_FIRE))
+#define LIBX52IO_REPORT_BTN_PINKY           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_PINKY))
+#define LIBX52IO_REPORT_BTN_A               (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_A))
+#define LIBX52IO_REPORT_BTN_B               (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_B))
+#define LIBX52IO_REPORT_BTN_C               (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_C))
+#define LIBX52IO_REPORT_BTN_D               (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_D))
+#define LIBX52IO_REPORT_BTN_E               (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_E))
+#define LIBX52IO_REPORT_BTN_T1_UP           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_T1_UP))
+#define LIBX52IO_REPORT_BTN_T1_DN           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_T1_DN))
+#define LIBX52IO_REPORT_BTN_T2_UP           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_T2_UP))
+#define LIBX52IO_REPORT_BTN_T2_DN           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_T2_DN))
+#define LIBX52IO_REPORT_BTN_T3_UP           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_T3_UP))
+#define LIBX52IO_REPORT_BTN_T3_DN           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_T3_DN))
+#define LIBX52IO_REPORT_BTN_POV_1_N         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_1_N))
+#define LIBX52IO_REPORT_BTN_POV_1_E         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_1_E))
+#define LIBX52IO_REPORT_BTN_POV_1_S         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_1_S))
+#define LIBX52IO_REPORT_BTN_POV_1_W         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_1_W))
+#define LIBX52IO_REPORT_BTN_POV_2_N         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_2_N))
+#define LIBX52IO_REPORT_BTN_POV_2_E         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_2_E))
+#define LIBX52IO_REPORT_BTN_POV_2_S         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_2_S))
+#define LIBX52IO_REPORT_BTN_POV_2_W         (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_POV_2_W))
+#define LIBX52IO_REPORT_BTN_CLUTCH          (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_CLUTCH))
+#define LIBX52IO_REPORT_BTN_MOUSE_PRIMARY   (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MOUSE_PRIMARY))
+#define LIBX52IO_REPORT_BTN_MOUSE_SECONDARY (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MOUSE_SECONDARY))
+#define LIBX52IO_REPORT_BTN_MOUSE_SCROLL_UP (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MOUSE_SCROLL_UP))
+#define LIBX52IO_REPORT_BTN_MOUSE_SCROLL_DN (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MOUSE_SCROLL_DN))
+#define LIBX52IO_REPORT_BTN_FUNCTION        (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_FUNCTION))
+#define LIBX52IO_REPORT_BTN_START_STOP      (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_START_STOP))
+#define LIBX52IO_REPORT_BTN_RESET           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_RESET))
+#define LIBX52IO_REPORT_BTN_PG_UP           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_PG_UP))
+#define LIBX52IO_REPORT_BTN_PG_DN           (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_PG_DN))
+#define LIBX52IO_REPORT_BTN_UP              (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_UP))
+#define LIBX52IO_REPORT_BTN_DN              (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_DN))
+#define LIBX52IO_REPORT_BTN_SELECT          (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_SELECT))
+#define LIBX52IO_REPORT_BTN_MODE_1          (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MODE_1))
+#define LIBX52IO_REPORT_BTN_MODE_2          (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MODE_2))
+#define LIBX52IO_REPORT_BTN_MODE_3          (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MODE_3))
+#define LIBX52IO_REPORT_MODE                (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BUTTON_MAX))
+#define LIBX52IO_REPORT_HAT                 (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BUTTON_MAX + 1))
+/** @} */
 
 /**
  * @brief Initialize the IO library
@@ -556,6 +616,19 @@ LIBX52IO_API const char *libx52io_get_product_string(libx52io_context *ctx);
  */
 LIBX52IO_API const char *libx52io_get_serial_number_string(libx52io_context *ctx);
 
+/**
+ * @brief Compare two reports for differences
+ *
+ * Returns a bitmask of fields that changed between the \c prev and \c curr
+ * reports. If there is no difference, then returns 0. Passing a NULL pointer
+ * to either input parameter also returns a 0.
+ *
+ * @param[in]   prev    Pointer to the previous report
+ * @param[in]   curr    Pointer to the current report
+ *
+ * @returns 64-bit bitmask of which fields changed. See \ref libx52io_report_bitmask
+ */
+LIBX52IO_API uint64_t libx52io_compare_reports(const libx52io_report *prev, const libx52io_report *curr);
 /** @} */
 
 #ifdef __cplusplus
