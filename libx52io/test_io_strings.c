@@ -171,6 +171,16 @@ static void test_from_str_nocase_null_args(void **state)
     assert_int_equal(LIBX52IO_ERROR_INVALID, libx52io_button_from_str_nocase("btn_a", NULL));
 }
 
+static void test_invalid_to_str(void **state)
+{
+
+    (void)state;
+
+    assert_ptr_equal(libx52io_axis_to_str(LIBX52IO_AXIS_MAX), NULL);
+    assert_ptr_equal(libx52io_button_to_str(LIBX52IO_BUTTON_MAX), NULL);
+    assert_string_equal(libx52io_strerror((libx52io_error_code)-1), "Unknown error -1");
+}
+
 int main(void)
 {
     const struct CMUnitTest tests[] = {
@@ -183,6 +193,7 @@ int main(void)
         cmocka_unit_test(test_button_from_str_nocase),
         cmocka_unit_test(test_from_str_nocase_invalid),
         cmocka_unit_test(test_from_str_nocase_null_args),
+        cmocka_unit_test(test_invalid_to_str),
     };
 
     cmocka_set_message_output(CM_OUTPUT_TAP);
