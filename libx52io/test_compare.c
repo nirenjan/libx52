@@ -118,6 +118,26 @@ static void test_hat(void **state)
     assert_int_equal(diff, LIBX52IO_REPORT_HAT);
 }
 
+static void test_null_prev(void **state)
+{
+    (void)state;
+    libx52io_report dummy;
+    assert_int_equal(libx52io_compare_reports(NULL, &dummy), 0);
+}
+
+static void test_null_curr(void **state)
+{
+    (void)state;
+    libx52io_report dummy;
+    assert_int_equal(libx52io_compare_reports(&dummy, NULL), 0);
+}
+
+static void test_null_both(void **state)
+{
+    (void)state;
+    assert_int_equal(libx52io_compare_reports(NULL, NULL), 0);
+}
+
 #define FUNC(x) cmocka_unit_test(test_ ## x),
 
 const struct CMUnitTest tests[] = {
@@ -125,6 +145,9 @@ const struct CMUnitTest tests[] = {
     TEST_BUTTON
     FUNC(mode)
     FUNC(hat)
+    FUNC(null_prev)
+    FUNC(null_curr)
+    FUNC(null_both)
 };
 #undef FUNC
 
