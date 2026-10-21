@@ -9,7 +9,7 @@
 #include "x52_test_args.h"
 #include <string.h>
 
-void x52test_parse_argv(int argc, char **argv, const struct x52test_cmd *cmds,
+void x52test_parse_argv(int argc, const char **argv, const struct x52test_cmd *cmds,
                         int test_all_bitmap, struct x52test_argv_result *out)
 {
     int i;

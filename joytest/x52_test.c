@@ -195,7 +195,7 @@ const struct x52test_cmd tests[] = {
     { NULL, 0 }
 };
 
-int main(int argc, char **argv)
+int main(int argc, const char **argv)
 {
     struct x52test_argv_result parsed;
     int ret = 0;

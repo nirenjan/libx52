@@ -30,7 +30,7 @@ static const struct x52test_cmd syn_cmds[] = {
 static void test_argc_one_is_test_all(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", NULL };
+    const char *argv[] = { "prog", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(1, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -41,7 +41,7 @@ static void test_argc_one_is_test_all(void **state)
 static void test_single_cmd(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"b", NULL };
+    const char *argv[] = { "prog", "b", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(2, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -52,7 +52,7 @@ static void test_single_cmd(void **state)
 static void test_multi_cmd_ors(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"a", (char *)"c", NULL };
+    const char *argv[] = { "prog", "a", "c", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(3, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -63,7 +63,7 @@ static void test_multi_cmd_ors(void **state)
 static void test_duplicate_cmd_ors_same_bit(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"a", (char *)"a", NULL };
+    const char *argv[] = { "prog", "a", "a", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(3, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -74,7 +74,7 @@ static void test_duplicate_cmd_ors_same_bit(void **state)
 static void test_help_keyword(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"help", NULL };
+    const char *argv[] = { "prog", "help", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(2, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -84,7 +84,7 @@ static void test_help_keyword(void **state)
 static void test_dashdash_help(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"--help", NULL };
+    const char *argv[] = { "prog", "--help", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(2, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -94,7 +94,7 @@ static void test_dashdash_help(void **state)
 static void test_help_after_other_arg(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"a", (char *)"help", NULL };
+    const char *argv[] = { "prog", "a", "help", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(3, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -104,7 +104,7 @@ static void test_help_after_other_arg(void **state)
 static void test_help_before_other_arg(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"help", (char *)"a", (char *)"b", NULL };
+    const char *argv[] = { "prog", "help", "a", "b", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(4, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -115,7 +115,7 @@ static void test_help_before_other_arg(void **state)
 static void test_unknown_bad_index(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"a", (char *)"nope", NULL };
+    const char *argv[] = { "prog", "a", "nope", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(3, argv, syn_cmds, TEST_ALL_SYN, &r);
@@ -126,7 +126,7 @@ static void test_unknown_bad_index(void **state)
 static void test_unknown_first_arg_index(void **state)
 {
     (void)state;
-    char *argv[] = { (char *)"prog", (char *)"xyz", NULL };
+    const char *argv[] = { "prog", "xyz", NULL };
     struct x52test_argv_result r;
 
     x52test_parse_argv(2, argv, syn_cmds, TEST_ALL_SYN, &r);
