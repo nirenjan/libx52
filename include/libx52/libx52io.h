@@ -629,6 +629,29 @@ LIBX52IO_API const char *libx52io_get_serial_number_string(libx52io_context *ctx
  * @returns 64-bit bitmask of which fields changed. See \ref libx52io_report_bitmask
  */
 LIBX52IO_API uint64_t libx52io_compare_reports(const libx52io_report *prev, const libx52io_report *curr);
+
+/**
+ * @brief Copy one report into another
+ *
+ * Copy \c source report to \c target report. If either parameter is NULL, it
+ * does nothing.
+ *
+ * @param[in]   target  Pointer to the target report
+ * @param[in]   source  Pointer to the source report
+ */
+LIBX52IO_API void libx52io_copy_report(libx52io_report *target, const libx52io_report *source);
+
+/**
+ * @brief Reset the report values to defaults.
+ *
+ * Resets all axis values to 0, except for the thumb stick axes, which are
+ * reset to their midpoint of 8. Also, all button states are reset to unpressed
+ * and mode/hat are reset to 0.
+ *
+ * @param[in]   report  Pointer to the report to reset
+ */
+LIBX52IO_API void libx52io_reset_report(libx52io_report *report);
+
 /** @} */
 
 #ifdef __cplusplus

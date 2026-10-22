@@ -8,6 +8,7 @@ libx52io_files = files(
   'device.c',
   'validation.c',
   'compare.c',
+  'report.c',
 )
 
 lib_libx52io = library('x52io', libx52io_files,

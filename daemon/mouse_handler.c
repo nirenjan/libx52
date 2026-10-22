@@ -196,17 +196,14 @@ static void report_sync(void)
     if (rc != VKM_SUCCESS) {
         PINELOG_ERROR(_("Error writing mouse sync event"));
     } else {
-        memcpy((void *)&old_report, (void *)&new_report, sizeof(old_report));
+        libx52io_copy_report(&new_report, &old_report);
     }
 }
 
 static void reset_reports(void)
 {
-    memset((void *)&old_report, 0, sizeof(old_report));
-    /* Set the default thumbstick values to the mid-point */
-    old_report.axis[LIBX52IO_AXIS_THUMBX] = 8;
-    old_report.axis[LIBX52IO_AXIS_THUMBY] = 8;
-    memcpy((void *)&new_report, (void *)&old_report, sizeof(new_report));
+    libx52io_reset_report(&old_report);
+    libx52io_copy_report(&new_report, &old_report);
 }
 
 static void * x52_mouse_thr(void *param)
@@ -273,7 +270,7 @@ void x52d_mouse_report_event(libx52io_report *report)
 {
     bool state_changed;
     if (report) {
-        memcpy((void *)&new_report, report, sizeof(new_report));
+        libx52io_copy_report(&new_report, report);
 
         if (!vkm_is_ready(mouse_context) || !mouse_thr_enabled) {
             return;

@@ -28,7 +28,7 @@ static void process_report(libx52io_report *report, libx52io_report *prev)
 {
     // TODO: Process changes
     x52d_mouse_report_event(report);
-    memcpy(prev, report, sizeof(*prev));
+    libx52io_copy_report(prev, report);
 }
 
 static void *x52_io_thr(void *param)
@@ -43,7 +43,7 @@ static void *x52_io_thr(void *param)
     PINELOG_INFO(_("Starting X52 I/O thread"));
 
     // Reset the previous report, so that process_report  can handle changes.
-    memset(&prev_report, 0, sizeof(prev_report));
+    libx52io_reset_report(&prev_report);
 
     for (;;) {
         rc = libx52io_read_timeout(io_ctx, &report, IO_READ_TIMEOUT);
