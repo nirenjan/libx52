@@ -194,11 +194,6 @@ class Test:
 
 def main():
     """Main routine adds test cases to the Test class and runs them"""
-    # Only run the tests on Linux platform
-    if platform.system() != 'Linux':
-        print('1..0 # Skipping tests on', platform.system())
-        return
-
     with Test() as test:
         test.find_and_parse_testcase_files()
         test.run_tests()
