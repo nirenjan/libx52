@@ -115,6 +115,90 @@ static bool check_file(const char *file_path, int mode)
     return true;
 }
 
+static void cmd_config_load(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc == 3) {
+        if (!check_file(argv[2], R_OK)) {
+            ERR_fmt("Invalid file '%s' for 'config load' command", argv[2]);
+            return;
+        }
+
+        x52d_config_load(argv[2]);
+        x52d_config_apply();
+        OK("config", "load", argv[2]);
+    } else {
+        // Invalid number of args
+        ERR_fmt("Unexpected arguments for 'config load' command; got %d, expected 3", argc);
+    }
+}
+
+static void cmd_config_reload(char *buffer, int *buflen, int argc, char **argv)
+{
+    (void)argv;
+    if (argc == 2) {
+        raise(SIGHUP);
+        OK("config", "reload");
+    } else {
+        ERR_fmt("Unexpected arguments for 'config reload' command; got %d, expected 2", argc);
+    }
+}
+
+static void cmd_config_dump(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc == 3) {
+        if (!check_file(argv[2], 0)) {
+            ERR_fmt("Invalid file '%s' for 'config dump' command", argv[2]);
+            return;
+        }
+
+        x52d_config_save(argv[2]);
+        OK("config", "dump", argv[2]);
+    } else {
+        ERR_fmt("Unexpected arguments for 'config dump' command; got %d, expected 3", argc);
+    }
+}
+
+static void cmd_config_save(char *buffer, int *buflen, int argc, char **argv)
+{
+    (void)argv;
+    if (argc == 2) {
+        raise(SIGUSR1);
+        OK("config", "save");
+    } else {
+        ERR_fmt("Unexpected arguments for 'config save' command; got %d, expected 2", argc);
+    }
+}
+
+static void cmd_config_set(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc == 5) {
+        int rc = x52d_config_set(argv[2], argv[3], argv[4]);
+        if (rc != 0) {
+            ERR_fmt("Error %d setting '%s.%s'='%s': %s", rc,
+                    argv[2], argv[3], argv[4], strerror(rc));
+        } else {
+            x52d_config_apply_immediate(argv[2], argv[3]);
+            OK("config", "set", argv[2], argv[3], argv[4]);
+        }
+    } else {
+        ERR_fmt("Unexpected arguments for 'config set' command; got %d, expected 5", argc);
+    }
+}
+
+static void cmd_config_get(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc == 4) {
+        const char *rv = x52d_config_get(argv[2], argv[3]);
+        if (rv == NULL) {
+            ERR_fmt("Error getting '%s.%s'", argv[2], argv[3]);
+        } else {
+            DATA(argv[2], argv[3], rv);
+        }
+    } else {
+        ERR_fmt("Unexpected arguments for 'config get' command; got %d, expected 4", argc);
+    }
+}
+
 static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
 {
     if (argc < 2) {
@@ -123,85 +207,32 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
     }
 
     MATCH(1, "load") {
-        if (argc == 3) {
-            if (!check_file(argv[2], R_OK)) {
-                ERR_fmt("Invalid file '%s' for 'config load' command", argv[2]);
-                return;
-            }
-
-            x52d_config_load(argv[2]);
-            x52d_config_apply();
-            OK("config", "load", argv[2]);
-        } else {
-            // Invalid number of args
-            ERR_fmt("Unexpected arguments for 'config load' command; got %d, expected 3", argc);
-        }
+        cmd_config_load(buffer, buflen, argc, argv);
         return;
     }
 
     MATCH(1, "reload") {
-        if (argc == 2) {
-            raise(SIGHUP);
-            OK("config", "reload");
-        } else {
-            ERR_fmt("Unexpected arguments for 'config reload' command; got %d, expected 2", argc);
-        }
+        cmd_config_reload(buffer, buflen, argc, argv);
         return;
     }
 
     MATCH(1, "dump") {
-        if (argc == 3) {
-            if (!check_file(argv[2], 0)) {
-                ERR_fmt("Invalid file '%s' for 'config dump' command", argv[2]);
-                return;
-            }
-
-            x52d_config_save(argv[2]);
-            OK("config", "dump", argv[2]);
-        } else {
-            ERR_fmt("Unexpected arguments for 'config dump' command; got %d, expected 3", argc);
-        }
-
+        cmd_config_dump(buffer, buflen, argc, argv);
         return;
     }
 
     MATCH(1, "save") {
-        if (argc == 2) {
-            raise(SIGUSR1);
-            OK("config", "save");
-        } else {
-            ERR_fmt("Unexpected arguments for 'config save' command; got %d, expected 2", argc);
-        }
+        cmd_config_save(buffer, buflen, argc, argv);
         return;
     }
 
     MATCH(1, "set") {
-        if (argc == 5) {
-            int rc = x52d_config_set(argv[2], argv[3], argv[4]);
-            if (rc != 0) {
-                ERR_fmt("Error %d setting '%s.%s'='%s': %s", rc,
-                        argv[2], argv[3], argv[4], strerror(rc));
-            } else {
-                x52d_config_apply_immediate(argv[2], argv[3]);
-                OK("config", "set", argv[2], argv[3], argv[4]);
-            }
-        } else {
-            ERR_fmt("Unexpected arguments for 'config set' command; got %d, expected 5", argc);
-        }
+        cmd_config_set(buffer, buflen, argc, argv);
         return;
     }
 
     MATCH(1, "get") {
-        if (argc == 4) {
-            const char *rv = x52d_config_get(argv[2], argv[3]);
-            if (rv == NULL) {
-                ERR_fmt("Error getting '%s.%s'", argv[2], argv[3]);
-            } else {
-                DATA(argv[2], argv[3], rv);
-            }
-        } else {
-            ERR_fmt("Unexpected arguments for 'config get' command; got %d, expected 4", argc);
-        }
+        cmd_config_get(buffer, buflen, argc, argv);
         return;
     }
 
@@ -221,6 +252,54 @@ static void cmd_config(char *buffer, int *buflen, int argc, char **argv)
 } while(0)
 
 
+static void cmd_logging_show(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc == 2) {
+        DATA_LMAP(pinelog_get_level(), "global");
+    } else if (argc == 3) {
+        int module = lookup_module_by_name(argv[2]);
+        if (module == INT_MAX) {
+            ERR_fmt("Invalid module '%s'", argv[2]);
+        } else {
+            DATA_LMAP(pinelog_get_module_level(module), argv[2]);
+        }
+    } else {
+        ERR_fmt("Unexpected arguments for 'logging show' command; got %d, expected 2 or 3", argc);
+    }
+}
+
+static void cmd_logging_set(char *buffer, int *buflen, int argc, char **argv)
+{
+    if (argc == 3) {
+        int level = lookup_level_by_name(argv[2]);
+        if (level == INT_MAX) {
+            ERR_fmt("Unknown level '%s' for 'logging set' command", argv[2]);
+        } else if (level == PINELOG_LVL_NOTSET) {
+            ERR("'default' level is not valid without a module");
+        } else {
+            pinelog_set_level(level);
+            OK("logging", "set", argv[2]);
+        }
+    } else if (argc == 4) {
+        int level = lookup_level_by_name(argv[3]);
+        int module = lookup_module_by_name(argv[2]);
+
+        if (module == INT_MAX) {
+            ERR_fmt("Invalid module '%s'", argv[2]);
+            return;
+        }
+
+        if (level == INT_MAX) {
+            ERR_fmt("Unknown level '%s' for 'logging set' command", argv[3]);
+        } else {
+            pinelog_set_module_level(module, level);
+            OK("logging", "set", argv[2], argv[3]);
+        }
+    } else {
+        ERR_fmt("Unexpected arguments for 'logging set' command; got %d, expected 3 or 4", argc);
+    }
+}
+
 static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
 {
     if (argc < 2) {
@@ -230,53 +309,13 @@ static void cmd_logging(char *buffer, int *buflen, int argc, char **argv)
 
     // logging show [module]
     MATCH(1, "show") {
-        if (argc == 2) {
-            DATA_LMAP(pinelog_get_level(), "global");
-        } else if (argc == 3) {
-            int module = lookup_module_by_name(argv[2]);
-            if (module == INT_MAX) {
-                ERR_fmt("Invalid module '%s'", argv[2]);
-            } else {
-                DATA_LMAP(pinelog_get_module_level(module), argv[2]);
-            }
-        } else {
-            ERR_fmt("Unexpected arguments for 'logging show' command; got %d, expected 2 or 3", argc);
-        }
-
+        cmd_logging_show(buffer, buflen, argc, argv);
         return;
     }
 
     // logging set [module] <level>
     MATCH(1, "set") {
-        if (argc == 3) {
-            int level = lookup_level_by_name(argv[2]);
-            if (level == INT_MAX) {
-                ERR_fmt("Unknown level '%s' for 'logging set' command", argv[2]);
-            } else if (level == PINELOG_LVL_NOTSET) {
-                ERR("'default' level is not valid without a module");
-            } else {
-                pinelog_set_level(level);
-                OK("logging", "set", argv[2]);
-            }
-        } else if (argc == 4) {
-            int level = lookup_level_by_name(argv[3]);
-            int module = lookup_module_by_name(argv[2]);
-
-            if (module == INT_MAX) {
-                ERR_fmt("Invalid module '%s'", argv[2]);
-                return;
-            }
-
-            if (level == INT_MAX) {
-                ERR_fmt("Unknown level '%s' for 'logging set' command", argv[3]);
-            } else {
-                pinelog_set_module_level(module, level);
-                OK("logging", "set", argv[2], argv[3]);
-            }
-        } else {
-            ERR_fmt("Unexpected arguments for 'logging set' command; got %d, expected 3 or 4", argc);
-        }
-
+        cmd_logging_set(buffer, buflen, argc, argv);
         return;
     }
 
@@ -292,11 +331,15 @@ static void command_parser(char *buffer, int *buflen)
 
     MATCH(0, "config") {
         cmd_config(buffer, buflen, argc, argv);
-    } else MATCH(0, "logging") {
-        cmd_logging(buffer, buflen, argc, argv);
-    } else {
-        ERR_fmt("Unknown command '%s'", argv[0]);
+        return;
     }
+
+    MATCH(0, "logging") {
+        cmd_logging(buffer, buflen, argc, argv);
+        return;
+    }
+
+    ERR_fmt("Unknown command '%s'", argv[0]);
 }
 
 static void client_handler(int fd)
