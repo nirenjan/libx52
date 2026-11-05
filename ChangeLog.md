@@ -6,10 +6,23 @@ The format is based upon [Keep a Changelog].
 
 ## [Unreleased]
 
+### Added
+
+- Added Virtual Keyboard/Mouse (VKM) library to abstract virtual device creation and event injection across distributions.
+- Added keyboard layout parsing to daemon to support profiles in the future.
+- Added scroll functionality to libx52util
+- Added new methods to libx52io to convert from string representation to the numeric value for axis and buttons, both case sensitive and case insensitive version.
+- Added methods to compare two libx52io_report structures, as well as reset a single report
+
+### Removed
+
+- Autotools build framework is removed and replaced with Meson.
+
 ### Changed
 
 - Migrated CI builds to run in multiple distro containers.
 - Improved virtual mouse motion to use a smoother approach, as well as allow an isometric speed calculation. This change deprecates the old `Mouse.Speed` configuration option and replaces it with a Sensitivity percentage option.
+- Refactored the libx52util_convert_utf8_string to convert UTF-8 back to a single codepoint and map missing entries to an unknown codepoint.
 
 ### Fixed
 - Addressed meson build bugs found in v0.3.3
