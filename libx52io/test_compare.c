@@ -121,14 +121,14 @@ static void test_hat(void **state)
 static void test_null_prev(void **state)
 {
     (void)state;
-    libx52io_report dummy;
+    libx52io_report dummy = { 0 };
     assert_int_equal(libx52io_compare_reports(NULL, &dummy), 0);
 }
 
 static void test_null_curr(void **state)
 {
     (void)state;
-    libx52io_report dummy;
+    libx52io_report dummy = { 0 };
     assert_int_equal(libx52io_compare_reports(&dummy, NULL), 0);
 }
 
@@ -147,7 +147,7 @@ static void test_reset_report(void **state)
 
     assert_int_equal(dummy.mode, 0);
     assert_int_equal(dummy.hat, 0);
-    for (int i = 0; i < LIBX52IO_AXIS_MAX; i++) {
+    for (i = 0; i < LIBX52IO_AXIS_MAX; i++) {
         switch (i) {
         case LIBX52IO_AXIS_THUMBX:
         case LIBX52IO_AXIS_THUMBY:
@@ -160,7 +160,7 @@ static void test_reset_report(void **state)
         }
     }
 
-    for (int i = 0; i < LIBX52IO_BUTTON_MAX; i++) {
+    for (i = 0; i < LIBX52IO_BUTTON_MAX; i++) {
         assert_false(dummy.button[i]);
     }
 
