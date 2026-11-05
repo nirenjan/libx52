@@ -1,23 +1,4 @@
-coverage:
-  status:
-    project:
-      production:
-        target: auto
-        flags:
-          - src_code
-
-flags:
-  src_code:
-    paths:
-      - '!**/test_*.c'
-      - '!**/test_*.py'
-      - '**/*.c'
-      - '**/*.h'
-      - '**/*.py'
-  test_code:
-    paths:
-      - '**/test_*.c'
-      - '**/test_*.py'
-
 ignore:
   - '^daemon/config.def$'
+  - '**/test_*.c'
+  - '**/*_test.c'
