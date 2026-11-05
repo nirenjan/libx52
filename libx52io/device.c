@@ -34,9 +34,10 @@ static char * _save_string(wchar_t *wcs)
          * In the latter case, we don't have anything to convert, while in
          * the former case, we don't know how long the string is to convert.
          *
-         * Return NULL in both cases.
+         * Return an empty string in both cases.
          */
-        return NULL;
+        out_str = calloc(1, sizeof(*out_str));
+        return out_str;
     }
 
     n++;

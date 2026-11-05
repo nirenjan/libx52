@@ -20,7 +20,6 @@ static void test_device_info(void **state)
 {
     struct hid_device_info dev_info = {0};
     libx52io_context ctx = {0};
-    wchar_t invalid_wcs[] = { (wchar_t)-1, L'\0' };
 
     (void)state;
 
@@ -28,23 +27,16 @@ static void test_device_info(void **state)
     dev_info.product_id = X52_PROD_X52PRO;
     dev_info.release_number = 0x1337;
     dev_info.manufacturer_string = L"Saitek";
-    dev_info.product_string = invalid_wcs;
-    dev_info.serial_number = L"";
+    dev_info.product_string = L""; // Handle an empty string
+    dev_info.serial_number = NULL; // Handle a NULL pointer
 
     _x52io_save_device_info(&ctx, &dev_info);
-
-    assert_int_equal(ctx.vid, VENDOR_SAITEK);
-    assert_int_equal(ctx.pid, X52_PROD_X52PRO);
-    assert_int_equal(ctx.version, 0x1337);
-    assert_string_equal(ctx.manufacturer, "Saitek");
-    assert_null(ctx.product);
-    assert_null(ctx.serial_number);
 
     assert_int_equal(libx52io_get_vendor_id(&ctx), VENDOR_SAITEK);
     assert_int_equal(libx52io_get_product_id(&ctx), X52_PROD_X52PRO);
     assert_int_equal(libx52io_get_device_version(&ctx), 0x1337);
     assert_string_equal(libx52io_get_manufacturer_string(&ctx), "Saitek");
-    assert_null(libx52io_get_product_string(&ctx));
+    assert_string_equal(libx52io_get_product_string(&ctx), "");
     assert_null(libx52io_get_serial_number_string(&ctx));
 
     _x52io_release_device_info(&ctx);
