@@ -1,4 +1,4 @@
-libx52io_version = '1.1.0'
+libx52io_version = '1.2.0'
 
 libx52io_files = files(
   'core.c',

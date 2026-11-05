@@ -138,6 +138,35 @@ static void test_null_both(void **state)
     assert_int_equal(libx52io_compare_reports(NULL, NULL), 0);
 }
 
+static void test_reset_report(void **state)
+{
+    int i;
+    (void)state;
+    libx52io_report dummy;
+    libx52io_reset_report(&dummy);
+
+    assert_int_equal(dummy.mode, 0);
+    assert_int_equal(dummy.hat, 0);
+    for (int i = 0; i < LIBX52IO_AXIS_MAX; i++) {
+        switch (i) {
+        case LIBX52IO_AXIS_THUMBX:
+        case LIBX52IO_AXIS_THUMBY:
+            assert_int_equal(dummy.axis[i], 8);
+            break;
+
+        default:
+            assert_int_equal(dummy.axis[i], 0);
+            break;
+        }
+    }
+
+    for (int i = 0; i < LIBX52IO_BUTTON_MAX; i++) {
+        assert_false(dummy.button[i]);
+    }
+
+    libx52io_reset_report(NULL);
+}
+
 #define FUNC(x) cmocka_unit_test(test_ ## x),
 
 const struct CMUnitTest tests[] = {
@@ -148,6 +177,7 @@ const struct CMUnitTest tests[] = {
     FUNC(null_prev)
     FUNC(null_curr)
     FUNC(null_both)
+    FUNC(reset_report)
 };
 #undef FUNC
 

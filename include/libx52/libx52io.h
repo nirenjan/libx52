@@ -629,6 +629,18 @@ LIBX52IO_API const char *libx52io_get_serial_number_string(libx52io_context *ctx
  * @returns 64-bit bitmask of which fields changed. See \ref libx52io_report_bitmask
  */
 LIBX52IO_API uint64_t libx52io_compare_reports(const libx52io_report *prev, const libx52io_report *curr);
+
+/**
+ * @brief Reset a report to defaults
+ *
+ * Reset the report contents to defaults, this is somewhat like performing
+ * a memset, except that the thumbstick axes are always at the midpoint.
+ * Does nothing if the report pointer is NULL.
+ *
+ * @param[in]   report  Pointer to the report to reset
+ */
+LIBX52IO_API void libx52io_reset_report(libx52io_report *report);
+
 /** @} */
 
 #ifdef __cplusplus

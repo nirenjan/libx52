@@ -99,3 +99,34 @@ uint64_t libx52io_compare_reports(const libx52io_report *prev,
 
     return status;
 }
+
+void libx52io_reset_report(libx52io_report *report)
+{
+    int i;
+
+    if (report == NULL) {
+        return;
+    }
+
+    for (i = 0; i < LIBX52IO_AXIS_MAX; i++) {
+        switch (i) {
+        case LIBX52IO_AXIS_THUMBX:
+        case LIBX52IO_AXIS_THUMBY:
+            // Thumbstick axes set to midpoint
+            report->axis[i] = 8;
+            break;
+
+        default:
+            // All other axes set to 0
+            report->axis[i] = 0;
+            break;
+        }
+    }
+
+    for (i = 0; i < LIBX52IO_BUTTON_MAX; i++) {
+        report->button[i] = false;
+    }
+
+    report->mode = 0;
+    report->hat = 0;
+}
