@@ -51,3 +51,9 @@ test_compare = executable('test-io-compare', 'test_compare.c', libx52io_files,
 )
 test('test-io-compare', test_compare, protocol: 'tap')
 
+test_device = executable('test-device', 'test_device.c', libx52io_files,
+  build_by_default: false,
+  dependencies: [dep_cmocka, dep_hidapi, dep_intl],
+  include_directories: [includes],
+)
+test('test-io-device', test_device, protocol: 'tap')
