@@ -60,6 +60,7 @@ x52d_sources = [
   'config_dump.c',
   'config.c',
   'device.c',
+  'event_handler.c',
   'client.c',
   'clock.c',
   'mouse.c',
@@ -158,6 +159,15 @@ test('layout-usage-allowlist-sync', python_layout_test,
 test('layout-compile-py', python_layout_test,
   args: [join_paths(meson.project_source_root(), 'tools', 'test_x52compile_layout.py')],
   protocol: 'tap')
+
+event_handler_test = executable('event-handler-test',
+  'test_event_handler.c',
+  build_by_default: false,
+  include_directories: [includes, root_includes],
+  extra_files: files('event_handler.c'),
+  dependencies: [dep_cmocka, dep_config_h])
+
+test('event-handler', event_handler_test, protocol: 'tap')
 
 # Install service file
 if dep_systemd.found()
