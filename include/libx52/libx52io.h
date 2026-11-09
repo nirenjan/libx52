@@ -336,6 +336,10 @@ typedef struct libx52io_report libx52io_report;
 #define LIBX52IO_REPORT_BTN_MODE_3          (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BTN_MODE_3))
 #define LIBX52IO_REPORT_MODE                (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BUTTON_MAX))
 #define LIBX52IO_REPORT_HAT                 (1ULL << (LIBX52IO_AXIS_MAX + LIBX52IO_BUTTON_MAX + 1))
+
+/* High bits are used to flag events */
+#define LIBX52IO_REPORT_DEVICE_DISCONNECTED (1ULL << 63)
+
 /** @} */
 
 /**

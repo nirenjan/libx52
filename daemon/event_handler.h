@@ -19,5 +19,6 @@ typedef void (*x52_event_handler_fn)(uint64_t changed,
 int x52d_register_event_handler(uint64_t mask, x52_event_handler_fn fn);
 int x52d_update_event_handler_mask(int handler, uint64_t new_mask);
 void x52d_dispatch_event(libx52io_report *prev, libx52io_report *curr);
+void x52d_dispatch_event_raw(uint64_t changed, libx52io_report *prev, libx52io_report *curr);
 
 #endif // !defined X52D_EVENT_HANDLER_H

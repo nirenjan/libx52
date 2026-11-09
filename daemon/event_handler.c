@@ -38,7 +38,7 @@ int x52d_register_event_handler(uint64_t mask, x52_event_handler_fn fn)
         return -1;
     }
 
-    atomic_store(&handlers[ticket].mask, mask);
+    atomic_store(&handlers[ticket].mask, mask | LIBX52IO_REPORT_DEVICE_DISCONNECTED);
     atomic_store(&handlers[ticket].fn, fn);
 
     return ticket;
@@ -62,13 +62,16 @@ int x52d_update_event_handler_mask(int handler, uint64_t new_mask)
 
 void x52d_dispatch_event(libx52io_report *prev, libx52io_report *curr)
 {
+    uint64_t changed = libx52io_compare_reports(prev, curr);
+    x52d_dispatch_event_raw(changed, prev, curr);
+}
+
+void x52d_dispatch_event_raw(uint64_t changed, libx52io_report *prev, libx52io_report *curr)
+{
     int current_limit = atomic_load(&num_handlers);
     if (current_limit >= MAX_EVENT_HANDLERS) {
         current_limit = MAX_EVENT_HANDLERS;
     }
-
-    uint64_t changed = libx52io_compare_reports(prev, curr);
-
 
     for (int i = 0; i < current_limit; i++) {
         x52_event_handler_fn callback = atomic_load(&handlers[i].fn);
