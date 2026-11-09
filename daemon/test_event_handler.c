@@ -81,6 +81,24 @@ static void test_update_mask_out_of_bounds(void **state) {
     assert_int_equal(errno, ERANGE);
 }
 
+// Test mask updates on an unregistered handle
+static void test_update_mask_invalid_entry(void **state) {
+    errno = 0;
+    int status = x52d_update_event_handler_mask(0, 0xFF);
+    assert_int_equal(status, -1);
+    assert_int_equal(errno, EINVAL);
+}
+
+// Test mask updates on a registered handle
+static void test_update_mask_valid_entry(void **state) {
+    int handle = x52d_register_event_handler(0x0F, mock_callback_1);
+    assert_int_equal(handle, 0);
+
+    int status = x52d_update_event_handler_mask(handle, 0xFF);
+    assert_int_equal(status, 0);
+    assert_int_equal(atomic_load(&handlers[handle].mask), 0xFF);
+}
+
 // Test dispatch functionality and mask matching logic
 static void test_dispatch_matching_event(void **state) {
     libx52io_report prev, curr;
@@ -99,13 +117,52 @@ static void test_dispatch_matching_event(void **state) {
     assert_int_equal(g_callback_count_1, 1);
 }
 
+// Test dispatch with NULL pointer doesn't crash the program
+static void test_dispatch_empty_table(void **state) {
+    libx52io_report prev, curr;
+
+    // Simulate a corrupted table with num_handlers set to maximum, but empty table
+    atomic_store(&num_handlers, MAX_EVENT_HANDLERS);
+
+    // Setup our mock return for libx52io_compare_reports
+    will_return(libx52io_compare_reports, 0x0F);
+
+    // Run the dispatch engine
+    x52d_dispatch_event(&prev, &curr);
+    //
+    // Verify callback never executed
+    assert_int_equal(g_callback_count_1, 0);
+}
+
+// Test dispatch functionality with empty mask
+static void test_dispatch_empty_mask(void **state) {
+    libx52io_report prev, curr;
+
+    // Register handler matching empty mask
+    int ticket = x52d_register_event_handler(0, mock_callback_1);
+    assert_true(ticket >= 0);
+
+    // Setup our mock return for libx52io_compare_reports
+    will_return(libx52io_compare_reports, 0x0F); // Report changed bit matches mask
+
+    // Run the dispatch engine
+    x52d_dispatch_event(&prev, &curr);
+
+    // Verify callback never executed
+    assert_int_equal(g_callback_count_1, 0);
+}
+
 /* --- 4. ENGINE RUNNER --- */
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test_setup_teardown(test_register_null_callback, clear_table_state, NULL),
         cmocka_unit_test_setup_teardown(test_register_until_full, clear_table_state, NULL),
         cmocka_unit_test_setup_teardown(test_update_mask_out_of_bounds, clear_table_state, NULL),
+        cmocka_unit_test_setup_teardown(test_update_mask_invalid_entry, clear_table_state, NULL),
+        cmocka_unit_test_setup_teardown(test_update_mask_valid_entry, clear_table_state, NULL),
         cmocka_unit_test_setup_teardown(test_dispatch_matching_event, clear_table_state, NULL),
+        cmocka_unit_test_setup_teardown(test_dispatch_empty_table, clear_table_state, NULL),
+        cmocka_unit_test_setup_teardown(test_dispatch_empty_mask, clear_table_state, NULL),
     };
 
     cmocka_set_message_output(CM_OUTPUT_TAP);
