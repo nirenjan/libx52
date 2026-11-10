@@ -9,6 +9,8 @@
 #include "build-config.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdatomic.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <math.h>
@@ -20,6 +22,7 @@
 #include "pinelog.h"
 #include <daemon/config.h>
 #include <daemon/constants.h>
+#include <daemon/event_handler.h>
 #include <daemon/mouse.h>
 
 static pthread_t mouse_thr;
@@ -30,61 +33,8 @@ static vkm_context *mouse_context;
 static volatile libx52io_report old_report;
 static volatile libx52io_report new_report;
 
-static int report_button_change(vkm_mouse_button button, int index)
-{
-    vkm_result rc = VKM_ERROR_NO_CHANGE;
-    bool old_button = old_report.button[index];
-    bool new_button = new_report.button[index];
-    vkm_button_state state;
-
-    if (old_button != new_button) {
-        state = new_button ? VKM_BUTTON_PRESSED : VKM_BUTTON_RELEASED;
-        rc = vkm_mouse_click(mouse_context, button, state);
-        if (rc != VKM_SUCCESS && rc != VKM_ERROR_NO_CHANGE) {
-            PINELOG_ERROR(_("Error %d writing mouse button event (button %d, state %d)"),
-                          rc, button, (int)new_button);
-        }
-    }
-
-    return (rc == VKM_SUCCESS);
-}
-
-static int report_wheel(void)
-{
-    vkm_result rc = VKM_ERROR_NO_CHANGE;
-    int wheel = 0;
-    bool scroll_up = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
-    bool scroll_dn = new_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
-    bool old_scroll_up = old_report.button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
-    bool old_scroll_dn = old_report.button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
-    vkm_mouse_scroll_direction dir;
-
-    /*
-     * Handle multiple scroll button presses in sequence. This happens if a
-     * hardware axis is very noisy and the firmware sends a sequence of reports
-     * with button down, even though this is technically a momentary button.
-     */
-    scroll_up = scroll_up && !old_scroll_up;
-    scroll_dn = scroll_dn && !old_scroll_dn;
-
-    if (scroll_up) {
-        // Scroll up event
-        wheel = 1 * mouse_scroll_dir;
-    } else if (scroll_dn) {
-        // Scroll down event
-        wheel = -1 * mouse_scroll_dir;
-    }
-
-    if (wheel != 0) {
-        dir = (wheel == 1) ? VKM_MOUSE_SCROLL_UP : VKM_MOUSE_SCROLL_DOWN;
-        rc = vkm_mouse_scroll(mouse_context, dir);
-        if (rc != VKM_SUCCESS) {
-            PINELOG_ERROR(_("Error writing mouse wheel event %d"), dir);
-        }
-    }
-
-    return (rc == VKM_SUCCESS);
-}
+static atomic_int axis_x;
+static atomic_int axis_y;
 
 static inline int fsgn(double f)
 {
@@ -107,8 +57,8 @@ static int report_axis(void)
     static double accum_y = 0.0;
 
     /* Center raw HID values (0,15) => (-8, 7) */
-    int dx = new_report.axis[LIBX52IO_AXIS_THUMBX] - 8;
-    int dy = new_report.axis[LIBX52IO_AXIS_THUMBY] - 8;
+    int dx = atomic_load(&axis_x) - 8;
+    int dy = atomic_load(&axis_y) - 8;
 
     /* Calculate radial magnitude */
     double mag = sqrt((double)(dx * dx + dy * dy));
@@ -202,11 +152,8 @@ static void report_sync(void)
 
 static void reset_reports(void)
 {
-    memset((void *)&old_report, 0, sizeof(old_report));
-    /* Set the default thumbstick values to the mid-point */
-    old_report.axis[LIBX52IO_AXIS_THUMBX] = 8;
-    old_report.axis[LIBX52IO_AXIS_THUMBY] = 8;
-    memcpy((void *)&new_report, (void *)&old_report, sizeof(new_report));
+    atomic_store(&axis_x, 8);
+    atomic_store(&axis_y, 8);
 }
 
 static void * x52_mouse_thr(void *param)
@@ -269,26 +216,86 @@ void x52d_mouse_thread_control(bool enabled)
     mouse_thr_enabled = enabled;
 }
 
-void x52d_mouse_report_event(libx52io_report *report)
+static bool report_button(vkm_mouse_button button, bool pressed)
 {
-    bool state_changed;
-    if (report) {
-        memcpy((void *)&new_report, report, sizeof(new_report));
+    vkm_result rc;
+    vkm_button_state state;
 
-        if (!vkm_is_ready(mouse_context) || !mouse_thr_enabled) {
-            return;
-        }
+    state = pressed ? VKM_BUTTON_PRESSED : VKM_BUTTON_RELEASED;
+    rc = vkm_mouse_click(mouse_context, button, state);
+    if (rc != VKM_SUCCESS && rc != VKM_ERROR_NO_CHANGE) {
+        PINELOG_ERROR(_("Error %d writing mouse button event (button %d, state %d)"),
+                      rc, button, (int)pressed);
+    }
 
-        state_changed = false;
-        state_changed = (0 == report_button_change(VKM_MOUSE_BTN_LEFT, LIBX52IO_BTN_MOUSE_PRIMARY)) || state_changed;
-        state_changed = (0 == report_button_change(VKM_MOUSE_BTN_RIGHT, LIBX52IO_BTN_MOUSE_SECONDARY)) || state_changed;
-        state_changed = (0 == report_wheel()) || state_changed;
+    return (rc == VKM_SUCCESS || rc == VKM_ERROR_NO_CHANGE);
+}
 
-        if (state_changed) {
-            report_sync();
-        }
-    } else {
+static void x52d_mouse_event_handler(uint64_t changed, const libx52io_report *prev, const libx52io_report *curr)
+{
+    bool state_changed = false;
+    bool scroll_up = false;
+    bool scroll_dn = false;
+    int wheel = 0;
+
+    (void)prev;
+
+    if (changed & LIBX52IO_REPORT_DEVICE_DISCONNECTED) {
         reset_reports();
+        // Release all buttons
+        vkm_mouse_click(mouse_context, VKM_MOUSE_BTN_LEFT, VKM_BUTTON_RELEASED);
+        vkm_mouse_click(mouse_context, VKM_MOUSE_BTN_RIGHT, VKM_BUTTON_RELEASED);
+        return;
+    }
+
+    if (!vkm_is_ready(mouse_context) || !mouse_thr_enabled) {
+        return;
+    }
+
+    // Update axes
+    if (changed & LIBX52IO_REPORT_AXIS_THUMBX) {
+        atomic_store(&axis_x, curr->axis[LIBX52IO_AXIS_THUMBX]);
+    }
+    if (changed & LIBX52IO_REPORT_AXIS_THUMBY) {
+        atomic_store(&axis_y, curr->axis[LIBX52IO_AXIS_THUMBY]);
+    }
+
+    // Update buttons
+    if (changed & LIBX52IO_REPORT_BTN_MOUSE_PRIMARY) {
+        state_changed |= report_button(VKM_MOUSE_BTN_LEFT, curr->button[LIBX52IO_BTN_MOUSE_PRIMARY]);
+    }
+    if (changed & LIBX52IO_REPORT_BTN_MOUSE_SECONDARY) {
+        state_changed |= report_button(VKM_MOUSE_BTN_RIGHT, curr->button[LIBX52IO_BTN_MOUSE_SECONDARY]);
+    }
+
+    // Handle scroll wheel
+    if (changed & LIBX52IO_REPORT_BTN_MOUSE_SCROLL_UP) {
+        scroll_up = curr->button[LIBX52IO_BTN_MOUSE_SCROLL_UP];
+    }
+    if (changed & LIBX52IO_REPORT_BTN_MOUSE_SCROLL_DN) {
+        scroll_dn = curr->button[LIBX52IO_BTN_MOUSE_SCROLL_DN];
+    }
+
+    if (scroll_up) {
+        wheel = 1 * mouse_scroll_dir;
+    } else if (scroll_dn) {
+        wheel = -1 * mouse_scroll_dir;
+    }
+
+    if (wheel != 0) {
+        vkm_mouse_scroll_direction dir = (wheel > 0) ? VKM_MOUSE_SCROLL_UP : VKM_MOUSE_SCROLL_DOWN;
+        vkm_result rc;
+
+        rc = vkm_mouse_scroll(mouse_context, dir);
+        if (rc != VKM_SUCCESS) {
+            PINELOG_ERROR(_("Error writing mouse wheel event %d"), dir);
+        }
+
+        state_changed |= (rc == VKM_SUCCESS);
+    }
+
+    if (state_changed) {
+        report_sync();
     }
 }
 
@@ -307,7 +314,16 @@ void x52d_mouse_handler_init(void)
     rc = vkm_start(mouse_context);
     if (rc != VKM_SUCCESS) {
         PINELOG_ERROR(_("Error %d creating X52 virtual mouse"), rc);
+        return;
     }
+
+    x52d_register_event_handler((LIBX52IO_REPORT_BTN_MOUSE_PRIMARY |
+                                 LIBX52IO_REPORT_BTN_MOUSE_SECONDARY |
+                                 LIBX52IO_REPORT_BTN_MOUSE_SCROLL_UP |
+                                 LIBX52IO_REPORT_BTN_MOUSE_SCROLL_DN |
+                                 LIBX52IO_REPORT_AXIS_THUMBX | LIBX52IO_REPORT_AXIS_THUMBY |
+                                 LIBX52IO_REPORT_DEVICE_DISCONNECTED),
+            x52d_mouse_event_handler);
 }
 
 void x52d_mouse_handler_exit(void)

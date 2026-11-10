@@ -13,6 +13,7 @@
 
 #include <daemon/constants.h>
 #include <daemon/config.h>
+#include <daemon/event_handler.h>
 #include <daemon/io.h>
 #include <daemon/mouse.h>
 #include <libx52/libx52io.h>
@@ -23,13 +24,6 @@
 static libx52io_context *io_ctx;
 
 static pthread_t io_thr;
-
-static void process_report(libx52io_report *report, libx52io_report *prev)
-{
-    // TODO: Process changes
-    x52d_mouse_report_event(report);
-    memcpy(prev, report, sizeof(*prev));
-}
 
 static void *x52_io_thr(void *param)
 {
@@ -43,14 +37,14 @@ static void *x52_io_thr(void *param)
     PINELOG_INFO(_("Starting X52 I/O thread"));
 
     // Reset the previous report, so that process_report  can handle changes.
-    memset(&prev_report, 0, sizeof(prev_report));
+    libx52io_reset_report(&prev_report);
 
     for (;;) {
         rc = libx52io_read_timeout(io_ctx, &report, IO_READ_TIMEOUT);
         switch (rc) {
         case LIBX52IO_SUCCESS:
             // Found a report
-            process_report(&report, &prev_report);
+            x52d_dispatch_event(&prev_report, &report);
             break;
 
         case LIBX52IO_ERROR_TIMEOUT:
@@ -80,8 +74,9 @@ static void *x52_io_thr(void *param)
              */
             libx52io_close(io_ctx);
 
-            /* Report a NULL report to reset the mouse to default state */
-            x52d_mouse_report_event(NULL);
+            /* Report a disconnect event */
+            x52d_dispatch_event_raw(LIBX52IO_REPORT_DEVICE_DISCONNECTED,
+                                    NULL, NULL);
             break;
         }
     }

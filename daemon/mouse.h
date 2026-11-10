@@ -21,6 +21,5 @@ extern volatile int mouse_sensitivity;
 void x52d_mouse_thread_control(bool enabled);
 void x52d_mouse_handler_init(void);
 void x52d_mouse_handler_exit(void);
-void x52d_mouse_report_event(libx52io_report *report);
 
 #endif // !defined X52D_MOUSE_H
