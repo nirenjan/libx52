@@ -1,5 +1,5 @@
 # x52evtest
-executable('x52evtest', ['ev_test.c', 'ev_denoise.c'],
+executable('x52evtest', ['ev_main.c', 'ev_denoise.c'],
   install: true,
   include_directories: includes,
   dependencies: [dep_intl],
