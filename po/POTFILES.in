@@ -6,7 +6,8 @@ libx52io/strings.c
 
 vkm/common.c
 
-evtest/ev_test.c
+evtest/ev_main.c
+evtest/ev_dispatch.c
 
 joytest/x52_test.c
 joytest/x52_test_clock.c

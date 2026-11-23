@@ -1,5 +1,5 @@
 # x52evtest
-executable('x52evtest', ['ev_main.c', 'ev_denoise.c'],
+executable('x52evtest', ['ev_main.c', 'ev_dispatch.c', 'ev_denoise.c'],
   install: true,
   include_directories: includes,
   dependencies: [dep_intl],
@@ -11,3 +11,11 @@ ev_denoise_test = executable('ev-denoise-test', ['ev_denoise_test.c', 'ev_denois
   include_directories: includes,
 )
 test('ev-denoise', ev_denoise_test, protocol: 'tap')
+
+ev_dispatch_test = executable('ev-dispatch-test', ['ev_dispatch_test.c', 'ev_dispatch.c', 'ev_denoise.c'],
+  build_by_default: false,
+  dependencies: [dep_cmocka, dep_intl],
+  include_directories: includes,
+  link_with: [lib_libx52io],
+)
+test('ev-dispatch', ev_dispatch_test, protocol: 'tap')
