@@ -14,8 +14,8 @@ test('ev-denoise', ev_denoise_test, protocol: 'tap')
 
 ev_dispatch_test = executable('ev-dispatch-test', ['ev_dispatch_test.c', 'ev_dispatch.c', 'ev_denoise.c'],
   build_by_default: false,
-  dependencies: [dep_cmocka, dep_intl],
-  include_directories: includes,
+  dependencies: [dep_cmocka, dep_intl, dep_hidapi],
+  include_directories: [includes, include_directories('../libx52io')],
   link_with: [lib_libx52io],
 )
 test('ev-dispatch', ev_dispatch_test, protocol: 'tap')

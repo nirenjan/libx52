@@ -15,6 +15,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
+#include "common.h"
 #include "ev_denoise.h"
 #include "ev_dispatch.h"
 
@@ -157,6 +158,88 @@ static void test_init_denoise_masks_disabled(void **state)
     }
 }
 
+static void test_init_denoise_masks_enabled(void **state)
+{
+    (void)state;
+    libx52io_context ctx = {0};
+    int32_t denoise_mask[LIBX52IO_AXIS_MAX];
+
+    ctx.handle = (void *)(uintptr_t)(-1);
+    ctx.axis_max[LIBX52IO_AXIS_X] = 1023;
+    ctx.axis_max[LIBX52IO_AXIS_Y] = 1023;
+    ctx.axis_max[LIBX52IO_AXIS_RZ] = 1023;
+    ctx.axis_max[LIBX52IO_AXIS_Z] = 255;
+    ctx.axis_max[LIBX52IO_AXIS_RX] = 255;
+    ctx.axis_max[LIBX52IO_AXIS_RY] = 255;
+    ctx.axis_max[LIBX52IO_AXIS_SLIDER] = 255;
+    ctx.axis_max[LIBX52IO_AXIS_THUMBX] = 15;
+    ctx.axis_max[LIBX52IO_AXIS_THUMBY] = 15;
+    ctx.axis_max[LIBX52IO_AXIS_HATX] = 1;
+    ctx.axis_max[LIBX52IO_AXIS_HATY] = 1;
+
+    int rc = evtest_init_denoise_masks(&ctx, denoise_mask, true);
+    assert_int_equal(rc, LIBX52IO_SUCCESS);
+
+    /* For X, Y, RZ max is 1023 -> mask is ~(1023 >> 6) = ~15 = -16 */
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_X], evtest_axis_denoise_mask(1023));
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_Y], evtest_axis_denoise_mask(1023));
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_RZ], evtest_axis_denoise_mask(1023));
+    /* Z, RX, RY, SLIDER max is 255 -> mask is ~(255 >> 6) = ~3 = -4 */
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_Z], evtest_axis_denoise_mask(255));
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_RX], evtest_axis_denoise_mask(255));
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_RY], evtest_axis_denoise_mask(255));
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_SLIDER], evtest_axis_denoise_mask(255));
+    /* THUMBX, THUMBY max is 15 -> 15 >> 6 is 0 -> mask is -1 */
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_THUMBX], -1);
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_THUMBY], -1);
+    /* HATX, HATY max is 1 -> mask is -1 */
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_HATX], -1);
+    assert_int_equal(denoise_mask[LIBX52IO_AXIS_HATY], -1);
+}
+
+static void test_init_denoise_masks_error(void **state)
+{
+    (void)state;
+    libx52io_context ctx = {0};
+    int32_t denoise_mask[LIBX52IO_AXIS_MAX];
+
+    /* When handle is NULL, libx52io_get_axis_range returns LIBX52IO_ERROR_NO_DEVICE */
+    int rc = evtest_init_denoise_masks(&ctx, denoise_mask, true);
+    assert_int_equal(rc, LIBX52IO_ERROR_NO_DEVICE);
+}
+
+static void test_print_device_info(void **state)
+{
+    (void)state;
+    libx52io_context ctx = {0};
+    char mfg[] = "Saitek";
+    char prod[] = "X52 Pro Flight Control System";
+    char sn[] = "SN123456";
+
+    ctx.vid = 0x06a3;
+    ctx.pid = 0x0762;
+    ctx.version = 0x0110;
+    ctx.manufacturer = mfg;
+    ctx.product = prod;
+    ctx.serial_number = sn;
+
+    char buffer[1024] = {0};
+    FILE *stream = fmemopen(buffer, sizeof(buffer), "w");
+    assert_non_null(stream);
+
+    evtest_print_device_info(stream, &ctx);
+    fclose(stream);
+
+    const char *expected =
+        "Device ID: vendor 0x06a3 product 0x0762 version 0x0110\n"
+        "Device name: \"Saitek X52 Pro Flight Control System\"\n"
+        "Serial number: \"SN123456\"\n"
+        "Testing (interrupt to exit)\n"
+        "\n";
+
+    assert_string_equal(buffer, expected);
+}
+
 int main(void)
 {
     const struct CMUnitTest tests[] = {
@@ -166,6 +249,9 @@ int main(void)
         cmocka_unit_test(test_format_events_axis_change_denoise_filtered),
         cmocka_unit_test(test_format_events_axis_and_button_combined),
         cmocka_unit_test(test_init_denoise_masks_disabled),
+        cmocka_unit_test(test_init_denoise_masks_enabled),
+        cmocka_unit_test(test_init_denoise_masks_error),
+        cmocka_unit_test(test_print_device_info),
     };
 
     cmocka_set_message_output(CM_OUTPUT_TAP);
